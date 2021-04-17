@@ -11,7 +11,9 @@
         background-size: cover;
     }
 </style>
-<div class="weather @_weatherStyle">
+<div class="weather">
+    <div class="icon"><img src="@_iconUrl" /></div>
+    <div class="city">@CurrentWeather.name</div>
     <div class="temp">
         <Icon Name="temperature" />
         @if (Units is UnitsType.Metric)
@@ -25,17 +27,15 @@
             <div class="t2">@CurrentWeather.main.temp.ToCelsius()<span class="unit">°C</span></div>
         }
     </div>
-    <div class="lastupd">@LastUpate.ToString("g")</div>
-    <div class="icon"><img src="@_iconUrl" /></div>
 
     <dic class="humid">
-        <Icon Name="droplet" />
+        <Icon Name="droplet" Size="32" />
         <div>@CurrentWeather.main.humidity %</div>
     </dic>
-    <div class="city">@CurrentWeather.name</div>
     <div class="datetime">
         <Clock />
     </div>
+
     <div class="more">
         <table>
             <thead>
@@ -70,6 +70,11 @@
             </tbody>
         </table>
     </div>
+
+    <div class="lastupd">
+        <div>@LastUpate.ToString("g")</div>
+        <div class="refresh"><Icon Name="refresh" Size="64" /></div>
+    </div>
 </div>
 @code {
     [Parameter] public CurrentWeather CurrentWeather { get; set; }
@@ -79,15 +84,13 @@
     private const string _iconUrlBase = "https://openweathermap.org/";
     private string _iconUrl { get; set; }
     private string _bgImage { get; set; }
-    private string _weatherStyle { get; set; }
 
     protected override void OnParametersSet()
     {
         var icon = CurrentWeather.weather[0].icon;
 
-        _iconUrl = $"{_iconUrlBase}img/wn/{icon}@2x.png";
+        _iconUrl = $"{_iconUrlBase}img/wn/{icon}@4x.png";
         _bgImage = $"img/{icon}.jpg";
-        _weatherStyle = $"_{icon}";
     }
 
     private string DisplayTemp(float temp)
