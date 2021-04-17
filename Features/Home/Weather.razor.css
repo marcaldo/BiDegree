@@ -1,0 +1,47 @@
+﻿.weather{
+}
+
+table {
+    width: 175px;
+    text-align: right;
+    border: solid 1px;
+    font-size: 1.2em;
+}
+
+/* Styles are based on icons from OpenWeather https://openweathermap.org/weather-conditions */
+._01d {
+}
+._01n{
+}
+._02d {
+}
+._02n {
+}
+._03d {
+}
+._03n {
+}
+._04d{
+}
+._04n{
+}
+._09d {
+}
+._09n {
+}
+._10d {
+}
+._10n {
+}
+._11d {
+}
+._11n {
+}
+._13d {
+}
+._13n {
+}
+._50d {
+}
+._50n {
+}

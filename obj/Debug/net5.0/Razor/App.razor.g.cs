@@ -74,6 +74,13 @@ using BiDegree;
 #nullable disable
 #nullable restore
 #line 10 "C:\Users\marca\repos\BiDegree\_Imports.razor"
+using BiDegree.Layout;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 11 "C:\Users\marca\repos\BiDegree\_Imports.razor"
 using BiDegree.Shared;
 
 #line default

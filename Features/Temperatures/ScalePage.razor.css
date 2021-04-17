@@ -1,0 +1,18 @@
+﻿.templist {
+    width: 50%;
+    height: 80vh;
+    border-top: 1px dotted black;
+    border-bottom: 1px dotted black;
+    overflow-y: scroll; /* Add the ability to scroll */
+}
+
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .templist::-webkit-scrollbar {
+        display: none;
+    }
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.templist {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
