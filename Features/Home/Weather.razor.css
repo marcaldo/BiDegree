@@ -7,41 +7,18 @@ table {
     border: solid 1px;
     font-size: 1.2em;
 }
+.temp {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    color: white;
+    font-size: 3rem;
+    margin-top: 15%;
+}
 
-/* Styles are based on icons from OpenWeather https://openweathermap.org/weather-conditions */
-._01d {
-}
-._01n{
-}
-._02d {
-}
-._02n {
-}
-._03d {
-}
-._03n {
-}
-._04d{
-}
-._04n{
-}
-._09d {
-}
-._09n {
-}
-._10d {
-}
-._10n {
-}
-._11d {
-}
-._11n {
-}
-._13d {
-}
-._13n {
-}
-._50d {
-}
-._50n {
+.t1 .t2 {
+    border: solid;
+    padding: 15px;
+    border-radius: 15px;
 }
