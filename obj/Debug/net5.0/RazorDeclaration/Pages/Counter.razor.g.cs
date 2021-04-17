@@ -97,7 +97,7 @@ using BiDegree.Shared;
 
     private void IncrementCount()
     {
-        currentCount++;
+        currentCount = 1000 + currentCount++;
     }
 
 #line default

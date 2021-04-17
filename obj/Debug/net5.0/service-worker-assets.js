@@ -1,7 +1,7 @@
 ﻿self.assetsManifest = {
   "assets": [
     {
-      "hash": "sha256-5Sfuj8eNugG2a0QL\/Wy\/lJeWm5dPZuu1WZXcTzJcPZM=",
+      "hash": "sha256-1whNH9oZctWLFapF5X4nn5TIpWuuqhMTD6inFRGUOD0=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -785,11 +785,11 @@
       "url": "_framework\/dotnet.5.0.5.js"
     },
     {
-      "hash": "sha256-f0Q5IMwkPt0jII+63MC\/78k5M\/jVDaNTX4FYu6RI2Hw=",
+      "hash": "sha256-OJhBc4z3oceCUjLfwydmaXIk877I9Nh9kHNIgdl3ISs=",
       "url": "_framework\/BiDegree.dll"
     },
     {
-      "hash": "sha256-tOagdMMT1OKPCarYEIUjeNnEs2KdqQ5n+LuNdIzkMVk=",
+      "hash": "sha256-rPlEgF9GeIzRemNuiLQKQA6CSb8lAeqa3Sa8+lhZcCo=",
       "url": "_framework\/BiDegree.pdb"
     },
     {
@@ -1577,6 +1577,10 @@
       "url": "_framework\/dotnet.5.0.5.js.gz"
     },
     {
+      "hash": "sha256-II6dns\/QMpxol1ZKOHrMhHCZmNFwGiqfCMtnkrlC6TM=",
+      "url": ".gitattributes"
+    },
+    {
       "hash": "sha256-8aM9R9K90X6h+KPDW4OzrEh071mAs7dvAQxjBxAZQAc=",
       "url": "css\/app.css"
     },
@@ -1653,5 +1657,5 @@
       "url": "BiDegree.bundle.scp.css"
     }
   ],
-  "version": "RLCUU55q"
+  "version": "bK9r6Qyv"
 };
