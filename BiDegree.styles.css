@@ -17,43 +17,20 @@ table[b-hava5cs9gl] {
     border: solid 1px;
     font-size: 1.2em;
 }
+.temp[b-hava5cs9gl] {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    color: white;
+    font-size: 3rem;
+    margin-top: 15%;
+}
 
-/* Styles are based on icons from OpenWeather https://openweathermap.org/weather-conditions */
-._01d[b-hava5cs9gl] {
-}
-._01n[b-hava5cs9gl]{
-}
-._02d[b-hava5cs9gl] {
-}
-._02n[b-hava5cs9gl] {
-}
-._03d[b-hava5cs9gl] {
-}
-._03n[b-hava5cs9gl] {
-}
-._04d[b-hava5cs9gl]{
-}
-._04n[b-hava5cs9gl]{
-}
-._09d[b-hava5cs9gl] {
-}
-._09n[b-hava5cs9gl] {
-}
-._10d[b-hava5cs9gl] {
-}
-._10n[b-hava5cs9gl] {
-}
-._11d[b-hava5cs9gl] {
-}
-._11n[b-hava5cs9gl] {
-}
-._13d[b-hava5cs9gl] {
-}
-._13n[b-hava5cs9gl] {
-}
-._50d[b-hava5cs9gl] {
-}
-._50n[b-hava5cs9gl] {
+.t1 .t2[b-hava5cs9gl] {
+    border: solid;
+    padding: 15px;
+    border-radius: 15px;
 }
 /* /Features/Temperatures/ScalePage.razor.rz.scp.css */
 .templist[b-9o1hyhuoa3] {
