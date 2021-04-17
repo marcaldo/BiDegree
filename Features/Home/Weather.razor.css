@@ -8,11 +8,11 @@ table {
     font-size: 1.2em;
 }
 .temp {
-    color: white;
     display: flex;
-    width: 100%;
     flex-direction: row;
     justify-content: space-around;
+    width: 100%;
+    color: white;
     font-size: 3rem;
     margin-top: 15%;
 }
