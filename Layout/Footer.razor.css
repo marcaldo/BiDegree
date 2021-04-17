@@ -3,7 +3,12 @@
     left: 0;
     bottom: 0;
     width: 100%;
-    background-color: orange;
+    background-color: black;
     color: white;
-    text-align: center;
+    text-align: left;
+    height: 45px;
+}
+
+a {
+    margin: 10px;
 }
