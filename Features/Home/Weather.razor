@@ -1,0 +1,102 @@
+﻿@using BiDegree.Models
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+<style>
+    /* Full background image from https://www.w3schools.com/howto/howto_css_full_page.asp */
+    body {
+        background-image: url("@_bgImage");
+        height: 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+</style>
+<div class="weather @_weatherStyle">
+    <div class="temp">
+        <Icon Name="temperature" />
+        @if (Units is UnitsType.Metric)
+        {
+            <div class="t1">@CurrentWeather.main.temp.ToDecimal()<span class="unit">°C</span></div>
+            <div class="t2">@CurrentWeather.main.temp.ToFahrenheit()<span class="unit">°F</span></div>
+        }
+        else
+        {
+            <div class="t1">@CurrentWeather.main.temp.ToDecimal()<span class="unit">°F</span></div>
+            <div class="t2">@CurrentWeather.main.temp.ToCelsius()<span class="unit">°C</span></div>
+        }
+    </div>
+    <div class="lastupd">@LastUpate.ToString("g")</div>
+    <div class="icon"><img src="@_iconUrl" /></div>
+
+    <dic class="humid">
+        <Icon Name="droplet" />
+        <div>@CurrentWeather.main.humidity %</div>
+    </dic>
+    <div class="city">@CurrentWeather.name</div>
+    <div class="datetime">
+        <Clock />
+    </div>
+    <div class="more">
+        <table>
+            <thead>
+                <tr>
+                    <th><Icon Name="temp-low" Fill="blue" />Min</th>
+                    <th><Icon Name="temp-high" Fill="#9e300f" />Max</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Units is UnitsType.Metric)
+                {
+                    <tr>
+                        <td>@CurrentWeather.main.temp_min.ToDecimal() °C</td>
+                        <td>@CurrentWeather.main.temp_min.ToFahrenheit() °F</td>
+                    </tr>
+                    <tr>
+                        <td>@CurrentWeather.main.temp_max.ToDecimal() °C</td>
+                        <td>@CurrentWeather.main.temp_max.ToFahrenheit() °F</td>
+                    </tr>
+                }
+                else
+                {
+                    <tr>
+                        <td>@CurrentWeather.main.temp_min.ToDecimal() °F</td>
+                        <td>@CurrentWeather.main.temp_min.ToDecimal() °F</td>
+                    </tr>
+                    <tr>
+                        <td>@CurrentWeather.main.temp_max.ToCelsius() °C</td>
+                        <td>@CurrentWeather.main.temp_max.ToCelsius() °C</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+@code {
+    [Parameter] public CurrentWeather CurrentWeather { get; set; }
+    [Parameter] public UnitsType Units { get; set; }
+    [Parameter] public DateTime LastUpate { get; set; } = DateTime.Now;
+
+    private const string _iconUrlBase = "https://openweathermap.org/";
+    private string _iconUrl { get; set; }
+    private string _bgImage { get; set; }
+    private string _weatherStyle { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        var icon = CurrentWeather.weather[0].icon;
+
+        _iconUrl = $"{_iconUrlBase}img/wn/{icon}@2x.png";
+        _bgImage = $"img/{icon}.jpg";
+        _weatherStyle = $"_{icon}";
+    }
+
+    private string DisplayTemp(float temp)
+    {
+        return Units is UnitsType.Metric
+                        ? $"{temp.ToDecimal()} °C{temp.ToFahrenheit()} °F"
+                        : $"{temp.ToDecimal()} °F{temp.ToCelsius()} °C";
+    }
+
+
+
+}
