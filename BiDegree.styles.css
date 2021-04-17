@@ -1,134 +1,97 @@
-/* /Shared/MainLayout.razor.rz.scp.css */
-.page[b-pq6taoregb] {
-    position: relative;
-    display: flex;
-    flex-direction: column;
+/* /Features/Home/Clock.razor.rz.scp.css */
+.time[b-7kcap2mkhh] {
+    font-size: 3em;
 }
 
-.main[b-pq6taoregb] {
-    flex: 1;
+.date[b-7kcap2mkhh] {
+    color:aquamarine;
+}
+/* /Features/Home/HomePage.razor.rz.scp.css */
+/* /Features/Home/Weather.razor.rz.scp.css */
+.weather[b-hava5cs9gl]{
 }
 
-.sidebar[b-pq6taoregb] {
-    background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
+table[b-hava5cs9gl] {
+    width: 175px;
+    text-align: right;
+    border: solid 1px;
+    font-size: 1.2em;
 }
 
-.top-row[b-pq6taoregb] {
-    background-color: #f7f7f7;
-    border-bottom: 1px solid #d6d5d5;
-    justify-content: flex-end;
-    height: 3.5rem;
-    display: flex;
-    align-items: center;
+/* Styles are based on icons from OpenWeather https://openweathermap.org/weather-conditions */
+._01d[b-hava5cs9gl] {
+}
+._01n[b-hava5cs9gl]{
+}
+._02d[b-hava5cs9gl] {
+}
+._02n[b-hava5cs9gl] {
+}
+._03d[b-hava5cs9gl] {
+}
+._03n[b-hava5cs9gl] {
+}
+._04d[b-hava5cs9gl]{
+}
+._04n[b-hava5cs9gl]{
+}
+._09d[b-hava5cs9gl] {
+}
+._09n[b-hava5cs9gl] {
+}
+._10d[b-hava5cs9gl] {
+}
+._10n[b-hava5cs9gl] {
+}
+._11d[b-hava5cs9gl] {
+}
+._11n[b-hava5cs9gl] {
+}
+._13d[b-hava5cs9gl] {
+}
+._13n[b-hava5cs9gl] {
+}
+._50d[b-hava5cs9gl] {
+}
+._50n[b-hava5cs9gl] {
+}
+/* /Features/Temperatures/ScalePage.razor.rz.scp.css */
+.templist[b-9o1hyhuoa3] {
+    width: 50%;
+    height: 80vh;
+    border-top: 1px dotted black;
+    border-bottom: 1px dotted black;
+    overflow-y: scroll; /* Add the ability to scroll */
 }
 
-    .top-row[b-pq6taoregb]  a, .top-row .btn-link[b-pq6taoregb] {
-        white-space: nowrap;
-        margin-left: 1.5rem;
-    }
-
-    .top-row a:first-child[b-pq6taoregb] {
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-@media (max-width: 640.98px) {
-    .top-row:not(.auth)[b-pq6taoregb] {
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .templist[b-9o1hyhuoa3]::-webkit-scrollbar {
         display: none;
     }
 
-    .top-row.auth[b-pq6taoregb] {
-        justify-content: space-between;
-    }
-
-    .top-row a[b-pq6taoregb], .top-row .btn-link[b-pq6taoregb] {
-        margin-left: 0;
-    }
+/* Hide scrollbar for IE, Edge and Firefox */
+.templist[b-9o1hyhuoa3] {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
 }
-
-@media (min-width: 641px) {
-    .page[b-pq6taoregb] {
-        flex-direction: row;
-    }
-
-    .sidebar[b-pq6taoregb] {
-        width: 250px;
-        height: 100vh;
-        position: sticky;
-        top: 0;
-    }
-
-    .top-row[b-pq6taoregb] {
-        position: sticky;
-        top: 0;
-        z-index: 1;
-    }
-
-    .main > div[b-pq6taoregb] {
-        padding-left: 2rem !important;
-        padding-right: 1.5rem !important;
-    }
+/* /Features/Temperatures/ValuesDisplay.razor.rz.scp.css */
+.values[b-kr5434ui2j] {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    border: solid 1px;
+    padding: 7px;
+    border-radius: 10px;
+    margin-bottom: 3px;
+    max-width: 320px;
 }
-/* /Shared/NavMenu.razor.rz.scp.css */
-.navbar-toggler[b-267vh8vwbw] {
-    background-color: rgba(255, 255, 255, 0.1);
-}
-
-.top-row[b-267vh8vwbw] {
-    height: 3.5rem;
-    background-color: rgba(0,0,0,0.4);
-}
-
-.navbar-brand[b-267vh8vwbw] {
-    font-size: 1.1rem;
-}
-
-.oi[b-267vh8vwbw] {
-    width: 2rem;
-    font-size: 1.1rem;
-    vertical-align: text-top;
-    top: -2px;
-}
-
-.nav-item[b-267vh8vwbw] {
-    font-size: 0.9rem;
-    padding-bottom: 0.5rem;
-}
-
-    .nav-item:first-of-type[b-267vh8vwbw] {
-        padding-top: 1rem;
-    }
-
-    .nav-item:last-of-type[b-267vh8vwbw] {
-        padding-bottom: 1rem;
-    }
-
-    .nav-item[b-267vh8vwbw]  a {
-        color: #d7d7d7;
-        border-radius: 4px;
-        height: 3rem;
-        display: flex;
-        align-items: center;
-        line-height: 3rem;
-    }
-
-.nav-item[b-267vh8vwbw]  a.active {
-    background-color: rgba(255,255,255,0.25);
+/* /Layout/Footer.razor.rz.scp.css */
+.footer[b-41age8wks5] {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: orange;
     color: white;
-}
-
-.nav-item[b-267vh8vwbw]  a:hover {
-    background-color: rgba(255,255,255,0.1);
-    color: white;
-}
-
-@media (min-width: 641px) {
-    .navbar-toggler[b-267vh8vwbw] {
-        display: none;
-    }
-
-    .collapse[b-267vh8vwbw] {
-        /* Never collapse the sidebar for wide screens */
-        display: block;
-    }
+    text-align: center;
 }
