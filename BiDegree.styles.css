@@ -1,4 +1,9 @@
 /* /Features/Home/Clock.razor.rz.scp.css */
+.clock[b-7kcap2mkhh] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 .time[b-7kcap2mkhh] {
     font-size: 3em;
 }
@@ -90,7 +95,12 @@ table[b-hava5cs9gl] {
     left: 0;
     bottom: 0;
     width: 100%;
-    background-color: orange;
+    background-color: black;
     color: white;
-    text-align: center;
+    text-align: left;
+    height: 45px;
+}
+
+a[b-41age8wks5] {
+    margin: 10px;
 }
