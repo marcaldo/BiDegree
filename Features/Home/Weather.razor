@@ -38,20 +38,18 @@
 
     <div class="more">
         <table>
-            <thead>
-                <tr>
-                    <th><Icon Name="temp-low" Fill="blue" />Min</th>
-                    <th><Icon Name="temp-high" Fill="#9e300f" />Max</th>
-                </tr>
-            </thead>
             <tbody>
                 @if (Units is UnitsType.Metric)
                 {
                     <tr>
+                        <td class="title">Min</td>
+                        <td><Icon Name="temp-low" Fill="blue" /></td>
                         <td>@CurrentWeather.main.temp_min.ToDecimal() °C</td>
                         <td>@CurrentWeather.main.temp_min.ToFahrenheit() °F</td>
                     </tr>
                     <tr>
+                        <td class="title">Max</td>
+                        <td><Icon Name="temp-high" Fill="#9e300f" /></td>
                         <td>@CurrentWeather.main.temp_max.ToDecimal() °C</td>
                         <td>@CurrentWeather.main.temp_max.ToFahrenheit() °F</td>
                     </tr>
@@ -59,12 +57,16 @@
                 else
                 {
                     <tr>
+                        <td class="title">Min</td>
+                        <td><Icon Name="temp-low" Fill="blue" /></td>
                         <td>@CurrentWeather.main.temp_min.ToDecimal() °F</td>
-                        <td>@CurrentWeather.main.temp_min.ToDecimal() °F</td>
+                        <td>@CurrentWeather.main.temp_min.ToCelsius() °C</td>
                     </tr>
                     <tr>
-                        <td>@CurrentWeather.main.temp_max.ToCelsius() °C</td>
-                        <td>@CurrentWeather.main.temp_max.ToCelsius() °C</td>
+                        <td class="title">Max</td>
+                        <td><Icon Name="temp-high" Fill="#9e300f" /></td>
+                        <td>@CurrentWeather.main.temp_max.ToDecimal() °F</td>
+                        <td>@CurrentWeather.main.temp_max.ToCelsius() °F</td>
                     </tr>
                 }
             </tbody>
@@ -89,7 +91,7 @@
     {
         var icon = CurrentWeather.weather[0].icon;
 
-        _iconUrl = $"{_iconUrlBase}img/wn/{icon}@2x.png";
+        _iconUrl = $"{_iconUrlBase}img/wn/{icon}@4x.png";
         _bgImage = $"img/{icon}.jpg";
     }
 
