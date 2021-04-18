@@ -12,8 +12,8 @@
     justify-content: flex-start;
 }
 
-a {
+.goto {
     margin: 15px;
     padding-right: 5px;
-
+    cursor:pointer;
 }
