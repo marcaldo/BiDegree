@@ -1,8 +1,20 @@
-﻿<div class="footer">
-  <a href="/">
-      <Icon Name="weather" Size="32" Fill="white"/>
-  </a>
-    <a href="/scale">
-      <Icon Name="scale" Size="32" Fill="white"/>
-  </a>
+﻿@inject NavigationManager Navigation
+@{
+    var homePage = "";
+    var scalePage = "scale";
+}
+<div class="footer">
+    <div class="goto" @onclick="() => NavigateTo(homePage)">
+        <Icon Name="weather" Size="32" Fill="white" />
+    </div>
+    <div class="goto" @onclick="() => NavigateTo(scalePage)">
+        <Icon Name="scale" Size="32" Fill="white" />
+    </div>
+    @Navigation.BaseUri
 </div>
+@code{
+    private void NavigateTo(string page)
+    {
+        Navigation.NavigateTo($"{Navigation.BaseUri}{page}");
+    }
+}
