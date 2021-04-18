@@ -107,8 +107,8 @@ table[b-hava5cs9gl] {
     justify-content: flex-start;
 }
 
-a[b-41age8wks5] {
+.goto[b-41age8wks5] {
     margin: 15px;
     padding-right: 5px;
-
+    cursor:pointer;
 }
