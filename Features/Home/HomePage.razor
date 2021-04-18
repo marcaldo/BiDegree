@@ -3,22 +3,24 @@
 @inject IWeatherApi OpenWeather
 @inject IJSRuntime JS
 
-
-@*<button @onclick="@(() => GetGeoLocation())">refresh</button>*@
-
 @if (currentWeather == null)
 {
     <div><img src="img/loading.gif" /></div>
 }
 else
 {
-    <Weather CurrentWeather="@currentWeather" Units="@units" />
+    <Weather CurrentWeather="@currentWeather" Units="@units" OnClick="RefreshHandler" />
 }
 
 @code{
     private static Func<float, float, Task> _getWeatherFunc;
     protected CurrentWeather currentWeather { get; set; }
     protected UnitsType units = UnitsType.Metric;
+
+    public async Task RefreshHandler()
+    {
+        await GetCurrentWeather(currentWeather.coord.lat, currentWeather.coord.lon);
+    }
 
     protected override void OnInitialized()
     {
@@ -32,7 +34,7 @@ else
 
     public async Task GetGeoLocation()
     {
-        var geoPosition = await JS.InvokeAsync<string>("getCurrentLocation");
+       await JS.InvokeAsync<string>("getCurrentLocation");
     }
 
     [JSInvokable]
