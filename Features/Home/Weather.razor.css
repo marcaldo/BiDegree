@@ -18,24 +18,18 @@ table {
     justify-content: space-around;
     width: 100%;
     font-size: 3em;
-    margin-top: 8%;
-}
-
-.t1 .t2 {
-    border: solid;
-    padding: 15px;
-    border-radius: 15px;
+    margin-top: 5%;
 }
 
 .city {
-    font-size: 1.3em;
 }
 
 .humid {
     display: flex;
-    font-size: 1.5em;
+    align-items: center;
+    font-size: 1.3em;
     flex-wrap: nowrap;
-    margin: 20px;
+    margin: 3px;
 }
 
 .lastupd{
@@ -43,4 +37,10 @@ table {
     flex-direction:row;
     flex-wrap:nowrap;
     cursor:pointer;
+}
+
+.t1, .t2, .humid, .city, table {
+    padding: 15px;
+    border-radius: 15px;
+    background-color: var(--text-bg-color);
 }

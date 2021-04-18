@@ -3,12 +3,17 @@
     left: 0;
     bottom: 0;
     width: 100%;
-    background-color: black;
+    background-color: var(--text-bg-color);
     color: white;
     text-align: left;
-    height: 45px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
 }
 
 a {
-    margin: 10px;
+    margin: 15px;
+    padding-right: 5px;
+
 }
