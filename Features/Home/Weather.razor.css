@@ -6,10 +6,14 @@
 }
 
 table {
-    width: 190px;
+    width: 300px;
     text-align: right;
     font-size: 1.2em;
     margin: 30px;
+}
+
+.table .title {
+    font-weight: 500;
 }
 
 .temp {
@@ -22,6 +26,8 @@ table {
 }
 
 .city {
+    font-size: 1.1em;
+    margin-top: -40px;
 }
 
 .humid {
@@ -32,11 +38,11 @@ table {
     margin: 3px;
 }
 
-.lastupd{
-    display:flex;
-    flex-direction:row;
-    flex-wrap:nowrap;
-    cursor:pointer;
+.lastupd {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    cursor: pointer;
 }
 
 .t1, .t2, .humid, .city, table {

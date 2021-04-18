@@ -5,7 +5,7 @@
     var activePage = Navigation.ToBaseRelativePath(Navigation.Uri);
 }
 <div class="footer">
-    <div class="goto" @onclick="() => NavigateTo(homePage)">
+    <div class="goto" @onclick="() => NavigateTo(homePage, true)">
         @if (string.IsNullOrEmpty(activePage))
         {
             <Icon Name="refresh" Size="32" Fill="white" />
@@ -15,13 +15,13 @@
             <Icon Name="weather" Size="32" Fill="white" />
         }
     </div>
-    <div class="goto" @onclick="() => NavigateTo(scalePage)">
+    <div class="goto" @onclick="() => NavigateTo(scalePage, false)">
         <Icon Name="scale" Size="32" Fill="white" />
     </div>
 </div>
-@code{
-    private void NavigateTo(string page)
+@code{ 
+    private void NavigateTo(string page, bool forceLoad)
     {
-        Navigation.NavigateTo($"{Navigation.BaseUri}{page}");
+        Navigation.NavigateTo($"{Navigation.BaseUri}{page}", forceLoad: forceLoad);
     }
 }
