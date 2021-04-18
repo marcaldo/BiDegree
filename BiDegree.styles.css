@@ -29,10 +29,10 @@ table[b-hava5cs9gl] {
     font-size: 1.2em;
     margin: 30px;
 }
-
-.table .title[b-hava5cs9gl] {
-    font-weight: 500;
-}
+    table .title[b-hava5cs9gl] {
+        font-weight: bold;
+        color: #c4c4c4;
+    }
 
 .temp[b-hava5cs9gl] {
     display: flex;
@@ -55,6 +55,9 @@ table[b-hava5cs9gl] {
     flex-wrap: nowrap;
     margin: 3px;
 }
+    .humid div[b-hava5cs9gl] {
+        margin-left: 5px;
+    }
 
 .lastupd[b-hava5cs9gl] {
     display: flex;
