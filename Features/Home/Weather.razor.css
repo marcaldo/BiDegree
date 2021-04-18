@@ -11,10 +11,10 @@ table {
     font-size: 1.2em;
     margin: 30px;
 }
-
-.table .title {
-    font-weight: 500;
-}
+    table .title {
+        font-weight: bold;
+        color: #c4c4c4;
+    }
 
 .temp {
     display: flex;
@@ -37,6 +37,9 @@ table {
     flex-wrap: nowrap;
     margin: 3px;
 }
+    .humid div {
+        margin-left: 5px;
+    }
 
 .lastupd {
     display: flex;
