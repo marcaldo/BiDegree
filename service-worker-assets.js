@@ -181,7 +181,7 @@
       "url": "_framework\/dotnet.5.0.4.js"
     },
     {
-      "hash": "sha256-SRUgzEzxKCBk2Qbs9hmRSkLSRg9jpP5LKXp\/0WWmwHg=",
+      "hash": "sha256-0zkibtxZgXEfdDaPhQgE+AKWVvsWSss77c+yQaQ+ndY=",
       "url": "BiDegree.styles.css"
     },
     {
@@ -249,7 +249,7 @@
       "url": "_framework\/System.IO.Pipelines.dll"
     },
     {
-      "hash": "sha256-UyaBJn36T1NsVhds5DSGv0GXDxNk5qPbEiIAFHrkCVw=",
+      "hash": "sha256-i+eVH1DNslgKair89ynldB8I6bh+DvdsNN2rL2+EsCA=",
       "url": "_framework\/BiDegree.dll"
     },
     {
@@ -341,7 +341,7 @@
       "url": "_framework\/System.Private.CoreLib.dll"
     },
     {
-      "hash": "sha256-k\/dyzZYPhVf4X0O+EgkFCODAfO\/LXKTQND7PqUDDTf0=",
+      "hash": "sha256-yVzzUTQXnxYK+sZWBsl\/KUQzg9z3K4VtdMt6uCkX1yI=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -349,5 +349,5 @@
       "url": "_framework\/blazor.webassembly.js"
     }
   ],
-  "version": "upEuGPWx"
+  "version": "ruSo6ehX"
 };

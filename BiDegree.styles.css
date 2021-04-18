@@ -24,10 +24,14 @@
 }
 
 table[b-hava5cs9gl] {
-    width: 190px;
+    width: 300px;
     text-align: right;
     font-size: 1.2em;
     margin: 30px;
+}
+
+.table .title[b-hava5cs9gl] {
+    font-weight: 500;
 }
 
 .temp[b-hava5cs9gl] {
@@ -40,6 +44,8 @@ table[b-hava5cs9gl] {
 }
 
 .city[b-hava5cs9gl] {
+    font-size: 1.1em;
+    margin-top: -40px;
 }
 
 .humid[b-hava5cs9gl] {
@@ -50,11 +56,11 @@ table[b-hava5cs9gl] {
     margin: 3px;
 }
 
-.lastupd[b-hava5cs9gl]{
-    display:flex;
-    flex-direction:row;
-    flex-wrap:nowrap;
-    cursor:pointer;
+.lastupd[b-hava5cs9gl] {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    cursor: pointer;
 }
 
 .t1[b-hava5cs9gl], .t2[b-hava5cs9gl], .humid[b-hava5cs9gl], .city[b-hava5cs9gl], table[b-hava5cs9gl] {
