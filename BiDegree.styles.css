@@ -12,9 +12,15 @@
 }
 
 .date[b-7kcap2mkhh] {
-    color:aquamarine;
+    color: aquamarine;
+    font-size: 0.8em;
 }
-/* /Features/Home/HomePage.razor.rz.scp.css */
+/* /Features/Home/TemperatureValues.razor.rz.scp.css */
+.t1[b-304nkob0sg], .t2[b-304nkob0sg] {
+    padding: 15px;
+    border-radius: 15px;
+    background-color: var(--text-bg-color);
+}
 /* /Features/Home/Weather.razor.rz.scp.css */
 .weather[b-hava5cs9gl] {
     color: white;
@@ -85,8 +91,9 @@ table[b-hava5cs9gl] {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    font-size: 0.8em;
+    font-size: 0.7em;
     cursor: pointer;
+    align-items: flex-end;
 }
 
 .t1[b-hava5cs9gl], .t2[b-hava5cs9gl], .humid[b-hava5cs9gl], .place[b-hava5cs9gl], table[b-hava5cs9gl] {
