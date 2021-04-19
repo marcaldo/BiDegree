@@ -1,4 +1,5 @@
 ﻿@page "/"
+@using System.Timers
 @inject HttpClient Http
 @inject IWeatherApi OpenWeather
 @inject IJSRuntime JS
@@ -17,13 +18,36 @@ else
     protected CurrentWeather currentWeather { get; set; }
     protected UnitsType units = UnitsType.Metric;
 
+    public HomePage()
+    {
+
+    }
+
+    private void Timer_Elapsed(object _, ElapsedEventArgs e)
+    {
+        RefreshHandler().Wait();
+    }
+
     public async Task RefreshHandler()
     {
-        await GetCurrentWeather(currentWeather.coord.lat, currentWeather.coord.lon);
+        @*await GetCurrentWeather(currentWeather.coord.lat, currentWeather.coord.lon);*@
+        await GetCurrentWeather(-34.6593369f, -58.6194228f);
+        StateHasChanged();
     }
 
     protected override void OnInitialized()
     {
+        int refreshMinutes = 5;
+
+        if (refreshMinutes > 0)
+        {
+            Timer timer = new();
+            timer.Interval = 1000 * refreshMinutes;
+            timer.Elapsed += Timer_Elapsed;
+            timer.Enabled = true;
+        }
+
+
         _getWeatherFunc = GetWeather;
     }
 
@@ -34,7 +58,7 @@ else
 
     public async Task GetGeoLocation()
     {
-       await JS.InvokeAsync<string>("getCurrentLocation");
+        await JS.InvokeAsync<string>("getCurrentLocation");
     }
 
     [JSInvokable]
