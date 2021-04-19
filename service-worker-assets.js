@@ -141,7 +141,7 @@
       "url": "img\/50n.jpg"
     },
     {
-      "hash": "sha256-UTIBAU5am2OEYY7N2VeXBKRCVj2TsdWbCNvTX64h4U0=",
+      "hash": "sha256-mze0AAB90SYPL2kgpyiJ9fuLjkzDYXvfAz1E+ZMXPzA=",
       "url": "img\/loading.gif"
     },
     {
@@ -349,5 +349,5 @@
       "url": "_framework\/blazor.webassembly.js"
     }
   ],
-  "version": "SSjHSmVi"
+  "version": "x4x8hvNx"
 };
