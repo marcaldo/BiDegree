@@ -5,12 +5,34 @@
     align-items: center;
 }
 
+    .weather .status {
+        display: flex;
+        align-items: center;
+    }
+
+.icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: -30px;
+}
+
+    .icon .place {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        height: 45px;
+        margin-top: -45px;
+    }
+
 table {
     width: 300px;
     text-align: right;
     font-size: 1.2em;
     margin: 30px;
 }
+
     table .title {
         font-weight: bold;
         color: #c4c4c4;
@@ -27,7 +49,6 @@ table {
 
 .city {
     font-size: 1.1em;
-    margin-top: -40px;
 }
 
 .humid {
@@ -37,6 +58,7 @@ table {
     flex-wrap: nowrap;
     margin: 3px;
 }
+
     .humid div {
         margin-left: 5px;
     }
@@ -45,10 +67,11 @@ table {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
+    font-size: 0.8em;
     cursor: pointer;
 }
 
-.t1, .t2, .humid, .city, table {
+.t1, .t2, .humid, .place, table {
     padding: 15px;
     border-radius: 15px;
     background-color: var(--text-bg-color);

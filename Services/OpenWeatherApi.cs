@@ -12,7 +12,7 @@ namespace BiDegree.Services
     public class OpenWeatherApi : IWeatherApi
     {
         private readonly string _openWeatherApiKey;
-        private const string _openWeatherBaseAddress = "https://api.openweathermap.org/";
+        private const string _openWeatherApiAddress = "https://api.openweathermap.org/";
 
         private readonly HttpClient _httpClient;
         public OpenWeatherApi(HttpClient httpClient, IConfiguration configuration)
@@ -23,9 +23,7 @@ namespace BiDegree.Services
 
         public async Task<CurrentWeather> GetCurrentWeatherByCoords(float lat, float lon, string units)
         {
-            _httpClient.BaseAddress = new Uri(_openWeatherBaseAddress);
-
-            var url = $"data/2.5/weather?lat={lat}&lon={lon}&units={units}&appid={_openWeatherApiKey}";
+            var url = $"{_openWeatherApiAddress}/data/2.5/weather?lat={lat}&lon={lon}&units={units}&appid={_openWeatherApiKey}";
             var currentWeather = await _httpClient.GetFromJsonAsync<CurrentWeather>(url);
 
             return currentWeather;

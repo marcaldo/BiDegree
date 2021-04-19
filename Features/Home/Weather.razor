@@ -12,8 +12,20 @@
     }
 </style>
 <div class="weather">
-    <div class="icon"><img src="@_iconUrl" /></div>
-    <div class="city">@CurrentWeather.name</div>
+    <div class="status">
+        <div class="datetime">
+            <Clock />
+        </div>
+        <div class="icon">
+            <img src="@_iconUrl" />
+            <div class="place">
+                <div class="city">@CurrentWeather.name</div>
+                <div class="lastupd" @onclick="() => OnClick.InvokeAsync()">
+                    @DateTime.Now.ToString("g")&nbsp;<Icon Name="refresh" />
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="temp">
         <Icon Name="temperature" />
         @if (Units is UnitsType.Metric)
@@ -32,10 +44,6 @@
         <Icon Name="droplet" />
         <div>@CurrentWeather.main.humidity %</div>
     </dic>
-    <div class="datetime">
-        <Clock />
-    </div>
-
     <div class="more">
         <table>
             <tbody>
@@ -72,20 +80,15 @@
             </tbody>
         </table>
     </div>
-
-    <div class="lastupd">
-        <div>@LastUpate.ToString("g")</div>
-        <div class="refresh"><Icon Name="refresh" /></div>
-    </div>
 </div>
 @code {
-    [Parameter] public CurrentWeather CurrentWeather { get; set; }
-    [Parameter] public UnitsType Units { get; set; }
-    [Parameter] public DateTime LastUpate { get; set; } = DateTime.Now;
-
     private const string _iconUrlBase = "https://openweathermap.org/";
     private string _iconUrl { get; set; }
     private string _bgImage { get; set; }
+
+    [Parameter] public CurrentWeather CurrentWeather { get; set; }
+    [Parameter] public UnitsType Units { get; set; }
+    [Parameter] public EventCallback<string> OnClick { get; set; }
 
     protected override void OnParametersSet()
     {
@@ -101,7 +104,5 @@
                         ? $"{temp.ToDecimal()} °C{temp.ToFahrenheit()} °F"
                         : $"{temp.ToDecimal()} °F{temp.ToCelsius()} °C";
     }
-
-
 
 }
