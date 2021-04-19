@@ -21,27 +21,17 @@
             <div class="place">
                 <div class="city">@CurrentWeather.name</div>
                 <div class="lastupd" @onclick="() => OnClick.InvokeAsync()">
-                    @DateTime.Now.ToString("g")&nbsp;<Icon Name="refresh" />
+                    @DateTime.Now.ToString("g")&nbsp;<Icon Name="Icon.IconType.Refresh" Size="20" />
                 </div>
             </div>
         </div>
     </div>
     <div class="temp">
-        <Icon Name="temperature" />
-        @if (Units is UnitsType.Metric)
-        {
-            <div class="t1">@CurrentWeather.main.temp.ToDecimal()<span class="unit">°C</span></div>
-            <div class="t2">@CurrentWeather.main.temp.ToFahrenheit()<span class="unit">°F</span></div>
-        }
-        else
-        {
-            <div class="t1">@CurrentWeather.main.temp.ToDecimal()<span class="unit">°F</span></div>
-            <div class="t2">@CurrentWeather.main.temp.ToCelsius()<span class="unit">°C</span></div>
-        }
+       <TemperatureValues Value="CurrentWeather.main.temp" Units="UnitsType.Metric" />
     </div>
 
     <dic class="humid">
-        <Icon Name="droplet" />
+        <Icon Name="Icon.IconType.Humidity" />
         <div>@CurrentWeather.main.humidity %</div>
     </dic>
     <div class="more">
@@ -51,13 +41,13 @@
                 {
                     <tr>
                         <td class="title">Min</td>
-                        <td><Icon Name="temp-low" Fill="blue" /></td>
+                        <td><Icon Name="Icon.IconType.TemperatureLow" Fill="blue" /></td>
                         <td>@CurrentWeather.main.temp_min.ToDecimal() °C</td>
                         <td>@CurrentWeather.main.temp_min.ToFahrenheit() °F</td>
                     </tr>
                     <tr>
                         <td class="title">Max</td>
-                        <td><Icon Name="temp-high" Fill="#9e300f" /></td>
+                        <td><Icon Name="Icon.IconType.TemperatureHigh" Fill="#9e300f" /></td>
                         <td>@CurrentWeather.main.temp_max.ToDecimal() °C</td>
                         <td>@CurrentWeather.main.temp_max.ToFahrenheit() °F</td>
                     </tr>
@@ -66,13 +56,13 @@
                 {
                     <tr>
                         <td class="title">Min</td>
-                        <td><Icon Name="temp-low" Fill="blue" /></td>
+                        <td><Icon Name="Icon.IconType.TemperatureLow" Fill="blue" /></td>
                         <td>@CurrentWeather.main.temp_min.ToDecimal() °F</td>
                         <td>@CurrentWeather.main.temp_min.ToCelsius() °C</td>
                     </tr>
                     <tr>
                         <td class="title">Max</td>
-                        <td><Icon Name="temp-high" Fill="#9e300f" /></td>
+                        <td><Icon Name="Icon.IconType.TemperatureHigh" Fill="#9e300f" /></td>
                         <td>@CurrentWeather.main.temp_max.ToDecimal() °F</td>
                         <td>@CurrentWeather.main.temp_max.ToCelsius() °F</td>
                     </tr>
