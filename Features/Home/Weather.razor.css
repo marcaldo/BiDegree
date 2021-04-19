@@ -67,8 +67,9 @@ table {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    font-size: 0.8em;
+    font-size: 0.7em;
     cursor: pointer;
+    align-items: flex-end;
 }
 
 .t1, .t2, .humid, .place, table {
