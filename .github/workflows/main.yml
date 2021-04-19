@@ -27,7 +27,7 @@ jobs:
     - name: Change base-tag in index.html from / to BiDegree
       run: sed -i 's/<base href="\/" \/>/<base href="\/BiDegree\/" \/>/g' release/wwwroot/index.html
 
-    # changes the base-tag in index.html from '/' to 'BiDegree' to match GitHub Pages repository subdirectory
+    # fix Blazor WebAssembly PWA integrity checks
     - name: Fix service-worker-assets.js hashes
       working-directory: release/wwwroot
       run: |
