@@ -37,12 +37,12 @@ else
 
     protected override void OnInitialized()
     {
-        int refreshMinutes = 5;
+        int refreshMinutes = 0;
 
         if (refreshMinutes > 0)
         {
             Timer timer = new();
-            timer.Interval = 1000 * refreshMinutes;
+            timer.Interval = 1000 * 60 * refreshMinutes;
             timer.Elapsed += Timer_Elapsed;
             timer.Enabled = true;
         }
