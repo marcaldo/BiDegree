@@ -23,12 +23,34 @@
     align-items: center;
 }
 
+    .weather .status[b-hava5cs9gl] {
+        display: flex;
+        align-items: center;
+    }
+
+.icon[b-hava5cs9gl] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: -30px;
+}
+
+    .icon .place[b-hava5cs9gl] {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        height: 45px;
+        margin-top: -45px;
+    }
+
 table[b-hava5cs9gl] {
     width: 300px;
     text-align: right;
     font-size: 1.2em;
     margin: 30px;
 }
+
     table .title[b-hava5cs9gl] {
         font-weight: bold;
         color: #c4c4c4;
@@ -45,7 +67,6 @@ table[b-hava5cs9gl] {
 
 .city[b-hava5cs9gl] {
     font-size: 1.1em;
-    margin-top: -40px;
 }
 
 .humid[b-hava5cs9gl] {
@@ -55,6 +76,7 @@ table[b-hava5cs9gl] {
     flex-wrap: nowrap;
     margin: 3px;
 }
+
     .humid div[b-hava5cs9gl] {
         margin-left: 5px;
     }
@@ -63,10 +85,11 @@ table[b-hava5cs9gl] {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
+    font-size: 0.8em;
     cursor: pointer;
 }
 
-.t1[b-hava5cs9gl], .t2[b-hava5cs9gl], .humid[b-hava5cs9gl], .city[b-hava5cs9gl], table[b-hava5cs9gl] {
+.t1[b-hava5cs9gl], .t2[b-hava5cs9gl], .humid[b-hava5cs9gl], .place[b-hava5cs9gl], table[b-hava5cs9gl] {
     padding: 15px;
     border-radius: 15px;
     background-color: var(--text-bg-color);

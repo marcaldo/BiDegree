@@ -133,11 +133,11 @@
       "url": "img\/13n.jpg"
     },
     {
-      "hash": "sha256-c94q6VD66Z01c43fOZAAoCWvX0KYE8RLemRWDKlLvjo=",
+      "hash": "sha256-1UMnOtAe9Ye5TlkqeeW\/ZqIJsO7GHO9oBeH+wGxzUqo=",
       "url": "img\/50d.jpg"
     },
     {
-      "hash": "sha256-XJfuA1thvAVBezIcLhNRKXaW2AVMqTtO005xdnS38rY=",
+      "hash": "sha256-AoMlVI0gQC95yE0I565chy1vLpoKVAS8KhHZIHEuVNU=",
       "url": "img\/50n.jpg"
     },
     {
@@ -181,7 +181,7 @@
       "url": "_framework\/dotnet.5.0.4.js"
     },
     {
-      "hash": "sha256-jtiYBsBuEk2nq0gJuJZ1QwhkHvQNQILqqUfL6exmI1o=",
+      "hash": "sha256-ydzAgUnVKl4EEsJC1P4ByaicBS4L6SGo8Y1+Ebmb4ug=",
       "url": "BiDegree.styles.css"
     },
     {
@@ -249,7 +249,7 @@
       "url": "_framework\/System.IO.Pipelines.dll"
     },
     {
-      "hash": "sha256-i+eVH1DNslgKair89ynldB8I6bh+DvdsNN2rL2+EsCA=",
+      "hash": "sha256-TIhXuinGjoPlAUVSc6FtTnk6k\/4J+zIFSNVHLwXISfw=",
       "url": "_framework\/BiDegree.dll"
     },
     {
@@ -341,7 +341,7 @@
       "url": "_framework\/System.Private.CoreLib.dll"
     },
     {
-      "hash": "sha256-yVzzUTQXnxYK+sZWBsl\/KUQzg9z3K4VtdMt6uCkX1yI=",
+      "hash": "sha256-A2R\/FDNX8VaHiMSoE83xTJYLG0\/ULQGbNJHtPrLcqM4=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -349,5 +349,5 @@
       "url": "_framework\/blazor.webassembly.js"
     }
   ],
-  "version": "eZvGl65\/"
+  "version": "liH42zxg"
 };
