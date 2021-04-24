@@ -1,82 +1,43 @@
 ﻿@page "/"
-@using System.Timers
-@inject HttpClient Http
-@inject IWeatherApi OpenWeather
-@inject IJSRuntime JS
+@inject NavigationManager NavigationManager
+@inject IConfiguration Configuration
+@inject ISyncLocalStorageService LocalStorage
 
-@if (currentWeather == null)
-{
-    <div><img src="img/loading.gif" /></div>
-}
-else
-{
-    <Weather CurrentWeather="@currentWeather" Units="@units" OnClick="RefreshHandler" />
-}
 
-@code{
-    private static Func<float, float, Task> _getWeatherFunc;
-    protected CurrentWeather currentWeather { get; set; }
-    protected UnitsType units = UnitsType.Metric;
+@code {
+    private string _apiKey;
 
-    public HomePage()
-    {
-
-    }
-
-    private void Timer_Elapsed(object _, ElapsedEventArgs e)
-    {
-        RefreshHandler().Wait();
-    }
-
-    public async Task RefreshHandler()
-    {
-        @*await GetCurrentWeather(currentWeather.coord.lat, currentWeather.coord.lon);*@
-        await GetCurrentWeather(-34.6593369f, -58.6194228f);
-        StateHasChanged();
-    }
 
     protected override void OnInitialized()
     {
-        int refreshMinutes = 0;
+        _apiKey = LocalStorage.GetItem<string>(Constants.KeyApiKey);
 
-        if (refreshMinutes > 0)
+        if (string.IsNullOrEmpty(_apiKey))
         {
-            Timer timer = new();
-            timer.Interval = 1000 * 60 * refreshMinutes;
-            timer.Elapsed += Timer_Elapsed;
-            timer.Enabled = true;
+            var configApiKey = Configuration.GetValue<string>("OpenWeather:ApiKey");
+
+            if (!string.IsNullOrEmpty(configApiKey))
+            {
+                LocalStorage.SetItem<string>(Constants.KeyApiKey, configApiKey);
+                _apiKey = configApiKey;
+            }
+
         }
 
+@*        if (string.IsNullOrEmpty(_apiKey))
+        {
+            NavigationManager.NavigateTo("/weather");
+        }
+        else
+        {
+            NavigationManager.NavigateTo("/settings?showapikey=true");
+        }*@
 
-        _getWeatherFunc = GetWeather;
     }
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnAfterRender(bool firstRender)
     {
-        await GetGeoLocation();
+
     }
-
-    public async Task GetGeoLocation()
-    {
-        await JS.InvokeAsync<string>("getCurrentLocation");
-    }
-
-    [JSInvokable]
-    public static void GetWeatherCaller(float lat, float lon)
-    {
-        _getWeatherFunc.Invoke(lat, lon);
-    }
-
-    private async Task GetWeather(float lat, float lon)
-    {
-        await GetCurrentWeather(lat, lon);
-
-        StateHasChanged();
-    }
-
-    private async Task GetCurrentWeather(float lat, float lon)
-    {
-        currentWeather = await OpenWeather.GetCurrentWeatherByCoords(lat, lon, units.ToString().ToLower());
-    }
-
 }
+

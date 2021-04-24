@@ -1,6 +1,18 @@
 ﻿@page "/settings"
-<h3>SettingsPage</h3>
+@inject NavigationManager NavManager
+<h3>Settings</h3>
+
+@if (_showApiKey)
+{
+    <ApiKey />
+}
 
 @code {
+    private bool _showApiKey = false;
+
+    protected override void OnInitialized()
+    {
+        NavManager.TryGetQueryString<bool>("showapikey", out  _showApiKey);
+    }
 
 }

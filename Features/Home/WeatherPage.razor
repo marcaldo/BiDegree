@@ -1,0 +1,111 @@
+﻿@page "/weather"
+@using System.Timers
+@using Blazored.LocalStorage
+@using System.Net
+@inject HttpClient Http
+@inject IWeatherApi OpenWeather
+@inject IJSRuntime JS
+@inject NavigationManager NavigationManager
+@inject IConfiguration Configuration
+@inject ILocalStorageService localStorage
+
+
+@if (currentWeather == null)
+{
+    if (string.IsNullOrEmpty(_errorMessage))
+    {
+        <div><img src="img/loading.gif" /></div>
+    }
+    else if (_unauthorized)
+    {
+        <Icon Name="Icon.IconType.EmojiSad" Size="32" Fill="red"/>
+        <div class="error-mssg">
+            <p>Please verify that the Openweather has the right key.</p>
+            <a href="/settings" class="btn btn-secondary">Go to Settings</a>
+        </div>
+    }
+    else
+    {
+        <Icon Name="Icon.IconType.EmojiSad" Size="32" Fill="red"/>
+        <div class="error-mssg">@_errorMessage</div>
+    }
+}
+else
+{
+    <Weather CurrentWeather="@currentWeather" Units="@units" OnClick="RefreshHandler" />
+}
+
+@code{
+    private static Func<float, float, Task> _getWeatherFunc;
+    private string _errorMessage = null;
+    private bool _unauthorized = false;
+    protected CurrentWeather currentWeather { get; set; }
+    protected UnitsType units = UnitsType.Metric;
+
+    private void Timer_Elapsed(object _, ElapsedEventArgs e)
+    {
+        RefreshHandler().Wait();
+    }
+
+    public async Task RefreshHandler()
+    {
+        @*await GetCurrentWeather(currentWeather.coord.lat, currentWeather.coord.lon);*@
+        await GetCurrentWeather(-34.6593369f, -58.6194228f);
+        StateHasChanged();
+    }
+
+    protected override void OnInitialized()
+    {
+        int refreshMinutes = 0;
+
+        if (refreshMinutes > 0)
+        {
+            Timer timer = new();
+            timer.Interval = 1000 * 60 * refreshMinutes;
+            timer.Elapsed += Timer_Elapsed;
+            timer.Enabled = true;
+        }
+
+        _getWeatherFunc = GetWeather;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetGeoLocation();
+    }
+
+    public async Task GetGeoLocation()
+    {
+        await JS.InvokeAsync<string>("getCurrentLocation");
+    }
+
+    [JSInvokable]
+    public static void GetWeatherCaller(float lat, float lon)
+    {
+        _getWeatherFunc.Invoke(lat, lon);
+    }
+
+    private async Task GetWeather(float lat, float lon)
+    {
+        await GetCurrentWeather(lat, lon);
+        StateHasChanged();
+    }
+
+    private async Task GetCurrentWeather(float lat, float lon)
+    {
+        try
+        {
+            currentWeather = await OpenWeather.GetCurrentWeatherByCoords(lat, lon, units.ToString().ToLower());
+        }
+        catch (HttpRequestException ex)
+        {
+            _unauthorized = ex.StatusCode == HttpStatusCode.Unauthorized;
+            _errorMessage = ex.Message;
+        }
+        catch (Exception ex)
+        {
+            _errorMessage = ex.Message;
+        }
+    }
+
+}
