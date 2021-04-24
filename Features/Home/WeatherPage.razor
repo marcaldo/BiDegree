@@ -18,15 +18,15 @@
     }
     else if (_unauthorized)
     {
-        <Icon Name="Icon.IconType.EmojiSad" Size="32" Fill="red"/>
-        <div class="error-mssg">
+        <div class="error-unauthorized">
+            <Icon Name="Icon.IconType.EmojiSad" Size="32" Fill="red" />
             <p>Please verify that the Openweather has the right key.</p>
-            <a href="/settings" class="btn btn-secondary">Go to Settings</a>
+            <a href="/settings?showapikey=true" class="btn btn-secondary">Go to Settings</a>
         </div>
     }
     else
     {
-        <Icon Name="Icon.IconType.EmojiSad" Size="32" Fill="red"/>
+        <Icon Name="Icon.IconType.EmojiSad" Size="32" Fill="red" />
         <div class="error-mssg">@_errorMessage</div>
     }
 }

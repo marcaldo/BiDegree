@@ -1,13 +1,13 @@
 ﻿@inject ILocalStorageService localStorage
 
-<EditForm Model="@apiKey" OnValidSubmit="() => SaveApiKey()">
+<EditForm Model="_apiConfig" OnValidSubmit="() => SaveApiKey()">
     <div class="form-group">
         <div class="info">
             To use this app you need an API key for the weather service.
             We use <b>OpenWeather</b>. You can get a free API Key from <a href="https://openweathermap.org/price">the openeathermap.org website.</a>
         </div>
         <label for="apiKeyData">OpenWeather API key:</label>
-       @* <InputText id="apiKeyData" class="form-control" @bind-Value="ApiKeyValue" @onfocus="()=>ClearSavedMark()" />*@
+         <InputText id="apiKeyData" class="form-control" @bind-Value="_apiConfig.ApiKeyValue" @onfocus="()=>ClearSavedMark()" />
         <div class="save">
             <Icon Name="Icon.IconType.Ok" Visible="Saved" Size="25" Fill="limegreen" />
             <button class="btn btn-primary">Save</button>
@@ -15,21 +15,19 @@
     </div>
 </EditForm>
 @code {
-    protected string ApiKeyValue { get; set; }
     protected bool Saved { get; set; } = false;
+    private ApiConfig _apiConfig = new ApiConfig();
 
-    private ApiKey apiKey = new ApiKey();
-
-@*    protected override async Task OnInitializedAsync()
+    protected override async Task OnInitializedAsync()
     {
-        ApiKeyValue = await GetApiKey();
+        _apiConfig.ApiKeyValue = await GetApiKey();
     }
 
     protected async Task<string> GetApiKey()
     {
         return await localStorage.GetItemAsync<string>(Constants.KeyApiKey);
 
-    }*@
+    }
 
     protected void ClearSavedMark()
     {
@@ -39,8 +37,14 @@
 
     protected async Task SaveApiKey()
     {
-        await localStorage.SetItemAsync(Constants.KeyApiKey, ApiKeyValue);
-        //Saved = ApiKeyValue == await GetApiKey();
+        await localStorage.SetItemAsync(Constants.KeyApiKey, _apiConfig.ApiKeyValue);
+        Saved = _apiConfig.ApiKeyValue == await GetApiKey();
         StateHasChanged();
+    }
+
+    public class ApiConfig
+    {
+         public string ApiKeyValue { get; set; }
+
     }
 }
