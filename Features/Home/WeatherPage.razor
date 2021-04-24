@@ -9,7 +9,6 @@
 @inject IConfiguration Configuration
 @inject ILocalStorageService localStorage
 
-
 @if (currentWeather == null)
 {
     if (string.IsNullOrEmpty(_errorMessage))
@@ -19,7 +18,7 @@
     else if (_unauthorized)
     {
         <div class="error-unauthorized">
-            <Icon Name="Icon.IconType.EmojiSad" Size="32" Fill="red" />
+            <Icon Name="Icon.IconType.EmojiSad" Size="40" Fill="red" />
             <p>Please verify that the Openweather has the right key.</p>
             <a href="/settings?showapikey=true" class="btn btn-secondary">Go to Settings</a>
         </div>

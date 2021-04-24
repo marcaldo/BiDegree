@@ -3,39 +3,24 @@
 @inject ISyncLocalStorageService LocalStorage
 
 @code {
-    private string _apiKey;
-
-
     protected override void OnInitialized()
     {
-        _apiKey = LocalStorage.GetItem<string>(Constants.KeyApiKey);
+        var apiKey = LocalStorage.GetItem<string>(Constants.KeyApiKey);
 
-        if (string.IsNullOrEmpty(_apiKey))
+        if (string.IsNullOrEmpty(apiKey))
         {
             var configApiKey = Configuration.GetValue<string>("OpenWeather:ApiKey");
 
-            if (!string.IsNullOrEmpty(configApiKey))
+            if (string.IsNullOrEmpty(configApiKey))
             {
-                LocalStorage.SetItem<string>(Constants.KeyApiKey, configApiKey);
-                _apiKey = configApiKey;
+                NavManager.NavigateTo("/settings?showapikey=true");
             }
 
+            LocalStorage.SetItem<string>(Constants.KeyApiKey, configApiKey);
         }
 
-        if (string.IsNullOrEmpty(_apiKey))
-        {
-            NavManager.NavigateTo("/settings?showapikey=true");
-        }
-        else
-        {
-            NavManager.NavigateTo("/weather");
-        }
-
+        NavManager.NavigateTo("/weather");
     }
 
-    protected override void OnAfterRender(bool firstRender)
-    {
-
-    }
 }
 
