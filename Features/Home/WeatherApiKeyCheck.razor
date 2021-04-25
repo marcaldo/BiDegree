@@ -7,19 +7,22 @@
     {
         var apiKey = LocalStorage.GetItem<string>(Constants.KeyApiKey);
 
+        var uri = NavManager.ToAbsoluteUri(NavManager.Uri);
+        Console.WriteLine(uri);
+
         if (string.IsNullOrEmpty(apiKey))
         {
             var configApiKey = Configuration.GetValue<string>("OpenWeather:ApiKey");
 
             if (string.IsNullOrEmpty(configApiKey))
             {
-                NavManager.NavigateTo("/settings?showapikey=true");
+                NavManager.NavigateTo($"{uri}/settings");
             }
 
             LocalStorage.SetItem<string>(Constants.KeyApiKey, configApiKey);
         }
 
-        NavManager.NavigateTo("/weather");
+        NavManager.NavigateTo($"{uri}/weather");
     }
 
 }
