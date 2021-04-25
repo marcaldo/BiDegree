@@ -4,7 +4,7 @@
 <style>
     /* Full background image from https://www.w3schools.com/howto/howto_css_full_page.asp */
     body {
-        background-image: url("@_bgImage");
+        background-image: url("@bgImage");
         height: 100%;
         background-position: center;
         background-repeat: no-repeat;
@@ -17,7 +17,7 @@
             <Clock />
         </div>
         <div class="icon">
-            <img src="@_iconUrl" />
+            <img src="@iconUrl" />
             <div class="place">
                 <div class="city">@CurrentWeather.name</div>
                 <div class="lastupd" @onclick="() => OnClick.InvokeAsync()">
@@ -27,12 +27,18 @@
         </div>
     </div>
     <div class="temp">
-       <TemperatureValues Value="CurrentWeather.main.temp" Units="UnitsType.Metric" />
+        <TemperatureValues Value="CurrentWeather.main.temp" Units="UnitsType.Metric" />
     </div>
 
-    <dic class="humid">
-        <Icon Name="Icon.IconType.Humidity" />
-        <div>@CurrentWeather.main.humidity %</div>
+    <dic class="humid-wind">
+        <dic class="humid">
+            <Icon Name="Icon.IconType.Humidity" />
+            <div>@CurrentWeather.main.humidity %</div>
+        </dic>
+        <dic class="humid">
+            <Icon Name="Icon.IconType.Wind" />
+            <div>@CurrentWeather.main.humidity %</div>
+        </dic>
     </dic>
     <div class="more">
         <table>
@@ -72,9 +78,10 @@
     </div>
 </div>
 @code {
-    private const string _iconUrlBase = "https://openweathermap.org/";
-    private string _iconUrl { get; set; }
-    private string _bgImage { get; set; }
+    private const string iconUrlBase = "https://openweathermap.org/";
+    private string iconUrl { get; set; }
+    private string bgImage { get; set; }
+    private string windSpeedUnits = "m/s";
 
     [Parameter] public CurrentWeather CurrentWeather { get; set; }
     [Parameter] public UnitsType Units { get; set; }
@@ -84,8 +91,8 @@
     {
         var icon = CurrentWeather.weather[0].icon;
 
-        _iconUrl = $"{_iconUrlBase}img/wn/{icon}@4x.png";
-        _bgImage = $"img/{icon}.jpg";
+        iconUrl = $"{iconUrlBase}img/wn/{icon}@4x.png";
+        bgImage = $"img/{icon}.jpg";
     }
 
     private string DisplayTemp(float temp)
