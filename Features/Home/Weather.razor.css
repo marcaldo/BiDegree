@@ -35,7 +35,9 @@ table {
 
     table .title {
         font-weight: bold;
-        color: #c4c4c4;
+    }
+    table td:last-child{
+        padding-right: 20px;
     }
 
 .temp {
