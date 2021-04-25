@@ -59,7 +59,9 @@ table[b-hava5cs9gl] {
 
     table .title[b-hava5cs9gl] {
         font-weight: bold;
-        color: #c4c4c4;
+    }
+    table td:last-child[b-hava5cs9gl]{
+        padding-right: 20px;
     }
 
 .temp[b-hava5cs9gl] {
@@ -67,7 +69,7 @@ table[b-hava5cs9gl] {
     flex-direction: row;
     justify-content: space-around;
     width: 100%;
-    font-size: 3em;
+    font-size: 2.2em;
     margin-top: 5%;
 }
 
@@ -100,13 +102,30 @@ table[b-hava5cs9gl] {
     padding: 15px;
     border-radius: 15px;
     background-color: var(--text-bg-color);
+    box-sizing: content-box;
+}
+/* /Features/Home/WeatherPage.razor.rz.scp.css */
+.error-unauthorized[b-h9q0bxalhi] {
+    color: lightyellow;
+    font-size: 1.2em;
+    padding: 30px;
+}
+/* /Features/Settings/ApiKey.razor.rz.scp.css */
+.save[b-3yl495z0fu] {
+    display: flex;
+    margin-top: 4px;
+    align-items: center;
+}
+.save button:last-child[b-3yl495z0fu]{
+    margin-left:auto;
 }
 /* /Features/Temperatures/ScalePage.razor.rz.scp.css */
 .templist[b-9o1hyhuoa3] {
-    width: 50%;
+    width: 90%;
     height: 80vh;
     border-top: 1px dotted black;
     border-bottom: 1px dotted black;
+    margin: auto;
     overflow-y: scroll; /* Add the ability to scroll */
 }
 
@@ -129,7 +148,6 @@ table[b-hava5cs9gl] {
     padding: 7px;
     border-radius: 10px;
     margin-bottom: 3px;
-    max-width: 320px;
 }
 /* /Layout/Footer.razor.rz.scp.css */
 .footer[b-41age8wks5] {
@@ -143,11 +161,14 @@ table[b-hava5cs9gl] {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    justify-content: flex-start;
 }
+
+    .footer div:last-child[b-41age8wks5] {
+        margin-left: auto;
+    }
 
 .goto[b-41age8wks5] {
     margin: 15px;
     padding-right: 5px;
-    cursor:pointer;
+    cursor: pointer;
 }
