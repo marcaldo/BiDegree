@@ -77,7 +77,10 @@ table[b-hava5cs9gl] {
     font-size: 1.1em;
 }
 
-.humid[b-hava5cs9gl] {
+.humid-wind[b-hava5cs9gl]{
+    display:flex;
+}
+.humid-wind-val[b-hava5cs9gl] {
     display: flex;
     align-items: center;
     font-size: 1.3em;
@@ -85,7 +88,7 @@ table[b-hava5cs9gl] {
     margin: 3px;
 }
 
-    .humid div[b-hava5cs9gl] {
+    .humid-wind-val div[b-hava5cs9gl] {
         margin-left: 5px;
     }
 
@@ -98,7 +101,7 @@ table[b-hava5cs9gl] {
     align-items: flex-end;
 }
 
-.t1[b-hava5cs9gl], .t2[b-hava5cs9gl], .humid[b-hava5cs9gl], .place[b-hava5cs9gl], table[b-hava5cs9gl] {
+.t1[b-hava5cs9gl], .t2[b-hava5cs9gl], .humid-wind-val[b-hava5cs9gl], .place[b-hava5cs9gl], table[b-hava5cs9gl] {
     padding: 15px;
     border-radius: 15px;
     background-color: var(--text-bg-color);
