@@ -1,7 +1,8 @@
 ﻿@inject NavigationManager Navigation
 @{
-    var homePage = "";
+    var homePage = "weather";
     var scalePage = "scale";
+    var settingsPage = "settings";
     var activePage = Navigation.ToBaseRelativePath(Navigation.Uri);
 }
 <div class="footer">
@@ -17,6 +18,9 @@
     </div>
     <div class="goto" @onclick="() => NavigateTo(scalePage, false)">
         <Icon Name="Icon.IconType.Scale" Size="32" Fill="white" />
+    </div>
+    <div class="goto" @onclick="() => NavigateTo(settingsPage, false)">
+        <Icon Name="Icon.IconType.Settings" Size="32" Fill="white" />
     </div>
 </div>
 @code{ 

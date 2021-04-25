@@ -1,11 +1,10 @@
 ﻿using BiDegree.Models;
-using Microsoft.AspNetCore.Components;
+using BiDegree.Shared;
+using Blazored.LocalStorage;
 using System;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
-
 
 namespace BiDegree.Services
 {
@@ -15,10 +14,10 @@ namespace BiDegree.Services
         private const string _openWeatherApiAddress = "https://api.openweathermap.org/";
 
         private readonly HttpClient _httpClient;
-        public OpenWeatherApi(HttpClient httpClient, IConfiguration configuration)
+        public OpenWeatherApi(HttpClient httpClient, ISyncLocalStorageService localStorageService)
         {
             _httpClient = httpClient;
-            _openWeatherApiKey = configuration.GetValue<string>("OpenWeather:ApiKey");
+            _openWeatherApiKey = localStorageService.GetItem<string>(Constants.KeyApiKey);
         }
 
         public async Task<CurrentWeather> GetCurrentWeatherByCoords(float lat, float lon, string units)

@@ -1,8 +1,9 @@
 ﻿.templist {
-    width: 50%;
+    width: 90%;
     height: 80vh;
     border-top: 1px dotted black;
     border-bottom: 1px dotted black;
+    margin: auto;
     overflow-y: scroll; /* Add the ability to scroll */
 }
 

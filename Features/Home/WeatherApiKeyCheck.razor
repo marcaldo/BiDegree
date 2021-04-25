@@ -1,0 +1,26 @@
+﻿@inject NavigationManager NavManager
+@inject IConfiguration Configuration
+@inject ISyncLocalStorageService LocalStorage
+
+@code {
+    protected override void OnInitialized()
+    {
+        var apiKey = LocalStorage.GetItem<string>(Constants.KeyApiKey);
+
+        if (string.IsNullOrEmpty(apiKey))
+        {
+            var configApiKey = Configuration.GetValue<string>("OpenWeather:ApiKey");
+
+            if (string.IsNullOrEmpty(configApiKey))
+            {
+                NavManager.NavigateTo("/settings?showapikey=true");
+            }
+
+            LocalStorage.SetItem<string>(Constants.KeyApiKey, configApiKey);
+        }
+
+        NavManager.NavigateTo("/weather");
+    }
+
+}
+
