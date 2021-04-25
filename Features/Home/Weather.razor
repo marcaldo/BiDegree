@@ -30,16 +30,22 @@
         <TemperatureValues Value="CurrentWeather.main.temp" Units="UnitsType.Metric" />
     </div>
 
-    <dic class="humid-wind">
-        <dic class="humid">
+    <div class="humid-wind">
+        <div class="humid-wind-val">
             <Icon Name="Icon.IconType.Humidity" />
-            <div>@CurrentWeather.main.humidity %</div>
-        </dic>
-@*        <dic class="humid">
+            <div>@CurrentWeather.main.humidity <small>%</small></div>
+        </div>
+        <div class="humid-wind-val">
             <Icon Name="Icon.IconType.Wind" />
-            <div>@CurrentWeather.main.humidity %</div>
-        </dic>*@
-    </dic>
+            <div>
+                @windSpeed.ToDecimal() <small>@windSpeedUnits</small>
+            </div>
+            <div style="transform: rotate(@windDir);">
+                <Icon Name="Icon.IconType.WindDirecction" Size="32" />
+
+            </div>
+        </div>
+    </div>
     <div class="more">
         <table>
             <tbody>
@@ -81,7 +87,9 @@
     private const string iconUrlBase = "https://openweathermap.org/";
     private string iconUrl { get; set; }
     private string bgImage { get; set; }
-    private string windSpeedUnits = "m/s";
+    private string windSpeedUnits;
+    private float windSpeed;
+    private string windDir;
 
     [Parameter] public CurrentWeather CurrentWeather { get; set; }
     [Parameter] public UnitsType Units { get; set; }
@@ -93,6 +101,19 @@
 
         iconUrl = $"{iconUrlBase}img/wn/{icon}@4x.png";
         bgImage = $"img/{icon}.jpg";
+
+        if (Units is UnitsType.Metric)
+        {
+            windSpeed = CurrentWeather.wind.speed * 3.6f;
+            windSpeedUnits = "Km/h";
+        }
+        else
+        {
+            windSpeed = CurrentWeather.wind.speed;
+            windSpeedUnits = "Mi/h";
+        }
+
+        windDir = $"{CurrentWeather.wind.deg}deg";
     }
 
     private string DisplayTemp(float temp)
