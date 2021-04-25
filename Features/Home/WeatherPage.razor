@@ -50,14 +50,13 @@ else
 
     public async Task RefreshHandler()
     {
-        @*await GetCurrentWeather(currentWeather.coord.lat, currentWeather.coord.lon);*@
-        await GetCurrentWeather(-34.6593369f, -58.6194228f);
+        await GetCurrentWeather(currentWeather.coord.lat, currentWeather.coord.lon);
         StateHasChanged();
     }
 
     protected override void OnInitialized()
     {
-        int refreshMinutes = 0;
+        int refreshMinutes = 30;
 
         if (refreshMinutes > 0)
         {
