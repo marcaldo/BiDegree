@@ -265,7 +265,7 @@
       "url": "_framework\/System.IO.Pipelines.dll"
     },
     {
-      "hash": "sha256-EznJjIKAylIAqTG7FFSje5+yQYzntNKxfMZgq95xHiE=",
+      "hash": "sha256-gYe78YpZFmL\/y2VCqVUtrqfr9hOwpAPhYs5XP40Id3Y=",
       "url": "_framework\/BiDegree.dll"
     },
     {
@@ -365,7 +365,7 @@
       "url": "_framework\/System.Private.CoreLib.dll"
     },
     {
-      "hash": "sha256-ntqKO3ru63I3jRhj2Hvse3JieP5bnuNyCGUWPVKQeQM=",
+      "hash": "sha256-P3LXEzGXA54u0DgeTjH+F5awLsxDnjTKk+6Wco72O+Y=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -373,5 +373,5 @@
       "url": "_framework\/blazor.webassembly.js"
     }
   ],
-  "version": "m8Zm5uqW"
+  "version": "+4TIhTWQ"
 };
