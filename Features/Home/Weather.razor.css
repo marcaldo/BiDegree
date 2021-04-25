@@ -35,7 +35,9 @@ table {
 
     table .title {
         font-weight: bold;
-        color: #c4c4c4;
+    }
+    table td:last-child{
+        padding-right: 20px;
     }
 
 .temp {
@@ -43,7 +45,7 @@ table {
     flex-direction: row;
     justify-content: space-around;
     width: 100%;
-    font-size: 3em;
+    font-size: 2.2em;
     margin-top: 5%;
 }
 
@@ -76,4 +78,5 @@ table {
     padding: 15px;
     border-radius: 15px;
     background-color: var(--text-bg-color);
+    box-sizing: content-box;
 }

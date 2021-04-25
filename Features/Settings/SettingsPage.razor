@@ -1,0 +1,15 @@
+﻿@page "/settings"
+@inject NavigationManager NavManager
+<h3>Settings</h3>
+
+    <ApiKey />
+
+@code {
+    private bool _showApiKey = false;
+
+    protected override void OnInitialized()
+    {
+        NavManager.TryGetQueryString<bool>("showapikey", out  _showApiKey);
+    }
+
+}
