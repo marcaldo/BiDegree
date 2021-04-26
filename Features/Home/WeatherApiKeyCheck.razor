@@ -6,9 +6,7 @@
     protected override void OnInitialized()
     {
         var apiKey = LocalStorage.GetItem<string>(Constants.KeyApiKey);
-
         var uri = NavManager.ToAbsoluteUri(NavManager.Uri);
-        Console.WriteLine(uri);
 
         if (string.IsNullOrEmpty(apiKey))
         {

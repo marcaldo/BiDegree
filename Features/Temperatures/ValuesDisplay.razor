@@ -1,18 +1,26 @@
 ﻿<div class="values">
-    <div>@Celsius °C</div>
-    <div>@Fahrenheit °F</div>
+    @if (Units is UnitsType.Metric)
+    {
+        <div>@Celsius °C</div>
+        <div>@Fahrenheit °F</div>
+    }
+    else
+    {
+        <div>@Fahrenheit °F</div>
+        <div>@Celsius °C</div>
+    }
 </div>
 
 @code {
     [Parameter] public float Value { get; set; }
-    [Parameter] public string Unit { get; set; }
+    [Parameter] public UnitsType Units { get; set; }
 
     protected string Fahrenheit { get; set; }
     protected string Celsius { get; set; }
 
     protected override void OnInitialized()
     {
-        if (Unit.Equals("C", StringComparison.OrdinalIgnoreCase))
+        if (Units is UnitsType.Metric)
         {
             Fahrenheit = Value.ToFahrenheit();
             Celsius = Value.ToDecimal();
