@@ -122,6 +122,86 @@ table[b-hava5cs9gl] {
 .save button:last-child[b-3yl495z0fu]{
     margin-left:auto;
 }
+/* /Features/Settings/SettingsPage.razor.rz.scp.css */
+body[b-rpt1bdzoyl] {
+
+}
+/* /Features/Settings/UnitSystem.razor.rz.scp.css */
+/*https://www.w3schools.com/howto/howto_css_switch.asp*/
+.switch[b-zd5fa0kjzu] {
+    position: relative;
+    display: inline-block;
+    width: 115px;
+    height: 41px;
+}
+
+    .switch input[b-zd5fa0kjzu] {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+.slider[b-zd5fa0kjzu] {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #000000;
+    -webkit-transition: .7s;
+    transition: .7s;
+    width: 115px;
+    height: 41px;
+}
+
+    .slider[b-zd5fa0kjzu]:before {
+        position: absolute;
+        content: "";
+        height: 33px;
+        width: 33px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        -webkit-transition: .8s;
+        transition: .8s;
+    }
+
+input:checked + .slider[b-zd5fa0kjzu] {
+    background-color: #000000;
+}
+
+
+    input:checked + .slider[b-zd5fa0kjzu]:before {
+        -webkit-transform: translateX(75px);
+        -ms-transform: translateX(75px);
+        transform: translateX(75px);
+    }
+
+/* Rounded sliders */
+.slider.round[b-zd5fa0kjzu] {
+    border-radius: 34px;
+}
+
+    .slider.round[b-zd5fa0kjzu]:before {
+        border-radius: 50%;
+    }
+
+.selector[b-zd5fa0kjzu] {
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    margin: auto;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+    .selector .unit-def[b-zd5fa0kjzu] {
+        font-size: 3em;
+        margin: 13px;
+    }
 /* /Features/Temperatures/ScalePage.razor.rz.scp.css */
 .templist[b-9o1hyhuoa3] {
     width: 90%;
