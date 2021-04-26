@@ -12,7 +12,7 @@ html, body {
     color: white;
 }
 
-form {
+.form-group {
     width: 90%;
     margin: auto;
 }
