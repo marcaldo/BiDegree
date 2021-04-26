@@ -8,5 +8,6 @@ namespace BiDegree.Shared
     public static class Constants
     {
         public const string KeyApiKey = "apikey";
+        public const string KeyUnits = "units";
     }
 }

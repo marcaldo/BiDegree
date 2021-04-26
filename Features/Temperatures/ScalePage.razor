@@ -1,11 +1,19 @@
 ﻿@page "/scale"
+@using Blazored.LocalStorage
+@inject ILocalStorageService LocalStorage
 
 <div class="templist">
     @for (float i = 100; i >= -50; i = i - pitch)
     {
-        <ValuesDisplay Value="@i" Unit="C" />
+        <ValuesDisplay Value="@i" Units="@Units" />
     }
 </div>
 @code{
     const float pitch = 1.0f;
+    private UnitsType Units;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Units = await LocalStorage.GetItemAsync<UnitsType?>(Constants.KeyUnits) ?? UnitsType.Metric;   
+    }
 }
