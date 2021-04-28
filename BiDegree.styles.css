@@ -122,6 +122,10 @@ table[b-hava5cs9gl] {
 .save button:last-child[b-3yl495z0fu]{
     margin-left:auto;
 }
+/* /Features/Settings/RefreshTimer.razor.rz.scp.css */
+select[b-07xzobprs0] {
+    max-width: 250px;
+}
 /* /Features/Settings/SettingsPage.razor.rz.scp.css */
 body[b-rpt1bdzoyl] {
 
