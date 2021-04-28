@@ -3,14 +3,27 @@
 @inject ILocalStorageService LocalStorage
 
 <div class="templist">
-    @for (float i = 100; i >= -50; i = i - pitch)
+    @for (float t = 90; t >= -50; t = t - pitch)
     {
-        <ValuesDisplay Value="@i" Units="@Units" />
+        var tubeFill = ValuesDisplay.TubeFillType.Empty;
+        if(t == selectedTemp) tubeFill = ValuesDisplay.TubeFillType.IsValue;
+        if(t < selectedTemp) tubeFill = ValuesDisplay.TubeFillType.Fill;
+
+        <ValuesDisplay Value="@t" Units="@Units" TubeFill="@tubeFill" />
     }
 </div>
+<div class="converter">
+    <input class="form-control" type="number" id="celsius" />
+    <div class="bulb"></div>
+    <input class="form-control" type="number" id="fahrenheit" />
+    <button class="btn btn-link" onclick="document.getElementById('theTemp').scrollIntoView({behavior:'smooth'})">Star Wars</button>
+</div>
+
 @code{
     const float pitch = 1.0f;
     private UnitsType Units;
+
+    private float selectedTemp = 41.0f;
 
     protected override async Task OnInitializedAsync()
     {

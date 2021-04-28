@@ -17,3 +17,36 @@
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
 }
+
+.converter {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: space-around;
+    align-items: center;
+}
+
+    .converter input {
+        max-width: 150px;
+    }
+
+        .converter input:first-child {
+            margin-left: auto;
+            margin-right: 10px;
+        }
+
+        .converter input:last-child {
+            margin-right: auto;
+            margin-left: 10px;
+        }
+
+.bulb {
+    display: block;
+    height: 55px;
+    margin-top: -10px;
+    width: 120px;
+    border-radius: 35%;
+    background-image: linear-gradient( 128deg, red, darkred, #780505);
+    z-index: 1000;
+}

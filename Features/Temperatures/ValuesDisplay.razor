@@ -1,12 +1,14 @@
-﻿<div class="values">
+﻿<div id="@isValueId" class="values">
     @if (Units is UnitsType.Metric)
     {
         <div>@Celsius °C</div>
+        <div class="tube @tubeClass"></div>
         <div>@Fahrenheit °F</div>
     }
     else
     {
         <div>@Fahrenheit °F</div>
+        <div class="tube @tubeClass"></div>
         <div>@Celsius °C</div>
     }
 </div>
@@ -14,9 +16,12 @@
 @code {
     [Parameter] public float Value { get; set; }
     [Parameter] public UnitsType Units { get; set; }
+    [Parameter] public TubeFillType TubeFill { get; set; }
 
     protected string Fahrenheit { get; set; }
     protected string Celsius { get; set; }
+    private string tubeClass;
+    private string isValueId;
 
     protected override void OnInitialized()
     {
@@ -30,5 +35,17 @@
             Celsius = Value.ToCelsius();
             Fahrenheit = Value.ToDecimal();
         }
+
+        switch(TubeFill)
+        {
+            case TubeFillType.Empty: tubeClass = ""; break;
+            case TubeFillType.IsValue: tubeClass = "is-value"; isValueId = "theTemp"; break;
+            case TubeFillType.Fill: tubeClass = "fill"; break;
+        }
+    }
+
+    public enum TubeFillType
+    {
+        Empty, Fill, IsValue
     }
 }
