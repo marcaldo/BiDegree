@@ -1,0 +1,36 @@
+﻿@inject ISyncLocalStorageService LocalStorage
+<div class="form-group">
+    <label for="timeSelector">Check the weather automatically every:</label>
+    <select class="form-control" id="timeSelector" @bind="elapsed">
+        <option value="15">15 minutes</option>
+        <option value="30">30 minutes</option>
+        <option value="60">1 hour</option>
+        <option value="180">2 hours</option>
+        <option value="240">4 hours</option>
+        <option value="480">8 hours</option>
+        <option value="720">12 hours</option>
+        <option value="0">Never - Manual refresh</option>
+    </select>
+    <div class="info">Remember that automatic refresh may consume data.</div>
+</div>
+
+@code {
+    private int _elapsed;
+    private int elapsed
+    {
+        get => _elapsed;
+        set
+        {
+            _elapsed = value;
+            LocalStorage.SetItem(Constants.RefreshTime, elapsed);
+        }
+    }
+
+    protected override void OnInitialized()
+    {
+        _elapsed = LocalStorage.GetItem<int?>(Constants.RefreshTime) is null
+        ? Constants.DefaultRefresh
+        : LocalStorage.GetItem<int>(Constants.RefreshTime);
+    }
+
+}

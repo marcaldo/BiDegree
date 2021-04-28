@@ -56,7 +56,19 @@ else
 
     protected override void OnInitialized()
     {
-        int refreshMinutes = 30;
+
+
+        _getWeatherFunc = GetWeather;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        var unitsConfig = await LocalStorage.GetItemAsync<UnitsType?>(Constants.KeyUnits);
+        var storedRefreshMinutes = await LocalStorage.GetItemAsync<int?>(Constants.RefreshTime);
+        int refreshMinutes = storedRefreshMinutes is null
+                                ? Constants.DefaultRefresh
+                                : Convert.ToInt32(storedRefreshMinutes);
 
         if (refreshMinutes > 0)
         {
@@ -66,12 +78,6 @@ else
             timer.Enabled = true;
         }
 
-        _getWeatherFunc = GetWeather;
-    }
-
-    protected override async Task OnInitializedAsync()
-    {
-        var unitsConfig = await LocalStorage.GetItemAsync<UnitsType?>(Constants.KeyUnits);
         units = unitsConfig ?? UnitsType.Metric;
 
         await GetGeoLocation();

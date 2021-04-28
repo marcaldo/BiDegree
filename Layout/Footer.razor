@@ -7,7 +7,7 @@
 }
 <div class="footer">
     <div class="goto" @onclick="() => NavigateTo(homePage, true)">
-        @if (string.IsNullOrEmpty(activePage))
+        @if (activePage.Contains("weather"))
         {
             <Icon Name="Icon.IconType.Refresh" Size="32" Fill="white" />
         }
