@@ -17,8 +17,10 @@
     <input class="form-control" type="number" id="celsius" />
     <div class="bulb"></div>
     <input class="form-control" type="number" id="fahrenheit" />
-    <button class="btn btn-link" onclick="document.getElementById('theTemp').scrollIntoView({behavior:'smooth'})">Star Wars</button>
 </div>
+
+<button class="btn btn-link" onclick="document.getElementById('theTemp').scrollIntoView({behavior:'smooth'})">Show temp</button>
+
 
 @code{
     [Parameter] public string temp { get; set; }
@@ -35,18 +37,19 @@
     {
         Units = LocalStorage.GetItem<UnitsType?>(Constants.KeyUnits) ?? UnitsType.Metric;
 
-        if(!float.TryParse(temp, out selectedTemp))
+        if (!float.TryParse(temp, out selectedTemp))
         {
             selectedTemp = Units == UnitsType.Metric ? 0 : 32;  // 0°C = 32°F
         }
 
-
         minT = selectedTemp - 100;
         maxT = selectedTemp + 100;
 
+    }
 
-        Console.WriteLine(selectedTemp);
-
+    private void ScrollToValue()
+    {
+   
     }
 
 }
