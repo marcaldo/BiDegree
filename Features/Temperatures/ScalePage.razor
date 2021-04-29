@@ -1,13 +1,14 @@
 ﻿@page "/scale"
+@page "/scale/{temp}"
 @using Blazored.LocalStorage
-@inject ILocalStorageService LocalStorage
+@inject ISyncLocalStorageService LocalStorage
 
 <div class="templist">
-    @for (float t = 90; t >= -50; t = t - pitch)
+    @for (float t = maxT; t >= minT; t = t - pitch)
     {
         var tubeFill = ValuesDisplay.TubeFillType.Empty;
-        if(t == selectedTemp) tubeFill = ValuesDisplay.TubeFillType.IsValue;
-        if(t < selectedTemp) tubeFill = ValuesDisplay.TubeFillType.Fill;
+        if (t == selectedTemp) tubeFill = ValuesDisplay.TubeFillType.IsValue;
+        if (t < selectedTemp) tubeFill = ValuesDisplay.TubeFillType.Fill;
 
         <ValuesDisplay Value="@t" Units="@Units" TubeFill="@tubeFill" />
     }
@@ -20,13 +21,32 @@
 </div>
 
 @code{
+    [Parameter] public string temp { get; set; }
+
     const float pitch = 1.0f;
     private UnitsType Units;
 
-    private float selectedTemp = 41.0f;
+    private float selectedTemp;
+    private float displayOffsetTemp;
+    private float minT;
+    private float maxT;
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
-        Units = await LocalStorage.GetItemAsync<UnitsType?>(Constants.KeyUnits) ?? UnitsType.Metric;   
+        Units = LocalStorage.GetItem<UnitsType?>(Constants.KeyUnits) ?? UnitsType.Metric;
+
+        if(!float.TryParse(temp, out selectedTemp))
+        {
+            selectedTemp = Units == UnitsType.Metric ? 0 : 32;  // 0°C = 32°F
+        }
+
+
+        minT = selectedTemp - 100;
+        maxT = selectedTemp + 100;
+
+
+        Console.WriteLine(selectedTemp);
+
     }
+
 }
