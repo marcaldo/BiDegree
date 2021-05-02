@@ -6,10 +6,17 @@
     border-radius: 50%;
     height: 30px;
 }
+
     .values div:first-child, .values div:last-child {
         width: 100px;
         text-align: center;
     }
+
+#theTemp {
+    font-weight: 900;
+    font-size: 1.15em;
+    color: orange;
+}
 
 .tube {
     width: 13px;
@@ -19,6 +26,7 @@
         /*background-color: darkred;*/
         background-image: linear-gradient(to right, red, darkred);
     }
+
     .tube.is-value {
         height: 50%;
         align-self: flex-end;

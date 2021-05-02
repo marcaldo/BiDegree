@@ -1,14 +1,22 @@
 ﻿@page "/scale"
-@page "/scale/{temp}"
+@page "/scale/{temp}/"
 @using Blazored.LocalStorage
 @inject ISyncLocalStorageService LocalStorage
+@inject IJSRuntime JS
+
 
 <div class="templist">
     @for (float t = maxT; t >= minT; t = t - pitch)
     {
         var tubeFill = ValuesDisplay.TubeFillType.Empty;
-        if (t == selectedTemp) tubeFill = ValuesDisplay.TubeFillType.IsValue;
-        if (t < selectedTemp) tubeFill = ValuesDisplay.TubeFillType.Fill;
+        if (Math.Round(t, 2) == Math.Round(selectedTemp, 2))
+        {
+            tubeFill = ValuesDisplay.TubeFillType.IsValue;
+        }
+        else if (t < selectedTemp)
+        {
+            tubeFill = ValuesDisplay.TubeFillType.Fill;
+        }
 
         <ValuesDisplay Value="@t" Units="@Units" TubeFill="@tubeFill" />
     }
@@ -19,17 +27,14 @@
     <input class="form-control" type="number" id="fahrenheit" />
 </div>
 
-<button class="btn btn-link" onclick="document.getElementById('theTemp').scrollIntoView({behavior:'smooth'})">Show temp</button>
-
+<AnchorNavigation />
 
 @code{
     [Parameter] public string temp { get; set; }
-
     const float pitch = 1.0f;
     private UnitsType Units;
 
     private float selectedTemp;
-    private float displayOffsetTemp;
     private float minT;
     private float maxT;
 
@@ -47,9 +52,13 @@
 
     }
 
-    private void ScrollToValue()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-   
+        if (firstRender)
+        {
+            await JS.InvokeAsync<string>("BlazorScrollToId", "theTemp");
+        }
     }
+
 
 }

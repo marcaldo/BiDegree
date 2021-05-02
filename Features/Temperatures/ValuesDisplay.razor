@@ -1,4 +1,5 @@
 ﻿<div id="@isValueId" class="values">
+
     @if (Units is UnitsType.Metric)
     {
         <div>@Celsius °C</div>
@@ -11,6 +12,7 @@
         <div class="tube @tubeClass"></div>
         <div>@Celsius °C</div>
     }
+
 </div>
 
 @code {
@@ -36,12 +38,13 @@
             Fahrenheit = Value.ToDecimal();
         }
 
-        switch(TubeFill)
+        switch (TubeFill)
         {
             case TubeFillType.Empty: tubeClass = ""; break;
             case TubeFillType.IsValue: tubeClass = "is-value"; isValueId = "theTemp"; break;
             case TubeFillType.Fill: tubeClass = "fill"; break;
         }
+
     }
 
     public enum TubeFillType
