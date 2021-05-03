@@ -29,13 +29,13 @@
     {
         if (Units is UnitsType.Metric)
         {
-            Fahrenheit = Value.ToFahrenheit();
-            Celsius = Value.ToDecimal();
+            Fahrenheit = Value.ToFahrenheitString();
+            Celsius = Value.ToDecimalString();
         }
         else
         {
-            Celsius = Value.ToCelsius();
-            Fahrenheit = Value.ToDecimal();
+            Celsius = Value.ToCelsiusString();
+            Fahrenheit = Value.ToDecimalString();
         }
 
         switch (TubeFill)

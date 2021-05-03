@@ -1,12 +1,12 @@
 ﻿@if (Units is UnitsType.Metric)
 {
-    <div class="t1">@Value.ToDecimal()<span class="unit">°C</span></div>
-    <div class="t2">@Value.ToFahrenheit()<span class="unit">°F</span></div>
+    <div class="t1">@Value.ToDecimalString()<span class="unit">°C</span></div>
+    <div class="t2">@Value.ToFahrenheitString()<span class="unit">°F</span></div>
 }
 else
 {
-    <div class="t1">@Value.ToDecimal()<span class="unit">°F</span></div>
-    <div class="t2">@Value.ToCelsius()<span class="unit">°C</span></div>
+    <div class="t1">@Value.ToDecimalString()<span class="unit">°F</span></div>
+    <div class="t2">@Value.ToCelsiusString()<span class="unit">°C</span></div>
 }
 
 @code {
