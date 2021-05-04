@@ -1,4 +1,5 @@
 ﻿@using BiDegree.Models
+@inject StateContainer StateContainer
 <style>
     /* Full background image from https://www.w3schools.com/howto/howto_css_full_page.asp */
     body {
@@ -36,7 +37,7 @@
         <div class="humid-wind-val">
             <Icon Name="Icon.IconType.Wind" />
             <div>
-                @windSpeed.ToDecimal() <small>@windSpeedUnits</small>
+                @windSpeed.ToDecimalString() <small>@windSpeedUnits</small>
             </div>
             <div style="transform: rotate(@windDir);">
                 <Icon Name="Icon.IconType.WindDirecction" Size="32" />
@@ -52,14 +53,14 @@
                     <tr>
                         <td class="title">Min</td>
                         <td><Icon Name="Icon.IconType.TemperatureLow" Fill="blue" /></td>
-                        <td>@CurrentWeather.main.temp_min.ToDecimal() °C</td>
-                        <td>@CurrentWeather.main.temp_min.ToFahrenheit() °F</td>
+                        <td>@CurrentWeather.main.temp_min.ToDecimalString() °C</td>
+                        <td>@CurrentWeather.main.temp_min.ToFahrenheitString() °F</td>
                     </tr>
                     <tr>
                         <td class="title">Max</td>
                         <td><Icon Name="Icon.IconType.TemperatureHigh" Fill="#9e300f" /></td>
-                        <td>@CurrentWeather.main.temp_max.ToDecimal() °C</td>
-                        <td>@CurrentWeather.main.temp_max.ToFahrenheit() °F</td>
+                        <td>@CurrentWeather.main.temp_max.ToDecimalString() °C</td>
+                        <td>@CurrentWeather.main.temp_max.ToFahrenheitString() °F</td>
                     </tr>
                 }
                 else
@@ -67,14 +68,14 @@
                     <tr>
                         <td class="title">Min</td>
                         <td><Icon Name="Icon.IconType.TemperatureLow" Fill="blue" /></td>
-                        <td>@CurrentWeather.main.temp_min.ToDecimal() °F</td>
-                        <td>@CurrentWeather.main.temp_min.ToCelsius() °C</td>
+                        <td>@CurrentWeather.main.temp_min.ToDecimalString() °F</td>
+                        <td>@CurrentWeather.main.temp_min.ToCelsiusString() °C</td>
                     </tr>
                     <tr>
                         <td class="title">Max</td>
                         <td><Icon Name="Icon.IconType.TemperatureHigh" Fill="#9e300f" /></td>
-                        <td>@CurrentWeather.main.temp_max.ToDecimal() °F</td>
-                        <td>@CurrentWeather.main.temp_max.ToCelsius() °C</td>
+                        <td>@CurrentWeather.main.temp_max.ToDecimalString() °F</td>
+                        <td>@CurrentWeather.main.temp_max.ToCelsiusString() °C</td>
                     </tr>
                 }
             </tbody>
@@ -112,13 +113,15 @@
         }
 
         windDir = $"{CurrentWeather.wind.deg}deg";
+
+        StateContainer.CurrentTemp = CurrentWeather.main.temp;
     }
 
     private string DisplayTemp(float temp)
     {
         return Units is UnitsType.Metric
-                        ? $"{temp.ToDecimal()} °C{temp.ToFahrenheit()} °F"
-                        : $"{temp.ToDecimal()} °F{temp.ToCelsius()} °C";
+                        ? $"{temp.ToDecimalString()} °C{temp.ToFahrenheitString()} °F"
+                        : $"{temp.ToDecimalString()} °F{temp.ToCelsiusString()} °C";
     }
 
 }

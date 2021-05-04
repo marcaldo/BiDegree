@@ -1,19 +1,118 @@
 ﻿@page "/scale"
 @using Blazored.LocalStorage
-@inject ILocalStorageService LocalStorage
+@inject ISyncLocalStorageService LocalStorage
+@inject IJSRuntime JS
+@inject StateContainer StateContainer
+
 
 <div class="templist">
-    @for (float i = 100; i >= -50; i = i - pitch)
+    @for (float t = maxT; t >= minT; t = t - pitch)
     {
-        <ValuesDisplay Value="@i" Units="@Units" />
+        var tubeFill = ValuesDisplay.TubeFillType.Empty;
+        if (Math.Round(t, 2) == Math.Round(selectedTemp, 2))
+        {
+            tubeFill = ValuesDisplay.TubeFillType.IsValue;
+        }
+        else if (t < selectedTemp)
+        {
+            tubeFill = ValuesDisplay.TubeFillType.Fill;
+        }
+
+        <ValuesDisplay Value="@t" Units="@Units" TubeFill="@tubeFill" />
     }
 </div>
+<div class="converter">
+    @if (Units == UnitsType.Metric)
+    {
+        <input class="form-control" type="number" step="any" id="celsius" placeholder="°C" @bind-value="@celsius" />
+        <div class="bulb"></div>
+        <input class="form-control" type="number" step="any" id="fahrenheit" placeholder="°F" @bind-value="@fahrenheit" />
+    }
+    else
+    {
+        <input class="form-control" type="number" step="any" id="fahrenheit" placeholder="°F" @bind-value="@fahrenheit" />
+        <div class="bulb"></div>
+        <input class="form-control" type="number" step="any" id="celsius" placeholder="°C" @bind-value="@celsius" />
+    }
+</div>
+
+<AnchorNavigation />
+
 @code{
     const float pitch = 1.0f;
     private UnitsType Units;
+    private float selectedTemp;
+    private float minT;
+    private float maxT;
+    private float _celsius;
+    private float _fahrenheit;
 
-    protected override async Task OnInitializedAsync()
+    private float fahrenheit
     {
-        Units = await LocalStorage.GetItemAsync<UnitsType?>(Constants.KeyUnits) ?? UnitsType.Metric;   
+        get => _fahrenheit;
+        set
+        {
+            _fahrenheit = value;
+            _celsius = _fahrenheit.ToCelsius();
+        }
     }
+
+    private float celsius
+    {
+        get => _celsius;
+        set
+        {
+            _celsius = value;
+            _fahrenheit = _celsius.ToFahrenheit();
+        }
+    }
+
+
+
+
+    protected override void OnInitialized()
+    {
+        Units = LocalStorage.GetItem<UnitsType?>(Constants.KeyUnits) ?? UnitsType.Metric;
+        selectedTemp = StateContainer.CurrentTemp;
+        SetValues();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JS.InvokeAsync<string>("BlazorScrollToId", "theTemp");
+        }
+    }
+
+    private void SetValues()
+    {
+        if (Units == UnitsType.Metric)
+        {
+            celsius = selectedTemp;
+            fahrenheit = selectedTemp.ToFahrenheit();
+        }
+        else
+        {
+            fahrenheit = selectedTemp;
+            celsius = selectedTemp.ToCelsius();
+        }
+
+        minT = selectedTemp - 100;
+        maxT = selectedTemp + 100;
+    }
+
+    private void CalculateFahrenheit()
+    {
+        fahrenheit = celsius.ToFahrenheit();
+        StateHasChanged();
+    }
+
+    private void CalculateCelsius()
+    {
+        celsius = fahrenheit.ToCelsius();
+        StateHasChanged();
+    }
+
+
 }
