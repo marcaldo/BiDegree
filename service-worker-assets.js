@@ -145,7 +145,7 @@
       "url": "img\/loading.gif"
     },
     {
-      "hash": "sha256-UxiGAto707CaRMiHXebN7wv7S5Ob6BdG9qGZXDifYek=",
+      "hash": "sha256-\/aAgseKCFUNOpEoh2uc5JMho36AlaxVR07zdn70GfWg=",
       "url": "index.html"
     },
     {
@@ -181,7 +181,7 @@
       "url": "_framework\/dotnet.5.0.4.js"
     },
     {
-      "hash": "sha256-ytLqe29\/QcQP17BWu+xi5MqXlHO3nImjvgnM+M4+QLc=",
+      "hash": "sha256-4UdIJ\/c\/+sS39Gkc634GZuNGSnidltjFJC6eABvSZfM=",
       "url": "BiDegree.styles.css"
     },
     {
@@ -229,7 +229,7 @@
       "url": "_framework\/Microsoft.Extensions.DependencyInjection.dll"
     },
     {
-      "hash": "sha256-uq8WZFU2nJNGRSGm8KXeduqGmbEkq4zppwjR6t5rGNQ=",
+      "hash": "sha256-p+kMIeu8cWko\/uKs+v5ZHHzqVIgcQYJyzNbwtbLCrt0=",
       "url": "_framework\/Microsoft.Extensions.DependencyInjection.Abstractions.dll"
     },
     {
@@ -265,7 +265,7 @@
       "url": "_framework\/System.IO.Pipelines.dll"
     },
     {
-      "hash": "sha256-bFAeUS2fj\/SuC+mNZP7UvfvtuokDwWJs\/43hQviZtcY=",
+      "hash": "sha256-KRQS1if1k0PeQNHZlyIPELIcTOaL+NFydpM3cxESto0=",
       "url": "_framework\/BiDegree.dll"
     },
     {
@@ -337,7 +337,7 @@
       "url": "_framework\/System.Private.Runtime.InteropServices.JavaScript.dll"
     },
     {
-      "hash": "sha256-9lKfno7UTGLffeyfRbPY+\/FxKXnDdUOqT0M5fsBDecs=",
+      "hash": "sha256-oWq+JXzUstFrBfAUx\/MigEpgDKkNupU+IB9nPzvW+dw=",
       "url": "_framework\/System.Private.Uri.dll"
     },
     {
@@ -361,11 +361,11 @@
       "url": "_framework\/System.Text.RegularExpressions.dll"
     },
     {
-      "hash": "sha256-9FZJX1YacgT3BQ6TiRWrXzPXK7O62Fmul56taawJDI0=",
+      "hash": "sha256-AGnMOmnDiH1GvehM+7hDW3pmQ3hspzhmPDND3gd9o4A=",
       "url": "_framework\/System.Private.CoreLib.dll"
     },
     {
-      "hash": "sha256-uQD+BihNPI1w2r\/5Vmk4FVDoNLPEajAgFfR\/x7N3HSQ=",
+      "hash": "sha256-o+Z1HXdlcN1KlBmobigPpq3FnXbE5y4kJnRbd\/8dIRA=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -373,5 +373,5 @@
       "url": "_framework\/blazor.webassembly.js"
     }
   ],
-  "version": "9OrjT5eF"
+  "version": "99ugfecS"
 };

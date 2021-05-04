@@ -226,16 +226,75 @@ input:checked + .slider[b-zd5fa0kjzu] {
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
 }
+
+.converter[b-9o1hyhuoa3] {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: space-around;
+    align-items: center;
+}
+
+    .converter input[b-9o1hyhuoa3] {
+        max-width: 150px;
+    }
+
+        .converter input:first-child[b-9o1hyhuoa3] {
+            margin-left: auto;
+            margin-right: 10px;
+        }
+
+        .converter input:last-child[b-9o1hyhuoa3] {
+            margin-right: auto;
+            margin-left: 10px;
+        }
+
+.bulb[b-9o1hyhuoa3] {
+    display: block;
+    height: 55px;
+    margin-top: -10px;
+    width: 120px;
+    border-radius: 35%;
+    background-image: linear-gradient( 128deg, red, darkred, #780505);
+    z-index: 1000;
+}
 /* /Features/Temperatures/ValuesDisplay.razor.rz.scp.css */
 .values[b-kr5434ui2j] {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    border: solid 1px;
-    padding: 7px;
-    border-radius: 10px;
-    margin-bottom: 3px;
+    border-bottom: solid 1px;
+    border-radius: 50%;
+    height: 30px;
 }
+
+    .values div:first-child[b-kr5434ui2j], .values div:last-child[b-kr5434ui2j] {
+        width: 100px;
+        text-align: center;
+    }
+
+#theTemp[b-kr5434ui2j] {
+    font-weight: 900;
+    font-size: 1.15em;
+    color: orange;
+}
+
+.tube[b-kr5434ui2j] {
+    width: 13px;
+}
+
+    .tube.fill[b-kr5434ui2j] {
+        /*background-color: darkred;*/
+        background-image: linear-gradient(to right, red, darkred);
+    }
+
+    .tube.is-value[b-kr5434ui2j] {
+        height: 50%;
+        align-self: flex-end;
+        /*background-color: darkred;*/
+        background-image: linear-gradient(to right, red, darkred);
+    }
 /* /Layout/Footer.razor.rz.scp.css */
 .footer[b-41age8wks5] {
     position: fixed;
