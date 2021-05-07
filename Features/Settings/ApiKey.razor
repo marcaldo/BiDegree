@@ -1,13 +1,13 @@
 ﻿@inject ILocalStorageService localStorage
 
-<EditForm Model="apiConfig" OnValidSubmit="() => SaveApiKey()">
+<EditForm Model="settings" OnValidSubmit="() => SaveApiKey()">
     <div class="form-group">
+        <label for="apiKeyData">OpenWeather API key:</label>
         <div class="info">
             To use this app you need an API key for the weather service.
             We use <b>OpenWeather</b>. You can get a free API Key from <a href="https://openweathermap.org/price">the openeathermap.org website.</a>
         </div>
-        <label for="apiKeyData">OpenWeather API key:</label>
-         <InputText id="apiKeyData" class="form-control" @bind-Value="apiConfig.ApiKeyValue" @onfocus="()=>ClearSavedMark()" />
+         <InputText id="apiKeyData" class="form-control" @bind-Value="settings.ApiKeyValue" @onfocus="()=>ClearSavedMark()" />
         <div class="save">
             <Icon Name="Icon.IconType.Ok" Visible="Saved" Size="25" Fill="limegreen" />
             <button class="btn btn-primary">Save</button>
@@ -16,11 +16,11 @@
 </EditForm>
 @code {
     protected bool Saved { get; set; } = false;
-    private ApiConfig apiConfig = new ApiConfig();
+    private Settings settings = new Settings();
 
     protected override async Task OnInitializedAsync()
     {
-        apiConfig.ApiKeyValue = await GetApiKey();
+        settings.ApiKeyValue = await GetApiKey();
     }
 
     protected async Task<string> GetApiKey()
@@ -37,14 +37,10 @@
 
     protected async Task SaveApiKey()
     {
-        await localStorage.SetItemAsync(Constants.KeyApiKey, apiConfig.ApiKeyValue);
-        Saved = apiConfig.ApiKeyValue == await GetApiKey();
+        await localStorage.SetItemAsync(Constants.KeyApiKey, settings.ApiKeyValue);
+        Saved = settings.ApiKeyValue == await GetApiKey();
         StateHasChanged();
     }
 
-    public class ApiConfig
-    {
-         public string ApiKeyValue { get; set; }
-
-    }
+ 
 }

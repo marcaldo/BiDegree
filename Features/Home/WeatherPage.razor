@@ -12,11 +12,11 @@
 
 @if (currentWeather == null)
 {
-    if (string.IsNullOrEmpty(_errorMessage))
+    if (string.IsNullOrEmpty(errorMessage))
     {
         <div><img src="img/loading.gif" /></div>
     }
-    else if (_unauthorized)
+    else if (unauthorized)
     {
         <div class="error-unauthorized">
             <Icon Name="Icon.IconType.EmojiSad" Size="40" Fill="red" />
@@ -28,7 +28,7 @@
     else
     {
         <Icon Name="Icon.IconType.EmojiSad" Size="32" Fill="red" />
-        <div class="error-mssg">@_errorMessage</div>
+        <div class="error-mssg">@errorMessage</div>
     }
 }
 else
@@ -37,11 +37,14 @@ else
 }
 
 @code{
-    private static Func<float, float, Task> _getWeatherFunc;
-    private string _errorMessage = null;
-    private bool _unauthorized = false;
+    private static Func<float, float, Task> getWeatherFunc;
+    private string errorMessage = null;
+    private bool unauthorized = false;
+    private bool useCity = false;
+    private string city = null;
     protected CurrentWeather currentWeather { get; set; }
     protected UnitsType units;
+
 
     private void Timer_Elapsed(object _, ElapsedEventArgs e)
     {
@@ -56,7 +59,7 @@ else
 
     protected override void OnInitialized()
     {
-        _getWeatherFunc = GetWeather;
+        getWeatherFunc = GetWeather;
     }
 
     protected override async Task OnInitializedAsync()
@@ -64,6 +67,12 @@ else
 
         var unitsConfig = await LocalStorage.GetItemAsync<UnitsType?>(Constants.KeyUnits);
         var storedRefreshMinutes = await LocalStorage.GetItemAsync<int?>(Constants.RefreshTime);
+        useCity = await LocalStorage.GetItemAsync<bool>(Constants.KeyUseCity);
+        if (useCity)
+        {
+            city = await LocalStorage.GetItemAsync <string>(Constants.KeyCity);
+        }
+
         int refreshMinutes = storedRefreshMinutes is null
                                 ? Constants.DefaultRefresh
                                 : Convert.ToInt32(storedRefreshMinutes);
@@ -89,7 +98,7 @@ else
     [JSInvokable]
     public static void GetWeatherCaller(float lat, float lon)
     {
-        _getWeatherFunc.Invoke(lat, lon);
+        getWeatherFunc.Invoke(lat, lon);
     }
 
     private async Task GetWeather(float lat, float lon)
@@ -102,16 +111,23 @@ else
     {
         try
         {
-            currentWeather = await OpenWeather.GetCurrentWeatherByCoords(lat, lon, units.ToString().ToLower());
+            if (useCity)
+            {
+                currentWeather = await OpenWeather.GetCurrentWeatherByCity(city, units.ToString().ToLower());
+            }
+            else
+            {
+                currentWeather = await OpenWeather.GetCurrentWeatherByCoords(lat, lon, units.ToString().ToLower());
+            }
         }
         catch (HttpRequestException ex)
         {
-            _unauthorized = ex.StatusCode == HttpStatusCode.Unauthorized;
-            _errorMessage = ex.Message;
+            unauthorized = ex.StatusCode == HttpStatusCode.Unauthorized;
+            errorMessage = ex.Message;
         }
         catch (Exception ex)
         {
-            _errorMessage = ex.Message;
+            errorMessage = ex.Message;
         }
     }
 
