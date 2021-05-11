@@ -9,12 +9,11 @@
 @inject IConfiguration Configuration
 @inject ILocalStorageService LocalStorage
 
-
 @if (currentWeather == null)
 {
-    if (string.IsNullOrEmpty(errorMessage))
+    if (string.IsNullOrEmpty(errorMessage) && !unauthorized)
     {
-        <div><img src="img/loading.gif" /></div>
+        <div class="loading"><img src="img/loading.gif" /></div>
     }
     else if (unauthorized)
     {
@@ -22,6 +21,7 @@
             <Icon Name="Icon.IconType.EmojiSad" Size="40" Fill="red" />
             <span>Error connectiong to the weather service.</span>
             <p>Please verify that the Openweather has the right key.</p>
+            <p>If your browser has no permission for Location  or is not supporting geolocation, try to enter a city manually.</p>
             <a href="/settings?showapikey=true" class="btn btn-secondary">Go to Settings</a>
         </div>
     }
@@ -64,14 +64,13 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-
         var unitsConfig = await LocalStorage.GetItemAsync<UnitsType?>(Constants.KeyUnits);
         var storedRefreshMinutes = await LocalStorage.GetItemAsync<int?>(Constants.RefreshTime);
         useCity = await LocalStorage.GetItemAsync<bool>(Constants.KeyUseCity);
-        if (useCity)
-        {
-            city = await LocalStorage.GetItemAsync <string>(Constants.KeyCity);
-        }
+        city = await LocalStorage.GetItemAsync<string>(Constants.KeyCity);
+
+        await GetGeoLocation();
+
 
         int refreshMinutes = storedRefreshMinutes is null
                                 ? Constants.DefaultRefresh
@@ -86,8 +85,6 @@ else
         }
 
         units = unitsConfig ?? UnitsType.Metric;
-
-        await GetGeoLocation();
     }
 
     public async Task GetGeoLocation()
@@ -103,7 +100,22 @@ else
 
     private async Task GetWeather(float lat, float lon)
     {
-        await GetCurrentWeather(lat, lon);
+        bool validLatLon = lat + lon != 0;
+        bool canUseCity = useCity && !string.IsNullOrEmpty(city);
+
+        unauthorized = !validLatLon && !canUseCity;
+
+        Console.WriteLine("validLatLon:" + validLatLon);
+        Console.WriteLine("useCity:" + useCity);
+        Console.WriteLine("city:" + city);
+        Console.WriteLine("canUseCity:" + canUseCity);
+        Console.WriteLine("unauthorized:" + unauthorized);
+
+        if (!unauthorized)
+        {
+            await GetCurrentWeather(lat, lon);
+        }
+
         StateHasChanged();
     }
 
