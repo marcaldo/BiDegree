@@ -23,8 +23,18 @@ namespace BiDegree.Services
         public async Task<CurrentWeather> GetCurrentWeatherByCoords(float lat, float lon, string units)
         {
             var url = $"{_openWeatherApiAddress}/data/2.5/weather?lat={lat}&lon={lon}&units={units}&appid={_openWeatherApiKey}";
-            var currentWeather = await _httpClient.GetFromJsonAsync<CurrentWeather>(url);
+            return await GetCurrentWeather(url, units);
+        }
 
+        public async Task<CurrentWeather> GetCurrentWeatherByCity(string city, string units)
+        {
+            var url = $"{_openWeatherApiAddress}/data/2.5/weather?q={city}&units={units}&appid={_openWeatherApiKey}";
+            return await GetCurrentWeather(url, units);
+        }
+
+        public async Task<CurrentWeather> GetCurrentWeather(string url, string units)
+        {
+            var currentWeather = await _httpClient.GetFromJsonAsync<CurrentWeather>(url);
             return currentWeather;
         }
     }

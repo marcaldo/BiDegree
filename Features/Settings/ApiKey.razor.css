@@ -3,6 +3,7 @@
     margin-top: 4px;
     align-items: center;
 }
-.save button:last-child{
-    margin-left:auto;
-}
+
+    .save button:last-child {
+        margin-left: auto;
+    }

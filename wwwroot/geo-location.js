@@ -3,7 +3,7 @@
 // Called from C# index.razor
 function getCurrentLocation() {
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(returnPosition);
+        navigator.geolocation.getCurrentPosition(returnPosition, returnNoLocation);
     } else {
         console.log("Geolocation is not supported by this browser.");
     }
@@ -12,4 +12,8 @@ function getCurrentLocation() {
 // Call the C# function "GetWeatherCaller"
 function returnPosition(position) {
     DotNet.invokeMethodAsync("BiDegree", "GetWeatherCaller", position.coords.latitude, position.coords.longitude);
+}
+
+function returnNoLocation() {
+    DotNet.invokeMethodAsync("BiDegree", "GetWeatherCaller", 0, 0);
 }
