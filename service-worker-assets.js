@@ -9,7 +9,7 @@
       "url": "appsettings.json"
     },
     {
-      "hash": "sha256-G+r6CfESra5yB9sYkOZj6eFhq9W4P4Vl5YZQaI3Cdy4=",
+      "hash": "sha256-rPFdZ8w80v8VAHbU2WcKd1EjcBXvdbPYYjoSWdpOEsI=",
       "url": "css\/app.css"
     },
     {
@@ -145,7 +145,7 @@
       "url": "img\/loading.gif"
     },
     {
-      "hash": "sha256-\/aAgseKCFUNOpEoh2uc5JMho36AlaxVR07zdn70GfWg=",
+      "hash": "sha256-pnNUD0qfGLvF+tlFMyE+L2phc2QkXRPyp4VKzIOf5Hw=",
       "url": "index.html"
     },
     {
@@ -377,5 +377,5 @@
       "url": "_framework\/blazor.webassembly.js"
     }
   ],
-  "version": "xJgjOi7z"
+  "version": "hF3GYSId"
 };
