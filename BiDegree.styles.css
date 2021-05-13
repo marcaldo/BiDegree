@@ -160,6 +160,20 @@ table[b-hava5cs9gl] {
 select[b-07xzobprs0] {
     max-width: 250px;
 }
+/* /Features/Settings/SettingsPage.razor.rz.scp.css */
+.about[b-rpt1bdzoyl] {
+    padding: 17px;
+}
+ul[b-rpt1bdzoyl]{
+    padding-inline-start: 0;
+}
+
+.settings-group li[b-rpt1bdzoyl] {
+    list-style: none;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid rgb(38 38 38 / 80%);
+}
 /* /Features/Settings/UnitSystem.razor.rz.scp.css */
 /*https://www.w3schools.com/howto/howto_css_switch.asp*/
 .switch[b-zd5fa0kjzu] {
