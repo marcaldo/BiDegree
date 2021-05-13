@@ -1,16 +1,17 @@
 ﻿@page "/settings"
 @inject NavigationManager NavManager
 <h3>Settings</h3>
-<div class="settings-group">
-    <ApiKey />
-    <hr />
-    <UnitSystem />
-    <hr />
-    <RefreshTimer />
-    <hr />
-    <CitySelection />
-    <hr />
-</div>
+<ul class="settings-group">
+    <li><ApiKey /></li>
+    <li><UnitSystem /></li>
+    <li><RefreshTimer /></li>
+    <li><CitySelection /></li>
+    <li class="about">
+        <h4>Bidegree</h4>
+        <p>2021</p>
+        <p></p>
+    </li>
+</ul>
 
 @code {
     private bool _showApiKey = false;
