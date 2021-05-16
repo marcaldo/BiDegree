@@ -1,4 +1,5 @@
 ﻿@using BiDegree.Models
+@using System.Globalization
 @inject StateContainer StateContainer
 <style>
     /* Full background image from https://www.w3schools.com/howto/howto_css_full_page.asp */
@@ -20,7 +21,7 @@
             <div class="place">
                 <div class="city">@CurrentWeather.name</div>
                 <div class="lastupd" @onclick="() => OnClick.InvokeAsync()">
-                    @DateTime.Now.ToString("g")&nbsp;<Icon Name="Icon.IconType.Refresh" Size="20" />
+                    @RefreshTime()&nbsp;<Icon Name="Icon.IconType.Refresh" Size="20" />
                 </div>
             </div>
         </div>
@@ -122,6 +123,13 @@
         return Units is UnitsType.Metric
                         ? $"{temp.ToDecimalString()} °C{temp.ToFahrenheitString()} °F"
                         : $"{temp.ToDecimalString()} °F{temp.ToCelsiusString()} °C";
+    }
+
+    private string RefreshTime()
+    {
+        var datePattern = DateTimeFormatInfo.CurrentInfo.MonthDayPattern;
+        var timePattern = DateTimeFormatInfo.CurrentInfo.ShortTimePattern;
+        return DateTime.Now.ToString($"{datePattern}, {timePattern}");
     }
 
 }

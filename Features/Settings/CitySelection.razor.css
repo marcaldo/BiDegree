@@ -16,8 +16,8 @@
 }
 
     .check-selection input[type=checkbox] {
-        height: 20px;
-        width: 20px;
+        height: 2.5rem;
+        width: 2.5rem;
         cursor: pointer;
     }
 

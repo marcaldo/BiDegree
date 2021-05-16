@@ -12,6 +12,6 @@ namespace BiDegree.Shared
         public const string KeyUseCity = "usecity";
         public const string KeyUnits = "units";
         public const string RefreshTime = "refresh";
-        public const int DefaultRefresh = 480;
+        public const int DefaultRefresh = 240;
     }
 }
