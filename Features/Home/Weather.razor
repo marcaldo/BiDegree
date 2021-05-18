@@ -112,7 +112,7 @@
             windSpeedUnits = "Mi/h";
         }
 
-        windDir = $"{CurrentWeather.wind.deg}deg";
+        windDir = $"{CurrentWeather.wind.deg - 180}deg";
 
         StateContainer.CurrentTemp = CurrentWeather.main.temp;
     }
