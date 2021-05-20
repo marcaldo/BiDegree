@@ -1,5 +1,7 @@
 ﻿@page "/settings"
 @inject NavigationManager NavManager
+@inject ISyncLocalStorageService LocalStorage
+
 <h3>Settings</h3>
 <ul class="settings-group">
     <li><UnitSystem /></li>
@@ -16,12 +18,19 @@
 </ul>
 
 @code {
-    private bool _showApiKey = false;
+    private bool showApiKey = false;
+    private string dapi = null;
+    private string dfolder = null;
 
     protected override void OnInitialized()
     {
-        NavManager.TryGetQueryString<bool>("showapikey", out _showApiKey);
-    }
+        NavManager.TryGetQueryString<bool>("showapikey", out showApiKey);
+        NavManager.TryGetQueryString<string>(Constants.DriveKeyApiKey, out dapi);
+        NavManager.TryGetQueryString<string>(Constants.DriveFolderId, out dfolder);
 
+        if (!string.IsNullOrEmpty(dapi)) { LocalStorage.SetItem(Constants.DriveKeyApiKey, dapi); }
+        if (!string.IsNullOrEmpty(dfolder)) { LocalStorage.SetItem(Constants.DriveFolderId, dfolder); }
+
+    }
 
 }

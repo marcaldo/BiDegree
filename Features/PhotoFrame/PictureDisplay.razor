@@ -1,21 +1,23 @@
 ﻿<style>
     body {
-        background-image: url("@ItemLink");
-        height: 100%;
-        background-position: center;
-        background-repeat: no-repeat;
+        background: url("@ItemLink") no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
         background-size: cover;
+        overflow: hidden;
     }
 </style>
 
-<button @onclick="ShowNext">Next</button>
 @if (isDebugMode)
 {
+
     <div class="debug">
         @if (driveFileList != null)
         {
+            <button @onclick="ShowNext">Next</button>
             <ul>
-
+                <li>Items:</li>
                 @foreach (var driveFile in driveFileList.items)
                 {
                     <li>@driveFile.webContentLink</li>
@@ -24,6 +26,7 @@
 
             <hr />
             <ul>
+                <li>Display order:</li>
                 @foreach (var item in displayQueue)
                 {
                     <li>@item.Key  -  @item.Value</li>
