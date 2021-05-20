@@ -14,15 +14,20 @@ namespace BiDegree.Features.PhotoFrame
     {
         [Inject] IGoogleApi GoogleApi { get; set; }
         [Inject] ILocalStorageService LocalStorage { get; set; }
+        [Inject] NavigationManager Navigation { get; set; }
+
 
         private string ItemLink { get; set; }
 
         static Dictionary<int, string> displayQueue;
 
         private DriveFileList driveFileList;
+        private bool isDebugMode = false;
 
         protected override async Task OnInitializedAsync()
         {
+            Navigation.TryGetQueryString("debug", out isDebugMode);
+
             var folderId = await LocalStorage.GetItemAsync<string>(Constants.DriveFolderId);
 
             driveFileList = await GoogleApi.GetDriveFileList(folderId);
