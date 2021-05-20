@@ -105,12 +105,6 @@ else
 
         unauthorized = !validLatLon && !canUseCity;
 
-        Console.WriteLine("validLatLon:" + validLatLon);
-        Console.WriteLine("useCity:" + useCity);
-        Console.WriteLine("city:" + city);
-        Console.WriteLine("canUseCity:" + canUseCity);
-        Console.WriteLine("unauthorized:" + unauthorized);
-
         if (!unauthorized)
         {
             await GetCurrentWeather(lat, lon);
