@@ -18,23 +18,42 @@ namespace BiDegree.Features.PhotoFrame
 
 
         private string ItemLink { get; set; }
+        private string folderId;
+        private bool isDebugMode = false;
 
         static Dictionary<int, string> displayQueue;
-
         private DriveFileList driveFileList;
-        private bool isDebugMode = false;
 
         protected override async Task OnInitializedAsync()
         {
             Navigation.TryGetQueryString("debug", out isDebugMode);
 
-            var folderId = await LocalStorage.GetItemAsync<string>(Constants.DriveFolderId);
+            folderId = await LocalStorage.GetItemAsync<string>(Constants.DriveFolderId);
 
             driveFileList = await GoogleApi.GetDriveFileList(folderId);
-            SetDisplayList(driveFileList);
+            SetDisplayList();
+            await ShowNext();
         }
 
-        private void SetDisplayList(DriveFileList driveFileList)
+
+        public async Task ShowNext()
+        {
+            var item = displayQueue.FirstOrDefault();
+
+            if (item.Key == 0)
+            {
+                driveFileList = await GoogleApi.GetDriveFileList(folderId);
+                SetDisplayList();
+                item = displayQueue.FirstOrDefault();
+            }
+
+            ItemLink = item.Value;
+            displayQueue.Remove(item.Key);
+
+            StateHasChanged();
+        }
+
+        private void SetDisplayList()
         {
             var totalItems = driveFileList.items.Count();
 
@@ -50,8 +69,6 @@ namespace BiDegree.Features.PhotoFrame
                 }
 
                 tempQueue.Clear();
-
-                ItemLink = displayQueue.First().Value;
             }
         }
 
@@ -74,13 +91,12 @@ namespace BiDegree.Features.PhotoFrame
                 var link = driveFile.webContentLink.Substring(0, ampPos);
 
                 Random rnd = new Random();
-                int rndPosition = 0;
                 var itemAdded = false;
 
                 while (!itemAdded)
                 {
                     // Arbitraty random numbers (more that items count) just to set an order.
-                    rndPosition = rnd.Next(maxRandomNumber);
+                    int rndPosition = rnd.Next(1, maxRandomNumber);
 
                     if (!tempQueue.ContainsKey(rndPosition))
                     {
