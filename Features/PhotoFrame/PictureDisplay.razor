@@ -7,29 +7,27 @@
         background-size: cover;
     }
 </style>
-<h3>PictureDisplay</h3>
 
-@if (driveFileList != null)
+@if (isDebugMode)
 {
-    <ul>
-
-        @foreach (var driveFile in driveFileList.items)
+    <div class="debug">
+        @if (driveFileList != null)
         {
-            <li>@driveFile.webContentLink</li>
+            <ul>
+
+                @foreach (var driveFile in driveFileList.items)
+                {
+                    <li>@driveFile.webContentLink</li>
+                }
+            </ul>
+
+            <hr />
+            <ul>
+                @foreach (var item in displayQueue)
+                {
+                    <li>@item.Key  -  @item.Value</li>
+                }
+            </ul>
         }
-    </ul>
-
-    <hr />
-    <ul>
-        @foreach (var item in displayQueue)
-        {
-            <li>@item.Key  -  @item.Value</li>
-        }
-    </ul>
-
-}
-
-
-@code {
-
+    </div>
 }

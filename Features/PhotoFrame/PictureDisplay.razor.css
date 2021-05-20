@@ -1,2 +1,4 @@
-﻿body {
+﻿.debug {
+    color: forestgreen;
+    background-color: var(--text-bg-color);
 }
