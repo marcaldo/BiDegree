@@ -1,0 +1,17 @@
+﻿.debug {
+    color: #08f208;
+    background-color: var(--text-bg-color);
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    font-size: 0.85em;
+}
+
+    .debug ul li:first-child {
+        list-style: none;
+        text-decoration: underline;
+    }
+    .debug button {
+        background-color: yellow;
+        width: 67px;
+    }

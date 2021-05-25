@@ -1,0 +1,5 @@
+﻿.weather {
+    background-color: var(--text-bg-color);
+    height: 100vh;
+    width: 20rem;
+}

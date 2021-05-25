@@ -8,6 +8,8 @@ namespace BiDegree.Shared
     public static class Constants
     {
         public const string KeyApiKey = "apikey";
+        public const string DriveKeyApiKey = "key";
+        public const string DriveFolderId = "id";
         public const string KeyCity = "city";
         public const string KeyUseCity = "usecity";
         public const string KeyUnits = "units";

@@ -8,6 +8,8 @@ namespace BiDegree.Shared
     public class Settings
     {
         public string ApiKeyValue { get; set; }
+        public string DriveApiKeyValue { get; set; }
+        public string DriveFolderId { get; set; }
         public string City { get; set; }
         public bool UseCity { get; set; }
 
