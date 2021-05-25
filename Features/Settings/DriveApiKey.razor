@@ -1,0 +1,53 @@
+﻿@inject ILocalStorageService localStorage
+
+<EditForm Model="settings" OnValidSubmit="() => SaveApiKey()">
+    <div class="form-group">
+        <label for="dApiKeyData">Drive API Key:</label>
+        <div class="info">
+            To use this app you need an API key for Google Drive.
+        </div>
+        <InputText id="dApiKeyData" class="form-control" @bind-Value="settings.DriveApiKeyValue" @onfocus="()=>ClearSavedMark()" />
+        <label for="dFolderId">Folder id:</label>
+        <InputText id="
+        " class="form-control" @bind-Value="settings.DriveFolderId" @onfocus="()=>ClearSavedMark()" />
+        <div class="save">
+            <Icon Name="Icon.IconType.Ok" Visible="Saved" Size="25" Fill="limegreen" />
+            <button class="btn btn-primary">Save</button>
+        </div>
+    </div>
+</EditForm>
+@code {
+    protected bool Saved { get; set; } = false;
+    private Settings settings = new Settings();
+
+    protected override async Task OnInitializedAsync()
+    {
+        settings.DriveApiKeyValue = await GetStorageValue(Constants.DriveKeyApiKey);
+        settings.DriveFolderId = await GetStorageValue(Constants.DriveFolderId);
+    }
+
+    protected async Task<string> GetStorageValue(string storageKey)
+    {
+        return await localStorage.GetItemAsync<string>(storageKey);
+    }
+
+    protected void ClearSavedMark()
+    {
+        Saved = false;
+        StateHasChanged();
+    }
+
+    protected async Task SaveApiKey()
+    {
+        await localStorage.SetItemAsync(Constants.DriveKeyApiKey, settings.DriveApiKeyValue);
+        await localStorage.SetItemAsync(Constants.DriveFolderId, settings.DriveFolderId);
+
+        Saved = (settings.DriveApiKeyValue == await GetStorageValue(Constants.DriveKeyApiKey)
+                 && settings.DriveFolderId == await GetStorageValue(Constants.DriveFolderId)
+                 );
+
+        StateHasChanged();
+    }
+
+
+}
