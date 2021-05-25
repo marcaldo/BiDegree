@@ -26,12 +26,13 @@
 
             <hr />
             <ul>
-                <li>Display order:</li>
+                <li>Queue:</li>
                 @foreach (var item in displayQueue)
                 {
                     <li>@item.Key  -  @item.Value</li>
                 }
             </ul>
+            <p>Elapsed: @duration seg.</p>
         }
     </div>
 }

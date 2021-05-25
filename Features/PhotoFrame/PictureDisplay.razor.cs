@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using BiDegree.Services;
 using Blazored.LocalStorage;
 using BiDegree.Shared;
+using System.Timers;
 
 namespace BiDegree.Features.PhotoFrame
 {
@@ -20,6 +21,7 @@ namespace BiDegree.Features.PhotoFrame
         private string ItemLink { get; set; }
         private string folderId;
         private bool isDebugMode = false;
+        private double duration = 10;
 
         static Dictionary<int, string> displayQueue;
         private DriveFileList driveFileList;
@@ -32,6 +34,14 @@ namespace BiDegree.Features.PhotoFrame
 
             driveFileList = await GoogleApi.GetDriveFileList(folderId);
             SetDisplayList();
+
+
+            Timer timer = new();
+            timer.Interval = 1000 * duration;
+            timer.Elapsed += Timer_Elapsed;
+            timer.Enabled = true;
+
+
             await ShowNext();
         }
 
@@ -107,6 +117,11 @@ namespace BiDegree.Features.PhotoFrame
             }
 
             return tempQueue;
+        }
+
+        private void Timer_Elapsed(object _, ElapsedEventArgs e)
+        {
+            ShowNext().Wait();
         }
     }
 }
