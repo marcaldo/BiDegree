@@ -118,6 +118,30 @@ table[b-hava5cs9gl] {
     text-align: center;
     margin-top: 70px;
 }
+/* /Features/PhotoFrame/PhotoFramePage.razor.rz.scp.css */
+.weather[b-nkgdqso7ah] {
+    background-color: var(--text-bg-color);
+    height: 100vh;
+    width: 20rem;
+}
+/* /Features/PhotoFrame/PictureDisplay.razor.rz.scp.css */
+.debug[b-u6qraddolp] {
+    color: #08f208;
+    background-color: var(--text-bg-color);
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    font-size: 0.85em;
+}
+
+    .debug ul li:first-child[b-u6qraddolp] {
+        list-style: none;
+        text-decoration: underline;
+    }
+    .debug button[b-u6qraddolp] {
+        background-color: yellow;
+        width: 67px;
+    }
 /* /Features/Settings/ApiKey.razor.rz.scp.css */
 .save[b-3yl495z0fu] {
     display: flex;
@@ -155,6 +179,16 @@ table[b-hava5cs9gl] {
     .check-selection label[b-q3x4kyl8xb] {
         margin-left: 7px;
         cursor: pointer;
+    }
+/* /Features/Settings/DriveApiKey.razor.rz.scp.css */
+.save[b-rfm2sc7ag9] {
+    display: flex;
+    margin-top: 4px;
+    align-items: center;
+}
+
+    .save button:last-child[b-rfm2sc7ag9] {
+        margin-left: auto;
     }
 /* /Features/Settings/RefreshTimer.razor.rz.scp.css */
 select[b-07xzobprs0] {
