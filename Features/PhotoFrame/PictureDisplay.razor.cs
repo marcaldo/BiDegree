@@ -21,7 +21,7 @@ namespace BiDegree.Features.PhotoFrame
         private string ItemLink { get; set; }
         private string folderId;
         private bool isDebugMode = false;
-        private double duration = 10;
+        private double duration = Constants.DefaultShowTime;
 
         static Dictionary<int, string> displayQueue;
         private DriveFileList driveFileList;
@@ -35,6 +35,10 @@ namespace BiDegree.Features.PhotoFrame
             driveFileList = await GoogleApi.GetDriveFileList(folderId);
             SetDisplayList();
 
+            var storedDuration = await LocalStorage.GetItemAsync<double?>(Constants.ShowTime);
+            duration = storedDuration is null
+                ? Constants.DefaultShowTime
+                : (double)storedDuration;
 
             Timer timer = new();
             timer.Interval = 1000 * duration;
