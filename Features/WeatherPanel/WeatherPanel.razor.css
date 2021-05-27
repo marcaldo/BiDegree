@@ -1,0 +1,14 @@
+﻿.datetime ::deep .clock {
+    background-color: transparent;
+}
+
+    .datetime ::deep .clock .date {
+        color: #fbe491;
+        font-size: 1em;
+        font-weight: 900;
+    }
+
+    .datetime ::deep .clock .time {
+        font-size: 3.2em;
+        font-weight: 900;
+    }

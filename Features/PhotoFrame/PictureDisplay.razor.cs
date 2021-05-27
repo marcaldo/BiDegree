@@ -61,7 +61,7 @@ namespace BiDegree.Features.PhotoFrame
                 item = displayQueue.FirstOrDefault();
             }
 
-            ItemLink = item.Value;
+            ItemLink = "https://drive.google.com/uc?id=11Tg3qnDAY6DLfMs_tHek2U5MItMsXnJi"; // item.Value;
             displayQueue.Remove(item.Key);
 
             StateHasChanged();
