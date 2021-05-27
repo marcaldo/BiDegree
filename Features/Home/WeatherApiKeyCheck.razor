@@ -20,7 +20,11 @@
             LocalStorage.SetItem<string>(Constants.KeyApiKey, configApiKey);
         }
 
-        NavManager.NavigateTo($"{uri}/weather");
+        var startPage = LocalStorage.GetItem<string>(Constants.StartPage) is null
+        ? Constants.DefaultStartingPage
+        : LocalStorage.GetItem<string>(Constants.StartPage);
+
+        NavManager.NavigateTo($"{uri}/{startPage}");
     }
 
 }
