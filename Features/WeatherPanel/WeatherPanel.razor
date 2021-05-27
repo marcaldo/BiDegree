@@ -1,6 +1,9 @@
 ﻿@using BiDegree.Models
+@using BiDegree.Shared
 @using System.Globalization
-
+<div class="datetime">
+    <Clock />
+</div>
 
 @code {
     [Parameter] public CurrentWeather CurrentWeather { get; set; }
