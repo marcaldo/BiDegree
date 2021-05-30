@@ -1,20 +1,3 @@
-/* /Features/Home/Clock.razor.rz.scp.css */
-.clock[b-7kcap2mkhh] {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 15px;
-    border-radius: 15px;
-    background-color: var(--text-bg-color);
-}
-.time[b-7kcap2mkhh] {
-    font-size: 3em;
-}
-
-.date[b-7kcap2mkhh] {
-    color: aquamarine;
-    font-size: 0.8em;
-}
 /* /Features/Home/TemperatureValues.razor.rz.scp.css */
 .t1[b-304nkob0sg], .t2[b-304nkob0sg] {
     padding: 15px;
@@ -123,6 +106,7 @@ table[b-hava5cs9gl] {
     background-color: var(--text-bg-color);
     height: 100vh;
     width: 20rem;
+    margin-left: auto;
 }
 /* /Features/PhotoFrame/PictureDisplay.razor.rz.scp.css */
 .debug[b-u6qraddolp] {
@@ -190,6 +174,10 @@ table[b-hava5cs9gl] {
     .save button:last-child[b-rfm2sc7ag9] {
         margin-left: auto;
     }
+/* /Features/Settings/PhotoFrameShowTime.razor.rz.scp.css */
+select[b-xihsle1uyv] {
+    max-width: 250px;
+}
 /* /Features/Settings/RefreshTimer.razor.rz.scp.css */
 select[b-07xzobprs0] {
     max-width: 250px;
@@ -207,6 +195,10 @@ ul[b-rpt1bdzoyl]{
     padding-top: 25px;
     padding-bottom: 25px;
     border-bottom: 1px solid rgb(38 38 38 / 80%);
+}
+/* /Features/Settings/StartPage.razor.rz.scp.css */
+select[b-3q02m8ygod] {
+    max-width: 250px;
 }
 /* /Features/Settings/UnitSystem.razor.rz.scp.css */
 /*https://www.w3schools.com/howto/howto_css_switch.asp*/
@@ -373,6 +365,21 @@ input:checked + .slider[b-zd5fa0kjzu] {
         /*background-color: darkred;*/
         background-image: linear-gradient(to right, red, darkred);
     }
+/* /Features/WeatherPanel/WeatherPanel.razor.rz.scp.css */
+.datetime[b-osh7t84i7f]  .clock {
+    background-color: transparent;
+}
+
+    .datetime[b-osh7t84i7f]  .clock .date {
+        color: #fbe491;
+        font-size: 1em;
+        font-weight: 900;
+    }
+
+    .datetime[b-osh7t84i7f]  .clock .time {
+        font-size: 3.2em;
+        font-weight: 900;
+    }
 /* /Layout/Footer.razor.rz.scp.css */
 .footer[b-41age8wks5] {
     position: fixed;
@@ -395,4 +402,21 @@ input:checked + .slider[b-zd5fa0kjzu] {
     margin: 15px;
     padding-right: 5px;
     cursor: pointer;
+}
+/* /Shared/Clock.razor.rz.scp.css */
+.clock[b-zdffwwzdl1] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    border-radius: 15px;
+    background-color: var(--text-bg-color);
+}
+.time[b-zdffwwzdl1] {
+    font-size: 3em;
+}
+
+.date[b-zdffwwzdl1] {
+    color: aquamarine;
+    font-size: 0.8em;
 }
