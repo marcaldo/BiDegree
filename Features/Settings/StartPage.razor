@@ -1,0 +1,35 @@
+﻿@inject ISyncLocalStorageService LocalStorage
+<div class="form-group">
+    <label for="startPageSelector">Default starting page:</label>
+    <select class="form-control" id="startPageSelector" @bind="startPage" @onfocus="()=>saved=false">
+        <option value="@Constants.DefaultStartingPage">Weather</option>
+        <option value="photos">Photo Frame</option>
+    </select>
+    <div class="save">
+        <Icon Name="Icon.IconType.Ok" Visible="saved" Size="25" Fill="limegreen" />
+    </div>
+</div>
+
+@code {
+    protected bool saved { get; set; } = false;
+
+    private string _startPage;
+    private string startPage
+    {
+        get => _startPage;
+        set
+        {
+            _startPage = value;
+            LocalStorage.SetItem(Constants.StartPage, startPage);
+            saved = true;
+        }
+    }
+
+    protected override void OnInitialized()
+    {
+        _startPage = LocalStorage.GetItem<string>(Constants.StartPage) is null
+        ? Constants.DefaultStartingPage
+        : LocalStorage.GetItem<string>(Constants.StartPage);
+    }
+
+}

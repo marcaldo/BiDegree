@@ -3,10 +3,16 @@
 @inject ISyncLocalStorageService LocalStorage
 
 @code {
+    private string openWeatherApi;
+    private string DriveApi;
+    private string DriveFolder;
+
     protected override void OnInitialized()
     {
+        SetSettingsFromQueryString();
+
         var apiKey = LocalStorage.GetItem<string>(Constants.KeyApiKey);
-        var uri = NavManager.ToAbsoluteUri(NavManager.Uri);
+        var uri = NavManager.ToAbsoluteUri(NavManager.BaseUri);
 
         if (string.IsNullOrEmpty(apiKey))
         {
@@ -20,7 +26,35 @@
             LocalStorage.SetItem<string>(Constants.KeyApiKey, configApiKey);
         }
 
-        NavManager.NavigateTo($"{uri}/weather");
+        var startPage = LocalStorage.GetItem<string>(Constants.StartPage) is null
+        ? Constants.DefaultStartingPage
+        : LocalStorage.GetItem<string>(Constants.StartPage);
+
+        NavManager.NavigateTo($"{uri}/{startPage}");
+    }
+
+    private bool SetSettingsFromQueryString()
+    {
+        NavManager.TryGetQueryString<string>(Constants.KeyApiKey, out openWeatherApi);
+        NavManager.TryGetQueryString<string>(Constants.DriveKeyApiKey, out DriveApi);
+        NavManager.TryGetQueryString<string>(Constants.DriveFolderId, out DriveFolder);
+
+        if (string.IsNullOrEmpty(openWeatherApi)
+                || string.IsNullOrEmpty(DriveApi)
+                || string.IsNullOrEmpty(DriveFolder))
+        {
+            return false;
+        }
+
+        Console.WriteLine(openWeatherApi);
+        Console.WriteLine(DriveApi);
+        Console.WriteLine(DriveFolder);
+
+        LocalStorage.SetItem(Constants.KeyApiKey, openWeatherApi);
+        LocalStorage.SetItem(Constants.DriveKeyApiKey, DriveApi);
+        LocalStorage.SetItem(Constants.DriveFolderId, DriveFolder);
+
+        return true;
     }
 
 }

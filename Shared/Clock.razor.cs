@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Timers;
 
-namespace BiDegree.Features.Home
+namespace BiDegree.Shared
 {
     public partial class Clock
     {
@@ -26,7 +26,7 @@ namespace BiDegree.Features.Home
         private void SetDateTime()
         {
             DateTime now = DateTime.Now;
-            DisplayDate = now.ToString("D");
+            DisplayDate = $"{now.DayOfWeek.ToString()[..3].ToUpper()}, {now.ToString("MMM")} {now:dd}, '{now:yy}";            
             DisplayTime = now.ToString("t");
         }
     }
