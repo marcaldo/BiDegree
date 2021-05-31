@@ -21,18 +21,38 @@
 
 @code {
     private bool showApiKey = false;
-    private string dapi = null;
-    private string dfolder = null;
+    private string openWeatherApi;
+    private string driveApi;
+    private string driveFolder;
+    private string defaultStartPage;
+    private int elapsedSlideShow;
+    private int weatherRefreshTime;
 
     protected override void OnInitialized()
     {
-        NavManager.TryGetQueryString<bool>("showapikey", out showApiKey);
-        NavManager.TryGetQueryString<string>(Constants.DriveKeyApiKey, out dapi);
-        NavManager.TryGetQueryString<string>(Constants.DriveFolderId, out dfolder);
+        SetSettingsFromQueryString();
+    }
 
-        if (!string.IsNullOrEmpty(dapi)) { LocalStorage.SetItem(Constants.DriveKeyApiKey, dapi); }
-        if (!string.IsNullOrEmpty(dfolder)) { LocalStorage.SetItem(Constants.DriveFolderId, dfolder); }
+    private void SetSettingsFromQueryString()
+    {
+        NavManager.TryGetQueryString<string>(Constants.KeyApiKey, out openWeatherApi);
+        NavManager.TryGetQueryString<string>(Constants.DriveKeyApiKey, out driveApi);
+        NavManager.TryGetQueryString<string>(Constants.DriveFolderId, out driveFolder);
+        NavManager.TryGetQueryString<string>(Constants.StartPage, out defaultStartPage);
+        NavManager.TryGetQueryString<int>(Constants.ShowTime, out elapsedSlideShow);
+        NavManager.TryGetQueryString<int>(Constants.RefreshTime, out weatherRefreshTime);
 
+        if (!string.IsNullOrEmpty(openWeatherApi)) { LocalStorage.SetItem(Constants.KeyApiKey, openWeatherApi); }
+        if (!string.IsNullOrEmpty(driveApi)) { LocalStorage.SetItem(Constants.DriveKeyApiKey, driveApi); }
+        if (!string.IsNullOrEmpty(driveFolder)) { LocalStorage.SetItem(Constants.DriveFolderId, driveFolder); }
+        if (elapsedSlideShow > 0) { LocalStorage.SetItem(Constants.ShowTime, elapsedSlideShow); }
+        if (weatherRefreshTime > 0) { LocalStorage.SetItem(Constants.RefreshTime, weatherRefreshTime); }
+
+        if (!string.IsNullOrEmpty(defaultStartPage))
+        {
+            LocalStorage.SetItem(Constants.StartPage, defaultStartPage);
+            NavManager.NavigateTo(defaultStartPage);
+        }
     }
 
 }
