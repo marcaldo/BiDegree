@@ -21,17 +21,17 @@
 		  <li>- Current: @ItemLink</li>
 				@foreach (var item in displayQueue)
 				{
-			  <li>@item.Key  -  @item.Value</li>
+			  <li>@item.Key <img src="@item.Value" style="width:100px" /><br />@item.Value</li>
 				}
 		 </ul>
-		@* <hr />
-		 <ul>
-		  <li><ul>Items:</ul></li>
+			@* <hr />
+				<ul>
+				<li><ul>Items:</ul></li>
 				@foreach (var driveFile in driveFileList.items)
 				{
-			  <li>@driveFile.webContentLink</li>
+				<li>@driveFile.webContentLink</li>
 				}
-		 </ul>*@
+				</ul>*@
 		}
 	</div>
 }
