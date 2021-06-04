@@ -1,6 +1,10 @@
 ﻿.weather {
-    background-color: var(--text-bg-color);
-    height: 100vh;
-    width: 20rem;
     margin-left: auto;
+    background: rgba(0, 0, 0, 0.3);
+    height: 100vh;
+    width: 17rem;
+    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }

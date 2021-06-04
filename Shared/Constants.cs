@@ -13,6 +13,7 @@ namespace BiDegree.Shared
         public const string KeyCity = "city";
         public const string KeyUseCity = "usecity";
         public const string KeyUnits = "units";
+        public const string TimeFormat = "tformat";
         public const string RefreshTime = "refresh";
         public const string ShowTime = "showt";
         public const string StartPage = "start";
