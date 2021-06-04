@@ -46,10 +46,6 @@
             return false;
         }
 
-        Console.WriteLine(openWeatherApi);
-        Console.WriteLine(DriveApi);
-        Console.WriteLine(DriveFolder);
-
         LocalStorage.SetItem(Constants.KeyApiKey, openWeatherApi);
         LocalStorage.SetItem(Constants.DriveKeyApiKey, DriveApi);
         LocalStorage.SetItem(Constants.DriveFolderId, DriveFolder);
