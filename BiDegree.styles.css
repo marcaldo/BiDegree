@@ -103,10 +103,14 @@ table[b-hava5cs9gl] {
 }
 /* /Features/PhotoFrame/PhotoFramePage.razor.rz.scp.css */
 .weather[b-nkgdqso7ah] {
-    background-color: var(--text-bg-color);
-    height: 100vh;
-    width: 20rem;
     margin-left: auto;
+    background: rgba(0, 0, 0, 0.3);
+    height: 100vh;
+    width: 17rem;
+    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 /* /Features/PhotoFrame/PictureDisplay.razor.rz.scp.css */
 .debug[b-u6qraddolp] {
@@ -200,6 +204,82 @@ ul[b-rpt1bdzoyl]{
 select[b-3q02m8ygod] {
     max-width: 250px;
 }
+/* /Features/Settings/TimeFormat.razor.rz.scp.css */
+/*https://www.w3schools.com/howto/howto_css_switch.asp*/
+.switch[b-8d7r06yujy] {
+    position: relative;
+    display: inline-block;
+    width: 115px;
+    height: 41px;
+}
+
+    .switch input[b-8d7r06yujy] {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+.slider[b-8d7r06yujy] {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #000000;
+    -webkit-transition: .7s;
+    transition: .7s;
+    width: 115px;
+    height: 41px;
+}
+
+    .slider[b-8d7r06yujy]:before {
+        position: absolute;
+        content: "";
+        height: 33px;
+        width: 33px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        -webkit-transition: .8s;
+        transition: .8s;
+    }
+
+input:checked + .slider[b-8d7r06yujy] {
+    background-color: #000000;
+}
+
+
+    input:checked + .slider[b-8d7r06yujy]:before {
+        -webkit-transform: translateX(75px);
+        -ms-transform: translateX(75px);
+        transform: translateX(75px);
+    }
+
+/* Rounded sliders */
+.slider.round[b-8d7r06yujy] {
+    border-radius: 34px;
+}
+
+    .slider.round[b-8d7r06yujy]:before {
+        border-radius: 50%;
+    }
+
+.selector[b-8d7r06yujy] {
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    margin: auto;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+    .selector .unit-def[b-8d7r06yujy] {
+        font-size: 3em;
+        margin: 13px;
+    }
 /* /Features/Settings/UnitSystem.razor.rz.scp.css */
 /*https://www.w3schools.com/howto/howto_css_switch.asp*/
 .switch[b-zd5fa0kjzu] {
@@ -368,18 +448,25 @@ input:checked + .slider[b-zd5fa0kjzu] {
 /* /Features/WeatherPanel/WeatherPanel.razor.rz.scp.css */
 .datetime[b-osh7t84i7f]  .clock {
     background-color: transparent;
+    padding: 0;
 }
 
     .datetime[b-osh7t84i7f]  .clock .date {
         color: #fbe491;
-        font-size: 1em;
-        font-weight: 900;
+        font-size: 1.2em;
+        margin-top: -15px;
     }
 
     .datetime[b-osh7t84i7f]  .clock .time {
-        font-size: 3.2em;
-        font-weight: 900;
+        font-size: 5em;
+        font-family: fangsong;
     }
+
+.goto[b-osh7t84i7f] {
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: 12px;
+}
 /* /Layout/Footer.razor.rz.scp.css */
 .footer[b-41age8wks5] {
     position: fixed;
@@ -415,6 +502,9 @@ input:checked + .slider[b-zd5fa0kjzu] {
 .time[b-zdffwwzdl1] {
     font-size: 3em;
 }
+    .time .ampm[b-zdffwwzdl1] {
+        font-size: 0.5em;
+    }
 
 .date[b-zdffwwzdl1] {
     color: aquamarine;
