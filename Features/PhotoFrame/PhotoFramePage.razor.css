@@ -1,6 +1,6 @@
 ﻿.weather {
-    background-color: var(--text-bg-color);
+    background: rgba(0, 0, 0, 0.3);
     height: 100vh;
-    width: 20rem;
+    width: 17rem;
     margin-left: auto;
 }
