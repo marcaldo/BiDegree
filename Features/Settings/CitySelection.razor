@@ -40,7 +40,6 @@
     {
         settings.City = await GetCityAsync();
         settings.UseCity = await localStorage.GetItemAsync<bool>(Constants.KeyUseCity);
-        Console.WriteLine(settings.UseCity);
     }
 
     protected async Task<string> GetCityAsync()
