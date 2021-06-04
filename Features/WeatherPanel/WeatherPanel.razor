@@ -1,11 +1,22 @@
 ﻿@using BiDegree.Models
 @using BiDegree.Shared
 @using System.Globalization
+@inject NavigationManager Navigation
 <div class="datetime">
-    <Clock />
+	<Clock />
+</div>
+<div class="goto" @onclick="() => NavigateTo(settingsPage, false)">
+	<Icon Name="Icon.IconType.Settings"Fill="white" />
 </div>
 
 @code {
-    [Parameter] public CurrentWeather CurrentWeather { get; set; }
-    [Parameter] public UnitsType Units { get; set; }
+	[Parameter] public CurrentWeather CurrentWeather { get; set; }
+	[Parameter] public UnitsType Units { get; set; }
+
+	const string settingsPage = "settings";
+
+	private void NavigateTo(string page, bool forceLoad)
+	{
+		Navigation.NavigateTo($"{Navigation.BaseUri}{page}", forceLoad: forceLoad);
+	}
 }

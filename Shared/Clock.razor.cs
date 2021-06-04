@@ -40,8 +40,6 @@ namespace BiDegree.Shared
             DateTime now = DateTime.Now;
             DisplayDate = $"{now.DayOfWeek.ToString()[..3].ToUpper()}, {now:MMM} {now:dd}, '{now:yy}";
 
-            Console.WriteLine(timeFormat);
-
             if (timeFormat == TimeFormatType.T12hs)
             {
                 DisplayTime = now.ToString("h:mm");

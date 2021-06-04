@@ -13,3 +13,9 @@
         font-size: 5em;
         font-family: fangsong;
     }
+
+.goto {
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: 12px;
+}
