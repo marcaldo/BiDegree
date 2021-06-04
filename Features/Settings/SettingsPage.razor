@@ -60,7 +60,7 @@
 		if (!string.IsNullOrEmpty(defaultStartPage))
 		{
 			LocalStorage.SetItem(Constants.StartPage, defaultStartPage);
-			NavManager.NavigateTo($"{NavManager.BaseUri}{defaultStartPage}", forceLoad: true);
+			NavManager.NavigateTo($"{NavManager.BaseUri}{defaultStartPage}", forceLoad: false);
 		}
 
 	}
