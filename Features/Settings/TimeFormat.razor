@@ -1,0 +1,42 @@
+﻿@inject ILocalStorageService localStorage
+<div class="form-group">
+	<label for="uSelector">Time format:</label>
+	<div class="selector">
+		<div class="unit-def">12hs</div>
+		<label class="switch">
+			<input id="uSelector" type="checkbox" @bind="isChecked" @onclick="()=>SaveSelection(!isChecked)" />
+			<span class="slider round"></span>
+		</label>
+		<div class="unit-def">24hs</div>
+	</div>
+</div>
+@code {
+	private UnitsConfig unitsConfig = new UnitsConfig();
+
+	private bool isChecked { get; set; } = false;
+
+	protected override async Task OnInitializedAsync()
+	{
+		var timeFormat = await localStorage.GetItemAsync<TimeFormatType?>(Constants.TimeFormat);
+
+		if (timeFormat == null)
+		{
+			timeFormat = TimeFormatType.T12hs;
+		}
+
+		isChecked = timeFormat == TimeFormatType.T24hs;
+	}
+
+
+	protected async Task SaveSelection(bool isChecked)
+	{
+		TimeFormatType timeFormat = isChecked ? TimeFormatType.T24hs : TimeFormatType.T12hs;
+		await localStorage.SetItemAsync(Constants.TimeFormat, timeFormat);
+	}
+
+	public class UnitsConfig
+	{
+		public TimeFormatType TimeFormat { get; set; }
+		public bool isChecked { get; set; }
+	}
+}

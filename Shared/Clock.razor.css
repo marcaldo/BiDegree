@@ -9,6 +9,9 @@
 .time {
     font-size: 3em;
 }
+    .time .ampm {
+        font-size: 0.5em;
+    }
 
 .date {
     color: aquamarine;

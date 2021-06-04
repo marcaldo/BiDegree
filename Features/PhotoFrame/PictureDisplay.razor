@@ -1,37 +1,37 @@
 ﻿<style>
-    body {
-        background: url("@ItemLink") no-repeat center center fixed;
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        background-size: cover;
-        overflow: hidden;
-    }
+	body {
+		background: url("@ItemLink") no-repeat center center fixed;
+		-webkit-background-size: cover;
+		-moz-background-size: cover;
+		-o-background-size: cover;
+		background-size: cover;
+		overflow: hidden;
+	}
 </style>
 
 @if (isDebugMode)
 {
-    <div class="debug">
-        @if (driveFileList != null)
-        {
-            <button @onclick="ShowNext">Next</button>
-            <ul>
-                <li>Items:</li>
-                @foreach (var driveFile in driveFileList.items)
-                {
-                    <li>@driveFile.webContentLink</li>
-                }
-            </ul>
-
-            <hr />
-            <ul>
-                <li>Queue:</li>
-                @foreach (var item in displayQueue)
-                {
-                    <li>@item.Key  -  @item.Value</li>
-                }
-            </ul>
-            <p>Elapsed: @duration seg.</p>
-        }
-    </div>
+	<div class="debug">
+		@if (driveFileList != null)
+		{
+		 <button @onclick="ShowNext">Next</button>
+		 <ul>
+		  <li><u>Queue:</u></li>
+		  <li>- Elapsed: @duration seg. (@displayQueue.Count items)</li>
+		  <li>- Current: @ItemLink</li>
+				@foreach (var item in displayQueue)
+				{
+			  <li>@item.Key <img src="@item.Value" style="width:100px" /><br />@item.Value</li>
+				}
+		 </ul>
+			@* <hr />
+				<ul>
+				<li><ul>Items:</ul></li>
+				@foreach (var driveFile in driveFileList.items)
+				{
+				<li>@driveFile.webContentLink</li>
+				}
+				</ul>*@
+		}
+	</div>
 }
