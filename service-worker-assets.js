@@ -181,7 +181,7 @@
       "url": "_framework\/dotnet.5.0.4.js"
     },
     {
-      "hash": "sha256-f+HpRrglpMdVzhwCujSiJkEQEaNH0rfIYqNKySsvKaE=",
+      "hash": "sha256-6D+6ryi5RKUJp3Dtaz5z1nUojZmFLch9eE0AoEX6NXc=",
       "url": "BiDegree.styles.css"
     },
     {
@@ -377,5 +377,5 @@
       "url": "_framework\/blazor.webassembly.js"
     }
   ],
-  "version": "8UqHBLke"
+  "version": "tvlX9kKk"
 };
