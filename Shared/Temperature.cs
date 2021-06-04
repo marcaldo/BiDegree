@@ -16,4 +16,10 @@ namespace BiDegree.Shared
         Metric,
         Imperial
     }
+
+    public enum TimeFormatType
+    {
+        T12hs, 
+        T24hs
+    }
 }

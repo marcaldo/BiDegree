@@ -1,43 +1,42 @@
 ﻿@inject ILocalStorageService localStorage
 <div class="form-group">
-    <label for="uSelector">First show:</label>
-    <div class="selector">
-        <div class="unit-def">°C</div>
-        <label class="switch">
-            <input id="uSelector" type="checkbox" @bind="isChecked" @onclick="()=>SaveSelection(!isChecked)" />
-            <span class="slider round"></span>
-        </label>
-        <div class="unit-def">°F</div>
-    </div>
+	<label for="uSelector">Time format:</label>
+	<div class="selector">
+		<div class="unit-def">12hs</div>
+		<label class="switch">
+			<input id="uSelector" type="checkbox" @bind="isChecked" @onclick="()=>SaveSelection(!isChecked)" />
+			<span class="slider round"></span>
+		</label>
+		<div class="unit-def">24hs</div>
+	</div>
 </div>
 @code {
-    private UnitsConfig unitsConfig = new UnitsConfig();
+	private UnitsConfig unitsConfig = new UnitsConfig();
 
-    private bool isChecked { get; set; } = false;
+	private bool isChecked { get; set; } = false;
 
-    protected override async Task OnInitializedAsync()
-    {
-        var units = await localStorage.GetItemAsync<UnitsType?>(Constants.KeyUnits);
+	protected override async Task OnInitializedAsync()
+	{
+		var timeFormat = await localStorage.GetItemAsync<TimeFormatType?>(Constants.TimeFormat);
 
-        if (units == null)
-        {
-            units = UnitsType.Metric;
-        }
+		if (timeFormat == null)
+		{
+			timeFormat = TimeFormatType.T12hs;
+		}
 
-        isChecked = units == UnitsType.Imperial;
-    }
+		isChecked = timeFormat == TimeFormatType.T24hs;
+	}
 
 
-    protected async Task SaveSelection(bool isChecked)
-    {
-        UnitsType units = isChecked ? UnitsType.Imperial : UnitsType.Metric;
+	protected async Task SaveSelection(bool isChecked)
+	{
+		TimeFormatType timeFormat = isChecked ? TimeFormatType.T24hs : TimeFormatType.T12hs;
+		await localStorage.SetItemAsync(Constants.TimeFormat, timeFormat);
+	}
 
-        await localStorage.SetItemAsync(Constants.KeyUnits, units);
-    }
-
-    public class UnitsConfig
-    {
-        public UnitsType Units { get; set; }
-        public bool isChecked { get; set; }
-    }
+	public class UnitsConfig
+	{
+		public TimeFormatType TimeFormat { get; set; }
+		public bool isChecked { get; set; }
+	}
 }
