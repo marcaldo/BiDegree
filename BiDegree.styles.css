@@ -130,6 +130,14 @@ table[b-hava5cs9gl] {
         background-color: yellow;
         width: 67px;
     }
+
+body .video[b-u6qraddolp]{
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+}
 /* /Features/Settings/ApiKey.razor.rz.scp.css */
 .save[b-3yl495z0fu] {
     display: flex;
