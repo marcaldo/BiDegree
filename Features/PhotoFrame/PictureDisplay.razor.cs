@@ -19,6 +19,7 @@ namespace BiDegree.Features.PhotoFrame
 
 
         private string ItemLink { get; set; }
+        private string videoSrc;
         private string folderId;
         private bool isDebugMode = false;
         private double duration = Constants.DefaultShowTime;
@@ -61,8 +62,17 @@ namespace BiDegree.Features.PhotoFrame
                 item = displayQueue.FirstOrDefault();
             }
 
-            //ItemLink = "https://drive.google.com/uc?id=11Tg3qnDAY6DLfMs_tHek2U5MItMsXnJi"; // Fergui
             ItemLink = item.Value;
+
+            if (ItemLink.Contains("1cMEndCIL7mbb88hii_Xp7HhMqdEySCpT"))
+            {
+                videoSrc = "https://drive.google.com/uc?id=1cMEndCIL7mbb88hii_Xp7HhMqdEySCpT";
+            }
+            else
+            {
+                videoSrc = "";
+            }
+
             displayQueue.Remove(item.Key);
 
             StateHasChanged();

@@ -1,13 +1,34 @@
-﻿<style>
-	body {
-		background: url("@ItemLink") no-repeat center center fixed;
-		-webkit-background-size: cover;
-		-moz-background-size: cover;
-		-o-background-size: cover;
-		background-size: cover;
-		overflow: hidden;
-	}
-</style>
+﻿@using Blazored.Video
+@using Blazored.Video.Support
+
+@if (string.IsNullOrEmpty(videoSrc))
+{
+	<style>
+	 body {
+	  background: url("@ItemLink") no-repeat center center fixed;
+	  -webkit-background-size: cover;
+	  -moz-background-size: cover;
+	  -o-background-size: cover;
+	  background-size: cover;
+	  overflow: hidden;
+	 }
+	</style>
+}
+else
+{
+	<BlazoredVideo oncanplay="this.muted=true" class="video"
+			   autoplay
+			   muted
+			   loop>
+	 <source src="@videoSrc" type="video/mp4" />
+	</BlazoredVideo>
+}
+
+@*<BlazoredVideo oncanplay="this.muted=true"
+			   autoplay
+			   loop>
+	 <source src="https://drive.google.com/uc?id=1cMEndCIL7mbb88hii_Xp7HhMqdEySCpT" type="video/mp4" />
+	</BlazoredVideo>*@
 
 @if (isDebugMode)
 {
