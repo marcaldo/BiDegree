@@ -1,11 +1,17 @@
 ﻿@using Blazored.Video
 @using Blazored.Video.Support
 
-@if (string.IsNullOrEmpty(videoSrc))
+@if (isVideo)
+{
+	<video autoplay loop id="myVideo">
+	 <source src="@itemLink" type="video/mp4">
+	</video>
+}
+else
 {
 	<style>
 	 body {
-	  background: url("@ItemLink") no-repeat center center fixed;
+	  background: url("@itemLink") no-repeat center center fixed;
 	  -webkit-background-size: cover;
 	  -moz-background-size: cover;
 	  -o-background-size: cover;
@@ -14,21 +20,6 @@
 	 }
 	</style>
 }
-else
-{
-	<BlazoredVideo oncanplay="this.muted=true" class="video"
-			   autoplay
-			   muted
-			   loop>
-	 <source src="@videoSrc" type="video/mp4" />
-	</BlazoredVideo>
-}
-
-@*<BlazoredVideo oncanplay="this.muted=true"
-			   autoplay
-			   loop>
-	 <source src="https://drive.google.com/uc?id=1cMEndCIL7mbb88hii_Xp7HhMqdEySCpT" type="video/mp4" />
-	</BlazoredVideo>*@
 
 @if (isDebugMode)
 {
@@ -39,10 +30,17 @@ else
 		 <ul>
 		  <li><u>Queue:</u></li>
 		  <li>- Elapsed: @duration seg. (@displayQueue.Count items)</li>
-		  <li>- Current: @ItemLink</li>
+		  <li>- Current: @itemLink</li>
 				@foreach (var item in displayQueue)
 				{
-			  <li>@item.Key <img src="@item.Value" style="width:100px" /><br />@item.Value</li>
+					if (item.Value.IsVideo)
+					{
+				  <li>@item.Key <Icon Name="Icon.IconType.CameraReels" /><br />@item.Value.SourceUrl</li>
+					}
+					else
+					{
+				  <li>@item.Key <img src="@item.Value.SourceUrl" style="width:100px" /><br />@item.Value.SourceUrl</li>
+					}
 				}
 		 </ul>
 			@* <hr />
