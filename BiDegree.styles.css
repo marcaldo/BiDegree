@@ -103,14 +103,11 @@ table[b-hava5cs9gl] {
 }
 /* /Features/PhotoFrame/PhotoFramePage.razor.rz.scp.css */
 .weather[b-nkgdqso7ah] {
-    margin-left: auto;
-    background: rgba(0, 0, 0, 0.1);
-    height: 100vh;
-    width: 17rem;
-    margin-left: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    position: fixed;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    width: 100%;
+    z-index: 1000;
 }
 /* /Features/PhotoFrame/PictureDisplay.razor.rz.scp.css */
 .debug[b-u6qraddolp] {
@@ -460,7 +457,6 @@ input:checked + .slider[b-zd5fa0kjzu] {
 }
 
     .datetime[b-osh7t84i7f]  .clock .date {
-        color: #fbe491;
         font-size: 1.2em;
         margin-top: -15px;
     }
@@ -472,8 +468,6 @@ input:checked + .slider[b-zd5fa0kjzu] {
 
 .goto[b-osh7t84i7f] {
     cursor: pointer;
-    margin-left: auto;
-    margin-right: 12px;
 }
 /* /Layout/Footer.razor.rz.scp.css */
 .footer[b-41age8wks5] {
@@ -515,6 +509,6 @@ input:checked + .slider[b-zd5fa0kjzu] {
     }
 
 .date[b-zdffwwzdl1] {
-    color: aquamarine;
+    color: #6affea;
     font-size: 0.8em;
 }
