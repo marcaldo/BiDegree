@@ -1,0 +1,58 @@
+﻿@page "/video"
+@using Blazored.Video
+@using Blazored.Video.Support
+<h3>Video</h3>
+<button @onclick="SetPicture">Next</button>
+<div>@cont - @videoUrl</div>
+@if (!string.IsNullOrEmpty(videoUrl))
+{
+	<BlazoredVideo oncanplay="this.muted=true"
+			   autoplay
+			   loop>
+	 <source src="@videoUrl" type="video/mp4" />
+	</BlazoredVideo>
+}
+@code {
+
+	@*Dictionary<VideoEvents, VideoStateOptions> options = new Dictionary<VideoEvents, VideoStateOptions>();*@
+	private string videoUrl;
+	private int cont;
+	protected override void OnInitialized()
+	{
+
+@*
+		options[VideoEvents.TimeUpdate] = new VideoStateOptions { Autoplay = true, CurrentTime = true, CurrentSrc = true };
+		options[VideoEvents.CanPlay] = new VideoStateOptions { Autoplay = true, CurrentSrc = true };*@
+	}
+
+@*	void OnPlay(VideoState state)
+	{
+		var url = "https://res.cloudinary.com/blazoredgitter/video/upload/v1557015491/samples/elephants.mp4";
+		// do something with this
+	}*@
+
+	private void SetPicture()
+	{ 
+		cont++;
+		if ( cont == 2 ) { videoUrl = ""; }
+		if (cont == 1) { videoUrl = "https://drive.google.com/uc?id=1IfXTaNtm7TLfyFWPd0TLnGJWQSr70Y6K"; }
+		if (cont == 3) { videoUrl = "https://res.cloudinary.com/blazoredgitter/video/upload/v1557015491/samples/elephants.mp4"; }
+		if (cont > 4) cont = 0;
+
+
+		Console.WriteLine(cont);
+
+		StateHasChanged();
+	}
+
+@*	void OnTimeUpdate(VideoState state)
+	{
+		var url = state.CurrentSrc;
+		var currentTime = state.CurrentTime;
+		// do something with this
+
+	}*@
+}
+
+
+

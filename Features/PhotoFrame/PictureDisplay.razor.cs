@@ -8,6 +8,7 @@ using BiDegree.Services;
 using Blazored.LocalStorage;
 using BiDegree.Shared;
 using System.Timers;
+using Microsoft.JSInterop;
 
 namespace BiDegree.Features.PhotoFrame
 {
@@ -16,14 +17,17 @@ namespace BiDegree.Features.PhotoFrame
         [Inject] IGoogleApi GoogleApi { get; set; }
         [Inject] ILocalStorageService LocalStorage { get; set; }
         [Inject] NavigationManager Navigation { get; set; }
+        [Inject] IJSRuntime JS { get; set; }
 
 
-        private string ItemLink { get; set; }
+
+        private string itemLink;
+        private bool isVideo = false;
         private string folderId;
         private bool isDebugMode = false;
         private double duration = Constants.DefaultShowTime;
 
-        static Dictionary<int, string> displayQueue;
+        static Dictionary<int, DisplayItem> displayQueue;
         private DriveFileList driveFileList;
 
         protected override async Task OnInitializedAsync()
@@ -45,7 +49,6 @@ namespace BiDegree.Features.PhotoFrame
             timer.Elapsed += Timer_Elapsed;
             timer.Enabled = true;
 
-
             await ShowNext();
         }
 
@@ -61,8 +64,14 @@ namespace BiDegree.Features.PhotoFrame
                 item = displayQueue.FirstOrDefault();
             }
 
-            //ItemLink = "https://drive.google.com/uc?id=11Tg3qnDAY6DLfMs_tHek2U5MItMsXnJi"; // Fergui
-            ItemLink = item.Value;
+            itemLink = item.Value.SourceUrl;
+            isVideo = item.Value.IsVideo;
+
+            if (isVideo)
+            {
+                await JS.InvokeVoidAsync("playVideo");
+            }
+
             displayQueue.Remove(item.Key);
 
             StateHasChanged();
@@ -87,13 +96,14 @@ namespace BiDegree.Features.PhotoFrame
             }
         }
 
-        private Dictionary<int, string> CreateTempQueue(DriveFileList driveFileList)
+        private Dictionary<int, DisplayItem> CreateTempQueue(DriveFileList driveFileList)
         {
-            Dictionary<int, string> tempQueue = new();
+            Dictionary<int, DisplayItem> tempQueue = new();
 
             if (!driveFileList.items.Any()) { return tempQueue; }
 
-            int maxRandomNumber = driveFileList.items.Count() * 2;
+            const int randomNumbesQuantityMultiplier = 2;
+            int maxRandomNumber = driveFileList.items.Length * randomNumbesQuantityMultiplier;
 
             foreach (var driveFile in driveFileList.items)
             {
@@ -115,7 +125,12 @@ namespace BiDegree.Features.PhotoFrame
 
                     if (!tempQueue.ContainsKey(rndPosition))
                     {
-                        tempQueue.Add(rndPosition, link);
+                        tempQueue.Add(rndPosition, new DisplayItem
+                        {
+                            SourceUrl = link,
+                            IsVideo = driveFile.mimeType.ToLower().Contains("video")
+                        });
+
                         itemAdded = true;
                     }
                 }

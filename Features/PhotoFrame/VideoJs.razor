@@ -1,0 +1,45 @@
+﻿@page "/videojs"
+
+@using System.Net
+@using System.Timers
+@inject IJSRuntime JS
+
+<h3>VideoJs</h3>
+
+@if (!string.IsNullOrEmpty(currentSrc))
+{
+	<video autoplay muted oncanplay="this.muted=true" loop>
+	 <source src="@currentSrc" type="video/mp4">
+	</video>
+}
+
+@code {
+	private string currentSrc;
+
+	protected override void OnInitialized()
+	{
+		Timer timer = new();
+		timer.Interval = 1000 * 15;
+		timer.Elapsed += Timer_Elapsed;
+		timer.Enabled = true;
+
+	}
+
+	protected override async Task OnInitializedAsync()
+	{
+	@*	currentSrc = "https://drive.google.com/uc?id=1IfXTaNtm7TLfyFWPd0TLnGJWQSr70Y6K";
+		await Start();*@
+	}
+
+	private async Task Start()
+	{
+		await JS.InvokeVoidAsync("playVideo");
+	
+	}
+
+	private void Timer_Elapsed(object _, ElapsedEventArgs e)
+	{
+		currentSrc = "https://res.cloudinary.com/blazoredgitter/video/upload/v1557015491/samples/elephants.mp4";
+		StateHasChanged();
+	}
+}
