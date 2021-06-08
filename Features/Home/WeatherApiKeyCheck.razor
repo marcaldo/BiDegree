@@ -9,23 +9,21 @@
 
     protected override void OnInitialized()
     {
+        SetSettingsFromQueryString();
+
+        var apiKey = LocalStorage.GetItem<string>(Constants.KeyApiKey);
         var uri = NavManager.ToAbsoluteUri(NavManager.BaseUri);
 
-        if (!SetSettingsFromQueryString())
+        if (string.IsNullOrEmpty(apiKey))
         {
-            var apiKey = LocalStorage.GetItem<string>(Constants.KeyApiKey);
+            var configApiKey = Configuration.GetValue<string>("OpenWeather:ApiKey");
 
-            if (string.IsNullOrEmpty(apiKey))
+            if (string.IsNullOrEmpty(configApiKey))
             {
-                var configApiKey = Configuration.GetValue<string>("OpenWeather:ApiKey");
-
-                if (string.IsNullOrEmpty(configApiKey))
-                {
-                    NavManager.NavigateTo($"{uri}/settings");
-                }
-
-                LocalStorage.SetItem<string>(Constants.KeyApiKey, configApiKey);
+                NavManager.NavigateTo($"{uri}/settings");
             }
+
+            LocalStorage.SetItem<string>(Constants.KeyApiKey, configApiKey);
         }
 
         var startPage = LocalStorage.GetItem<string>(Constants.StartPage) is null

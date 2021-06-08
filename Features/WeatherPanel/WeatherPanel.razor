@@ -2,11 +2,8 @@
 @using BiDegree.Shared
 @using System.Globalization
 @inject NavigationManager Navigation
-<div class="datetime">
+<div class="datetime goto" @onclick="() => NavigateTo(settingsPage, true)" title="Settings">
 	<Clock />
-</div>
-<div class="goto" @onclick="() => NavigateTo(settingsPage, true)">
-	<Icon Name="Icon.IconType.Settings"Fill="white" />
 </div>
 
 @code {
