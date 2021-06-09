@@ -1,140 +1,30 @@
 ﻿@page "/weather"
-@using System.Timers
-@using Blazored.LocalStorage
-@using System.Net
-@inject HttpClient Http
-@inject IWeatherApi OpenWeather
-@inject IJSRuntime JS
-@inject NavigationManager NavigationManager
-@inject IConfiguration Configuration
-@inject ILocalStorageService LocalStorage
+
+@inherits WeatherBase
 
 @if (currentWeather == null)
 {
-    if (string.IsNullOrEmpty(errorMessage) && !unauthorized)
-    {
-        <div class="loading"><img src="img/loading.gif" /></div>
-    }
-    else if (unauthorized)
-    {
-        <div class="error-unauthorized">
-            <Icon Name="Icon.IconType.EmojiSad" Size="40" Fill="red" />
-            <span>Error connectiong to the weather service.</span>
-            <p>Please verify that the Openweather has the right key.</p>
-            <p>If your browser has no permission for Location or is not supporting geolocation, try to enter a city manually.</p>
-            <a href="/settings" class="btn btn-secondary">Go to Settings</a>
-        </div>
-    }
-    else
-    {
-        <Icon Name="Icon.IconType.EmojiSad" Size="32" Fill="red" />
-        <div class="error-mssg">@errorMessage</div>
-    }
+	if (string.IsNullOrEmpty(errorMessage) && !unauthorized)
+	{
+		<div class="loading"><img src="img/loading.gif" /></div>
+	}
+	else if (unauthorized)
+	{
+		<div class="error-unauthorized">
+		 <Icon Name="Icon.IconType.EmojiSad" Size="40" Fill="red" />
+		 <span>Error connectiong to the weather service.</span>
+		 <p>Please verify that the Openweather has the right key.</p>
+		 <p>If your browser has no permission for Location or is not supporting geolocation, try to enter a city manually.</p>
+		 <a href="/settings" class="btn btn-secondary">Go to Settings</a>
+		</div>
+	}
+	else
+	{
+		<Icon Name="Icon.IconType.EmojiSad" Size="32" Fill="red" />
+		<div class="error-mssg">@errorMessage</div>
+	}
 }
 else
 {
-    <Weather CurrentWeather="@currentWeather" Units="@units" OnClick="RefreshHandler" />
-}
-
-@code{
-    private static Func<float, float, Task> getWeatherFunc;
-    private string errorMessage = null;
-    private bool unauthorized = false;
-    private bool useCity = false;
-    private string city = null;
-    protected CurrentWeather currentWeather { get; set; }
-    protected UnitsType units;
-
-
-    private void Timer_Elapsed(object _, ElapsedEventArgs e)
-    {
-        RefreshHandler().Wait();
-    }
-
-    public async Task RefreshHandler()
-    {
-        await GetCurrentWeather(currentWeather.coord.lat, currentWeather.coord.lon);
-        StateHasChanged();
-    }
-
-    protected override void OnInitialized()
-    {
-        getWeatherFunc = GetWeather;
-    }
-
-    protected override async Task OnInitializedAsync()
-    {
-        var unitsConfig = await LocalStorage.GetItemAsync<UnitsType?>(Constants.KeyUnits);
-        var storedRefreshMinutes = await LocalStorage.GetItemAsync<int?>(Constants.RefreshTime);
-        useCity = await LocalStorage.GetItemAsync<bool>(Constants.KeyUseCity);
-        city = await LocalStorage.GetItemAsync<string>(Constants.KeyCity);
-
-        await GetGeoLocation();
-
-
-        int refreshMinutes = storedRefreshMinutes is null
-                                ? Constants.DefaultRefresh
-                                : Convert.ToInt32(storedRefreshMinutes);
-
-        if (refreshMinutes > 0)
-        {
-            Timer timer = new();
-            timer.Interval = 1000 * 60 * refreshMinutes;
-            timer.Elapsed += Timer_Elapsed;
-            timer.Enabled = true;
-        }
-
-        units = unitsConfig ?? UnitsType.Metric;
-    }
-
-    public async Task GetGeoLocation()
-    {
-        await JS.InvokeAsync<string>("getCurrentLocation");
-    }
-
-    [JSInvokable]
-    public static void GetWeatherCaller(float lat, float lon)
-    {
-        getWeatherFunc.Invoke(lat, lon);
-    }
-
-    private async Task GetWeather(float lat, float lon)
-    {
-        bool validLatLon = lat + lon != 0;
-        bool canUseCity = useCity && !string.IsNullOrEmpty(city);
-
-        unauthorized = !validLatLon && !canUseCity;
-
-        if (!unauthorized)
-        {
-            await GetCurrentWeather(lat, lon);
-        }
-
-        StateHasChanged();
-    }
-
-    private async Task GetCurrentWeather(float lat, float lon)
-    {
-        try
-        {
-            if (useCity)
-            {
-                currentWeather = await OpenWeather.GetCurrentWeatherByCity(city, units.ToString().ToLower());
-            }
-            else
-            {
-                currentWeather = await OpenWeather.GetCurrentWeatherByCoords(lat, lon, units.ToString().ToLower());
-            }
-        }
-        catch (HttpRequestException ex)
-        {
-            unauthorized = ex.StatusCode == HttpStatusCode.Unauthorized;
-            errorMessage = ex.Message;
-        }
-        catch (Exception ex)
-        {
-            errorMessage = ex.Message;
-        }
-    }
-
+	<Weather CurrentWeather="@currentWeather" Units="@units" OnClick="RefreshHandler" />
 }
