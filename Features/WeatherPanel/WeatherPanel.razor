@@ -1,15 +1,21 @@
 ﻿@using BiDegree.Models
 @using BiDegree.Shared
 @using System.Globalization
+
+@inherits WeatherBase
 @inject NavigationManager Navigation
+
 <div class="datetime goto" @onclick="() => NavigateTo(settingsPage, true)" title="Settings">
 	<Clock />
 </div>
+<div class="temp">
+	@if (CurrentWeather != null)
+	{
+	 <TemperatureValues Value="CurrentWeather.main.temp" Units="Units" />
+	}
+</div>
 
 @code {
-	[Parameter] public CurrentWeather CurrentWeather { get; set; }
-	[Parameter] public UnitsType Units { get; set; }
-
 	const string settingsPage = "settings";
 
 	private void NavigateTo(string page, bool forceLoad)

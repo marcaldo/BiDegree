@@ -2,7 +2,7 @@
 
 @inherits WeatherBase
 
-@if (currentWeather == null)
+@if (CurrentWeather == null)
 {
 	if (string.IsNullOrEmpty(errorMessage) && !unauthorized)
 	{
@@ -26,5 +26,5 @@
 }
 else
 {
-	<Weather CurrentWeather="@currentWeather" Units="@units" OnClick="RefreshHandler" />
+	<Weather CurrentWeather="@CurrentWeather" Units="@Units" OnClick="RefreshHandler" />
 }

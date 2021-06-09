@@ -1,6 +1,5 @@
 ﻿.datetime ::deep .clock {
-    background-color: transparent;
-    padding: 0;
+    background: rgba(0, 0, 0, 0.4);
 }
 
     .datetime ::deep .clock .date {
@@ -15,4 +14,25 @@
 
 .goto {
     cursor: pointer;
+    margin: 7px;
 }
+
+.temp {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    align-items: baseline;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+    .temp ::deep .t1 {
+        background-color: transparent;
+        font-size: 5em;
+        font-family: fangsong;
+    }
+
+    .temp ::deep .t2 {
+        background-color: transparent;
+        font-size: 2em;
+        font-family: fangsong;
+    }

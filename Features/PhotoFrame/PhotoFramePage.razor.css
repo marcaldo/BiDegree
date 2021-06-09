@@ -1,7 +1,11 @@
 ﻿.weather {
     position: fixed;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.4);
     width: 100%;
     z-index: 1000;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
 }

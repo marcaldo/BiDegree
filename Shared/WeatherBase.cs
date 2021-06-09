@@ -13,10 +13,8 @@ namespace BiDegree.Shared
 {
     public class WeatherBase : ComponentBase
     {
-        [Inject] HttpClient Http { get; set; }
         [Inject] IWeatherApi OpenWeather { get; set; }
         [Inject] IJSRuntime JS { get; set; }
-        [Inject] NavigationManager NavigationManager { get; set; }
         [Inject] ILocalStorageService LocalStorage { get; set; }
 
         protected static Func<float, float, Task> getWeatherFunc;
@@ -24,8 +22,8 @@ namespace BiDegree.Shared
         protected bool unauthorized = false;
         protected bool useCity = false;
         protected string city = null;
-        protected CurrentWeather currentWeather { get; set; }
-        protected UnitsType units;
+        protected CurrentWeather CurrentWeather { get; set; }
+        protected UnitsType Units;
 
 
         private void Timer_Elapsed(object _, ElapsedEventArgs e)
@@ -35,7 +33,7 @@ namespace BiDegree.Shared
 
         public async Task RefreshHandler()
         {
-            await GetCurrentWeather(currentWeather.coord.lat, currentWeather.coord.lon);
+            await GetCurrentWeather(CurrentWeather.coord.lat, CurrentWeather.coord.lon);
             StateHasChanged();
         }
 
@@ -55,9 +53,7 @@ namespace BiDegree.Shared
                                     : Convert.ToInt32(storedRefreshMinutes);
 
             var unitsConfig = await LocalStorage.GetItemAsync<UnitsType?>(Constants.KeyUnits);
-            units = unitsConfig ?? UnitsType.Metric;
-
-            await GetGeoLocation();
+            Units = unitsConfig ?? UnitsType.Metric;
 
             if (refreshMinutes > 0)
             {
@@ -66,6 +62,8 @@ namespace BiDegree.Shared
                 timer.Elapsed += Timer_Elapsed;
                 timer.Enabled = true;
             }
+
+            await GetGeoLocation();
         }
 
         public async Task GetGeoLocation()
@@ -100,11 +98,11 @@ namespace BiDegree.Shared
             {
                 if (useCity)
                 {
-                    currentWeather = await OpenWeather.GetCurrentWeatherByCity(city, units.ToString().ToLower());
+                    CurrentWeather = await OpenWeather.GetCurrentWeatherByCity(city, Units.ToString().ToLower());
                 }
                 else
                 {
-                    currentWeather = await OpenWeather.GetCurrentWeatherByCoords(lat, lon, units.ToString().ToLower());
+                    CurrentWeather = await OpenWeather.GetCurrentWeatherByCoords(lat, lon, Units.ToString().ToLower());
                 }
             }
             catch (HttpRequestException ex)
