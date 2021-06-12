@@ -29,7 +29,7 @@ namespace BiDegree.Features.PhotoFrame
 
         static Dictionary<int, DisplayItem> displayQueue;
         private DriveFileList driveFileList;
-        
+
         protected override async Task OnInitializedAsync()
         {
             Navigation.TryGetQueryString("debug", out isDebugMode);
@@ -79,7 +79,7 @@ namespace BiDegree.Features.PhotoFrame
 
         private void SetDisplayList()
         {
-            var totalItems = driveFileList.items.Count();
+            var totalItems = driveFileList.items.Length;
 
             var tempQueue = CreateTempQueue(driveFileList);
 
