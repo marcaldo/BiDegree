@@ -1,7 +1,6 @@
 ﻿using BiDegree.Models;
 using BiDegree.Shared;
 using Blazored.LocalStorage;
-using System;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
@@ -25,7 +24,7 @@ namespace BiDegree.Services
             var url = $"{_openWeatherApiAddress}/data/2.5/weather?lat={lat}&lon={lon}&units={units}&appid={_openWeatherApiKey}";
             return await GetCurrentWeather(url, units);
         }
-
+        //[CP]:d asddsad
         public async Task<CurrentWeather> GetCurrentWeatherByCity(string city, string units)
         {
             var url = $"{_openWeatherApiAddress}/data/2.5/weather?q={city}&units={units}&appid={_openWeatherApiKey}";

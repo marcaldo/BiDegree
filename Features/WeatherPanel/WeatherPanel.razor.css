@@ -1,6 +1,9 @@
 ﻿.datetime ::deep .clock {
-    background-color: transparent;
-    padding: 0;
+    background: rgba(0, 0, 0, 0.4);
+    border-top-right-radius: 30px;
+    border-top-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
 }
 
     .datetime ::deep .clock .date {
@@ -16,3 +19,26 @@
 .goto {
     cursor: pointer;
 }
+
+.temp {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    align-items: baseline;
+    border-radius: 0;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 7px;
+    border-top-left-radius: 30px;
+}
+
+    .temp ::deep .t1 {
+        background-color: transparent;
+        font-size: 5em;
+        font-family: fangsong;
+    }
+
+    .temp ::deep .t2 {
+        background-color: transparent;
+        font-size: 2em;
+        font-family: fangsong;
+    }

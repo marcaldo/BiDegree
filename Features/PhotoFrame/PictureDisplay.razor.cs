@@ -29,7 +29,7 @@ namespace BiDegree.Features.PhotoFrame
 
         static Dictionary<int, DisplayItem> displayQueue;
         private DriveFileList driveFileList;
-
+        
         protected override async Task OnInitializedAsync()
         {
             Navigation.TryGetQueryString("debug", out isDebugMode);
