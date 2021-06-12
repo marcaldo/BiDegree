@@ -38,7 +38,7 @@ namespace BiDegree.Shared
         private void SetDateTime()
         {
             DateTime now = DateTime.Now;
-            DisplayDate = $"{now.DayOfWeek.ToString()[..3].ToUpper()}, {now:MMM} {now:dd}, '{now:yy}";
+            DisplayDate = $"{now.DayOfWeek.ToString()[..3].ToUpper()}, {now:MMM} {now:dd}";
 
             if (timeFormat == TimeFormatType.T12hs)
             {

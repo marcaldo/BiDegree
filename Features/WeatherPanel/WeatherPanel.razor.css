@@ -7,8 +7,9 @@
 }
 
     .datetime ::deep .clock .date {
-        font-size: 1.2em;
-        margin-top: -15px;
+        font-size: 1.8em;
+        font-weight: bold;
+        margin-top: -25px;
     }
 
     .datetime ::deep .clock .time {
@@ -27,7 +28,7 @@
     align-items: baseline;
     border-radius: 0;
     background: rgba(0, 0, 0, 0.4);
-    padding: 7px;
+    padding: 8px;
     border-top-left-radius: 30px;
 }
 
@@ -39,6 +40,6 @@
 
     .temp ::deep .t2 {
         background-color: transparent;
-        font-size: 2em;
+        font-size: 3.5em;
         font-family: fangsong;
     }
