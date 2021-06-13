@@ -84,6 +84,7 @@ html, body {
 
     .check-selection label {
         margin-left: 5px;
+        cursor: pointer;
     }
 
 @keyframes lds-ellipsis1 {
