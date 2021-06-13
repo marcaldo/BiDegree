@@ -8,18 +8,11 @@
         margin-left: auto;
     }
 
-.check-selection {
-    display: flex;
-    flex-direction: row;
-    align-content: center;
-    margin-top: 5px;
-}
-
-    .check-selection input[type=checkbox] {
+/*    .check-selection input[type=checkbox] {
         height: 2.5rem;
         width: 2.5rem;
         cursor: pointer;
-    }
+    }*/
 
     .check-selection label {
         margin-left: 7px;
