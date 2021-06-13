@@ -1,22 +1,14 @@
-﻿@page "/settings"
+﻿@page "/apisettings"
 @inject NavigationManager NavManager
 @inject ISyncLocalStorageService LocalStorage
 
-<h3>Settings</h3>
+<h3>API Settings</h3>
 <ul class="settings-group">
-	<li><UnitSystem /></li>
-	<li><RefreshTimer /></li>
-	<li><CitySelection /></li>
-	<li><TimeFormat /></li>
-	<li><PhotoFrameShowTime /></li>
-	<li><StartPage /></li>
-	<li>
-		<button class="btn btn-secondary" @onclick="() => GoToApiSettings()">
-			<Icon Name="Icon.IconType.Globe" Size="40" Fill="white" />&nbsp;API Settings
-		</button>
-	</li>
+	<li><ApiKey /></li>
+	<li><DriveApiKey /></li>
 </ul>
 <About />
+
 @code {
 	private string openWeatherApi;
 	private string driveApi;
@@ -30,11 +22,6 @@
 	protected override void OnInitialized()
 	{
 		SetSettingsFromQueryString();
-	}
-
-	private void GoToApiSettings()
-	{
-		NavManager.NavigateTo($"{NavManager.BaseUri}apisettings", forceLoad: true);
 	}
 
 	private void SetSettingsFromQueryString()
