@@ -2,7 +2,7 @@
 @inject NavigationManager NavManager
 @inject ISyncLocalStorageService LocalStorage
 
-<h3>Settings</h3>
+<h3>App Settings</h3>
 <ul class="settings-group">
 	<li><UnitSystem /></li>
 	<li><RefreshTimer /></li>
@@ -10,29 +10,31 @@
 	<li><TimeFormat /></li>
 	<li><PhotoFrameShowTime /></li>
 	<li><StartPage /></li>
-	<li><ApiKey /></li>
-	<li><DriveApiKey /></li>
-
-	<li class="about">
-		<h4>BiDegree</h4>
-		<p>2021</p>
-		<p></p>
+	<li>
+		<button class="btn btn-secondary" @onclick="() => GoToApiSettings()">
+			<Icon Name="Icon.IconType.Globe" Size="40" Fill="white" />&nbsp;API Settings
+		</button>
 	</li>
 </ul>
-
+<About />
 @code {
-	private bool showApiKey = false;
 	private string openWeatherApi;
 	private string driveApi;
 	private string driveFolder;
 	private string defaultStartPage;
 	private int elapsedSlideShow;
 	private int weatherRefreshTime;
+	private bool showBothTemps;
 	private string city;
 
 	protected override void OnInitialized()
 	{
 		SetSettingsFromQueryString();
+	}
+
+	private void GoToApiSettings()
+	{
+		NavManager.NavigateTo($"{NavManager.BaseUri}apisettings", forceLoad: true);
 	}
 
 	private void SetSettingsFromQueryString()
@@ -43,13 +45,14 @@
 		NavManager.TryGetQueryString<string>(Constants.StartPage, out defaultStartPage);
 		NavManager.TryGetQueryString<string>(Constants.KeyCity, out city);
 		NavManager.TryGetQueryString<int>(Constants.RefreshTime, out weatherRefreshTime);
-		NavManager.TryGetQueryString<int>(Constants.RefreshTime, out weatherRefreshTime);
+		NavManager.TryGetQueryString<bool>(Constants.KeyShowBothTemps, out showBothTemps);
 
 		if (!string.IsNullOrEmpty(openWeatherApi)) { LocalStorage.SetItem(Constants.KeyApiKey, openWeatherApi); }
 		if (!string.IsNullOrEmpty(driveApi)) { LocalStorage.SetItem(Constants.DriveKeyApiKey, driveApi); }
 		if (!string.IsNullOrEmpty(driveFolder)) { LocalStorage.SetItem(Constants.DriveFolderId, driveFolder); }
 		if (elapsedSlideShow > 0) { LocalStorage.SetItem(Constants.ShowTime, elapsedSlideShow); }
 		if (weatherRefreshTime > 0) { LocalStorage.SetItem(Constants.RefreshTime, weatherRefreshTime); }
+		LocalStorage.SetItem(Constants.KeyShowBothTemps, showBothTemps);
 
 		if (!string.IsNullOrEmpty(city))
 		{

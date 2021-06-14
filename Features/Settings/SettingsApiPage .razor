@@ -1,0 +1,32 @@
+﻿@page "/apisettings"
+@inject NavigationManager NavManager
+@inject ISyncLocalStorageService LocalStorage
+
+<h3>API Settings</h3>
+<ul class="settings-group">
+	<li><ApiKey /></li>
+	<li><DriveApiKey /></li>
+	<li>
+		<button class="btn btn-secondary" @onclick="() => GoToSettings()">
+			<Icon Name="Icon.IconType.Settings" Size="40" Fill="white" />&nbsp;App Settings
+		</button>
+	</li>
+</ul>
+<About />
+
+@code {
+	private string openWeatherApi;
+	private string driveApi;
+	private string driveFolder;
+	private string defaultStartPage;
+	private int elapsedSlideShow;
+	private int weatherRefreshTime;
+	private bool showBothTemps;
+	private string city;
+
+	private void GoToSettings()
+	{
+		NavManager.NavigateTo($"{NavManager.BaseUri}settings", forceLoad: true);
+	}
+
+}

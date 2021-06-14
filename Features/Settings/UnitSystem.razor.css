@@ -73,3 +73,10 @@ input:checked + .slider {
         font-size: 3em;
         margin: 13px;
     }
+
+    /**/
+.settings {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}

@@ -1,43 +1,44 @@
 ﻿@inject ILocalStorageService localStorage
-<div class="form-group">
-    <label for="uSelector">First show:</label>
-    <div class="selector">
-        <div class="unit-def">°C</div>
-        <label class="switch">
-            <input id="uSelector" type="checkbox" @bind="isChecked" @onclick="()=>SaveSelection(!isChecked)" />
-            <span class="slider round"></span>
-        </label>
-        <div class="unit-def">°F</div>
-    </div>
+<div class="form-group settings">
+	<label for="uSelector">First show:</label>
+	<div class="selector">
+		<div class="unit-def">°C</div>
+		<label class="switch">
+			<input id="uSelector" type="checkbox" @bind="isCheckedUnits" @onclick="()=>SaveUnitsSelection(!isCheckedUnits)" />
+			<span class="slider round"></span>
+		</label>
+		<div class="unit-def">°F</div>
+	</div>
+	<div class="check-selection">
+		<input id="showBothTemps" type="checkbox" @bind="isCheckedBothTemps" @onclick="()=>SaveShowBothTemsSelection(!isCheckedBothTemps)" />
+		<label for="showBothTemps">Show both Fahrenheit and Celsius.</label>
+	</div>
 </div>
 @code {
-    private UnitsConfig unitsConfig = new UnitsConfig();
+	private bool isCheckedUnits { get; set; } = false;
+	private bool isCheckedBothTemps { get; set; } = true;
 
-    private bool isChecked { get; set; } = false;
+	protected override async Task OnInitializedAsync()
+	{
+		var units = await localStorage.GetItemAsync<UnitsType?>(Constants.KeyUnits);
+		var showBothTemps = await localStorage.GetItemAsync<bool?>(Constants.KeyShowBothTemps);
 
-    protected override async Task OnInitializedAsync()
-    {
-        var units = await localStorage.GetItemAsync<UnitsType?>(Constants.KeyUnits);
+		if (units is null) { units = UnitsType.Metric; }
+		if (showBothTemps is null) { showBothTemps = true; }
 
-        if (units == null)
-        {
-            units = UnitsType.Metric;
-        }
-
-        isChecked = units == UnitsType.Imperial;
-    }
+		isCheckedUnits = units == UnitsType.Imperial;
+		isCheckedBothTemps = (bool)showBothTemps;
+	}
 
 
-    protected async Task SaveSelection(bool isChecked)
-    {
-        UnitsType units = isChecked ? UnitsType.Imperial : UnitsType.Metric;
+	protected async Task SaveUnitsSelection(bool isChecked)
+	{
+		UnitsType units = isChecked ? UnitsType.Imperial : UnitsType.Metric;
+		await localStorage.SetItemAsync(Constants.KeyUnits, units);
+	}
 
-        await localStorage.SetItemAsync(Constants.KeyUnits, units);
-    }
-
-    public class UnitsConfig
-    {
-        public UnitsType Units { get; set; }
-        public bool isChecked { get; set; }
-    }
+	protected async Task SaveShowBothTemsSelection(bool isChecked)
+	{
+		await localStorage.SetItemAsync(Constants.KeyShowBothTemps, isChecked);
+	}
 }

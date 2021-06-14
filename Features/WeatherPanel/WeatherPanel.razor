@@ -11,6 +11,8 @@
 <div class="temp">
 	@if (CurrentWeather != null)
 	{
+		string weatherIcon = "w01n"; //$"w{CurrentWeather.weather[0].icon}";
+	 <IconWeather Name="@weatherIcon" Size="90" />
 	 <TemperatureValues Value="CurrentWeather.main.temp" Units="Units" />
 	}
 </div>

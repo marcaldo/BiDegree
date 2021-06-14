@@ -68,6 +68,25 @@ html, body {
             animation: lds-ellipsis3 0.6s infinite;
         }
 
+.check-selection {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    align-content: center;
+    margin-top: 5px;
+}
+
+    .check-selection input[type=checkbox] {
+        height: 2.2rem;
+        width: 2.2rem;
+        cursor: pointer;
+    }
+
+    .check-selection label {
+        margin-left: 5px;
+        cursor: pointer;
+    }
+
 @keyframes lds-ellipsis1 {
     0% {
         transform: scale(0);

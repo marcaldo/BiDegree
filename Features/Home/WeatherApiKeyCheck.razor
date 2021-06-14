@@ -9,8 +9,6 @@
 
     protected override void OnInitialized()
     {
-        SetSettingsFromQueryString();
-
         var apiKey = LocalStorage.GetItem<string>(Constants.KeyApiKey);
         var uri = NavManager.ToAbsoluteUri(NavManager.BaseUri);
 
@@ -20,7 +18,7 @@
 
             if (string.IsNullOrEmpty(configApiKey))
             {
-                NavManager.NavigateTo($"{uri}/settings");
+                NavManager.NavigateTo($"{uri}/apisettings");
             }
 
             LocalStorage.SetItem<string>(Constants.KeyApiKey, configApiKey);
@@ -32,26 +30,5 @@
 
         NavManager.NavigateTo($"{uri}/{startPage}");
     }
-
-    private bool SetSettingsFromQueryString()
-    {
-        NavManager.TryGetQueryString<string>(Constants.KeyApiKey, out openWeatherApi);
-        NavManager.TryGetQueryString<string>(Constants.DriveKeyApiKey, out DriveApi);
-        NavManager.TryGetQueryString<string>(Constants.DriveFolderId, out DriveFolder);
-
-        if (string.IsNullOrEmpty(openWeatherApi)
-                || string.IsNullOrEmpty(DriveApi)
-                || string.IsNullOrEmpty(DriveFolder))
-        {
-            return false;
-        }
-
-        LocalStorage.SetItem(Constants.KeyApiKey, openWeatherApi);
-        LocalStorage.SetItem(Constants.DriveKeyApiKey, DriveApi);
-        LocalStorage.SetItem(Constants.DriveFolderId, DriveFolder);
-
-        return true;
-    }
-
 }
 

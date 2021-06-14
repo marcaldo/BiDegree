@@ -1,15 +1,35 @@
-﻿@if (Units is UnitsType.Metric)
+﻿@using Blazored.LocalStorage
+@inject ILocalStorageService LocalStorage
+
+@if (Units is UnitsType.Metric)
 {
-    <div class="t1">@Value.ToDecimalString()<span class="unit">°C</span></div>
-    <div class="t2">@Value.ToFahrenheitString()<span class="unit">°F</span></div>
+	<div class="t1">@Value.ToDecimalString()<span class="unit">°C</span></div>
+	if (showBothTemps)
+	{
+		<div class="t2">@Value.ToFahrenheitString()<span class="unit">°F</span></div>
+	}
 }
 else
 {
-    <div class="t1">@Value.ToDecimalString()<span class="unit">°F</span></div>
-    <div class="t2">@Value.ToCelsiusString()<span class="unit">°C</span></div>
+	<div class="t1">@Value.ToDecimalString()<span class="unit">°F</span></div>
+	if (showBothTemps)
+	{
+		<div class="t2">@Value.ToCelsiusString()<span class="unit">°C</span></div>
+	}
 }
 
 @code {
-    [Parameter] public UnitsType Units { get; set; }
-    [Parameter] public float Value { get; set; }
+	[Parameter] public UnitsType Units { get; set; }
+	[Parameter] public float Value { get; set; }
+	private bool showBothTemps = true;
+
+	protected override async Task OnInitializedAsync()
+	{
+		var showBothTempsSetting = await LocalStorage.GetItemAsync<bool?>(Constants.KeyShowBothTemps);
+
+		if (showBothTempsSetting != null)
+		{
+			showBothTemps = (bool)showBothTempsSetting;
+		}
+	}
 }
