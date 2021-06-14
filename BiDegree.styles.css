@@ -154,23 +154,10 @@ table[b-hava5cs9gl] {
         margin-left: auto;
     }
 
-.check-selection[b-q3x4kyl8xb] {
-    display: flex;
-    flex-direction: row;
-    align-content: center;
-    margin-top: 5px;
+.check-selection label[b-q3x4kyl8xb] {
+    margin-left: 7px;
+    cursor: pointer;
 }
-
-    .check-selection input[type=checkbox][b-q3x4kyl8xb] {
-        height: 2.5rem;
-        width: 2.5rem;
-        cursor: pointer;
-    }
-
-    .check-selection label[b-q3x4kyl8xb] {
-        margin-left: 7px;
-        cursor: pointer;
-    }
 /* /Features/Settings/DriveApiKey.razor.rz.scp.css */
 .save[b-rfm2sc7ag9] {
     display: flex;
@@ -189,10 +176,21 @@ select[b-xihsle1uyv] {
 select[b-07xzobprs0] {
     max-width: 250px;
 }
-/* /Features/Settings/SettingsPage.razor.rz.scp.css */
-.about[b-rpt1bdzoyl] {
-    padding: 17px;
+/* /Features/Settings/SettingsApiPage .razor.rz.scp.css */
+ul[b-29l9yupq63]{
+    padding-inline-start: 0;
 }
+
+.settings-group li[b-29l9yupq63] {
+    list-style: none;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid rgb(38 38 38 / 80%);
+}
+    .settings-group li button[b-29l9yupq63] {
+        margin-left: 85px;
+    }
+/* /Features/Settings/SettingsPage.razor.rz.scp.css */
 ul[b-rpt1bdzoyl]{
     padding-inline-start: 0;
 }
@@ -203,6 +201,10 @@ ul[b-rpt1bdzoyl]{
     padding-bottom: 25px;
     border-bottom: 1px solid rgb(38 38 38 / 80%);
 }
+
+    .settings-group li button[b-rpt1bdzoyl] {
+        margin-left: 85px;
+    }
 /* /Features/Settings/StartPage.razor.rz.scp.css */
 select[b-3q02m8ygod] {
     max-width: 250px;
@@ -359,6 +361,13 @@ input:checked + .slider[b-zd5fa0kjzu] {
         font-size: 3em;
         margin: 13px;
     }
+
+    /**/
+.settings[b-zd5fa0kjzu] {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
 /* /Features/Temperatures/ScalePage.razor.rz.scp.css */
 .templist[b-9o1hyhuoa3] {
     width: 90%;
@@ -516,6 +525,13 @@ input:checked + .slider[b-zd5fa0kjzu] {
     margin: 15px;
     padding-right: 5px;
     cursor: pointer;
+}
+/* /Shared/About.razor.rz.scp.css */
+.about[b-zndqtlkp9v] {
+    padding: 17px;
+}
+.about ul[b-zndqtlkp9v]{
+    list-style:none;
 }
 /* /Shared/Clock.razor.rz.scp.css */
 .clock[b-zdffwwzdl1] {
