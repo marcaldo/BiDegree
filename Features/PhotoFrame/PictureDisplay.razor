@@ -35,11 +35,15 @@ else
 				{
 					if (item.Value.IsVideo)
 					{
-				  <li>@item.Key <Icon Name="Icon.IconType.CameraReels" /><br />@item.Value.SourceUrl</li>
+				  <li>@item.Key <Icon Name="Icon.IconType.CameraReels" /> @item.Value.SourceUrl</li>
 					}
 					else
 					{
-				  <li>@item.Key <img src="@item.Value.SourceUrl" style="width:85px" /><br />@item.Value.SourceUrl</li>
+				  <li>
+							@item.Key 
+							<img src="@item.Value.SourceUrl" style="width:45px" />
+							@item.Value.SourceUrl
+				  </li>
 					}
 				}
 		 </ul>
