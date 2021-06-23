@@ -70,7 +70,7 @@
 
     protected override void OnInitialized()
     {
-        Units = LocalStorage.GetItem<UnitsType?>(Constants.KeyUnits) ?? UnitsType.Metric;
+        Units = LocalStorage.GetItem<UnitsType?>(Constants.KeyName_Units) ?? UnitsType.Metric;
         selectedTemp = StateContainer.CurrentTemp;
         SetValues();
     }

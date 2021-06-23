@@ -16,7 +16,7 @@ namespace BiDegree.Services
         public OpenWeatherApi(HttpClient httpClient, ISyncLocalStorageService localStorageService)
         {
             _httpClient = httpClient;
-            _openWeatherApiKey = localStorageService.GetItem<string>(Constants.KeyApiKey);
+            _openWeatherApiKey = localStorageService.GetItem<string>(Constants.KeyName_WeatherApiKey);
         }
 
         public async Task<CurrentWeather> GetCurrentWeatherByCoords(float lat, float lon, string units)

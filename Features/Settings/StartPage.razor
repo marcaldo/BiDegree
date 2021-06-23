@@ -2,7 +2,7 @@
 <div class="form-group">
     <label for="startPageSelector">Default starting page:</label>
     <select class="form-control" id="startPageSelector" @bind="startPage" @onfocus="()=>saved=false">
-        <option value="@Constants.DefaultStartingPage">Weather</option>
+        <option value="@Constants.DefaultValue_StartingPage">Weather</option>
         <option value="photos">Photo Frame</option>
     </select>
     <div class="save">
@@ -20,16 +20,16 @@
         set
         {
             _startPage = value;
-            LocalStorage.SetItem(Constants.StartPage, startPage);
+            LocalStorage.SetItem(Constants.KeyName_StartPage, startPage);
             saved = true;
         }
     }
 
     protected override void OnInitialized()
     {
-        _startPage = LocalStorage.GetItem<string>(Constants.StartPage) is null
-        ? Constants.DefaultStartingPage
-        : LocalStorage.GetItem<string>(Constants.StartPage);
+        _startPage = LocalStorage.GetItem<string>(Constants.KeyName_StartPage) is null
+        ? Constants.DefaultValue_StartingPage
+        : LocalStorage.GetItem<string>(Constants.KeyName_StartPage);
     }
 
 }

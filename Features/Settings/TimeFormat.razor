@@ -17,7 +17,7 @@
 
 	protected override async Task OnInitializedAsync()
 	{
-		var timeFormat = await localStorage.GetItemAsync<TimeFormatType?>(Constants.TimeFormat);
+		var timeFormat = await localStorage.GetItemAsync<TimeFormatType?>(Constants.KeyName_TimeFormat);
 
 		if (timeFormat == null)
 		{
@@ -31,7 +31,7 @@
 	protected async Task SaveSelection(bool isChecked)
 	{
 		TimeFormatType timeFormat = isChecked ? TimeFormatType.T24hs : TimeFormatType.T12hs;
-		await localStorage.SetItemAsync(Constants.TimeFormat, timeFormat);
+		await localStorage.SetItemAsync(Constants.KeyName_TimeFormat, timeFormat);
 	}
 
 	public class UnitsConfig
