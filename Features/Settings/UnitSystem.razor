@@ -1,21 +1,21 @@
 ﻿@inject ILocalStorageService localStorage
 <div class="form-group settings">
-	<label for="uSelector">First show:</label>
-	<div class="selector">
-		<div class="unit-def">&#8451;</div>
-		<label class="switch">
-			<input id="uSelector" type="checkbox" @bind="isCheckedUnits" @onclick="()=>SaveUnitsSelection(!isCheckedUnits)" />
-			<span class="slider round"></span>
-		</label>
-		<div class="unit-def">&#8457;</div>
+	<label for="tUnits">First show:</label>
+
+	<div class="check-selection units-selector">
+		<label>&#8451;</label>
+		<ToggleSwitch Id="tUnits" OnToggle="((isCheckedUnits)=>SaveUnitsSelection(isCheckedUnits))" Class="unitsSelector" />
+		<label>&#8457;</label>
 	</div>
+
 	<div class="check-selection">
-		<input id="showBothTemps" type="checkbox" @bind="isCheckedBothTemps" @onclick="()=>SaveShowBothTemsSelection(!isCheckedBothTemps)" />
-		<label for="showBothTemps">Show both Fahrenheit and Celsius.</label>
+		<ToggleSwitch Id="useBothTemps" OnToggle="((isCheckedBothTemps)=>SaveShowBothTemsSelection(isCheckedBothTemps))" />
+		<label for="useBothTemps">Show both Fahrenheit and Celsius.</label>
 	</div>
+
 </div>
 @code {
-	private bool isCheckedUnits { get; set; } = false;
+	private bool isCheckedUnits;
 	private bool isCheckedBothTemps { get; set; } = true;
 
 	protected override async Task OnInitializedAsync()

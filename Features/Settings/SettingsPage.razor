@@ -3,6 +3,8 @@
 @inject ISyncLocalStorageService LocalStorage
 
 <h3>App Settings</h3>
+<button @onclick="(()=>seeSwitch(_switchStatus))">See</button>
+
 <ul class="settings-group">
 	<li><UnitSystem /></li>
 	<li><RefreshTimer /></li>
@@ -31,6 +33,22 @@
 	{
 		SetSettingsFromQueryString();
 	}
+
+	private string _text = "Hola";
+	private void seeTXT(string txt)
+	{
+		
+		Console.WriteLine(txt);
+	}
+
+	private bool _switchStatus;
+	private bool _switchStatus2;
+	private void seeSwitch(bool switchStatus)
+	{
+		_switchStatus = switchStatus;
+		Console.WriteLine(switchStatus);
+	}
+
 
 	private void GoToApiSettings()
 	{
