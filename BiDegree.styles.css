@@ -113,16 +113,15 @@ table[b-hava5cs9gl] {
     background-color: var(--text-bg-color);
     position: absolute;
     top: 0px;
-    width: 100%;
     font-size: 0.85em;
+    padding-left: 5px;
+    padding-right: 10px;
 }
 
-    .debug ul li:first-child[b-u6qraddolp] {
-        list-style: none;
-        text-decoration: underline;
-    }
+
     .debug button[b-u6qraddolp] {
-        background-color: yellow;
+        background-color: #018aff29;
+        ;
         width: 67px;
     }
 
@@ -176,6 +175,20 @@ select[b-xihsle1uyv] {
 select[b-07xzobprs0] {
     max-width: 250px;
 }
+/* /Features/Settings/SettingsAdvancedPage.razor.rz.scp.css */
+ul[b-5yv7bzhrjz]{
+    padding-inline-start: 0;
+}
+
+.settings-group li[b-5yv7bzhrjz] {
+    list-style: none;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid rgb(38 38 38 / 80%);
+}
+    .settings-group li button[b-5yv7bzhrjz] {
+        margin-left: 85px;
+    }
 /* /Features/Settings/SettingsApiPage .razor.rz.scp.css */
 ul[b-29l9yupq63]{
     padding-inline-start: 0;
@@ -189,6 +202,11 @@ ul[b-29l9yupq63]{
 }
     .settings-group li button[b-29l9yupq63] {
         margin-left: 85px;
+    }
+
+    li .nav[b-29l9yupq63]{
+        display:flex;
+        flex-direction:row;
     }
 /* /Features/Settings/SettingsPage.razor.rz.scp.css */
 ul[b-rpt1bdzoyl]{
