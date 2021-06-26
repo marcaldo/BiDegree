@@ -16,9 +16,7 @@ namespace BiDegree.Features.PhotoFrame
     {
         [Inject] IGoogleApi GoogleApi { get; set; }
         [Inject] ILocalStorageService LocalStorage { get; set; }
-        [Inject] NavigationManager Navigation { get; set; }
         [Inject] IJSRuntime JS { get; set; }
-
 
 
         private string itemLink;
@@ -32,7 +30,7 @@ namespace BiDegree.Features.PhotoFrame
 
         protected override async Task OnInitializedAsync()
         {
-            Navigation.TryGetQueryString("debug", out isDebugMode);
+            isDebugMode = await LocalStorage.GetItemAsync<bool>(Constants.KeyName_DevMode);
 
             folderId = await LocalStorage.GetItemAsync<string>(Constants.KeyName_DriveFolderId);
 
@@ -115,7 +113,7 @@ namespace BiDegree.Features.PhotoFrame
                 var ampPos = driveFile.webContentLink.IndexOf("&");
                 var link = driveFile.webContentLink.Substring(0, ampPos);
 
-                Random rnd = new Random();
+                Random rnd = new();
                 var itemAdded = false;
 
                 while (!itemAdded)

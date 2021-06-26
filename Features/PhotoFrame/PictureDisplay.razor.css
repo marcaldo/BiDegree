@@ -7,12 +7,10 @@
     font-size: 0.85em;
 }
 
-    .debug ul li:first-child {
-        list-style: none;
-        text-decoration: underline;
-    }
+
     .debug button {
-        background-color: yellow;
+        background-color: #018aff29;
+        ;
         width: 67px;
     }
 
