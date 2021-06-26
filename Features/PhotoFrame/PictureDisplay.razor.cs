@@ -24,6 +24,7 @@ namespace BiDegree.Features.PhotoFrame
         private string folderId;
         private bool isDebugMode = false;
         private double duration = Constants.DefaultValue_ShowTime;
+        private int picsShown = 0;
 
         static Dictionary<int, DisplayItem> displayQueue;
         private DriveFileList driveFileList;
@@ -31,6 +32,7 @@ namespace BiDegree.Features.PhotoFrame
         protected override async Task OnInitializedAsync()
         {
             isDebugMode = await LocalStorage.GetItemAsync<bool>(Constants.KeyName_DevMode);
+            await LocalStorage.RemoveItemAsync(Constants.KeyName_PicturesShown);
 
             folderId = await LocalStorage.GetItemAsync<string>(Constants.KeyName_DriveFolderId);
 
@@ -46,6 +48,7 @@ namespace BiDegree.Features.PhotoFrame
             timer.Interval = 1000 * duration;
             timer.Elapsed += Timer_Elapsed;
             timer.Enabled = true;
+
 
             await ShowNext();
         }
@@ -71,6 +74,12 @@ namespace BiDegree.Features.PhotoFrame
             }
 
             displayQueue.Remove(item.Key);
+
+            ++picsShown;
+            if (isDebugMode)
+            {
+                await LocalStorage.SetItemAsync(Constants.KeyName_PicturesShown, picsShown);
+            }
 
             StateHasChanged();
         }

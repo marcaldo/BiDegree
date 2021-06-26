@@ -14,6 +14,7 @@
         public const string KeyName_ShowTime = "showt";
         public const string KeyName_StartPage = "start";
         public const string KeyName_DevMode = "dm";
+        public const string KeyName_PicturesShown = "picsShown";
 
         public const string DefaultValue_StartingPage = "weather";
         public const int DefaultValue_Refresh = 60;
