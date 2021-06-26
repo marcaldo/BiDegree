@@ -133,14 +133,24 @@ table[b-hava5cs9gl] {
     min-width: 100%;
     min-height: 100%;
 }
-/* /Features/Settings/ApiKey.razor.rz.scp.css */
-.save[b-3yl495z0fu] {
+/* /Features/Settings/ApiKeyDrive.razor.rz.scp.css */
+.save[b-ydexjkdx6d] {
     display: flex;
     margin-top: 4px;
     align-items: center;
 }
 
-    .save button:last-child[b-3yl495z0fu] {
+    .save button:last-child[b-ydexjkdx6d] {
+        margin-left: auto;
+    }
+/* /Features/Settings/ApiKeyWeather.razor.rz.scp.css */
+.save[b-b0tt7gsc0j] {
+    display: flex;
+    margin-top: 4px;
+    align-items: center;
+}
+
+    .save button:last-child[b-b0tt7gsc0j] {
         margin-left: auto;
     }
 /* /Features/Settings/CitySelection.razor.rz.scp.css */
@@ -158,16 +168,6 @@ table[b-hava5cs9gl] {
     margin-left: 7px;
     cursor: pointer;
 }
-/* /Features/Settings/DriveApiKey.razor.rz.scp.css */
-.save[b-rfm2sc7ag9] {
-    display: flex;
-    margin-top: 4px;
-    align-items: center;
-}
-
-    .save button:last-child[b-rfm2sc7ag9] {
-        margin-left: auto;
-    }
 /* /Features/Settings/PhotoFrameShowTime.razor.rz.scp.css */
 select[b-xihsle1uyv] {
     max-width: 250px;
@@ -286,87 +286,13 @@ input:checked + .slider[b-8d7r06yujy] {
         margin: 13px;
     }
 /* /Features/Settings/UnitSystem.razor.rz.scp.css */
-/*https://www.w3schools.com/howto/howto_css_switch.asp*/
-.switch[b-zd5fa0kjzu] {
-    position: relative;
-    display: inline-block;
-    width: 115px;
-    height: 41px;
+.check-selection label[b-zd5fa0kjzu] {
 }
 
-    .switch input[b-zd5fa0kjzu] {
-        opacity: 0;
-        width: 0;
-        height: 0;
-    }
-
-.slider[b-zd5fa0kjzu] {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #000000;
-    -webkit-transition: .7s;
-    transition: .7s;
-    width: 115px;
-    height: 41px;
-}
-
-    .slider[b-zd5fa0kjzu]:before {
-        position: absolute;
-        content: "";
-        height: 33px;
-        width: 33px;
-        left: 4px;
-        bottom: 4px;
-        background-color: white;
-        -webkit-transition: .8s;
-        transition: .8s;
-    }
-
-input:checked + .slider[b-zd5fa0kjzu] {
-    background-color: #000000;
-}
-
-
-    input:checked + .slider[b-zd5fa0kjzu]:before {
-        -webkit-transform: translateX(75px);
-        -ms-transform: translateX(75px);
-        transform: translateX(75px);
-    }
-
-/* Rounded sliders */
-.slider.round[b-zd5fa0kjzu] {
-    border-radius: 34px;
-}
-
-    .slider.round[b-zd5fa0kjzu]:before {
-        border-radius: 50%;
-    }
-
-.selector[b-zd5fa0kjzu] {
-    display: flex;
-    flex-direction: row;
-    width: 90%;
-    margin: auto;
-    flex-wrap: nowrap;
-    align-content: center;
-    justify-content: flex-start;
-    align-items: center;
-}
-
-    .selector .unit-def[b-zd5fa0kjzu] {
-        font-size: 3em;
-        margin: 13px;
-    }
-
-    /**/
-.settings[b-zd5fa0kjzu] {
-    display: flex;
-    align-items: center;
-    flex-direction: row;
+.check-selection.units-selector label[b-zd5fa0kjzu] {
+    align-self: end;
+    font-size: 1.8em;
+    cursor: default;
 }
 /* /Features/Temperatures/ScalePage.razor.rz.scp.css */
 .templist[b-9o1hyhuoa3] {
@@ -558,4 +484,88 @@ input:checked + .slider[b-zd5fa0kjzu] {
     padding: 15px;
     border-radius: 15px;
     background-color: var(--text-bg-color);
+}
+/* /Shared/ToggleSwitch.razor.rz.scp.css */
+/* https://www.w3schools.com/howto/howto_css_switch.asp */
+/* The switch - the box around the slider */
+.switch[b-bfv369zw6i], .toggle[b-bfv369zw6i] {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    margin-top: 7px;
+}
+
+    /* Hide default HTML checkbox */
+    .switch input[b-bfv369zw6i], .toggle input[b-bfv369zw6i] {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+/* The slider */
+.slider[b-bfv369zw6i] {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding-top: 2px;
+    background-color: #737272;
+    -webkit-transition: .7s;
+    transition: .7s;
+    width: 62px;
+    height: 29px;
+}
+
+    .slider[b-bfv369zw6i]:before {
+        position: absolute;
+        content: "\2716";
+        text-align: center;
+        color: dimgrey;
+        height: 25px;
+        width: 25px;
+        left: 2px;
+        bottom: 2px;
+        padding-top: 1px;
+        background-color: white;
+        -webkit-transition: .8s;
+        transition: .8s;
+    }
+
+input:checked + .slider[b-bfv369zw6i] {
+    background-color: dodgerblue;
+}
+
+    input:checked + .slider[b-bfv369zw6i]:before {
+        -webkit-transform: translateX(33px);
+        -ms-transform: translateX(33px);
+        transform: translateX(33px);
+        content: "\2714";
+        text-align: center;
+        color: #28a745;
+    }
+
+/* Rounded sliders */
+.slider.round[b-bfv369zw6i] {
+    border-radius: 20px;
+}
+
+    .slider.round[b-bfv369zw6i]:before {
+        border-radius: 50%;
+    }
+
+/* Override for toggler style*/
+.toggle .slider[b-bfv369zw6i]:before {
+    content: "";
+    color: dodgerblue;
+}
+
+.toggle input:checked + .slider[b-bfv369zw6i]:before {
+    content: "";
+    color: dodgerblue;
+}
+
+.toggle .slider[b-bfv369zw6i], .toggle input:checked + .slider[b-bfv369zw6i] {
+    background-color: dodgerblue;
 }
