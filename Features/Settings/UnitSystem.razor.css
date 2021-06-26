@@ -1,82 +1,8 @@
-﻿/*https://www.w3schools.com/howto/howto_css_switch.asp*/
-.switch {
-    position: relative;
-    display: inline-block;
-    width: 115px;
-    height: 41px;
+﻿.check-selection label {
 }
 
-    .switch input {
-        opacity: 0;
-        width: 0;
-        height: 0;
-    }
-
-.slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #000000;
-    -webkit-transition: .7s;
-    transition: .7s;
-    width: 115px;
-    height: 41px;
-}
-
-    .slider:before {
-        position: absolute;
-        content: "";
-        height: 33px;
-        width: 33px;
-        left: 4px;
-        bottom: 4px;
-        background-color: white;
-        -webkit-transition: .8s;
-        transition: .8s;
-    }
-
-input:checked + .slider {
-    background-color: #000000;
-}
-
-
-    input:checked + .slider:before {
-        -webkit-transform: translateX(75px);
-        -ms-transform: translateX(75px);
-        transform: translateX(75px);
-    }
-
-/* Rounded sliders */
-.slider.round {
-    border-radius: 34px;
-}
-
-    .slider.round:before {
-        border-radius: 50%;
-    }
-
-.selector {
-    display: flex;
-    flex-direction: row;
-    width: 90%;
-    margin: auto;
-    flex-wrap: nowrap;
-    align-content: center;
-    justify-content: flex-start;
-    align-items: center;
-}
-
-    .selector .unit-def {
-        font-size: 3em;
-        margin: 13px;
-    }
-
-    /**/
-.settings {
-    display: flex;
-    align-items: center;
-    flex-direction: row;
+.check-selection.units-selector label {
+    align-self: end;
+    font-size: 1.8em;
+    cursor: default;
 }

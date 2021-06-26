@@ -3,6 +3,7 @@
 @inject ISyncLocalStorageService LocalStorage
 
 <h3>App Settings</h3>
+
 <ul class="settings-group">
 	<li><UnitSystem /></li>
 	<li><RefreshTimer /></li>
@@ -32,6 +33,13 @@
 		SetSettingsFromQueryString();
 	}
 
+	private string _text = "Hola";
+	private void seeTXT(string txt)
+	{
+		
+		Console.WriteLine(txt);
+	}
+
 	private void GoToApiSettings()
 	{
 		NavManager.NavigateTo($"{NavManager.BaseUri}apisettings", forceLoad: true);
@@ -39,30 +47,30 @@
 
 	private void SetSettingsFromQueryString()
 	{
-		NavManager.TryGetQueryString<string>(Constants.KeyApiKey, out openWeatherApi);
-		NavManager.TryGetQueryString<string>(Constants.DriveKeyApiKey, out driveApi);
-		NavManager.TryGetQueryString<string>(Constants.DriveFolderId, out driveFolder);
-		NavManager.TryGetQueryString<string>(Constants.StartPage, out defaultStartPage);
-		NavManager.TryGetQueryString<string>(Constants.KeyCity, out city);
-		NavManager.TryGetQueryString<int>(Constants.RefreshTime, out weatherRefreshTime);
-		NavManager.TryGetQueryString<bool?>(Constants.KeyShowBothTemps, out showBothTemps);
+		NavManager.TryGetQueryString<string>(Constants.KeyName_WeatherApiKey, out openWeatherApi);
+		NavManager.TryGetQueryString<string>(Constants.KeyName_DriveApiKey, out driveApi);
+		NavManager.TryGetQueryString<string>(Constants.KeyName_DriveFolderId, out driveFolder);
+		NavManager.TryGetQueryString<string>(Constants.KeyName_StartPage, out defaultStartPage);
+		NavManager.TryGetQueryString<string>(Constants.KeyName_City, out city);
+		NavManager.TryGetQueryString<int>(Constants.KeyName_RefreshTime, out weatherRefreshTime);
+		NavManager.TryGetQueryString<bool?>(Constants.KeyName_ShowBothTemps, out showBothTemps);
 
-		if (!string.IsNullOrEmpty(openWeatherApi)) { LocalStorage.SetItem(Constants.KeyApiKey, openWeatherApi); }
-		if (!string.IsNullOrEmpty(driveApi)) { LocalStorage.SetItem(Constants.DriveKeyApiKey, driveApi); }
-		if (!string.IsNullOrEmpty(driveFolder)) { LocalStorage.SetItem(Constants.DriveFolderId, driveFolder); }
-		if (elapsedSlideShow > 0) { LocalStorage.SetItem(Constants.ShowTime, elapsedSlideShow); }
-		if (weatherRefreshTime > 0) { LocalStorage.SetItem(Constants.RefreshTime, weatherRefreshTime); }
-		if (showBothTemps != null) { LocalStorage.SetItem(Constants.KeyShowBothTemps, (bool)showBothTemps); }
+		if (!string.IsNullOrEmpty(openWeatherApi)) { LocalStorage.SetItem(Constants.KeyName_WeatherApiKey, openWeatherApi); }
+		if (!string.IsNullOrEmpty(driveApi)) { LocalStorage.SetItem(Constants.KeyName_DriveApiKey, driveApi); }
+		if (!string.IsNullOrEmpty(driveFolder)) { LocalStorage.SetItem(Constants.KeyName_DriveFolderId, driveFolder); }
+		if (elapsedSlideShow > 0) { LocalStorage.SetItem(Constants.KeyName_ShowTime, elapsedSlideShow); }
+		if (weatherRefreshTime > 0) { LocalStorage.SetItem(Constants.KeyName_RefreshTime, weatherRefreshTime); }
+		if (showBothTemps != null) { LocalStorage.SetItem(Constants.KeyName_ShowBothTemps, (bool)showBothTemps); }
 
 		if (!string.IsNullOrEmpty(city))
 		{
-			LocalStorage.SetItem(Constants.KeyCity, city);
-			LocalStorage.SetItem(Constants.KeyUseCity, true);
+			LocalStorage.SetItem(Constants.KeyName_City, city);
+			LocalStorage.SetItem(Constants.KeyName_UseCity, true);
 		}
 
 		if (!string.IsNullOrEmpty(defaultStartPage))
 		{
-			LocalStorage.SetItem(Constants.StartPage, defaultStartPage);
+			LocalStorage.SetItem(Constants.KeyName_StartPage, defaultStartPage);
 			NavManager.NavigateTo($"{NavManager.BaseUri}{defaultStartPage}", forceLoad: false);
 		}
 

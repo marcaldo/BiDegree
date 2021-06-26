@@ -4,8 +4,8 @@
 
 <h3>API Settings</h3>
 <ul class="settings-group">
-	<li><ApiKey /></li>
-	<li><DriveApiKey /></li>
+	<li><ApiKeyWeather /></li>
+	<li><ApiKeyDrive /></li>
 	<li>
 		<button class="btn btn-secondary" @onclick="() => GoToSettings()">
 			<Icon Name="Icon.IconType.Settings" Size="40" Fill="white" />&nbsp;App Settings
@@ -18,15 +18,28 @@
 	private string openWeatherApi;
 	private string driveApi;
 	private string driveFolder;
-	private string defaultStartPage;
-	private int elapsedSlideShow;
-	private int weatherRefreshTime;
-	private bool showBothTemps;
-	private string city;
+
+	protected override void OnInitialized()
+	{
+		SetSettingsFromQueryString();
+	}
 
 	private void GoToSettings()
 	{
 		NavManager.NavigateTo($"{NavManager.BaseUri}settings", forceLoad: true);
+	}
+
+
+	private void SetSettingsFromQueryString()
+	{
+		NavManager.TryGetQueryString<string>(Constants.KeyName_WeatherApiKey, out openWeatherApi);
+		NavManager.TryGetQueryString<string>(Constants.KeyName_DriveApiKey, out driveApi);
+		NavManager.TryGetQueryString<string>(Constants.KeyName_DriveFolderId, out driveFolder);
+
+		if (!string.IsNullOrEmpty(openWeatherApi)) { LocalStorage.SetItem(Constants.KeyName_WeatherApiKey, openWeatherApi); }
+		if (!string.IsNullOrEmpty(driveApi)) { LocalStorage.SetItem(Constants.KeyName_DriveApiKey, driveApi); }
+		if (!string.IsNullOrEmpty(driveFolder)) { LocalStorage.SetItem(Constants.KeyName_DriveFolderId, driveFolder); }
+
 	}
 
 }

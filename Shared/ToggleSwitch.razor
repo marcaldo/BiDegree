@@ -1,0 +1,41 @@
+﻿<div class="@Class">
+	<label class="@_switchStyle">
+		<input id="@Id" type="checkbox" @bind="IsOn" />
+		<span class="slider round"></span>
+	</label>
+</div>
+
+@code {
+	[Parameter] public EventCallback<bool> OnToggle { get; set; }
+	[Parameter] public string Id { get; set; }
+	[Parameter] public string Class { get; set; }
+	[Parameter] public bool SetAsChecked { get; set; }
+	[Parameter] public bool OnOffStyle { get; set; } = true;
+
+	private bool _isSettingUp = true;
+	private bool _isOn;
+	private string _switchStyle;
+
+	protected override Task OnInitializedAsync()
+	{
+		IsOn = SetAsChecked;
+		_switchStyle = OnOffStyle ? "switch" : "toggle";
+
+		return base.OnInitializedAsync();
+	}
+
+	private bool IsOn
+	{
+		get => _isOn;
+		set
+		{
+			_isOn = value;
+			if (!_isSettingUp)
+			{
+				OnToggle.InvokeAsync(value);
+			}
+			_isSettingUp = false;
+		}
+	}
+
+}

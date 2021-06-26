@@ -25,7 +25,7 @@ namespace BiDegree.Services
 
         public async Task<DriveFileList> GetDriveFileList(string folderId)
         {
-            var gApiKey = await _localStorage.GetItemAsync<string>(Constants.DriveKeyApiKey);
+            var gApiKey = await _localStorage.GetItemAsync<string>(Constants.KeyName_DriveApiKey);
 
             var url = $"https://www.googleapis.com/drive/v2/files?q='{folderId}'+in+parents&maxResults=1000&key={gApiKey}";
             var fileList = await _httpClient.GetFromJsonAsync<DriveFileList>(url);

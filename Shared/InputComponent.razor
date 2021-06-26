@@ -1,0 +1,24 @@
+﻿<input type="text" @bind="@TbText" />
+
+@code {
+
+    [Parameter]
+    public string TbText
+    {
+        get => _tbText;
+        set
+        {
+            if (_tbText == value) return;
+
+            _tbText = value;
+            OnTextChange.InvokeAsync(value);
+        }
+    }
+
+    [Parameter]
+    public EventCallback<string> OnTextChange { get; set; }
+
+
+    private string _tbText;
+
+}

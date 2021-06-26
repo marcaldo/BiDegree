@@ -1,6 +1,8 @@
 ﻿@using BiDegree.Models
 @using System.Globalization
 @inject StateContainer StateContainer
+@inject ILocalStorageService LocalStorage
+
 <style>
 	/* Full background image from https://www.w3schools.com/howto/howto_css_full_page.asp */
 	body {
@@ -55,13 +57,19 @@
 		 <td class="title">Min</td>
 		 <td><Icon Name="Icon.IconType.TemperatureLow" Fill="blue" /></td>
 		 <td>@CurrentWeather.main.temp_min.ToDecimalString() °C</td>
-		 <td>@CurrentWeather.main.temp_min.ToFahrenheitString() °F</td>
+						@if (showBothTemps)
+						{
+			 <td>@CurrentWeather.main.temp_min.ToFahrenheitString() °F</td>
+						}
 		</tr>
 		<tr>
 		 <td class="title">Max</td>
 		 <td><Icon Name="Icon.IconType.TemperatureHigh" Fill="#9e300f" /></td>
 		 <td>@CurrentWeather.main.temp_max.ToDecimalString() °C</td>
-		 <td>@CurrentWeather.main.temp_max.ToFahrenheitString() °F</td>
+						@if (showBothTemps)
+						{
+			 <td>@CurrentWeather.main.temp_max.ToFahrenheitString() °F</td>
+						}
 		</tr>
 				}
 				else
@@ -70,13 +78,19 @@
 		 <td class="title">Min</td>
 		 <td><Icon Name="Icon.IconType.TemperatureLow" Fill="blue" /></td>
 		 <td>@CurrentWeather.main.temp_min.ToDecimalString() °F</td>
-		 <td>@CurrentWeather.main.temp_min.ToCelsiusString() °C</td>
+						@if (showBothTemps)
+						{
+			 <td>@CurrentWeather.main.temp_min.ToCelsiusString() °C</td>
+						}
 		</tr>
 		<tr>
 		 <td class="title">Max</td>
 		 <td><Icon Name="Icon.IconType.TemperatureHigh" Fill="#9e300f" /></td>
 		 <td>@CurrentWeather.main.temp_max.ToDecimalString() °F</td>
-		 <td>@CurrentWeather.main.temp_max.ToCelsiusString() °C</td>
+						@if (showBothTemps)
+						{
+			 <td>@CurrentWeather.main.temp_max.ToCelsiusString() °C</td>
+						}
 		</tr>
 				}
    </tbody>
@@ -90,6 +104,8 @@
 	private string windSpeedUnits;
 	private float windSpeed;
 	private string windDir;
+	private bool showBothTemps = true;
+
 
 	[Parameter] public CurrentWeather CurrentWeather { get; set; }
 	[Parameter] public UnitsType Units { get; set; }
@@ -118,6 +134,16 @@
 		windDir = $"{CurrentWeather.wind.deg - 180}deg";
 
 		StateContainer.CurrentTemp = CurrentWeather.main.temp;
+	}
+
+	protected override async Task OnInitializedAsync()
+	{
+		var showBothTempsSetting = await LocalStorage.GetItemAsync<bool?>(Constants.KeyName_ShowBothTemps);
+
+		if (showBothTempsSetting != null)
+		{
+			showBothTemps = (bool)showBothTempsSetting;
+		}
 	}
 
 	private string DisplayTemp(float temp)
