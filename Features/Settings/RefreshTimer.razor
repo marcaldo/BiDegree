@@ -9,9 +9,9 @@
         <option value="240">4 hours</option>
         <option value="480">8 hours</option>
         <option value="720">12 hours</option>
-        <option value="0">Never - Manual refresh</option>
+        <option value="0">Never - Manual refresh (when is available)</option>
     </select>
-    <div class="info">Remember that automatic refresh may consume data.</div>
+    <div class="info">Remember that automatic refresh may consume more data.</div>
     <div class="save">
         <Icon Name="Icon.IconType.Ok" Visible="saved" Size="25" Fill="limegreen" />
     </div>
@@ -27,16 +27,16 @@
         set
         {
             _elapsed = value;
-            LocalStorage.SetItem(Constants.RefreshTime, elapsed);
+            LocalStorage.SetItem(Constants.KeyName_RefreshTime, elapsed);
             saved = true;
         }
     }
 
     protected override void OnInitialized()
     {
-        _elapsed = LocalStorage.GetItem<int?>(Constants.RefreshTime) is null
-        ? Constants.DefaultRefresh
-        : LocalStorage.GetItem<int>(Constants.RefreshTime);
+        _elapsed = LocalStorage.GetItem<int?>(Constants.KeyName_RefreshTime) is null
+        ? Constants.DefaultValue_Refresh
+        : LocalStorage.GetItem<int>(Constants.KeyName_RefreshTime);
     }
 
 }

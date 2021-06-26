@@ -1,0 +1,44 @@
+﻿@inject ILocalStorageService localStorage
+
+<div class="form-group">
+	<label for="apiKeyData">OpenWeather API key:</label>
+	<div class="info">
+		To use this app you need an API key for the weather service.
+		We use <b>OpenWeather</b>. You can get a free API Key from <a href="https://openweathermap.org/price">the openeathermap.org website.</a>
+	</div>
+	<input id="apiKeyData" class="form-control" @bind="settings.ApiKeyValue" @onfocus="()=>ClearSavedMark()" />
+	<div class="save">
+		<Icon Name="Icon.IconType.Ok" Visible="Saved" Size="25" Fill="limegreen" />
+		<button class="btn btn-primary" @onclick="SaveApiKey">Save</button>
+	</div>
+</div>
+@code {
+	protected bool Saved { get; set; } = false;
+	private Settings settings = new Settings();
+
+	protected override async Task OnInitializedAsync()
+	{
+		settings.ApiKeyValue = await GetApiKey();
+	}
+
+	protected async Task<string> GetApiKey()
+	{
+		return await localStorage.GetItemAsync<string>(Constants.KeyName_WeatherApiKey);
+
+	}
+
+	protected void ClearSavedMark()
+	{
+		Saved = false;
+		StateHasChanged();
+	}
+
+	protected async Task SaveApiKey()
+	{
+		await localStorage.SetItemAsync(Constants.KeyName_WeatherApiKey, settings.ApiKeyValue);
+		Saved = settings.ApiKeyValue == await GetApiKey();
+		StateHasChanged();
+	}
+
+
+}

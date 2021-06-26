@@ -26,7 +26,7 @@ namespace BiDegree.Shared
 
         protected override async Task OnInitializedAsync()
         {
-            timeFormat = await localStorage.GetItemAsync<TimeFormatType?>(Constants.TimeFormat) ?? TimeFormatType.T12hs;
+            timeFormat = await localStorage.GetItemAsync<TimeFormatType?>(Constants.KeyName_TimeFormat) ?? TimeFormatType.T12hs;
         }
 
         private void Timer_Elapsed(object _, ElapsedEventArgs e)

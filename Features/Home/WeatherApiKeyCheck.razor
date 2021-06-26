@@ -9,7 +9,7 @@
 
     protected override void OnInitialized()
     {
-        var apiKey = LocalStorage.GetItem<string>(Constants.KeyApiKey);
+        var apiKey = LocalStorage.GetItem<string>(Constants.KeyName_WeatherApiKey);
         var uri = NavManager.ToAbsoluteUri(NavManager.BaseUri);
 
         if (string.IsNullOrEmpty(apiKey))
@@ -21,12 +21,12 @@
                 NavManager.NavigateTo($"{uri}/apisettings");
             }
 
-            LocalStorage.SetItem<string>(Constants.KeyApiKey, configApiKey);
+            LocalStorage.SetItem<string>(Constants.KeyName_WeatherApiKey, configApiKey);
         }
 
-        var startPage = LocalStorage.GetItem<string>(Constants.StartPage) is null
-        ? Constants.DefaultStartingPage
-        : LocalStorage.GetItem<string>(Constants.StartPage);
+        var startPage = LocalStorage.GetItem<string>(Constants.KeyName_StartPage) is null
+        ? Constants.DefaultValue_StartingPage
+        : LocalStorage.GetItem<string>(Constants.KeyName_StartPage);
 
         NavManager.NavigateTo($"{uri}/{startPage}");
     }

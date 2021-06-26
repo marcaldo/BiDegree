@@ -1,20 +1,23 @@
 ﻿using System;
 
-public class StateContainer
+namespace BiDegree.Shared
 {
-    private float currentTemp;
-
-    public float CurrentTemp
+    public class StateContainer
     {
-        get => currentTemp;
-        set
+        private float currentTemp;
+
+        public float CurrentTemp
         {
-            currentTemp = value;
-            NotifyStateChanged();
+            get => currentTemp;
+            set
+            {
+                currentTemp = value;
+                NotifyStateChanged();
+            }
         }
+
+        public event Action OnChange;
+
+        private void NotifyStateChanged() => OnChange?.Invoke();
     }
-
-    public event Action OnChange;
-
-    private void NotifyStateChanged() => OnChange?.Invoke();
 }

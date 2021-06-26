@@ -138,7 +138,7 @@
 
 	protected override async Task OnInitializedAsync()
 	{
-		var showBothTempsSetting = await LocalStorage.GetItemAsync<bool?>(Constants.KeyShowBothTemps);
+		var showBothTempsSetting = await LocalStorage.GetItemAsync<bool?>(Constants.KeyName_ShowBothTemps);
 
 		if (showBothTempsSetting != null)
 		{

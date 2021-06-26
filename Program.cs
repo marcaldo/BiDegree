@@ -1,4 +1,5 @@
 using BiDegree.Services;
+using BiDegree.Shared;
 using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;

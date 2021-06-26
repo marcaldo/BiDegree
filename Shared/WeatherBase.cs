@@ -44,15 +44,15 @@ namespace BiDegree.Shared
 
         protected override async Task OnInitializedAsync()
         {
-            useCity = await LocalStorage.GetItemAsync<bool>(Constants.KeyUseCity);
-            city = await LocalStorage.GetItemAsync<string>(Constants.KeyCity);
+            useCity = await LocalStorage.GetItemAsync<bool>(Constants.KeyName_UseCity);
+            city = await LocalStorage.GetItemAsync<string>(Constants.KeyName_City);
 
-            var storedRefreshMinutes = await LocalStorage.GetItemAsync<int?>(Constants.RefreshTime);
+            var storedRefreshMinutes = await LocalStorage.GetItemAsync<int?>(Constants.KeyName_RefreshTime);
             int refreshMinutes = storedRefreshMinutes is null
-                                    ? Constants.DefaultRefresh
+                                    ? Constants.DefaultValue_Refresh
                                     : Convert.ToInt32(storedRefreshMinutes);
 
-            var unitsConfig = await LocalStorage.GetItemAsync<UnitsType?>(Constants.KeyUnits);
+            var unitsConfig = await LocalStorage.GetItemAsync<UnitsType?>(Constants.KeyName_Units);
             Units = unitsConfig ?? UnitsType.Metric;
 
             if (refreshMinutes > 0)
