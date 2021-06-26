@@ -17,22 +17,47 @@ namespace BiDegree.Features.PhotoFrame
         [Inject] IGoogleApi GoogleApi { get; set; }
         [Inject] ILocalStorageService LocalStorage { get; set; }
         [Inject] IJSRuntime JS { get; set; }
+        [Inject]IDebugMode DebugMode { get; set; }
 
 
         private string itemLink;
         private bool isVideo = false;
         private string folderId;
-        private bool isDebugMode = false;
         private double duration = Constants.DefaultValue_ShowTime;
-        private int picsShown = 0;
 
         static Dictionary<int, DisplayItem> displayQueue;
-        private DriveFileList driveFileList;
+        private static DriveFileList driveFileList;
+
+        protected override void OnInitialized()
+        {
+            Console.WriteLine("OnInitialized");
+        }
+        protected override void OnAfterRender(bool firstRender)
+        {
+            Console.WriteLine($"OnAfterRender - firstRender: {firstRender}");
+        }
+        protected override void OnParametersSet()
+        {
+            Console.WriteLine("OnParametersSet");
+        }
+        protected override Task OnParametersSetAsync()
+        {
+            Console.WriteLine("OnParametersSetAsync");
+            return base.OnParametersSetAsync();
+        }
+
+        protected override Task OnAfterRenderAsync(bool firstRender)
+        {
+            Console.WriteLine($"OnAfterRenderAsync - firstRender: {firstRender}");
+            return base.OnAfterRenderAsync(firstRender);
+        }
 
         protected override async Task OnInitializedAsync()
         {
-            isDebugMode = await LocalStorage.GetItemAsync<bool>(Constants.KeyName_DevMode);
-            await LocalStorage.RemoveItemAsync(Constants.KeyName_PicturesShown);
+            Console.WriteLine("OnInitializedAsync");
+
+            DebugMode.IsActive = await LocalStorage.GetItemAsync<bool>(Constants.KeyName_Dev_DebugMode);
+            await DebugMode.ClearAsync();
 
             folderId = await LocalStorage.GetItemAsync<string>(Constants.KeyName_DriveFolderId);
 
@@ -75,10 +100,11 @@ namespace BiDegree.Features.PhotoFrame
 
             displayQueue.Remove(item.Key);
 
-            ++picsShown;
-            if (isDebugMode)
+            if (DebugMode.IsActive)
             {
-                await LocalStorage.SetItemAsync(Constants.KeyName_PicturesShown, picsShown);
+                ++DebugMode.PictureCount;
+                await LocalStorage.SetItemAsync(Constants.KeyName_Dev_PictureCount, DebugMode.PictureCount);
+                
             }
 
             StateHasChanged();
@@ -101,6 +127,9 @@ namespace BiDegree.Features.PhotoFrame
 
                 tempQueue.Clear();
             }
+
+            Console.WriteLine($"tempQueue count >>>>>>>>>>> {tempQueue.Count}");
+            Console.WriteLine($"driveFileList items >>>>>>> {driveFileList.items.Length}");
         }
 
         private Dictionary<int, DisplayItem> CreateTempQueue(DriveFileList driveFileList)

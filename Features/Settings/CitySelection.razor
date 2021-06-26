@@ -40,23 +40,17 @@
 
 	protected async Task SetUseCity(bool useCity)
 	{
-		Console.WriteLine($"City SetUseCity: {useCity}");
-
 		settings.UseCity = useCity;
 		ClearSavedMark();
 	}
 	protected override void OnInitialized()
 	{
 		settings.UseCity = localStorageSync.GetItem<bool>(Constants.KeyName_UseCity);
-		Console.WriteLine($"City OnInitialized:{settings.UseCity}");
 	}
 
 	protected override async Task OnInitializedAsync()
 	{
 		settings.City = await GetCityAsync();
-		@*settings.UseCity = await localStorage.GetItemAsync<bool>(Constants.KeyName_UseCity);*@
-
-		Console.WriteLine($"City OnInitializedAsync:{settings.UseCity}");
 
 	}
 

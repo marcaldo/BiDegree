@@ -11,12 +11,12 @@
 
 	protected override void OnInitialized()
 	{
-		bool? devModeStored = localStorage.GetItem<bool?>(Constants.KeyName_DevMode) ;
+		bool? devModeStored = localStorage.GetItem<bool?>(Constants.KeyName_Dev_DebugMode) ;
 		isDevMode = devModeStored ?? false;
 	}
 
 	private void SaveDevMode(bool isChecked)
 	{
-		localStorage.SetItem(Constants.KeyName_DevMode, isChecked);
+		localStorage.SetItem(Constants.KeyName_Dev_DebugMode, isChecked);
 	}
 }
