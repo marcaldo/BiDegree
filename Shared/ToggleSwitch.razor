@@ -9,17 +9,29 @@
 	[Parameter] public EventCallback<bool> OnToggle { get; set; }
 	[Parameter] public string Id { get; set; }
 	[Parameter] public string Class { get; set; }
-	[Parameter]
+	[Parameter] public bool InitialStatus { get; set; }
+
+	private bool _isSettingUp;
+	private bool _isOn;
+
+	protected override Task OnInitializedAsync()
+	{
+		IsOn = InitialStatus;
+		return base.OnInitializedAsync();
+	}
+
 	public bool IsOn
 	{
 		get => _isOn;
 		set
 		{
 			_isOn = value;
-			OnToggle.InvokeAsync(value);
+			if (!_isSettingUp)
+			{
+				_isSettingUp = false;
+				OnToggle.InvokeAsync(value);
+			}
 		}
 	}
-
-	private bool _isOn;
 
 }

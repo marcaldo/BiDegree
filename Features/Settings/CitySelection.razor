@@ -1,5 +1,6 @@
 ﻿@using System.Web
 @inject ILocalStorageService localStorage
+@inject ISyncLocalStorageService localStorageSync
 
 <div class="form-group">
 	<label for="City">City:</label>
@@ -9,6 +10,8 @@
 		City name must be followed with the internet country code, separated by a comma (e.g.: "Minneapolis, us"; "Barcelona, es"; "Buenos Aires, ar").
 	</div>
 	<input id="cityData" class="form-control" @bind="settings.City" @onfocus="()=>ClearSavedMark()" />
+	<ToggleSwitch Id="geoLocation" OnToggle="((useCity)=>SetUseCity(useCity))" InitialStatus="settings.UseCity" />
+
 	<div class="check-selection">
 		<input id="geoLocation" type="checkbox" @bind="useCity" />
 		<label for="geoLocation">Use this City instead of automatic location (automatic location needs permission granted in the browser).</label>
@@ -23,10 +26,14 @@
 @code {
 	protected bool Saved { get; set; } = false;
 	private Settings settings = new Settings();
+	private bool _initialStatus;
 
 	private bool useCity
 	{
-		get => settings.UseCity;
+		get
+		{
+			return settings.UseCity;
+		}
 		set
 		{
 			settings.UseCity = value;
@@ -34,10 +41,26 @@
 		}
 	}
 
+	protected async Task SetUseCity(bool useCity)
+	{
+		Console.WriteLine($"City SetUseCity: {useCity}");
+
+		settings.UseCity = useCity;
+		ClearSavedMark();
+	}
+	protected override void OnInitialized()
+	{
+		settings.UseCity = localStorageSync.GetItem<bool>(Constants.KeyName_UseCity);
+		Console.WriteLine($"City OnInitialized:{settings.UseCity}");
+	}
+
 	protected override async Task OnInitializedAsync()
 	{
 		settings.City = await GetCityAsync();
-		settings.UseCity = await localStorage.GetItemAsync<bool>(Constants.KeyName_UseCity);
+		@*settings.UseCity = await localStorage.GetItemAsync<bool>(Constants.KeyName_UseCity);*@
+
+		Console.WriteLine($"City OnInitializedAsync:{settings.UseCity}");
+
 	}
 
 	protected async Task<string> GetCityAsync()
