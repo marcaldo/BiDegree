@@ -11,8 +11,3 @@
     .settings-group li button {
         margin-left: 85px;
     }
-
-    li .nav{
-        display:flex;
-        flex-direction:row;
-    }
