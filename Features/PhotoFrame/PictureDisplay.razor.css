@@ -3,8 +3,9 @@
     background-color: var(--text-bg-color);
     position: absolute;
     top: 0px;
-    width: 100%;
     font-size: 0.85em;
+    padding-left: 5px;
+    padding-right: 10px;
 }
 
 
