@@ -1,17 +1,13 @@
-﻿@page "/apisettings"
+﻿@page "/advancedsettings"
 @inject NavigationManager NavManager
 @inject ISyncLocalStorageService LocalStorage
 
-<h3>API Settings</h3>
+<h3>Advanced Settings</h3>
 <ul class="settings-group">
-	<li><ApiKeyWeather /></li>
-	<li><ApiKeyDrive /></li>
-	<li class="nav">
-		<button class="btn btn-secondary" @onclick="() => GoTo(pageSettings)">
+	<li><Advanced /></li>
+	<li>
+		<button class="btn btn-secondary" @onclick="() => GoToSettings()">
 			<Icon Name="Icon.IconType.Settings" Size="40" Fill="white" />&nbsp;App Settings
-		</button>
-		<button class="btn btn-link" @onclick="() => GoTo(pageAdvancedSettings)">
-			Advanced settings
 		</button>
 	</li>
 </ul>
@@ -21,17 +17,15 @@
 	private string openWeatherApi;
 	private string driveApi;
 	private string driveFolder;
-	private const string pageSettings = "settings";
-	private const string pageAdvancedSettings = "advancedsettings";
 
 	protected override void OnInitialized()
 	{
 		SetSettingsFromQueryString();
 	}
 
-	private void GoTo(string page)
+	private void GoToSettings()
 	{
-		NavManager.NavigateTo($"{NavManager.BaseUri}{page}", forceLoad: true);
+		NavManager.NavigateTo($"{NavManager.BaseUri}settings", forceLoad: true);
 	}
 
 

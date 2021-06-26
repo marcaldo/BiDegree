@@ -3,16 +3,15 @@
     background-color: var(--text-bg-color);
     position: absolute;
     top: 0px;
-    width: 100%;
     font-size: 0.85em;
+    padding-left: 5px;
+    padding-right: 10px;
 }
 
-    .debug ul li:first-child {
-        list-style: none;
-        text-decoration: underline;
-    }
+
     .debug button {
-        background-color: yellow;
+        background-color: #018aff29;
+        ;
         width: 67px;
     }
 

@@ -1,0 +1,22 @@
+﻿@inject ISyncLocalStorageService localStorage
+<div class="form-group settings">
+<div class="check-selection">
+<ToggleSwitch Id="devMode" OnToggle="((isDevMode)=>SaveDevMode(isDevMode))" SetAsChecked="isDevMode" />
+<label for="devMode">Debug mode</label>
+</div>
+</div>
+@code {
+
+	private bool isDevMode;
+
+	protected override void OnInitialized()
+	{
+		bool? devModeStored = localStorage.GetItem<bool?>(Constants.KeyName_DevMode) ;
+		isDevMode = devModeStored ?? false;
+	}
+
+	private void SaveDevMode(bool isChecked)
+	{
+		localStorage.SetItem(Constants.KeyName_DevMode, isChecked);
+	}
+}
