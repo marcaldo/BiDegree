@@ -10,12 +10,9 @@
 		City name must be followed with the internet country code, separated by a comma (e.g.: "Minneapolis, us"; "Barcelona, es"; "Buenos Aires, ar").
 	</div>
 	<input id="cityData" class="form-control" @bind="settings.City" @onfocus="()=>ClearSavedMark()" />
-	<ToggleSwitch Id="geoLocation" OnToggle="((useCity)=>SetUseCity(useCity))" InitialStatus="settings.UseCity" />
-
-	<div class="check-selection">
-		<input id="geoLocation" type="checkbox" @bind="useCity" />
-		<label for="geoLocation">Use this City instead of automatic location (automatic location needs permission granted in the browser).</label>
-	</div>
+	<br />
+	<label for="geoLocation">Use this City instead of automatic location (automatic location needs permission granted in the browser).</label>
+	<ToggleSwitch Id="geoLocation" OnToggle="((useCity)=>SetUseCity(useCity))" SetAsChecked="settings.UseCity" />
 	<div class="save">
 		<Icon Name="Icon.IconType.Ok" Visible="Saved" Size="25" Fill="limegreen" />
 		<button class="btn btn-primary" @onclick="SaveCityAsync">Save</button>

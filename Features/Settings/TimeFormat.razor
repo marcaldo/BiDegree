@@ -1,13 +1,10 @@
-﻿@inject ILocalStorageService localStorage
+﻿@inject ISyncLocalStorageService localStorage
 <div class="form-group">
 	<label for="uSelector">Time format:</label>
-	<div class="selector">
-		<div class="unit-def">12hs</div>
-		<label class="switch">
-			<input id="uSelector" type="checkbox" @bind="isChecked" @onclick="()=>SaveSelection(!isChecked)" />
-			<span class="slider round"></span>
-		</label>
-		<div class="unit-def">24hs</div>
+	<div class="check-selection units-selector">
+		<label>12hs</label>
+		<ToggleSwitch Id="tFormat" OnToggle="((isChecked)=>SaveSelection(isChecked))" SetAsChecked="isChecked" OnOffStyle="false" />
+		<label>24hs</label>
 	</div>
 </div>
 @code {
@@ -15,9 +12,9 @@
 
 	private bool isChecked { get; set; } = false;
 
-	protected override async Task OnInitializedAsync()
+	protected override void OnInitialized()
 	{
-		var timeFormat = await localStorage.GetItemAsync<TimeFormatType?>(Constants.KeyName_TimeFormat);
+		var timeFormat = localStorage.GetItem<TimeFormatType?>(Constants.KeyName_TimeFormat);
 
 		if (timeFormat == null)
 		{
@@ -27,11 +24,10 @@
 		isChecked = timeFormat == TimeFormatType.T24hs;
 	}
 
-
-	protected async Task SaveSelection(bool isChecked)
+	protected void SaveSelection(bool isChecked)
 	{
 		TimeFormatType timeFormat = isChecked ? TimeFormatType.T24hs : TimeFormatType.T12hs;
-		await localStorage.SetItemAsync(Constants.KeyName_TimeFormat, timeFormat);
+		localStorage.SetItem(Constants.KeyName_TimeFormat, timeFormat);
 	}
 
 	public class UnitsConfig

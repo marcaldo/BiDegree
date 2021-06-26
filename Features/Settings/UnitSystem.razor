@@ -1,15 +1,15 @@
-﻿@inject ILocalStorageService localStorage
+﻿@inject ISyncLocalStorageService localStorage
 <div class="form-group settings">
 	<label for="tUnits">First show:</label>
 
 	<div class="check-selection units-selector">
 		<label>&#8451;</label>
-		<ToggleSwitch Id="tUnits" OnToggle="((isCheckedUnits)=>SaveUnitsSelection(isCheckedUnits))" Class="unitsSelector" />
+		<ToggleSwitch Id="tUnits" OnToggle="((isCheckedUnits)=>SaveUnitsSelection(isCheckedUnits))" SetAsChecked="isCheckedUnits" OnOffStyle="false" />
 		<label>&#8457;</label>
 	</div>
 
 	<div class="check-selection">
-		<ToggleSwitch Id="useBothTemps" OnToggle="((isCheckedBothTemps)=>SaveShowBothTemsSelection(isCheckedBothTemps))" />
+		<ToggleSwitch Id="useBothTemps" OnToggle="((isCheckedBothTemps)=>SaveShowBothTemsSelection(isCheckedBothTemps))" SetAsChecked="isCheckedBothTemps" />
 		<label for="useBothTemps">Show both Fahrenheit and Celsius.</label>
 	</div>
 
@@ -18,10 +18,10 @@
 	private bool isCheckedUnits;
 	private bool isCheckedBothTemps { get; set; } = true;
 
-	protected override async Task OnInitializedAsync()
+	protected override void OnInitialized()
 	{
-		var units = await localStorage.GetItemAsync<UnitsType?>(Constants.KeyName_Units);
-		var showBothTemps = await localStorage.GetItemAsync<bool?>(Constants.KeyName_ShowBothTemps);
+		var units = localStorage.GetItem<UnitsType?>(Constants.KeyName_Units);
+		var showBothTemps = localStorage.GetItem<bool?>(Constants.KeyName_ShowBothTemps);
 
 		if (units is null) { units = UnitsType.Metric; }
 		if (showBothTemps is null) { showBothTemps = true; }
@@ -30,14 +30,14 @@
 		isCheckedBothTemps = (bool)showBothTemps;
 	}
 
-	protected async Task SaveUnitsSelection(bool isChecked)
+	protected void SaveUnitsSelection(bool isChecked)
 	{
 		UnitsType units = isChecked ? UnitsType.Imperial : UnitsType.Metric;
-		await localStorage.SetItemAsync(Constants.KeyName_Units, units);
+		localStorage.SetItem(Constants.KeyName_Units, units);
 	}
 
-	protected async Task SaveShowBothTemsSelection(bool isChecked)
+	protected void SaveShowBothTemsSelection(bool isChecked)
 	{
-		await localStorage.SetItemAsync(Constants.KeyName_ShowBothTemps, isChecked);
+		localStorage.SetItem(Constants.KeyName_ShowBothTemps, isChecked);
 	}
 }

@@ -1,6 +1,6 @@
 ﻿/* https://www.w3schools.com/howto/howto_css_switch.asp */
 /* The switch - the box around the slider */
-.switch {
+.switch, .toggle {
     position: relative;
     display: inline-block;
     width: 60px;
@@ -8,7 +8,7 @@
 }
 
     /* Hide default HTML checkbox */
-    .switch input {
+    .switch input, .toggle input {
         opacity: 0;
         width: 0;
         height: 0;
@@ -46,7 +46,7 @@
     }
 
 input:checked + .slider {
-    background-color: limegreen;
+    background-color: dodgerblue;
 }
 
     input:checked + .slider:before {
@@ -55,7 +55,7 @@ input:checked + .slider {
         transform: translateX(33px);
         content: "\2714";
         text-align: center;
-        color: dodgerblue;
+        color: #28a745;
     }
 
 /* Rounded sliders */
@@ -67,4 +67,17 @@ input:checked + .slider {
         border-radius: 50%;
     }
 
+/* Override for toggler style*/
+.toggle .slider:before {
+    content: "";
+    color: dodgerblue;
+}
 
+.toggle input:checked + .slider:before {
+    content: "";
+    color: dodgerblue;
+}
+
+.toggle .slider, .toggle input:checked + .slider {
+    background-color: dodgerblue;
+}

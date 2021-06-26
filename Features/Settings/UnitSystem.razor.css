@@ -1,18 +1,4 @@
-﻿::deep .unitsSelector .slider:before {
-    content: "\00AB";
-    color: dodgerblue;
-}
-
-::deep .unitsSelector input:checked + .slider:before {
-    content: "\00BB";
-    color: dodgerblue;
-}
-
-::deep .unitsSelector .slider, ::deep .unitsSelector input:checked + .slider {
-    background-color: dodgerblue;
-}
-
-.check-selection label {
+﻿.check-selection label {
 }
 
 .check-selection.units-selector label {
