@@ -13,8 +13,8 @@
         public const string KeyName_RefreshTime = "refresh";
         public const string KeyName_ShowTime = "showt";
         public const string KeyName_StartPage = "start";
-        public const string KeyName_DevMode = "dm";
-        public const string KeyName_PicturesShown = "picsShown";
+        public const string KeyName_Dev_DebugMode = "dm";
+        public const string KeyName_Dev_PictureCount = "picCount";
 
         public const string DefaultValue_StartingPage = "weather";
         public const int DefaultValue_Refresh = 60;

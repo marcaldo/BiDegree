@@ -33,13 +33,6 @@
 		SetSettingsFromQueryString();
 	}
 
-	private string _text = "Hola";
-	private void seeTXT(string txt)
-	{
-		
-		Console.WriteLine(txt);
-	}
-
 	private void GoToApiSettings()
 	{
 		NavManager.NavigateTo($"{NavManager.BaseUri}apisettings", forceLoad: true);

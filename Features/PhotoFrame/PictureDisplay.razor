@@ -21,7 +21,7 @@ else
 	</style>
 }
 
-@if (isDebugMode)
+@if (DebugMode.IsActive)
 {
 	<div class="debug">
 		@if (driveFileList != null)
@@ -30,7 +30,8 @@ else
 		 <ul>
 		  <li>- Elapsed: @duration seg. (@(duration/60) min.) - @displayQueue.Count items in queue.</li>
 		  <li>- Current: @itemLink</li>
-		  <li>- @picsShown shown so far.</li>
+		  <li>- @DebugMode.PictureCount shown so far.</li>
+		  <li>- Start time: @DateTime.Now.ToLongTimeString()</li>
 		  <li><u>Queue:</u></li>
 				@foreach (var item in displayQueue)
 				{
