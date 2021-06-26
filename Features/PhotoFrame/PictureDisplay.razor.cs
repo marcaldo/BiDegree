@@ -28,34 +28,8 @@ namespace BiDegree.Features.PhotoFrame
         static Dictionary<int, DisplayItem> displayQueue;
         private static DriveFileList driveFileList;
 
-        protected override void OnInitialized()
-        {
-            Console.WriteLine("OnInitialized");
-        }
-        protected override void OnAfterRender(bool firstRender)
-        {
-            Console.WriteLine($"OnAfterRender - firstRender: {firstRender}");
-        }
-        protected override void OnParametersSet()
-        {
-            Console.WriteLine("OnParametersSet");
-        }
-        protected override Task OnParametersSetAsync()
-        {
-            Console.WriteLine("OnParametersSetAsync");
-            return base.OnParametersSetAsync();
-        }
-
-        protected override Task OnAfterRenderAsync(bool firstRender)
-        {
-            Console.WriteLine($"OnAfterRenderAsync - firstRender: {firstRender}");
-            return base.OnAfterRenderAsync(firstRender);
-        }
-
         protected override async Task OnInitializedAsync()
         {
-            Console.WriteLine("OnInitializedAsync");
-
             DebugMode.IsActive = await LocalStorage.GetItemAsync<bool>(Constants.KeyName_Dev_DebugMode);
             await DebugMode.ClearAsync();
 
@@ -74,10 +48,8 @@ namespace BiDegree.Features.PhotoFrame
             timer.Elapsed += Timer_Elapsed;
             timer.Enabled = true;
 
-
             await ShowNext();
         }
-
 
         public async Task ShowNext()
         {
@@ -127,9 +99,6 @@ namespace BiDegree.Features.PhotoFrame
 
                 tempQueue.Clear();
             }
-
-            Console.WriteLine($"tempQueue count >>>>>>>>>>> {tempQueue.Count}");
-            Console.WriteLine($"driveFileList items >>>>>>> {driveFileList.items.Length}");
         }
 
         private Dictionary<int, DisplayItem> CreateTempQueue(DriveFileList driveFileList)
