@@ -21,7 +21,6 @@ namespace BiDegree.Features.PhotoFrame
 
         readonly Timer timer = new();
 
-
         private string itemLink;
         private bool isVideo = false;
         private string folderId;
