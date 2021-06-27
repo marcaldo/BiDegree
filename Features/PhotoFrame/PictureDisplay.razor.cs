@@ -19,6 +19,8 @@ namespace BiDegree.Features.PhotoFrame
         [Inject] IJSRuntime JS { get; set; }
         [Inject]IDebugMode DebugMode { get; set; }
 
+        readonly Timer timer = new();
+
 
         private string itemLink;
         private bool isVideo = false;
@@ -28,6 +30,13 @@ namespace BiDegree.Features.PhotoFrame
 
         static Dictionary<int, DisplayItem> displayQueue;
         private static DriveFileList driveFileList;
+
+        public PictureDisplay()
+        {
+            timer.Elapsed += Timer_Elapsed;
+            timer.Enabled = true;
+        }
+
 
         protected override async Task OnInitializedAsync()
         {
@@ -44,10 +53,7 @@ namespace BiDegree.Features.PhotoFrame
                 ? Constants.DefaultValue_ShowTime
                 : (double)storedDuration;
 
-            Timer timer = new();
             timer.Interval = 1000 * duration;
-            timer.Elapsed += Timer_Elapsed;
-            timer.Enabled = true;
 
             await ShowNext();
         }
