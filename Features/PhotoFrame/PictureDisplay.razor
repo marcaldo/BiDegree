@@ -1,7 +1,7 @@
 ﻿@using Blazored.Video
 @using Blazored.Video.Support
 
-@*@if (isVideo)
+@if (isVideo)
 {
 	<video autoplay loop id="myVideo">
 	 <source src="@itemLink" type="video/mp4">
@@ -19,7 +19,7 @@ else
 	  overflow: hidden;
 	 }
 	</style>
-}*@
+}
 
 @if (DebugMode.IsActive)
 {
