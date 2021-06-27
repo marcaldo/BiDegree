@@ -26,7 +26,7 @@ else
 	<div class="debug">
 		@if (driveFileList != null)
 		{
-		 <button @onclick="ShowNext">Next</button>
+		 <span>Debug mode.</span> <button @onclick="ShowNext">Next</button>
 		 <ul>
 		  <li>- Elapsed: @duration seg. (@(duration/60) min.) - @displayQueue.Count items in queue.</li>
 		  <li>- Current: @itemLink</li>
