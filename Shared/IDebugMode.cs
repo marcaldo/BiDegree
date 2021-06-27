@@ -6,7 +6,5 @@ namespace BiDegree.Shared
     {
         bool IsActive { get; set; }
         int PictureCount { get; set; }
-
-        Task ClearAsync();
     }
 }

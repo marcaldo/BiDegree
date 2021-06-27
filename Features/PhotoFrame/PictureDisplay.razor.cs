@@ -24,14 +24,15 @@ namespace BiDegree.Features.PhotoFrame
         private bool isVideo = false;
         private string folderId;
         private double duration = Constants.DefaultValue_ShowTime;
+        private readonly string startTime = @DateTime.Now.ToLongTimeString();
 
         static Dictionary<int, DisplayItem> displayQueue;
         private static DriveFileList driveFileList;
 
         protected override async Task OnInitializedAsync()
         {
-            DebugMode.IsActive = await LocalStorage.GetItemAsync<bool>(Constants.KeyName_Dev_DebugMode);
-            await DebugMode.ClearAsync();
+            var debugModeSetored= await LocalStorage.GetItemAsync<bool?>(Constants.KeyName_Dev_DebugMode);
+            DebugMode.IsActive = debugModeSetored != null && (bool) debugModeSetored;
 
             folderId = await LocalStorage.GetItemAsync<string>(Constants.KeyName_DriveFolderId);
 
