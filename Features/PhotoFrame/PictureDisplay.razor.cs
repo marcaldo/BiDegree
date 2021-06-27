@@ -30,8 +30,8 @@ namespace BiDegree.Features.PhotoFrame
 
         protected override async Task OnInitializedAsync()
         {
-            DebugMode.IsActive = await LocalStorage.GetItemAsync<bool>(Constants.KeyName_Dev_DebugMode);
-            await DebugMode.ClearAsync();
+            var debugModeSetored= await LocalStorage.GetItemAsync<bool?>(Constants.KeyName_Dev_DebugMode);
+            DebugMode.IsActive = debugModeSetored == null ? false : (bool) debugModeSetored;
 
             folderId = await LocalStorage.GetItemAsync<string>(Constants.KeyName_DriveFolderId);
 

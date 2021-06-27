@@ -10,13 +10,5 @@ namespace BiDegree.Shared
 
         public int PictureCount { get; set; }
         public bool IsActive { get; set; }
-
-        public async Task ClearAsync()
-        {
-            if (!IsActive)
-            {
-                await LocalStorage.RemoveItemAsync(Constants.KeyName_Dev_PictureCount);
-            }
-        }
     }
 }
