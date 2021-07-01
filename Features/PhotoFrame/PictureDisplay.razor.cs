@@ -28,8 +28,8 @@ namespace BiDegree.Features.PhotoFrame
         private double duration = Constants.DefaultValue_ShowTime;
         private readonly string startTime = @DateTime.Now.ToLongTimeString();
 
-        static Dictionary<int, DisplayItem> displayQueue;
-        private static DriveFileList driveFileList;
+        private Dictionary<int, DisplayItem> displayQueue;
+        private DriveFileList driveFileList;
 
         public PictureDisplay()
         {
@@ -62,7 +62,7 @@ namespace BiDegree.Features.PhotoFrame
         {
             var item = displayQueue.FirstOrDefault();
 
-            if (item.Key == 0)
+            if (item.Key == 0)  // reload
             {
                 driveFileList = await GoogleApi.GetDriveFileList(folderId);
                 SetDisplayList();
@@ -83,7 +83,6 @@ namespace BiDegree.Features.PhotoFrame
             {
                 ++DebugMode.PictureCount;
                 await LocalStorage.SetItemAsync(Constants.KeyName_Dev_PictureCount, DebugMode.PictureCount);
-                
             }
 
             StateHasChanged();
@@ -91,9 +90,7 @@ namespace BiDegree.Features.PhotoFrame
 
         private void SetDisplayList()
         {
-            var totalItems = driveFileList.items.Length;
-
-            var tempQueue = CreateTempQueue(driveFileList);
+            var tempQueue = CreateTempRandomQueue(driveFileList);
 
             if (tempQueue.Count > 0)
             {
@@ -108,7 +105,7 @@ namespace BiDegree.Features.PhotoFrame
             }
         }
 
-        private Dictionary<int, DisplayItem> CreateTempQueue(DriveFileList driveFileList)
+        private static Dictionary<int, DisplayItem> CreateTempRandomQueue(DriveFileList driveFileList)
         {
             Dictionary<int, DisplayItem> tempQueue = new();
 
@@ -127,11 +124,12 @@ namespace BiDegree.Features.PhotoFrame
                 var ampPos = driveFile.webContentLink.IndexOf("&");
                 var link = driveFile.webContentLink.Substring(0, ampPos);
 
-                Random rnd = new();
                 var itemAdded = false;
 
                 while (!itemAdded)
                 {
+                    Random rnd = new();
+
                     // Arbitraty random numbers (more that items count) just to set an order.
                     int rndPosition = rnd.Next(1, maxRandomNumber);
 
