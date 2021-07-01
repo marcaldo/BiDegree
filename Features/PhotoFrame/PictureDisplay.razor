@@ -23,36 +23,33 @@ else
 
 @if (DebugMode.IsActive)
 {
-	string durationMin=(duration/60).ToString("0.000");
+	string durationMin = (duration / 60).ToString("0.000");
 
 	<div class="debug">
-		@if (driveFileList != null)
-		{
-			<span>Debug mode.</span> <button @onclick="ShowNext">Next</button>
-			<ul>
-				<li>- Elapsed: @duration seg. (@durationMin min.) - @displayQueue.Count items in queue.</li>
-				<li>- Current: @itemLink</li>
-				<li>- @DebugMode.PictureCount shown so far.</li>
-				<li>- Start time: @startTime</li>
-				<li><u>Queue:</u></li>
-				@foreach (var item in displayQueue)
+	 <span>Debug mode.</span> <button @onclick="ShowNext">Next</button>
+	 <ul>
+	  <li>- Elapsed: @duration seg. (@durationMin min.) - @displayQueue.Count items in queue.</li>
+	  <li>- Current: @itemLink</li>
+	  <li>- @DebugMode.PictureCount shown so far.</li>
+	  <li>- Start time: @startTime</li>
+	  <li><u>Queue:</u></li>
+			@foreach (var item in displayQueue)
+			{
+				if (item.Value.IsVideo)
 				{
-					if (item.Value.IsVideo)
-					{
-						<li>
-							@item.Key <Icon Name="Icon.IconType.CameraReels" />
-							@item.Value.SourceUrl[item.Value.SourceUrl.IndexOf("=")..]
-						</li>
-					}
-					else
-					{
-						<li>
-							@item.Key <Icon Name="Icon.IconType.Picture" />
-							@item.Value.SourceUrl[item.Value.SourceUrl.IndexOf("=")..]
-						</li>
-					}
+			  <li>
+						@item.Key <Icon Name="Icon.IconType.CameraReels" />
+						@item.Value.SourceUrl[item.Value.SourceUrl.IndexOf("=")..]
+			  </li>
 				}
-		 </ul>
-		}
+				else
+				{
+			  <li>
+						@item.Key <Icon Name="Icon.IconType.Picture" />
+						@item.Value.SourceUrl[item.Value.SourceUrl.IndexOf("=")..]
+			  </li>
+				}
+			}
+	 </ul>
 	</div>
 }
