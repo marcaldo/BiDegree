@@ -24,29 +24,17 @@ namespace BiDegree.Features.PhotoFrame
 
         private string itemLink;
         private bool isVideo = false;
-        private string folderId;
         private double duration = Constants.DefaultValue_ShowTime;
         private readonly string startTime = @DateTime.Now.ToLongTimeString();
 
         private Dictionary<int, DisplayItem> displayQueue;
-        private DriveFileList driveFileList;
-
-        public PictureDisplay()
-        {
-            timer.Elapsed += Timer_Elapsed;
-            timer.Enabled = true;
-        }
-
 
         protected override async Task OnInitializedAsync()
         {
             var debugModeSetored= await LocalStorage.GetItemAsync<bool?>(Constants.KeyName_Dev_DebugMode);
             DebugMode.IsActive = debugModeSetored != null && (bool) debugModeSetored;
 
-            folderId = await LocalStorage.GetItemAsync<string>(Constants.KeyName_DriveFolderId);
-
-            driveFileList = await GoogleApi.GetDriveFileList(folderId);
-            SetDisplayList();
+            await SetDisplayList();
 
             var storedDuration = await LocalStorage.GetItemAsync<double?>(Constants.KeyName_ShowTime);
             duration = storedDuration is null
@@ -54,9 +42,12 @@ namespace BiDegree.Features.PhotoFrame
                 : (double)storedDuration;
 
             timer.Interval = 1000 * duration;
+            timer.Elapsed += Timer_Elapsed;
+            timer.Enabled = true; 
 
             await ShowNext();
         }
+
 
         public async Task ShowNext()
         {
@@ -64,8 +55,7 @@ namespace BiDegree.Features.PhotoFrame
 
             if (item.Key == 0)  // reload
             {
-                driveFileList = await GoogleApi.GetDriveFileList(folderId);
-                SetDisplayList();
+                await SetDisplayList();
                 item = displayQueue.FirstOrDefault();
             }
 
@@ -85,11 +75,17 @@ namespace BiDegree.Features.PhotoFrame
                 await LocalStorage.SetItemAsync(Constants.KeyName_Dev_PictureCount, DebugMode.PictureCount);
             }
 
+            timer.Start();
+
             StateHasChanged();
         }
 
-        private void SetDisplayList()
+        private async Task SetDisplayList()
         {
+            string folderId = await LocalStorage.GetItemAsync<string>(Constants.KeyName_DriveFolderId);
+
+            DriveFileList driveFileList = await GoogleApi.GetDriveFileList(folderId);
+
             var tempQueue = CreateTempRandomQueue(driveFileList);
 
             if (tempQueue.Count > 0)
@@ -151,7 +147,10 @@ namespace BiDegree.Features.PhotoFrame
 
         private void Timer_Elapsed(object _, ElapsedEventArgs e)
         {
+            timer.Stop();
+            
             ShowNext().Wait();
         }
+
     }
 }
