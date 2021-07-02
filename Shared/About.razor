@@ -1,23 +1,26 @@
 ﻿@using System.Reflection
 <div class="about">
-	<ul>
-		<li>
-			<h4>BiDegree</h4>
-			<p>version @version</p>
-			<p></p>
-		</li>
-	</ul>
+    <ul>
+        <li>
+            <h4>BiDegree</h4>
+            <p>version @version build @build</p>
+            <p></p>
+        </li>
+    </ul>
 </div>
 
 @code
 {
-	private string version;
+    private string build;
+    private string version;
 
-	protected override void OnInitialized()
-	{
-		version = Assembly.GetExecutingAssembly().
-						GetCustomAttribute<AssemblyInformationalVersionAttribute>().
-						InformationalVersion;
+    protected override void OnInitialized()
+    {
+        version = typeof(About).Assembly.GetName().Version.ToString();
 
-	}
+        build = Assembly.GetExecutingAssembly().
+                        GetCustomAttribute<AssemblyInformationalVersionAttribute>().
+                        InformationalVersion;
+
+    }
 }
