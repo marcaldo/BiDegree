@@ -1,9 +1,23 @@
-﻿<div class="about">
+﻿@using System.Reflection
+<div class="about">
 	<ul>
 		<li>
 			<h4>BiDegree</h4>
-			<p>2021</p>
+			<p>version @version</p>
 			<p></p>
 		</li>
 	</ul>
 </div>
+
+@code
+{
+	private string version;
+
+	protected override void OnInitialized()
+	{
+		version = Assembly.GetExecutingAssembly().
+						GetCustomAttribute<AssemblyInformationalVersionAttribute>().
+						InformationalVersion;
+
+	}
+}

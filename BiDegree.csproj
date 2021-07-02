@@ -1,9 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
     <UserSecretsId>a35d740a-efc2-48fb-b481-c58b991d5163</UserSecretsId>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <Version>2021.07.01.2023</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -28,5 +30,9 @@
   <ItemGroup>
     <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
   </ItemGroup>
+
+  <!--<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="powershell.exe -ExecutionPolicy Unrestricted -NoProfile -NonInteractive -File &apos;C:\Users\marca\repos\BiDegree\post-build.ps1&apos; -ProjectPath &apos;C:\Users\marca\repos\BiDegree\BiDegree.csproj&apos;" />
+  </Target>-->
 
 </Project>
