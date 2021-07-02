@@ -10,9 +10,11 @@ Set-Content -Path $currentDirProj -Value $csprojUpdated
 
 # Service Worker file
 $currentDirSW = (Get-Item .).FullName + '\wwwroot\service-worker.published.js'
-$find = "-- Version update (.|\n)*? --";
-$replace = "-- Version update " + $currentDate + " --";
+$now = Get-Date -format 'dddd, MMMM dd, yyyy HH:mm:ss'
+$find = ">>> Build updated(.)*? <<<";
+$replace = ">>> Build updated " + $now + " <<<";
 $swjs = Get-Content $currentDirSW
 $csprojUpdated = $swjs -replace $find, $replace
 
 Set-Content -Path $currentDirSW -Value $csprojUpdated
+
