@@ -5,7 +5,7 @@
     <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
     <UserSecretsId>a35d740a-efc2-48fb-b481-c58b991d5163</UserSecretsId>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <Version>2021.07.02.1201</Version>
+    <Version>2021.07.03.1006</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -33,7 +33,7 @@
   </ItemGroup>
 
   <!--<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="powershell.exe -ExecutionPolicy Unrestricted -NoProfile -NonInteractive -File 'C:\Users\marca\repos\BiDegree\post-build.ps1' -ProjectPath 'C:\Users\marca\repos\BiDegree\BiDegree.csproj'" />
+    <Exec Command="powershell.exe -ExecutionPolicy Unrestricted -NoProfile -NonInteractive -File 'C:\Users\marca\repos\BiDegree\post-build.ps1'" />
   </Target>-->
 
 </Project>

@@ -17,7 +17,8 @@ namespace BiDegree.Features.PhotoFrame
         [Inject] IGoogleApi GoogleApi { get; set; }
         [Inject] ILocalStorageService LocalStorage { get; set; }
         [Inject] IJSRuntime JS { get; set; }
-        [Inject]IDebugMode DebugMode { get; set; }
+        [Inject] NavigationManager Navigation { get; set; }
+        [Inject] IDebugMode DebugMode { get; set; }
 
         readonly Timer timer = new();
 
@@ -31,8 +32,8 @@ namespace BiDegree.Features.PhotoFrame
 
         protected override async Task OnInitializedAsync()
         {
-            var debugModeSetored= await LocalStorage.GetItemAsync<bool?>(Constants.KeyName_Dev_DebugMode);
-            DebugMode.IsActive = debugModeSetored != null && (bool) debugModeSetored;
+            var debugModeSetored = await LocalStorage.GetItemAsync<bool?>(Constants.KeyName_Dev_DebugMode);
+            DebugMode.IsActive = debugModeSetored != null && (bool)debugModeSetored;
 
             await SetDisplayList();
 
@@ -43,7 +44,7 @@ namespace BiDegree.Features.PhotoFrame
 
             timer.Interval = 1000 * duration;
             timer.Elapsed += Timer_Elapsed;
-            timer.Enabled = true; 
+            timer.Enabled = true;
 
             await ShowNext();
         }
@@ -55,8 +56,9 @@ namespace BiDegree.Features.PhotoFrame
 
             if (item.Key == 0)  // reload
             {
-                await SetDisplayList();
-                item = displayQueue.FirstOrDefault();
+                //await SetDisplayList();
+                //item = displayQueue.FirstOrDefault();
+                Navigation.NavigateTo("photos", true);
             }
 
             itemLink = item.Value.SourceUrl;
@@ -148,7 +150,7 @@ namespace BiDegree.Features.PhotoFrame
         private void Timer_Elapsed(object _, ElapsedEventArgs e)
         {
             timer.Stop();
-            
+
             ShowNext().Wait();
         }
 
