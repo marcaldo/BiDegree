@@ -9,21 +9,22 @@
 }
 else
 {
-    @*<style>
-            body {
-                transition: background-image 1s ease-in-out;
+    <style>
+        body {
+            @*transition: background-image 1s ease-in-out;
                 background: url("@itemLink") no-repeat center center fixed;
                 -webkit-background-size: cover;
                 -moz-background-size: cover;
                 -o-background-size: cover;
                 background-size: cover;
-                overflow: hidden;
-            }
-        </style>*@
+                overflow: hidden;*@
+            background-color: #000000;
+        }
+        </style>
 
-    <div id="cf">
-        <img src="@itemLink" id="image-item" />
-        <img src="@itemLink2" id="image-item" />
+    <div id="imageBox">
+        <img src="@itemLink" />
+        <img src="@itemLink2" />
     </div>
 }
 

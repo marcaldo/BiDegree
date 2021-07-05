@@ -22,8 +22,7 @@
     min-height: 100%;
 }
 
-#cf {
-    display: block;
+#imageBox {
     position: fixed;
     left: 0;
     right: 0;
@@ -32,7 +31,8 @@
     text-align: center;
 }
 
-    #cf img {
-        /*max-width: 100%;*/
+    #imageBox img {
+        display: block;
         max-height: 100vh;
+        margin: auto;
     }
