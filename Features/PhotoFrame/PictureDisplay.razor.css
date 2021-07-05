@@ -11,14 +11,27 @@
 
     .debug button {
         background-color: #018aff29;
-        ;
         width: 67px;
     }
 
-#myVideo {
+#videoloop {
     position: fixed;
     right: 0;
     bottom: 0;
     min-width: 100%;
     min-height: 100%;
+}
+
+#cf {
+    position: fixed;
+    height: auto;
+    width: 100%;
+    margin: 0 auto;
+}
+
+cf img {
+    height: auto;
+    width: 100%;
+    object-fit: cover;
+    overflow: hidden;
 }

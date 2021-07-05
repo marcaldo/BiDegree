@@ -3,53 +3,59 @@
 
 @if (isVideo)
 {
-	<video autoplay loop id="myVideo">
-	 <source src="@itemLink" type="video/mp4">
-	</video>
+    <video autoplay loop id="videoloop">
+        <source src="@itemLink" type="video/mp4">
+    </video>
 }
 else
 {
-	<style>
-	 body {
-	  background: url("@itemLink") no-repeat center center fixed;
-	  -webkit-background-size: cover;
-	  -moz-background-size: cover;
-	  -o-background-size: cover;
-	  background-size: cover;
-	  overflow: hidden;
-	 }
-	</style>
+    @*<style>
+            body {
+                transition: background-image 1s ease-in-out;
+                background: url("@itemLink") no-repeat center center fixed;
+                -webkit-background-size: cover;
+                -moz-background-size: cover;
+                -o-background-size: cover;
+                background-size: cover;
+                overflow: hidden;
+            }
+        </style>*@
+
+    <div id="cf">
+        <img src="@itemLink" id="image-item" />
+        <img src="@itemLink2" id="image-item" />
+    </div>
 }
 
 @if (DebugMode.IsActive)
 {
-	string durationMin = (duration / 60).ToString("0.000");
+    string durationMin = (duration / 60).ToString("0.000");
 
-	<div class="debug">
-	 <span>Debug mode.</span> <button @onclick="ShowNext">Next</button>
-	 <ul>
-	  <li>- Elapsed: @duration seg. (@durationMin min.) - @displayQueue.Count items in queue.</li>
-	  <li>- Current: @itemLink</li>
-	  <li>- @DebugMode.PictureCount shown so far.</li>
-	  <li>- Start time: @startTime</li>
-	  <li><u>Queue:</u></li>
-			@foreach (var item in displayQueue)
-			{
-				if (item.Value.IsVideo)
-				{
-			  <li>
-						@item.Key <Icon Name="Icon.IconType.CameraReels" />
-						@item.Value.SourceUrl[item.Value.SourceUrl.IndexOf("=")..]
-			  </li>
-				}
-				else
-				{
-			  <li>
-						@item.Key <Icon Name="Icon.IconType.Picture" />
-						@item.Value.SourceUrl[item.Value.SourceUrl.IndexOf("=")..]
-			  </li>
-				}
-			}
-	 </ul>
-	</div>
+    <div class="debug">
+        <span>Debug mode.</span> <button @onclick="ShowNext">Next</button>
+        <ul>
+            <li>- Elapsed: @duration seg. (@durationMin min.) - @displayQueue.Count items in queue.</li>
+            <li>- Current: @itemLink</li>
+            <li>- @DebugMode.PictureCount shown so far.</li>
+            <li>- Start time: @startTime</li>
+            <li><u>Queue:</u></li>
+            @foreach (var item in displayQueue)
+            {
+                if (item.Value.IsVideo)
+                {
+                    <li>
+                        @item.Key <Icon Name="Icon.IconType.CameraReels" />
+                        @item.Value.SourceUrl[item.Value.SourceUrl.IndexOf("=")..]
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        @item.Key <Icon Name="Icon.IconType.Picture" />
+                        @item.Value.SourceUrl[item.Value.SourceUrl.IndexOf("=")..]
+                    </li>
+                }
+            }
+        </ul>
+    </div>
 }
