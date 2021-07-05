@@ -34,7 +34,7 @@ namespace BiDegree.Features.PhotoFrame
         protected override async Task OnInitializedAsync()
         {
 #if DEBUG
-            Thread.Sleep(10000);
+            //Thread.Sleep(10000);
 #endif
 
             var debugModeSetored = await LocalStorage.GetItemAsync<bool?>(Constants.KeyName_Dev_DebugMode);
