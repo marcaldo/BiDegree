@@ -61,9 +61,9 @@ namespace BiDegree.Features.PhotoFrame
 
             if (item.Key == 0)  // reload
             {
-                await SetDisplayList();
-                item = displayQueue.FirstOrDefault();
-                //Navigation.NavigateTo("photos", true);
+                //await SetDisplayList();
+                //item = displayQueue.FirstOrDefault();
+                Navigation.NavigateTo("photos", true);
             }
 
             itemLink = item.Value.SourceUrl;
