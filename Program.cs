@@ -22,9 +22,10 @@ namespace BiDegree
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
             builder.Services.AddScoped<IWeatherApi, OpenWeatherApi>();
-            builder.Services.AddScoped<IGoogleApi, GoogleAPI>();
+            builder.Services.AddScoped<IGoogleDriveApi, GoogleDriveAPI>();
             builder.Services.AddScoped<IDebugMode, DebugMode>();
             builder.Services.AddSingleton<StateContainer>();
+            builder.Services.AddSingleton<IDisplayQueue, DisplayQueue>();
 
             builder.Services.AddBlazoredLocalStorage(config =>
                 config.JsonSerializerOptions.WriteIndented = true);

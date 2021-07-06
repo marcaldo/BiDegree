@@ -15,7 +15,7 @@ namespace BiDegree.Features.PhotoFrame
 {
     public partial class PictureDisplay : ComponentBase
     {
-        [Inject] IGoogleApi GoogleApi { get; set; }
+        [Inject] IGoogleDriveApi GoogleDriveApi { get; set; }
         [Inject] ILocalStorageService LocalStorage { get; set; }
         [Inject] IJSRuntime JS { get; set; }
         [Inject] NavigationManager Navigation { get; set; }
@@ -96,7 +96,7 @@ namespace BiDegree.Features.PhotoFrame
         {
             string folderId = await LocalStorage.GetItemAsync<string>(Constants.KeyName_DriveFolderId);
 
-            DriveFileList driveFileList = await GoogleApi.GetDriveFileList(folderId);
+            DriveFileList driveFileList = await GoogleDriveApi.GetDriveFileList(folderId);
 
             var tempQueue = CreateTempRandomQueue(driveFileList);
 

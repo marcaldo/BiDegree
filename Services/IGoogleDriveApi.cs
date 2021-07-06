@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BiDegree.Services
 {
-    public interface IGoogleApi
+    public interface IGoogleDriveApi
     {
         Task<DriveFileList> GetDriveFileList(string folderId);
     }
