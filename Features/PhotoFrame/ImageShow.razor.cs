@@ -16,30 +16,31 @@ namespace BiDegree.Features.PhotoFrame
         [Inject] IJSRuntime JS { get; set; }
         [Inject] ILocalStorageService LocalStorage { get; set; }
         [Inject] IGoogleDriveApi GoogleDriveApi { get; set; }
-
+        private int _itemNumber = -1;
         protected override async Task OnInitializedAsync()
         {
 #if DEBUG
-            //System.Threading.Thread.Sleep(10000);
+            // System.Threading.Thread.Sleep(10000);
 #endif
 
-            var (displayItems1, displayItems2) = await GetDisplayQueuesAsync();
+            var displayItems = await GetDisplayQueueAsync();
 
-            await ShowAsync(displayItems1, displayItems2);
+            await ShowAsync(displayItems);
         }
 
-        private async Task ShowAsync(List<DisplayItem> queue1, List<DisplayItem> queue2)
+        private async Task ShowAsync(List<DisplayItem> queue)
         {
-            await JS.InvokeVoidAsync("RunQueues", queue1, queue2, 0);
-
+            await JS.InvokeVoidAsync("runQueue", queue, 10000);
         }
 
-        public async Task<(List<DisplayItem> displayItems1, List<DisplayItem> displayItems2)> GetDisplayQueuesAsync()
+        public async Task<List<DisplayItem>> GetDisplayQueueAsync()
         {
-            return await GetShuffledLists();
+            //return await GetShuffledList();
+
+            return await GetNaturalOrderList();
         }
 
-        private async Task<(List<DisplayItem> displayItems1, List<DisplayItem> displayItems2)> GetShuffledLists()
+        private async Task<List<DisplayItem>> GetNaturalOrderList()
         {
             Dictionary<int, DisplayItem> tempNumeredItemList = new();
 
@@ -47,11 +48,56 @@ namespace BiDegree.Features.PhotoFrame
 
             if (!driveFileList.items.Any())
             {
-                return (new List<DisplayItem>(), new List<DisplayItem>());
+                return (new List<DisplayItem>());
+            }
+
+            int itemNum = 0;
+
+            foreach (var driveFile in driveFileList.items.OrderBy(i => i.title))
+            {
+                if (!driveFile.webContentLink.Contains("&"))
+                {
+                    continue;
+                }
+
+                var link = driveFile.webContentLink.Substring(0, driveFile.webContentLink.IndexOf("&"));
+
+                var displayItemType = driveFile.mimeType.ToLower().Contains("video")
+                          ? DisplayItemType.Video
+                          : DisplayItemType.Image;
+
+                tempNumeredItemList.Add(itemNum, new DisplayItem
+                {
+                    ItemNumber = itemNum,
+                    SourceUrl = link,
+                    ItemType = displayItemType,
+                    Title = driveFile.title
+                });
+
+                itemNum++;
+            }
+
+            var items = tempNumeredItemList
+                .Select(d => d.Value);
+
+            return items.ToList();
+
+        }
+        private async Task<List<DisplayItem>> GetShuffledList()
+        {
+            Dictionary<int, DisplayItem> tempNumeredItemList = new();
+
+            DriveFileList driveFileList = await GetDriveFileList();
+
+            if (!driveFileList.items.Any())
+            {
+                return (new List<DisplayItem>());
             }
 
             const int randomNumbesQuantityMultiplier = 2;
             int maxRandomNumber = driveFileList.items.Length * randomNumbesQuantityMultiplier;
+
+            int itemNum = 0;
 
             foreach (var driveFile in driveFileList.items)
             {
@@ -92,32 +138,26 @@ namespace BiDegree.Features.PhotoFrame
                 .OrderBy(d => d.Key)
                 .Select(d => d.Value);
 
-            int half = shuffledList.Count() / 2;
-
-            var shuffledList1 = shuffledList.Take(half).ToList();
-            var shuffledList2 = shuffledList.Skip(half).ToList();
-
-            // Ensure both lists have same length adding the first item from the other.
-            if (shuffledList1.Count < shuffledList2.Count)
+            foreach (var item in shuffledList)
             {
-                _ = shuffledList1.Append(shuffledList2.First());
+                item.ItemNumber = itemNum++;
             }
 
-            if (shuffledList2.Count < shuffledList1.Count)
-            {
-                _ = shuffledList2.Append(shuffledList1.First());
-            }
+            return shuffledList.ToList();
 
-            return (
-                displayItems1: shuffledList1,
-                displayItems2: shuffledList2
-                );
         }
 
         private async Task<DriveFileList> GetDriveFileList()
         {
             string folderId = await LocalStorage.GetItemAsync<string>(Constants.KeyName_DriveFolderId);
             return await GoogleDriveApi.GetDriveFileList(folderId);
+        }
+
+        [JSInvokable]
+        private void DisplayItem(DisplayItem displayItem)
+        {
+            _itemNumber = displayItem.ItemNumber;
+            StateHasChanged();
         }
     }
 }

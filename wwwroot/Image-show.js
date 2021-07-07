@@ -1,62 +1,54 @@
-﻿var isEven = true;
-var image1, image1;
-var queue1, queue2;
-var item1, item2;
-var i = 0;
+﻿var queue;
 
-function RunQueues(q1, q2, displayTime) {
+function runQueue(displayQueue, displayTime) {
+    queue = displayQueue;
 
-    displayTime = 5000;             // TODO: REMOVE
+    imgTop = document.getElementById("imgTop");
+    imgBottom = document.getElementById("imgBottom");
 
-    image1 = document.getElementById("image1");
-    image2 = document.getElementById("image2");
+    imgTop.setAttribute("style", "display:none");
+    imgBottom.setAttribute("style", "display:none");
+    imgBottom.className = "transparent";
 
-    queue1 = q1;
-    queue2 = q2;
+    imgTop.setAttribute("src", queue[0].sourceUrl);
 
-     SetDisplay();
+    imgBottom.setAttribute("src", queue[1].sourceUrl);
 
-    setInterval(SetDisplay, displayTime);
+    setTimeout(() => {
 
-}
+        imgTop.setAttribute("style", "display:''");
+        imgBottom.setAttribute("style", "display:''");
 
-function SetDisplay() {
+        queue.splice(0, 2);
 
-    if (i % 2 == 0) {
+        setInterval(transition, displayTime);
 
-    }
-
-
-    item1 = queue1[0];
-    item2 = queue2[0];
-
-    if (isFirst) {
-        image1.setAttribute("src", item1.sourceUrl);
-        image2.setAttribute("src", item2.sourceUrl);
-
-        queue1.splice(0, 1);
-        queue2.splice(0, 1);
-    }
-
-    console.log("display " + ++cont);
-    console.log(item1.sourceUrl);
-    console.log(item2.sourceUrl);
-
-    DoTransition();
-
+    }, 500);
 
 }
 
-function DoTransition() {
+function transition() {
+    const loadingDelay = 4000;
 
-    if (isFirst) {
-        image1.setAttribute("style", "display:");
-        image2.setAttribute("style", "display:none");
+    queue.splice(0, 1);
+
+    if (imgTop.className === "transparent") {
+
+        imgBottom.className = "transparent";
+        imgTop.className = "";
+
+        setTimeout(() => {
+            imgBottom.setAttribute("src", queue[0].sourceUrl);
+        }, loadingDelay);
+
     }
     else {
-        image1.setAttribute("style", "display:none");
-        image2.setAttribute("style", "display:");
+
+        imgTop.className = "transparent";
+        imgBottom.className = "";
+
+        setTimeout(() => {
+            imgTop.setAttribute("src", queue[0].sourceUrl);
+        }, loadingDelay);
     }
-
-
 }

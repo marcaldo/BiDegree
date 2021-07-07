@@ -1,14 +1,28 @@
 ﻿#imageBox {
-    /*position: fixed;*/
-/*    left: 0;
+    position: fixed;
+    left: 0;
     right: 0;
     top: 0;
-    bottom: 0;*/
+    bottom: 0;
     text-align: center;
+    background-color: black;
 }
 
     #imageBox img {
         display: block;
         max-height: 100vh;
         margin: auto;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        -webkit-transition: opacity 3s ease-in-out;
+        -moz-transition: opacity 3s ease-in-out;
+        -o-transition: opacity 3s ease-in-out;
+        transition: opacity 3s ease-in-out;
     }
+
+        #imageBox img.transparent {
+            opacity: 0;
+        }
