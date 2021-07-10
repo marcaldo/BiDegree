@@ -16,12 +16,21 @@ namespace BiDegree.Features.PhotoFrame
         [Inject] IJSRuntime JS { get; set; }
         [Inject] ILocalStorageService LocalStorage { get; set; }
         [Inject] IGoogleDriveApi GoogleDriveApi { get; set; }
-        [Inject] NavigationManager NavigationManager { get; set; }
+        //[Inject] NavigationManager NavigationManager { get; set; }
+        private const bool Shuffled = true;
+        private double displayTime;
+
         protected override async Task OnInitializedAsync()
         {
 #if DEBUG
             // System.Threading.Thread.Sleep(10000);
 #endif
+            var storedDuration = await LocalStorage.GetItemAsync<double?>(Constants.KeyName_ShowTime);
+            displayTime = storedDuration is null
+                ? Constants.DefaultValue_ShowTime
+                : (double)storedDuration;
+
+            displayTime *= 1000;
 
             await ShowAsync();
         }
@@ -31,12 +40,15 @@ namespace BiDegree.Features.PhotoFrame
             var queue = await GetDisplayQueueAsync();
 
             var dotNetObjectReference = DotNetObjectReference.Create(this);
-            await JS.InvokeVoidAsync("imageInterop.runQueue", queue, 5000, dotNetObjectReference);
+            await JS.InvokeVoidAsync("imageInterop.runQueue", queue, displayTime, dotNetObjectReference);
         }
 
         public async Task<List<DisplayItem>> GetDisplayQueueAsync()
         {
-            //return await GetShuffledList();
+            if (Shuffled)
+            {
+                return await GetShuffledList();
+            }
 
             return await GetNaturalOrderList();
         }
@@ -127,7 +139,8 @@ namespace BiDegree.Features.PhotoFrame
                         tempNumeredItemList.Add(rndPosition, new DisplayItem
                         {
                             SourceUrl = link,
-                            ItemType = displayItemType
+                            ItemType = displayItemType,
+                            Title = driveFile.title
                         });
 
                         itemAdded = true;
