@@ -1,7 +1,15 @@
-﻿var queue;
+﻿var imageInterop = imageInterop || {};
 
-function runQueue(displayQueue, displayTime) {
+var queue = [];
+var dotNetObjRef;
+var displayTime;
+
+imageInterop.runQueue = function (displayQueue, interval, netObjRef) {
+    dotNetObjRef = netObjRef;
     queue = displayQueue;
+    displayTime = interval;
+
+    console.table(queue);
 
     imgTop = document.getElementById("imgTop");
     imgBottom = document.getElementById("imgBottom");
@@ -21,16 +29,21 @@ function runQueue(displayQueue, displayTime) {
 
         queue.splice(0, 2);
 
-        setInterval(transition, displayTime);
+        setInterval(this.transition, displayTime);
 
     }, 500);
 
 }
 
-function transition() {
-    const loadingDelay = 4000;
+imageInterop.transition = function () {
+    const delayToLoad = 3000;
 
-    queue.splice(0, 1);
+    if (queue.length === 0) {
+        setTimeout(() => {
+            window.location = "/photos/";
+            //dotNetObjRef.invokeMethodAsync("Reload");
+        }, displayTime);
+    }
 
     if (imgTop.className === "transparent") {
 
@@ -38,8 +51,11 @@ function transition() {
         imgTop.className = "";
 
         setTimeout(() => {
-            imgBottom.setAttribute("src", queue[0].sourceUrl);
-        }, loadingDelay);
+            if (queue.length > 0) {
+                imgBottom.setAttribute("src", queue[0].sourceUrl);
+                queue.splice(0, 1);
+            }
+        }, delayToLoad);
 
     }
     else {
@@ -48,7 +64,12 @@ function transition() {
         imgBottom.className = "";
 
         setTimeout(() => {
-            imgTop.setAttribute("src", queue[0].sourceUrl);
-        }, loadingDelay);
+            if (queue.length > 0) {
+                imgTop.setAttribute("src", queue[0].sourceUrl);
+                queue.splice(0, 1);
+            }
+        }, delayToLoad);
     }
+
+
 }

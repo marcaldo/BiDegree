@@ -16,21 +16,22 @@ namespace BiDegree.Features.PhotoFrame
         [Inject] IJSRuntime JS { get; set; }
         [Inject] ILocalStorageService LocalStorage { get; set; }
         [Inject] IGoogleDriveApi GoogleDriveApi { get; set; }
-        private int _itemNumber = -1;
+        [Inject] NavigationManager NavigationManager { get; set; }
         protected override async Task OnInitializedAsync()
         {
 #if DEBUG
             // System.Threading.Thread.Sleep(10000);
 #endif
 
-            var displayItems = await GetDisplayQueueAsync();
-
-            await ShowAsync(displayItems);
+            await ShowAsync();
         }
 
-        private async Task ShowAsync(List<DisplayItem> queue)
+        private async Task ShowAsync()
         {
-            await JS.InvokeVoidAsync("runQueue", queue, 10000);
+            var queue = await GetDisplayQueueAsync();
+
+            var dotNetObjectReference = DotNetObjectReference.Create(this);
+            await JS.InvokeVoidAsync("imageInterop.runQueue", queue, 5000, dotNetObjectReference);
         }
 
         public async Task<List<DisplayItem>> GetDisplayQueueAsync()
@@ -154,9 +155,10 @@ namespace BiDegree.Features.PhotoFrame
         }
 
         [JSInvokable]
-        private void DisplayItem(DisplayItem displayItem)
+        public async Task Reload()
         {
-            _itemNumber = displayItem.ItemNumber;
+            await ShowAsync();
+            //NavigationManager.NavigateTo("PhotoFramePage");
             StateHasChanged();
         }
     }
