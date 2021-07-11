@@ -12,12 +12,12 @@ using Microsoft.Extensions.Options;
 
 namespace BiDegree.Services
 {
-    public class GoogleAPI : IGoogleApi
+    public class GoogleDriveAPI : IGoogleDriveApi
     {
         private readonly HttpClient _httpClient;
         private readonly ILocalStorageService _localStorage;
 
-        public GoogleAPI(HttpClient httpClient, ILocalStorageService localStorage)
+        public GoogleDriveAPI(HttpClient httpClient, ILocalStorageService localStorage)
         {
             _httpClient = httpClient;
             _localStorage = localStorage;
