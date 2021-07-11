@@ -9,20 +9,22 @@ using Blazored.LocalStorage;
 using BiDegree.Shared;
 using System.Timers;
 using Microsoft.JSInterop;
+using System.Threading;
 
 namespace BiDegree.Features.PhotoFrame
 {
-    public partial class PictureDisplay
+    public partial class PictureDisplay : ComponentBase
     {
-        [Inject] IGoogleApi GoogleApi { get; set; }
+        [Inject] IGoogleDriveApi GoogleDriveApi { get; set; }
         [Inject] ILocalStorageService LocalStorage { get; set; }
         [Inject] IJSRuntime JS { get; set; }
         [Inject] NavigationManager Navigation { get; set; }
         [Inject] IDebugMode DebugMode { get; set; }
 
-        readonly Timer timer = new();
+        readonly System.Timers.Timer timer = new();
 
         private string itemLink;
+        private string itemLink2;
         private bool isVideo = false;
         private double duration = Constants.DefaultValue_ShowTime;
         private readonly string startTime = @DateTime.Now.ToLongTimeString();
@@ -31,6 +33,10 @@ namespace BiDegree.Features.PhotoFrame
 
         protected override async Task OnInitializedAsync()
         {
+#if DEBUG
+            //Thread.Sleep(10000);
+#endif
+
             var debugModeSetored = await LocalStorage.GetItemAsync<bool?>(Constants.KeyName_Dev_DebugMode);
             DebugMode.IsActive = debugModeSetored != null && (bool)debugModeSetored;
 
@@ -70,6 +76,11 @@ namespace BiDegree.Features.PhotoFrame
 
             displayQueue.Remove(item.Key);
 
+            var item2 = displayQueue.FirstOrDefault();
+            itemLink2 = item2.Value.SourceUrl;
+
+
+
             if (DebugMode.IsActive)
             {
                 ++DebugMode.PictureCount;
@@ -85,7 +96,7 @@ namespace BiDegree.Features.PhotoFrame
         {
             string folderId = await LocalStorage.GetItemAsync<string>(Constants.KeyName_DriveFolderId);
 
-            DriveFileList driveFileList = await GoogleApi.GetDriveFileList(folderId);
+            DriveFileList driveFileList = await GoogleDriveApi.GetDriveFileList(folderId);
 
             var tempQueue = CreateTempRandomQueue(driveFileList);
 
