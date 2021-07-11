@@ -95,6 +95,35 @@ table[b-hava5cs9gl] {
     text-align: center;
     margin-top: 70px;
 }
+/* /Features/PhotoFrame/ImageShow.razor.rz.scp.css */
+#imageBox[b-w0xlyiapev] {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    text-align: center;
+    background-color: black;
+}
+
+    #imageBox img[b-w0xlyiapev] {
+        display: block;
+        max-height: 100vh;
+        margin: auto;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        -webkit-transition: opacity 3s ease-in-out;
+        -moz-transition: opacity 3s ease-in-out;
+        -o-transition: opacity 3s ease-in-out;
+        transition: opacity 3s ease-in-out;
+    }
+
+        #imageBox img.transparent[b-w0xlyiapev] {
+            opacity: 0;
+        }
 /* /Features/PhotoFrame/PhotoFramePage.razor.rz.scp.css */
 .weather[b-nkgdqso7ah] {
     position: fixed;
@@ -121,17 +150,31 @@ table[b-hava5cs9gl] {
 
     .debug button[b-u6qraddolp] {
         background-color: #018aff29;
-        ;
         width: 67px;
     }
 
-#myVideo[b-u6qraddolp] {
+#videoloop[b-u6qraddolp] {
     position: fixed;
     right: 0;
     bottom: 0;
     min-width: 100%;
     min-height: 100%;
 }
+
+#imageBox[b-u6qraddolp] {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    text-align: center;
+}
+
+    #imageBox img[b-u6qraddolp] {
+        display: block;
+        max-height: 100vh;
+        margin: auto;
+    }
 /* /Features/Settings/ApiKeyDrive.razor.rz.scp.css */
 .save[b-ydexjkdx6d] {
     display: flex;

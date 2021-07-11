@@ -69,6 +69,10 @@
       "url": "icon-512.png"
     },
     {
+      "hash": "sha256-KYEKL4RtDZUbxTDyCqIet6+htCmjAdjPHWbSz1GJgrE=",
+      "url": "Image-show.js"
+    },
+    {
       "hash": "sha256-kJ0dJsQqsMAJNpKumRvSJt4iNBhDehXpaLEC9wVB73g=",
       "url": "img\/01d.jpg"
     },
@@ -145,7 +149,7 @@
       "url": "img\/loading.gif"
     },
     {
-      "hash": "sha256-fPI0MxkTnlJvKTrHqL3pSTzO9G6qmhVIWP0ovTGPuSQ=",
+      "hash": "sha256-9WUZHgkc/wjIRIzTErK9Y42I6w/f7QQ+7qHYOb3uls0=",
       "url": "index.html"
     },
     {
@@ -185,7 +189,7 @@
       "url": "_framework\/dotnet.5.0.4.js"
     },
     {
-      "hash": "sha256-WtGvwEMBpIkLpuCe4v1pzRyfx9Eyn49Siv\/rONEr7cc=",
+      "hash": "sha256-Uc08nyIDsi3VFdhaFbNo9546k2WBwkqVzyslgT02CdE=",
       "url": "BiDegree.styles.css"
     },
     {
@@ -233,7 +237,7 @@
       "url": "_framework\/Microsoft.Extensions.DependencyInjection.dll"
     },
     {
-      "hash": "sha256-atHOEXY++LFjxcZ8qWgMcUfBHbhpku2ZDfP1+EYFOAo=",
+      "hash": "sha256-uK\/cxSTn6hk2Y329AEoBmqJJn+bTkOK6EzW1biatF2I=",
       "url": "_framework\/Microsoft.Extensions.DependencyInjection.Abstractions.dll"
     },
     {
@@ -269,7 +273,7 @@
       "url": "_framework\/System.IO.Pipelines.dll"
     },
     {
-      "hash": "sha256-IN9JupNu4eSuwp69wBjkRfTwF7y98yhjvZzMlG0\/tWk=",
+      "hash": "sha256-X38s+BEG2EMlr7O+15apmgrQMnbHCEkKZiwZ9kU5\/CE=",
       "url": "_framework\/BiDegree.dll"
     },
     {
@@ -309,7 +313,7 @@
       "url": "_framework\/System.Console.dll"
     },
     {
-      "hash": "sha256-lrzTq3NFSoo5jPBHRJY4d7uIV8APX7voHqHn3ogZzZs=",
+      "hash": "sha256-OuTv0P7Ozl9dw5ZRY5Qgs01mK\/U3sVHxtjDEKavqr6w=",
       "url": "_framework\/System.Linq.dll"
     },
     {
@@ -369,7 +373,7 @@
       "url": "_framework\/System.Private.CoreLib.dll"
     },
     {
-      "hash": "sha256-hc7BwoRkRpPUsIHYyX0jA1FC4\/jf6r0Bx0csqosB71Y=",
+      "hash": "sha256-YaVW5\/36yx4x6TL6dofvmjhiHWsyS1HfzxkTUBLCfy4=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -377,5 +381,5 @@
       "url": "_framework\/blazor.webassembly.js"
     }
   ],
-  "version": "tjztOw6s"
+  "version": "yyN7Oye4"
 };
