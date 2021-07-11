@@ -17,7 +17,7 @@ namespace BiDegree.Features.PhotoFrame
         [Inject] ILocalStorageService LocalStorage { get; set; }
         [Inject] IGoogleDriveApi GoogleDriveApi { get; set; }
         //[Inject] NavigationManager NavigationManager { get; set; }
-        private const bool Shuffled = true;
+        private const bool Shuffled = false;
         private double displayTime;
 
         protected override async Task OnInitializedAsync()
