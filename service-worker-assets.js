@@ -70,7 +70,7 @@
     },
     {
       "hash": "sha256-KYEKL4RtDZUbxTDyCqIet6+htCmjAdjPHWbSz1GJgrE=",
-      "url": "Image-show.js"
+      "url": "image-show.js"
     },
     {
       "hash": "sha256-kJ0dJsQqsMAJNpKumRvSJt4iNBhDehXpaLEC9wVB73g=",
@@ -381,5 +381,5 @@
       "url": "_framework\/blazor.webassembly.js"
     }
   ],
-  "version": "h7LlDBYf"
+  "version": "sTzBbddN"
 };
