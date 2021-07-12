@@ -227,6 +227,82 @@ table[b-hava5cs9gl] {
     margin-left: 7px;
     cursor: pointer;
 }
+/* /Features/Settings/DisplayOrder.razor.rz.scp.css */
+/*https://www.w3schools.com/howto/howto_css_switch.asp*/
+.switch[b-itktr0x13u] {
+    position: relative;
+    display: inline-block;
+    width: 115px;
+    height: 41px;
+}
+
+    .switch input[b-itktr0x13u] {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+.slider[b-itktr0x13u] {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #000000;
+    -webkit-transition: .7s;
+    transition: .7s;
+    width: 115px;
+    height: 41px;
+}
+
+    .slider[b-itktr0x13u]:before {
+        position: absolute;
+        content: "";
+        height: 33px;
+        width: 33px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        -webkit-transition: .8s;
+        transition: .8s;
+    }
+
+input:checked + .slider[b-itktr0x13u] {
+    background-color: #000000;
+}
+
+
+    input:checked + .slider[b-itktr0x13u]:before {
+        -webkit-transform: translateX(75px);
+        -ms-transform: translateX(75px);
+        transform: translateX(75px);
+    }
+
+/* Rounded sliders */
+.slider.round[b-itktr0x13u] {
+    border-radius: 34px;
+}
+
+    .slider.round[b-itktr0x13u]:before {
+        border-radius: 50%;
+    }
+
+.selector[b-itktr0x13u] {
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    margin: auto;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+    .selector .unit-def[b-itktr0x13u] {
+        font-size: 3em;
+        margin: 13px;
+    }
 /* /Features/Settings/DisplayTime.razor.rz.scp.css */
 select[b-xwmr0odtfd] {
     max-width: 250px;
