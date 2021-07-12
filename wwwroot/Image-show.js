@@ -25,24 +25,29 @@ imageInterop.runQueue = function (displayQueue, interval, netObjRef) {
     imgBottom.setAttribute("style", "display:none");
     imgBottom.className = "transparent";
 
-    imgTop.setAttribute("src", queue[0].sourceUrl);
-    imgBottom.setAttribute("src", queue[1].sourceUrl);
+    let item_top = queue[0];
+    let item_bottom = queue[1];
+
+    imgTop.setAttribute("src", item_top.sourceUrl);
+    imgBottom.setAttribute("src", item_bottom.sourceUrl);
 
     setTimeout(() => {
 
         imgTop.onload = function () {
-            let object_fit = this.height > this.width ? fit_contain : fit_cover;
-            console.log("iT " + queue[0].title + " fit " + object_fit + " height " + imgTop.height + " width " + imgTop.width + " portrait " + (imgTop.height > imgTop.width));
+            let object_fit = item_top.portrait ? fit_contain : fit_cover;
+            console.log("iT " + item_top.title + " fit " + object_fit + " w,h " + imgTop.width + "x" + imgTop.height + " portrait " + (imgTop.width < imgTop.height) + " " + item_top.portrait);
             this.setAttribute("style", "display:'';object-fit:" + object_fit);
         }
 
         imgBottom.onload = function () {
-            let object_fit = this.height > this.width ? fit_contain : fit_cover;
-            console.log("iB " + queue[1].title + " fit " + object_fit + " height " + imgBottom.height + " width " + imgBottom.width + " portratit " + (imgBottom.height > imgBottom.width));
+            let object_fit = item_bottom ? fit_contain : fit_cover;
+            console.log("iB " + item_bottom.title + " fit " + object_fit + " w,h " + imgBottom.width + "x" + imgBottom.height + " portratit " + (imgBottom.width < imgBottom.height) + " " + item_bottom.portrait);
             this.setAttribute("style", "display:'';object-fit:" + object_fit);
+
         }
 
         queue.splice(0, 2);
+
 
         setInterval(this.transition, displayTime);
 
@@ -63,6 +68,8 @@ imageInterop.transition = function () {
         }, displayTime);
     }
 
+    let item = queue[0];
+
     if (imgTop.className === "transparent") {
 
         imgBottom.className = "transparent";
@@ -70,17 +77,15 @@ imageInterop.transition = function () {
 
         setTimeout(() => {
             if (queue.length > 0) {
-                let title = queue[0].title;
-
 
                 imgBottom.onload = function () {
-                    let object_fit = imgBottom.height > imgBottom.width ? fit_contain : fit_cover;
+                    let object_fit = item.portrait ? fit_contain : fit_cover;
                     imgBottom.setAttribute("style", "object-fit:" + object_fit);
-                    console.log("iB " + title + " fit " + object_fit + " height " + imgBottom.height + " width " + imgBottom.width + " portratit " + (imgBottom.height > imgBottom.width));
+                    console.log("iB " + item.title + " fit " + object_fit + " w,h " + imgBottom.width + "x" + imgBottom.height + " portratit " + (imgBottom.width < imgBottom.height) + " " + item.portrait);
 
                 }
 
-                imgBottom.setAttribute("src", queue[0].sourceUrl);
+                imgBottom.setAttribute("src", item.sourceUrl);
 
                 queue.splice(0, 1);
             }
@@ -94,16 +99,14 @@ imageInterop.transition = function () {
 
         setTimeout(() => {
             if (queue.length > 0) {
-                let title = queue[0].title;
-
 
                 imgTop.onload = function () {
-                    let object_fit = imgTop.height > imgTop.width ? fit_contain : fit_cover;
+                    let object_fit = item.portrait ? fit_contain : fit_cover;
                     imgTop.setAttribute("style", "object-fit:" + object_fit);
-                    console.log("iT " + title + " fit " + object_fit + " height " + imgTop.height + " width " + imgTop.width + " portrait " + (imgTop.height > imgTop.width));
+                    console.log("iT " + item.title + " fit " + object_fit + " w,h " + imgTop.width + "x" + imgTop.height + " portrait " + (imgTop.width < imgTop.height) + " " + item.portrait);
                 }
 
-                imgTop.setAttribute("src", queue[0].sourceUrl);
+                imgTop.setAttribute("src", item.sourceUrl);
 
                 queue.splice(0, 1);
             }

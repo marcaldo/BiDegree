@@ -15,11 +15,7 @@ namespace BiDegree.Models
         public int Rotation { get; set; }
         public bool? Portrait
         {
-            get
-            {
-                if (Height == 0 || Width == 0) { return null; }
-                return (Height / Width) > 1;
-            }
+            get => Rotation > 0 || Width < Height;
         }
         public DisplayItemType ItemType { get; set; } = DisplayItemType.Image;
     }
