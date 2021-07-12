@@ -10,6 +10,7 @@
         public const string KeyName_Units = "units";
         public const string KeyName_ShowBothTemps = "bt";
         public const string KeyName_TimeFormat = "tformat";
+        public const string KeyName_DisplayInOrder = "inorder";
         public const string KeyName_RefreshTime = "refresh";
         public const string KeyName_ShowTime = "showt";
         public const string KeyName_StartPage = "start";

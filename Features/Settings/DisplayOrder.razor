@@ -1,0 +1,27 @@
+﻿@inject ISyncLocalStorageService localStorage
+<div class="form-group">
+    <label for="dSelector">Display order:</label>
+    <div class="check-selection units-selector">
+        <label>Shuffled</label>
+        <ToggleSwitch Id="tFormat" OnToggle="((isChecked)=>SaveSelection(isChecked))" SetAsChecked="isChecked" OnOffStyle="false" />
+        <label>In order</label>
+        <div class="info">
+            <i>In order</i> will display the images in orderer by file name.
+        </div>
+    </div>
+</div>
+@code {
+    private bool isChecked { get; set; } = false;
+
+    protected override void OnInitialized()
+    {
+        var displayInOrder = localStorage.GetItem<bool?>(Constants.KeyName_DisplayInOrder);
+        isChecked = displayInOrder == null ? false : (bool)displayInOrder;
+    }
+
+    protected void SaveSelection(bool isChecked)
+    {
+        localStorage.SetItem(Constants.KeyName_DisplayInOrder, isChecked);
+    }
+
+}
