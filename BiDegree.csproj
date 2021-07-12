@@ -5,7 +5,7 @@
     <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
     <UserSecretsId>a35d740a-efc2-48fb-b481-c58b991d5163</UserSecretsId>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <Version>2021.07.10.1909</Version>
+    <Version>2021.07.11.1913</Version>
   </PropertyGroup>
 
   <ItemGroup>
