@@ -4,6 +4,9 @@ var queue = [];
 var dotNetObjRef;
 var displayTime;
 
+const fit_cover = "cover";
+const fit_contain = "contain";
+
 imageInterop.runQueue = function (displayQueue, interval, netObjRef) {
     dotNetObjRef = netObjRef;
     displayTime = interval;
@@ -15,8 +18,8 @@ imageInterop.runQueue = function (displayQueue, interval, netObjRef) {
 
     console.table(queue);
 
-    imgTop = document.getElementById("imgTop");
-    imgBottom = document.getElementById("imgBottom");
+    let imgTop = document.getElementById("imgTop");
+    let imgBottom = document.getElementById("imgBottom");
 
     imgTop.setAttribute("style", "display:none");
     imgBottom.setAttribute("style", "display:none");
@@ -26,21 +29,16 @@ imageInterop.runQueue = function (displayQueue, interval, netObjRef) {
     imgBottom.setAttribute("src", queue[1].sourceUrl);
 
     setTimeout(() => {
-        let object_fit = "cover";
 
         imgTop.onload = function () {
-            if ((this.height / this.width) > 1) {
-                object_fit = "contain";
-            }
-
+            let object_fit = this.height > this.width ? fit_contain : fit_cover;
+            console.log("iT " + queue[0].title + " fit " + object_fit + " height " + imgTop.height + " width " + imgTop.width + " portrait " + (imgTop.height > imgTop.width));
             this.setAttribute("style", "display:'';object-fit:" + object_fit);
         }
 
         imgBottom.onload = function () {
-            if ((this.height / this.width) > 1) {
-                object_fit = "contain";
-            }
-
+            let object_fit = this.height > this.width ? fit_contain : fit_cover;
+            console.log("iB " + queue[1].title + " fit " + object_fit + " height " + imgBottom.height + " width " + imgBottom.width + " portratit " + (imgBottom.height > imgBottom.width));
             this.setAttribute("style", "display:'';object-fit:" + object_fit);
         }
 
@@ -54,6 +52,9 @@ imageInterop.runQueue = function (displayQueue, interval, netObjRef) {
 
 imageInterop.transition = function () {
     const delayToLoad = 3000;
+
+    let imgTop = document.getElementById("imgTop");
+    let imgBottom = document.getElementById("imgBottom");
 
     if (queue.length === 0) {
         setTimeout(() => {
@@ -69,16 +70,17 @@ imageInterop.transition = function () {
 
         setTimeout(() => {
             if (queue.length > 0) {
-                imgBottom.setAttribute("src", queue[0].sourceUrl);
+                let title = queue[0].title;
 
-                let object_fit = "cover";
+
                 imgBottom.onload = function () {
-                    if ((imgBottom.height / imgBottom.width) > 1) {
-                        object_fit = "contain";
-                    }
+                    let object_fit = imgBottom.height > imgBottom.width ? fit_contain : fit_cover;
+                    imgBottom.setAttribute("style", "object-fit:" + object_fit);
+                    console.log("iB " + title + " fit " + object_fit + " height " + imgBottom.height + " width " + imgBottom.width + " portratit " + (imgBottom.height > imgBottom.width));
 
-                    this.setAttribute("style", "object-fit:" + object_fit);
                 }
+
+                imgBottom.setAttribute("src", queue[0].sourceUrl);
 
                 queue.splice(0, 1);
             }
@@ -92,16 +94,16 @@ imageInterop.transition = function () {
 
         setTimeout(() => {
             if (queue.length > 0) {
-                imgTop.setAttribute("src", queue[0].sourceUrl);
+                let title = queue[0].title;
 
-                let object_fit = "cover";
+
                 imgTop.onload = function () {
-                    if ((imgTop.height / imgTop.width) > 1) {
-                        object_fit = "contain";
-                    }
-
-                    this.setAttribute("style", "object-fit:" + object_fit);
+                    let object_fit = imgTop.height > imgTop.width ? fit_contain : fit_cover;
+                    imgTop.setAttribute("style", "object-fit:" + object_fit);
+                    console.log("iT " + title + " fit " + object_fit + " height " + imgTop.height + " width " + imgTop.width + " portrait " + (imgTop.height > imgTop.width));
                 }
+
+                imgTop.setAttribute("src", queue[0].sourceUrl);
 
                 queue.splice(0, 1);
             }

@@ -82,12 +82,16 @@ namespace BiDegree.Features.PhotoFrame
                           ? DisplayItemType.Video
                           : DisplayItemType.Image;
 
+
                 tempNumeredItemList.Add(itemNum, new DisplayItem
                 {
                     ItemNumber = itemNum,
                     SourceUrl = link,
                     ItemType = displayItemType,
-                    Title = driveFile.title
+                    Title = driveFile.title,
+                    Height = driveFile.imageMediaMetadata.height,
+                    Width = driveFile.imageMediaMetadata.width,
+                    Rotation = driveFile.imageMediaMetadata.rotation
                 });
 
                 itemNum++;
