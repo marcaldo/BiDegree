@@ -17,7 +17,7 @@ namespace BiDegree.Features.PhotoFrame
         [Inject] ILocalStorageService LocalStorage { get; set; }
         [Inject] IGoogleDriveApi GoogleDriveApi { get; set; }
         //[Inject] NavigationManager NavigationManager { get; set; }
-        private const bool Shuffled = false;
+        private bool _shuffled = true;
         private double displayTime;
 
         protected override async Task OnInitializedAsync()
@@ -25,6 +25,9 @@ namespace BiDegree.Features.PhotoFrame
 #if DEBUG
             // System.Threading.Thread.Sleep(10000);
 #endif
+            var displayInOrder = await LocalStorage.GetItemAsync<bool?>(Constants.KeyName_DisplayInOrder);
+            _shuffled = displayInOrder == null ? true : !(bool)displayInOrder;
+
             var storedDuration = await LocalStorage.GetItemAsync<double?>(Constants.KeyName_ShowTime);
             displayTime = storedDuration is null
                 ? Constants.DefaultValue_ShowTime
@@ -45,7 +48,7 @@ namespace BiDegree.Features.PhotoFrame
 
         public async Task<List<DisplayItem>> GetDisplayQueueAsync()
         {
-            if (Shuffled)
+            if (_shuffled)
             {
                 return await GetShuffledList();
             }
