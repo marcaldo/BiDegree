@@ -6,8 +6,12 @@ var displayTime;
 
 imageInterop.runQueue = function (displayQueue, interval, netObjRef) {
     dotNetObjRef = netObjRef;
-    queue = displayQueue;
     displayTime = interval;
+    queue = displayQueue;
+
+    //if (queue.length === 1) {
+    //    queue.push(queue[0]);
+    //}
 
     console.table(queue);
 
@@ -19,13 +23,26 @@ imageInterop.runQueue = function (displayQueue, interval, netObjRef) {
     imgBottom.className = "transparent";
 
     imgTop.setAttribute("src", queue[0].sourceUrl);
-
     imgBottom.setAttribute("src", queue[1].sourceUrl);
 
     setTimeout(() => {
+        let object_fit = "cover";
 
-        imgTop.setAttribute("style", "display:''");
-        imgBottom.setAttribute("style", "display:''");
+        imgTop.onload = function () {
+            if ((this.height / this.width) > 1) {
+                object_fit = "contain";
+            }
+
+            this.setAttribute("style", "display:'';object-fit:" + object_fit);
+        }
+
+        imgBottom.onload = function () {
+            if ((this.height / this.width) > 1) {
+                object_fit = "contain";
+            }
+
+            this.setAttribute("style", "display:'';object-fit:" + object_fit);
+        }
 
         queue.splice(0, 2);
 
@@ -40,7 +57,7 @@ imageInterop.transition = function () {
 
     if (queue.length === 0) {
         setTimeout(() => {
-            window.location = "/photos/";
+            window.location = window.location.href;
             //dotNetObjRef.invokeMethodAsync("Reload");
         }, displayTime);
     }
@@ -53,6 +70,16 @@ imageInterop.transition = function () {
         setTimeout(() => {
             if (queue.length > 0) {
                 imgBottom.setAttribute("src", queue[0].sourceUrl);
+
+                let object_fit = "cover";
+                imgBottom.onload = function () {
+                    if ((imgBottom.height / imgBottom.width) > 1) {
+                        object_fit = "contain";
+                    }
+
+                    this.setAttribute("style", "object-fit:" + object_fit);
+                }
+
                 queue.splice(0, 1);
             }
         }, delayToLoad);
@@ -66,6 +93,16 @@ imageInterop.transition = function () {
         setTimeout(() => {
             if (queue.length > 0) {
                 imgTop.setAttribute("src", queue[0].sourceUrl);
+
+                let object_fit = "cover";
+                imgTop.onload = function () {
+                    if ((imgTop.height / imgTop.width) > 1) {
+                        object_fit = "contain";
+                    }
+
+                    this.setAttribute("style", "object-fit:" + object_fit);
+                }
+
                 queue.splice(0, 1);
             }
         }, delayToLoad);

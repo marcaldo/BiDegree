@@ -103,18 +103,17 @@ table[b-hava5cs9gl] {
     top: 0;
     bottom: 0;
     text-align: center;
-    background-color: black;
 }
 
     #imageBox img[b-w0xlyiapev] {
-        display: block;
-        max-height: 100vh;
-        margin: auto;
         position: absolute;
         left: 0;
         right: 0;
         top: 0;
         bottom: 0;
+        width: 100%;
+        height: 100%;
+        margin: auto;
         -webkit-transition: opacity 3s ease-in-out;
         -moz-transition: opacity 3s ease-in-out;
         -o-transition: opacity 3s ease-in-out;
@@ -124,6 +123,24 @@ table[b-hava5cs9gl] {
         #imageBox img.transparent[b-w0xlyiapev] {
             opacity: 0;
         }
+
+.menu-footer[b-w0xlyiapev] {
+    height: 50px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    cursor: pointer;
+}
+
+.menu-footer:hover[b-w0xlyiapev] {
+    background-color: darkblue;
+    opacity:0.5;
+}
+
+
+
+
 /* /Features/PhotoFrame/PhotoFramePage.razor.rz.scp.css */
 .weather[b-nkgdqso7ah] {
     position: fixed;
@@ -209,6 +226,10 @@ table[b-hava5cs9gl] {
 .check-selection label[b-q3x4kyl8xb] {
     margin-left: 7px;
     cursor: pointer;
+}
+/* /Features/Settings/DisplayTime.razor.rz.scp.css */
+select[b-xwmr0odtfd] {
+    max-width: 250px;
 }
 /* /Features/Settings/PhotoFrameShowTime.razor.rz.scp.css */
 select[b-xihsle1uyv] {
