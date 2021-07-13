@@ -35,11 +35,45 @@
     cursor: pointer;
 }
 
-.menu-footer:hover {
-    background-color: darkblue;
-    opacity:0.5;
+    .menu-footer:hover {
+        background-color: darkblue;
+        opacity: 0.5;
+    }
+
+.debug-mode {
+    position: absolute;
+    left: 0;
+    top: 0;
+    overflow-y: auto;
+    background-color: black;
+    color: greenyellow;
+    opacity: 0.5;
 }
 
+#debug-items {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    font-size: small;
+}
 
+    #debug-items ::deep td, #debug-items ::deep th {
+        border: 1px solid #ddd;
+        padding: 3px;
+    }
 
+    #debug-items ::deep tr:nth-last-child(2) {
+        background-color: #031975;
+        color: white;
+    }
 
+    #debug-items ::deep tr:last-child .action::before {
+        content: 'preparing... ';
+        font-style:italic;
+        color: yellow;
+    }
+
+    #debug-items thead ::deep tr {
+        text-align: left;
+        color: #fff;
+    }

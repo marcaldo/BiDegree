@@ -17,6 +17,7 @@ namespace BiDegree.Models
         {
             get => Rotation > 0 || Width < Height;
         }
+        public long FileSize { get; set; }
         public DisplayItemType ItemType { get; set; } = DisplayItemType.Image;
     }
 

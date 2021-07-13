@@ -35,15 +35,18 @@ imageInterop.runQueue = function (displayQueue, interval, netObjRef) {
 
         imgTop.onload = function () {
             let object_fit = item_top.portrait ? fit_contain : fit_cover;
-            console.log("iT " + item_top.title + " fit " + object_fit + " w,h " + imgTop.width + "x" + imgTop.height + " portrait " + (imgTop.width < imgTop.height) + " " + item_top.portrait);
+            console.log("T " + item_top.title + " fit " + object_fit + " w,h " + imgTop.width + "x" + imgTop.height + " portrait " + (imgTop.width < imgTop.height) + " " + item_top.portrait);
             this.setAttribute("style", "display:'';object-fit:" + object_fit);
+
+            imageInterop.debug_log(item_top);
         }
 
         imgBottom.onload = function () {
             let object_fit = item_bottom ? fit_contain : fit_cover;
-            console.log("iB " + item_bottom.title + " fit " + object_fit + " w,h " + imgBottom.width + "x" + imgBottom.height + " portratit " + (imgBottom.width < imgBottom.height) + " " + item_bottom.portrait);
+            console.log("B " + item_bottom.title + " fit " + object_fit + " w,h " + imgBottom.width + "x" + imgBottom.height + " portratit " + (imgBottom.width < imgBottom.height) + " " + item_bottom.portrait);
             this.setAttribute("style", "display:'';object-fit:" + object_fit);
 
+            imageInterop.debug_log(item_bottom);
         }
 
         queue.splice(0, 2);
@@ -63,12 +66,15 @@ imageInterop.transition = function () {
 
     if (queue.length === 0) {
         setTimeout(() => {
-            window.location = window.location.href;
+            //window.location = window.location.href;
             //dotNetObjRef.invokeMethodAsync("Reload");
         }, displayTime);
     }
 
     let item = queue[0];
+
+    imageInterop.debug_log(item);
+
 
     if (imgTop.className === "transparent") {
 
@@ -81,7 +87,7 @@ imageInterop.transition = function () {
                 imgBottom.onload = function () {
                     let object_fit = item.portrait ? fit_contain : fit_cover;
                     imgBottom.setAttribute("style", "object-fit:" + object_fit);
-                    console.log("iB " + item.title + " fit " + object_fit + " w,h " + imgBottom.width + "x" + imgBottom.height + " portratit " + (imgBottom.width < imgBottom.height) + " " + item.portrait);
+                    console.log("B " + item.title + " fit " + object_fit + " w,h " + imgBottom.width + "x" + imgBottom.height + " portratit " + (imgBottom.width < imgBottom.height) + " " + item.portrait);
 
                 }
 
@@ -103,7 +109,7 @@ imageInterop.transition = function () {
                 imgTop.onload = function () {
                     let object_fit = item.portrait ? fit_contain : fit_cover;
                     imgTop.setAttribute("style", "object-fit:" + object_fit);
-                    console.log("iT " + item.title + " fit " + object_fit + " w,h " + imgTop.width + "x" + imgTop.height + " portrait " + (imgTop.width < imgTop.height) + " " + item.portrait);
+                    console.log("T " + item.title + " fit " + object_fit + " w,h " + imgTop.width + "x" + imgTop.height + " portrait " + (imgTop.width < imgTop.height) + " " + item.portrait);
                 }
 
                 imgTop.setAttribute("src", item.sourceUrl);
@@ -112,6 +118,23 @@ imageInterop.transition = function () {
             }
         }, delayToLoad);
     }
+}
 
+imageInterop.debug_log = function (item) {
+
+    if (!item) { return };
+
+    let debugInfo = document.getElementById("debugInfo");
+
+    if (debugInfo === null) { return };
+
+    let orientation = item.portrait || (item.width < item.height)
+        ? "portrait" : "landscape";
+
+
+    let tr = document.createElement("tr");
+    tr.innerHTML = `<td><span class="action"></span>${item.title}</td><td>${item.width}</td><td>${item.height}</td><td>${orientation}</td><td>${item.fileSize / 1024}</td>`;
+    debugInfo.appendChild(tr);
 
 }
+

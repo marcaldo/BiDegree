@@ -18,15 +18,19 @@ namespace BiDegree.Features.PhotoFrame
         [Inject] IGoogleDriveApi GoogleDriveApi { get; set; }
         //[Inject] NavigationManager NavigationManager { get; set; }
         private bool _shuffled = true;
+        private bool _debugMode = true;
         private double displayTime;
 
         protected override async Task OnInitializedAsync()
         {
 #if DEBUG
-            // System.Threading.Thread.Sleep(10000);
+            System.Threading.Thread.Sleep(10000);
 #endif
             var displayInOrder = await LocalStorage.GetItemAsync<bool?>(Constants.KeyName_DisplayInOrder);
             _shuffled = displayInOrder == null ? true : !(bool)displayInOrder;
+
+            var debugMode = await LocalStorage.GetItemAsync<bool?>(Constants.KeyName_Dev_DebugMode);
+            _debugMode = debugMode == null ? false : (bool)debugMode;
 
             var storedDuration = await LocalStorage.GetItemAsync<double?>(Constants.KeyName_ShowTime);
             displayTime = storedDuration is null
