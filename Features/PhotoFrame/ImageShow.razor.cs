@@ -86,6 +86,7 @@ namespace BiDegree.Features.PhotoFrame
                           ? DisplayItemType.Video
                           : DisplayItemType.Image;
 
+                _ = float.TryParse(driveFile.fileSize, out var fileSize);
 
                 tempNumeredItemList.Add(itemNum, new DisplayItem
                 {
@@ -93,9 +94,10 @@ namespace BiDegree.Features.PhotoFrame
                     SourceUrl = link,
                     ItemType = displayItemType,
                     Title = driveFile.title,
-                    Height = driveFile.imageMediaMetadata.height,
-                    Width = driveFile.imageMediaMetadata.width,
-                    Rotation = driveFile.imageMediaMetadata.rotation
+                    Height = driveFile.imageMediaMetadata != null ? driveFile.imageMediaMetadata.height : 0,
+                    Width = driveFile.imageMediaMetadata != null ? driveFile.imageMediaMetadata.width : 0,
+                    Rotation = driveFile.imageMediaMetadata != null ? driveFile.imageMediaMetadata.rotation : 0,
+                    FileSize = fileSize.ToString("#.##")
                 });
 
                 itemNum++;
@@ -147,12 +149,26 @@ namespace BiDegree.Features.PhotoFrame
                             ? DisplayItemType.Video
                             : DisplayItemType.Image;
 
-                        tempNumeredItemList.Add(rndPosition, new DisplayItem
+                        _ = float.TryParse(driveFile.fileSize, out var fileSize);
+
+                        try
                         {
-                            SourceUrl = link,
-                            ItemType = displayItemType,
-                            Title = driveFile.title
-                        });
+                            tempNumeredItemList.Add(rndPosition, new DisplayItem
+                            {
+                                SourceUrl = link,
+                                ItemType = displayItemType,
+                                Title = driveFile.title,
+                                Height = driveFile.imageMediaMetadata != null ? driveFile.imageMediaMetadata.height : 0,
+                                Width = driveFile.imageMediaMetadata != null ? driveFile.imageMediaMetadata.width : 0,
+                                Rotation = driveFile.imageMediaMetadata != null ? driveFile.imageMediaMetadata.rotation : 0,
+                                FileSize = fileSize.ToString("#.##")
+                            });
+                        }
+                        catch (Exception ex)
+                        {
+
+                            throw;
+                        }
 
                         itemAdded = true;
                     }
