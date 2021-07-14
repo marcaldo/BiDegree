@@ -133,14 +133,48 @@ table[b-hava5cs9gl] {
     cursor: pointer;
 }
 
-.menu-footer:hover[b-w0xlyiapev] {
-    background-color: darkblue;
-    opacity:0.5;
+    .menu-footer:hover[b-w0xlyiapev] {
+        background-color: darkblue;
+        opacity: 0.5;
+    }
+
+.debug-mode[b-w0xlyiapev] {
+    position: absolute;
+    left: 0;
+    top: 0;
+    overflow-y: auto;
+    background-color: black;
+    color: greenyellow;
+    opacity: 0.5;
 }
 
+#debug-items[b-w0xlyiapev] {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    font-size: small;
+}
 
+    #debug-items[b-w0xlyiapev]  td, #debug-items[b-w0xlyiapev]  th {
+        border: 1px solid #ddd;
+        padding: 3px;
+    }
 
+    #debug-items[b-w0xlyiapev]  tr:nth-last-child(2) {
+        background-color: #031975;
+        color: white;
+    }
 
+    #debug-items[b-w0xlyiapev]  tr:last-child .action::before {
+        content: 'preparing... ';
+        font-style:italic;
+        color: yellow;
+    }
+
+    #debug-items thead[b-w0xlyiapev]  tr {
+        text-align: left;
+        color: #fff;
+    }
 /* /Features/PhotoFrame/PhotoFramePage.razor.rz.scp.css */
 .weather[b-nkgdqso7ah] {
     position: fixed;
