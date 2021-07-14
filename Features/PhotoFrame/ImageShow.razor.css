@@ -5,6 +5,7 @@
     top: 0;
     bottom: 0;
     text-align: center;
+    background-color: black;
 }
 
     #imageBox img {
@@ -68,7 +69,7 @@
     }
 
     #debug-items ::deep tr:last-child .action::before {
-        content: 'preparing... ';
+        content: 'next... ';
         font-style:italic;
         color: yellow;
     }
