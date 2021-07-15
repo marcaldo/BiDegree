@@ -8,14 +8,14 @@
 <div class="datetime goto" @onclick="() => NavigateTo(settingsPage, true)" title="Settings">
 	<Clock />
 </div>
-<div class="temp">
+@*<div class="temp">
 	@if (CurrentWeather != null)
 	{
 		string weatherIcon = $"w{CurrentWeather.weather[0].icon}";
 	 <IconWeather Name="@weatherIcon" Size="90" />
 	 <TemperatureValues Value="CurrentWeather.main.temp" Units="Units" />
 	}
-</div>
+</div>*@
 
 @code {
 	const string settingsPage = "settings";
