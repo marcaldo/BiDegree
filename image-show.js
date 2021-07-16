@@ -20,18 +20,47 @@ imageInterop.runQueue = function (displayQueue, interval, netObjRef) {
 
     let imgTop = document.getElementById("imgTop");
     let imgBottom = document.getElementById("imgBottom");
+    let videoTop = document.getElementById("videoTop");
+    let videoBottom = document.getElementById("videoBottom");
 
-    imgTop.setAttribute("style", "display:none");
-    imgBottom.setAttribute("style", "display:none");
     imgBottom.className = "transparent";
 
     let item_top = queue[0];
     let item_bottom = queue[1];
 
-    imgTop.setAttribute("src", item_top.sourceUrl);
-    imgBottom.setAttribute("src", item_bottom.sourceUrl);
+    console.log(item_top.isVideo + " <> ");
+    console.log(item_bottom.isVideo + " <> " );
+
+    if (item_bottom.isVideo) {
+        let videoBottomSrc = document.createElement("source");
+        videoBottomSrc.setAttribute("src", item_bottom.sourceUrl);
+        videoBottom.appendChild(videoBottomSrc);
+        videoBottom.play();
+    }
+    else {
+        imgBottom.setAttribute("src", item_bottom.sourceUrl);
+    }
+
+    if (item_top.isVideo) {
+        let videoTopSrc = document.createElement("source");
+        videoTopSrc.setAttribute("src", item_top.sourceUrl);
+        videoTop.appendChild(videoTopSrc);
+        videoTop.play();
+    }
+    else {
+        imgTop.setAttribute("src", item_top.sourceUrl);
+    }
+
 
     setTimeout(() => {
+
+        //videoTop.onplay = function () {
+        //    let object_fit = imageInterop.fit_orientation(this);
+        //    this.setAttribute("style", "display:'';object-fit:" + object_fit);
+
+        //    item_top.portrait = object_fit == fit_contain;
+        //    imageInterop.debug_log(item_top);
+        //}
 
         imgTop.onload = function () {
             let object_fit = imageInterop.fit_orientation(this);
@@ -40,6 +69,14 @@ imageInterop.runQueue = function (displayQueue, interval, netObjRef) {
             item_top.portrait = object_fit == fit_contain;
             imageInterop.debug_log(item_top);
         }
+
+        //videoBottom.onplay = function () {
+        //    let object_fit = imageInterop.fit_orientation(this);
+        //    this.setAttribute("style", "display:'';object-fit:" + object_fit);
+
+        //    item_bottom.portrait = object_fit == fit_contain;
+        //    imageInterop.debug_log(item_bottom);
+        //}
 
         imgBottom.onload = function () {
             let object_fit = imageInterop.fit_orientation(this);
@@ -140,7 +177,7 @@ imageInterop.debug_log = function (item) {
     let orientation = item.portrait ? "portrait" : "landscape";
 
     let tr = document.createElement("tr");
-    tr.innerHTML = `<td><span class="action"></span>${item.title}</td><td>${item.width}</td><td>${item.height}</td><td>${orientation}</td><td>${item.fileSize / 1024}</td>`;
+    tr.innerHTML = `<td><span class="action">${item.isVideo}</span>${item.title}</td><td>${item.width}</td><td>${item.height}</td><td>${orientation}</td><td>${item.fileSize / 1024}</td>`;
     debugInfo.appendChild(tr);
 
 }
