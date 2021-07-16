@@ -1,14 +1,22 @@
 ﻿@inject NavigationManager NavigationManager
 <div id="imageBox">
-    <img id="imgBottom" />
-    <img id="imgTop" />
+    <img id="imgBottom" src="" style="display:none" />
+    <img id="imgTop" src="" style="display:none" />
+
+    <video autoplay loop id="videoTop" class="videoloop" muted="muted">
+        @*<source id="videoTopSrc" src="" type="video/mp4">*@
+    </video>
+
+    <video autoplay loop id="videoBottom" class="videoloop" muted="muted">
+        @*<source id="videoBottomSrc" src="" type="video/mp4">*@
+    </video>
 </div>
 
 @if (_debugMode)
 {
     <div class="debug-mode">
         <table id="debug-items">
-            <thead >
+            <thead>
                 <tr>
                     <th>Item</th>
                     <th>Width</th>
