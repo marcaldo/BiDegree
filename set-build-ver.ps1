@@ -1,6 +1,6 @@
 ﻿# Project file
 $currentDirProj = (Get-Item .).FullName + '\BiDegree.csproj'
-$currentDate = get-date -format yyyy.MM.dd.HHmm;
+$currentDate = get-date -format yyyyMMdd.HHmm;
 $find = "<Version>(.|\n)*?</Version>";
 $replace = "<Version>" + $currentDate + "</Version>";
 $csproj = Get-Content $currentDirProj
