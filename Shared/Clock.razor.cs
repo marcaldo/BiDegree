@@ -6,7 +6,7 @@ using System.Timers;
 
 namespace BiDegree.Shared
 {
-    public partial class Clock
+    public partial class Clock : IDisposable
     {
         [Inject] ILocalStorageService localStorage { get; set; }
 
@@ -14,18 +14,21 @@ namespace BiDegree.Shared
         private string DisplayTime;
         private string AmPm;
         private TimeFormatType timeFormat = TimeFormatType.T12hs;
+        private Timer Timer { get; set; }
         public Clock()
         {
-            Timer timer = new();
-            timer.Interval = 1000;
-            timer.Elapsed += Timer_Elapsed;
-            timer.Enabled = true;
-
-            SetDateTime();
+   
         }
 
         protected override async Task OnInitializedAsync()
         {
+            Timer = new();
+            Timer.Interval = 5000;
+            Timer.Elapsed += Timer_Elapsed;
+            Timer.Enabled = true;
+
+            SetDateTime();
+
             timeFormat = await localStorage.GetItemAsync<TimeFormatType?>(Constants.KeyName_TimeFormat) ?? TimeFormatType.T12hs;
         }
 
@@ -49,6 +52,11 @@ namespace BiDegree.Shared
             
             DisplayTime = now.ToString("HH:mm");
             AmPm = "";
+        }
+
+        public void Dispose()
+        {
+            Timer?.Dispose();
         }
     }
 }

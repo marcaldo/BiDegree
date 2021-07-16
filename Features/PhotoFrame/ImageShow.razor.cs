@@ -18,7 +18,7 @@ namespace BiDegree.Features.PhotoFrame
         [Inject] IGoogleDriveApi GoogleDriveApi { get; set; }
         //[Inject] NavigationManager NavigationManager { get; set; }
         private bool _shuffled = true;
-        private bool _debugMode = true;
+        private bool _debugMode = false;
         private double displayTime;
 
         protected override async Task OnInitializedAsync()
@@ -27,10 +27,10 @@ namespace BiDegree.Features.PhotoFrame
             System.Threading.Thread.Sleep(10000);
 #endif
             var displayInOrder = await LocalStorage.GetItemAsync<bool?>(Constants.KeyName_DisplayInOrder);
-            _shuffled = displayInOrder == null ? true : !(bool)displayInOrder;
+            _shuffled = displayInOrder == null || !(bool)displayInOrder;
 
             var debugMode = await LocalStorage.GetItemAsync<bool?>(Constants.KeyName_Dev_DebugMode);
-            _debugMode = debugMode == null ? false : (bool)debugMode;
+            _debugMode = debugMode != null && (bool)debugMode;
 
             var storedDuration = await LocalStorage.GetItemAsync<double?>(Constants.KeyName_ShowTime);
             displayTime = storedDuration is null
@@ -97,7 +97,8 @@ namespace BiDegree.Features.PhotoFrame
                     Height = driveFile.imageMediaMetadata != null ? driveFile.imageMediaMetadata.height : 0,
                     Width = driveFile.imageMediaMetadata != null ? driveFile.imageMediaMetadata.width : 0,
                     Rotation = driveFile.imageMediaMetadata != null ? driveFile.imageMediaMetadata.rotation : 0,
-                    FileSize = fileSize.ToString("#.##")
+                    FileSize = fileSize.ToString("#.##"),
+                    IsVideo = driveFile.mimeType.ToLower().Contains("video")
                 });
 
                 itemNum++;
@@ -161,7 +162,8 @@ namespace BiDegree.Features.PhotoFrame
                                 Height = driveFile.imageMediaMetadata != null ? driveFile.imageMediaMetadata.height : 0,
                                 Width = driveFile.imageMediaMetadata != null ? driveFile.imageMediaMetadata.width : 0,
                                 Rotation = driveFile.imageMediaMetadata != null ? driveFile.imageMediaMetadata.rotation : 0,
-                                FileSize = fileSize.ToString("#.##")
+                                FileSize = fileSize.ToString("#.##"),
+                                IsVideo = driveFile.mimeType.ToLower().Contains("video")
                             });
                         }
                         catch (Exception ex)
