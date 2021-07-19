@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace BiDegree.Features.PhotoFrame
 {
-    public partial class ImageShow
+    public partial class ImageShow : ComponentBase
     {
         [Inject] IJSRuntime JS { get; set; }
         [Inject] ILocalStorageService LocalStorage { get; set; }
