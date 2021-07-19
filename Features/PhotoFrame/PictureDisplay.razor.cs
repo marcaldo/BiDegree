@@ -67,6 +67,7 @@ namespace BiDegree.Features.PhotoFrame
             }
 
             itemLink = item.Value.SourceUrl;
+            isVideo = item.Value.ItemType==DisplayItemType.Video;
 
             if (isVideo)
             {
