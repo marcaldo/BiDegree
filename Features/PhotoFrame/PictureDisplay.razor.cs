@@ -67,7 +67,6 @@ namespace BiDegree.Features.PhotoFrame
             }
 
             itemLink = item.Value.SourceUrl;
-            isVideo = item.Value.IsVideo;
 
             if (isVideo)
             {
@@ -146,7 +145,6 @@ namespace BiDegree.Features.PhotoFrame
                         tempQueue.Add(rndPosition, new DisplayItem
                         {
                             SourceUrl = link,
-                            IsVideo = driveFile.mimeType.ToLower().Contains("video")
                         });
 
                         itemAdded = true;
