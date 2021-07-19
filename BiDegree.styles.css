@@ -586,11 +586,8 @@ input:checked + .slider[b-8d7r06yujy] {
     }
 /* /Features/WeatherPanel/WeatherPanel.razor.rz.scp.css */
 .datetime[b-osh7t84i7f]  .clock {
-    background: rgba(0, 0, 0, 0.4);
-    border-top-right-radius: 30px;
-    border-top-left-radius: 0;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
+    text-shadow: 2px 2px black;
+    background-color: transparent;
 }
 
     .datetime[b-osh7t84i7f]  .clock .date {
@@ -613,10 +610,8 @@ input:checked + .slider[b-8d7r06yujy] {
     flex-direction: row;
     align-items: flex-end;
     align-items: baseline;
-    border-radius: 0;
-    background: rgba(0, 0, 0, 0.4);
     padding: 8px;
-    border-top-left-radius: 30px;
+    text-shadow: 2px 2px black;
 }
 
     .temp[b-osh7t84i7f]  .t1 {
