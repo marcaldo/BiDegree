@@ -1,0 +1,22 @@
+﻿@inject ISyncLocalStorageService localStorage
+<div class="form-group settings">
+<div class="check-selection">
+<ToggleSwitch Id="showWeather" OnToggle="((showWeather)=>SaveSetting(showWeather))" SetAsChecked="showWeather" />
+<label for="showWeather">Show the weather</label>
+</div>
+</div>
+@code {
+
+	private bool showWeather;
+
+	protected override void OnInitialized()
+	{
+		bool? storedValue = localStorage.GetItem<bool?>(Constants.KeyName_ShowWeather) ;
+		showWeather = storedValue ?? true;
+	}
+
+	private void SaveSetting(bool isChecked)
+	{
+		localStorage.SetItem(Constants.KeyName_ShowWeather, isChecked);
+	}
+}

@@ -9,6 +9,8 @@
         public const string KeyName_UseCity = "usecity";
         public const string KeyName_Units = "units";
         public const string KeyName_ShowBothTemps = "bt";
+        public const string KeyName_ShowClock = "showclock";
+        public const string KeyName_ShowWeather = "showweather";
         public const string KeyName_TimeFormat = "tformat";
         public const string KeyName_DisplayInOrder = "inorder";
         public const string KeyName_RefreshTime = "refresh";

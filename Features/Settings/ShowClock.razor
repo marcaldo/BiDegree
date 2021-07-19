@@ -1,0 +1,22 @@
+﻿@inject ISyncLocalStorageService localStorage
+<div class="form-group settings">
+<div class="check-selection">
+<ToggleSwitch Id="showClock" OnToggle="((showClock)=>SaveSetting(showClock))" SetAsChecked="showClock" />
+<label for="showClock">Show the clock</label>
+</div>
+</div>
+@code {
+
+	private bool showClock;
+
+	protected override void OnInitialized()
+	{
+		bool? storedValue = localStorage.GetItem<bool?>(Constants.KeyName_ShowClock) ;
+		showClock = storedValue ?? true;
+	}
+
+	private void SaveSetting(bool isChecked)
+	{
+		localStorage.SetItem(Constants.KeyName_ShowClock, isChecked);
+	}
+}
