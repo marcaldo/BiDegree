@@ -675,6 +675,26 @@ input:checked + .slider[b-8d7r06yujy] {
     color: #ffd404;
     font-size: 0.8em;
 }
+/* /Shared/Clock2.razor.rz.scp.css */
+.clock[b-taenzs2mxw] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    border-radius: 15px;
+    background-color: var(--text-bg-color);
+}
+.time[b-taenzs2mxw] {
+    font-size: 3em;
+}
+    .time .ampm[b-taenzs2mxw] {
+        font-size: 0.5em;
+    }
+
+.date[b-taenzs2mxw] {
+    color: #ffd404;
+    font-size: 0.8em;
+}
 /* /Shared/TemperatureValues.razor.rz.scp.css */
 .t1[b-l2bp6ctefc], .t2[b-l2bp6ctefc] {
     padding: 15px;
