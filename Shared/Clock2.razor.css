@@ -1,0 +1,19 @@
+﻿.clock {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    border-radius: 15px;
+    background-color: var(--text-bg-color);
+}
+.time {
+    font-size: 3em;
+}
+    .time .ampm {
+        font-size: 0.5em;
+    }
+
+.date {
+    color: #ffd404;
+    font-size: 0.8em;
+}
