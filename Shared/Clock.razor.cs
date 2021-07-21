@@ -1,63 +1,62 @@
 ﻿using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
-using System.Timers;
 
 namespace BiDegree.Shared
 {
     public partial class Clock : IDisposable
     {
-        [Inject] ILocalStorageService localStorage { get; set; }
+        [Inject] private ILocalStorageService LocalStorage { get; set; }
 
-        private string DisplayDate;
-        private string DisplayTime;
-        private string AmPm;
-        private TimeFormatType timeFormat = TimeFormatType.T12hs;
-        private Timer Timer { get; set; }
-        public Clock()
-        {
-   
-        }
+        private Timer _timer;
+        private DateTimeDisplay _dateTimeDisplay = new();
 
         protected override async Task OnInitializedAsync()
         {
-            Timer = new();
-            Timer.Interval = 5000;
-            Timer.Elapsed += Timer_Elapsed;
-            Timer.Enabled = true;
+            _timer = new Timer(
+            callback: new TimerCallback(TimerElapsed),
+            state: _dateTimeDisplay,
+            dueTime: 0,
+            period: 5000);
 
-            SetDateTime();
-
-            timeFormat = await localStorage.GetItemAsync<TimeFormatType?>(Constants.KeyName_TimeFormat) ?? TimeFormatType.T12hs;
+            _dateTimeDisplay.timeFormat = await LocalStorage.GetItemAsync<TimeFormatType?>(Constants.KeyName_TimeFormat) ?? TimeFormatType.T12hs;
         }
 
-        private void Timer_Elapsed(object _, ElapsedEventArgs e)
+        private void TimerElapsed(object timerState)
         {
-            SetDateTime();
-            StateHasChanged();
-        }
+            _dateTimeDisplay = timerState as DateTimeDisplay;
 
-        private void SetDateTime()
-        {
             DateTime now = DateTime.Now;
-            DisplayDate = $"{now.DayOfWeek.ToString()[..3].ToUpper()}, {now:MMM} {now:dd}";
+            _dateTimeDisplay.Date = $"{now.DayOfWeek.ToString()[..3].ToUpper()}, {now:MMM} {now:dd}";
 
-            if (timeFormat == TimeFormatType.T12hs)
+            if (_dateTimeDisplay.timeFormat == TimeFormatType.T12hs)
             {
-                DisplayTime = now.ToString("h:mm");
-                AmPm = now.ToString("tt");
-                return;
+                _dateTimeDisplay.Time = now.ToString("h:mm");
+                _dateTimeDisplay.AmPm = now.ToString("tt");
             }
-            
-            DisplayTime = now.ToString("HH:mm");
-            AmPm = "";
+            else
+            {
+                _dateTimeDisplay.Time = now.ToString("HH:mm");
+                _dateTimeDisplay.AmPm = "";
+            }
+
+            StateHasChanged();
         }
 
         public void Dispose()
         {
-            Timer?.Dispose();
+            _timer?.Dispose();
         }
+    }
+
+    class DateTimeDisplay
+    {
+        public string Time { get; set; }
+        public string AmPm { get; set; }
+        public string Date { get; set; }
+        public TimeFormatType timeFormat { get; set; } = TimeFormatType.T24hs;
     }
 }
 

@@ -8,9 +8,14 @@
         <source id="videoBottomSrc" src="" type="video/mp4">
     </video>*@
 
-    <img id="imgBottom" src="" >
-    <img id="imgTop" src="" />
-
+    @if (!string.IsNullOrEmpty(imgBottomSrc))
+    {
+        <img id="imgBottom" src="@imgTopSrc" class="@imgTopClass" />
+    }
+    @if (!string.IsNullOrEmpty(imgTopSrc))
+    {
+        <img id="imgTop" src="@imgBottomSrc" class="@imgBottomClass" />
+    }
 
 </div>
 
