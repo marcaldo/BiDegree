@@ -1,6 +1,4 @@
-﻿@using Blazored.Video
-@using Blazored.Video.Support
-
+﻿
 @if (isVideo)
 {
     <video autoplay loop id="videoloop">
@@ -13,7 +11,7 @@ else
         body {
             background-color: #000000;
         }
-        </style>
+    </style>
 
     <div id="imageBox">
         <img src="@itemLink" />
@@ -35,7 +33,7 @@ else
             <li><u>Queue:</u></li>
             @foreach (var item in displayQueue)
             {
-                if (item.Value.IsVideo)
+                if (item.Value.ItemType == DisplayItemType.Video)
                 {
                     <li>
                         @item.Key <Icon Name="Icon.IconType.CameraReels" />

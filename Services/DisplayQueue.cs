@@ -11,15 +11,69 @@ namespace BiDegree.Services
 {
     public class DisplayQueue : IDisplayQueue
     {
-        [Inject] ILocalStorageService LocalStorage { get; set; }
-        [Inject] IGoogleDriveApi GoogleDriveApi { get; set; }
+        private readonly IGoogleDriveApi _googleDriveApi;
+        private readonly ILocalStorageService _localStorage;
+        private List<DisplayItem> _queue;
 
-        public Task<(List<DisplayItem> displayItems1, List<DisplayItem> displayItems2)> GetDisplayQueuesAsync()
+        public DisplayQueue(IGoogleDriveApi googleDriveApi, ILocalStorageService localStorageService)
         {
-            return GetShuffledLists();
+            _googleDriveApi = googleDriveApi;
+            _localStorage = localStorageService;
         }
 
-        private async Task<(List<DisplayItem> displayItems1, List<DisplayItem> displayItems2)> GetShuffledLists()
+        public async Task<bool> IsDebugModeAsync()
+        {
+            var debugMode = await _localStorage.GetItemAsync<bool?>(Constants.KeyName_Dev_DebugMode);
+            return debugMode != null && (bool)debugMode;
+        }
+
+        private async Task<bool> IsShuffled()
+        {
+            var displayInOrder = await _localStorage.GetItemAsync<bool?>(Constants.KeyName_DisplayInOrder);
+            return displayInOrder == null || !(bool)displayInOrder;
+        }
+
+
+        public async Task<double> GetDisplayTimeAsync()
+        {
+            var storedDuration = await _localStorage.GetItemAsync<double?>(Constants.KeyName_ShowTime);
+            var displayTime = storedDuration is null
+                ? Constants.DefaultValue_ShowTime
+                : (double)storedDuration;
+
+            displayTime *= 1000;
+
+            return displayTime;
+        }
+
+        public async Task<DisplayItem> GetNextItemAsync()
+        {
+            if(_queue.Count == 0)
+            {
+                _queue=await GetDisplayQueueAsync();
+            }
+
+            var displayItem = _queue.FirstOrDefault();
+
+            _queue.Remove(displayItem);
+            return displayItem;
+        }
+
+        public async Task<List<DisplayItem>> GetDisplayQueueAsync()
+        {
+            if (_queue is null || _queue.Count == 0)
+            {
+                if (await IsShuffled())
+                {
+                    _queue = await GetShuffledList();
+                }
+
+                _queue = await GetNaturalOrderList();
+            }
+
+            return _queue;
+        }
+        private async Task<List<DisplayItem>> GetNaturalOrderList()
         {
             Dictionary<int, DisplayItem> tempNumeredItemList = new();
 
@@ -27,11 +81,62 @@ namespace BiDegree.Services
 
             if (!driveFileList.items.Any())
             {
-                return (new List<DisplayItem>(), new List<DisplayItem>());
+                return (new List<DisplayItem>());
+            }
+
+            int itemNum = 0;
+
+            foreach (var driveFile in driveFileList.items.OrderBy(i => i.title))
+            {
+                if (!driveFile.webContentLink.Contains("&"))
+                {
+                    continue;
+                }
+
+                var link = driveFile.webContentLink.Substring(0, driveFile.webContentLink.IndexOf("&"));
+
+                var displayItemType = driveFile.mimeType.ToLower().Contains("video")
+                          ? DisplayItemType.Video
+                          : DisplayItemType.Image;
+
+                _ = float.TryParse(driveFile.fileSize, out var fileSize);
+
+                tempNumeredItemList.Add(itemNum, new DisplayItem
+                {
+                    ItemNumber = itemNum,
+                    SourceUrl = link,
+                    ItemType = displayItemType,
+                    Title = driveFile.title,
+                    Height = driveFile.imageMediaMetadata != null ? driveFile.imageMediaMetadata.height : 0,
+                    Width = driveFile.imageMediaMetadata != null ? driveFile.imageMediaMetadata.width : 0,
+                    Rotation = driveFile.imageMediaMetadata != null ? driveFile.imageMediaMetadata.rotation : 0,
+                    FileSize = fileSize.ToString("#.##")
+                });
+
+                itemNum++;
+            }
+
+            var items = tempNumeredItemList
+                .Select(d => d.Value);
+
+            return items.ToList();
+
+        }
+        private async Task<List<DisplayItem>> GetShuffledList()
+        {
+            Dictionary<int, DisplayItem> tempNumeredItemList = new();
+
+            DriveFileList driveFileList = await GetDriveFileList();
+
+            if (!driveFileList.items.Any())
+            {
+                return (new List<DisplayItem>());
             }
 
             const int randomNumbesQuantityMultiplier = 2;
             int maxRandomNumber = driveFileList.items.Length * randomNumbesQuantityMultiplier;
+
+            int itemNum = 0;
 
             foreach (var driveFile in driveFileList.items)
             {
@@ -57,11 +162,26 @@ namespace BiDegree.Services
                             ? DisplayItemType.Video
                             : DisplayItemType.Image;
 
-                        tempNumeredItemList.Add(rndPosition, new DisplayItem
+                        _ = float.TryParse(driveFile.fileSize, out var fileSize);
+
+                        try
                         {
-                            SourceUrl = link,
-                            ItemType = displayItemType
-                        });
+                            tempNumeredItemList.Add(rndPosition, new DisplayItem
+                            {
+                                SourceUrl = link,
+                                ItemType = displayItemType,
+                                Title = driveFile.title,
+                                Height = driveFile.imageMediaMetadata != null ? driveFile.imageMediaMetadata.height : 0,
+                                Width = driveFile.imageMediaMetadata != null ? driveFile.imageMediaMetadata.width : 0,
+                                Rotation = driveFile.imageMediaMetadata != null ? driveFile.imageMediaMetadata.rotation : 0,
+                                FileSize = fileSize.ToString("#.##")
+                            });
+                        }
+                        catch (Exception ex)
+                        {
+
+                            throw;
+                        }
 
                         itemAdded = true;
                     }
@@ -72,37 +192,19 @@ namespace BiDegree.Services
                 .OrderBy(d => d.Key)
                 .Select(d => d.Value);
 
-            int middle = shuffledList.Count() / 2;
-
-            var shuffledList1 = shuffledList.Take(middle).ToList();
-            var shuffledList2 = shuffledList.Take(middle + 1).ToList();
-
-            // Ensure both lists have same length adding the first item from the other.
-            if (shuffledList1.Count < shuffledList2.Count)
+            foreach (var item in shuffledList)
             {
-                _ = shuffledList1.Append(shuffledList2.First());
+                item.ItemNumber = itemNum++;
             }
 
-            if (shuffledList2.Count < shuffledList1.Count)
-            {
-                _ = shuffledList2.Append(shuffledList1.First());
-            }
+            return shuffledList.ToList();
 
-            return (
-                displayItems1: shuffledList1,
-                displayItems2: shuffledList2
-                );
         }
-
         private async Task<DriveFileList> GetDriveFileList()
         {
-            string folderId = await LocalStorage.GetItemAsync<string>(Constants.KeyName_DriveFolderId);
-            return await GoogleDriveApi.GetDriveFileList(folderId);
+            string folderId = await _localStorage.GetItemAsync<string>(Constants.KeyName_DriveFolderId);
+            return await _googleDriveApi.GetDriveFileList(folderId);
         }
 
-        public void Dispose()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
