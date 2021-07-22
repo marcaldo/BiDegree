@@ -235,6 +235,95 @@ table[b-hava5cs9gl] {
         max-height: 100vh;
         margin: auto;
     }
+/* /Features/PhotoFrame/Slideshow.razor.rz.scp.css */
+#imageBox[b-qdsewg8qrn] {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    text-align: center;
+    background-color: black;
+}
+
+.videoloop[b-qdsewg8qrn] {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+}
+
+    #imageBox img[b-qdsewg8qrn] {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        margin: auto;
+        -webkit-transition: opacity 3s ease-in-out;
+        -moz-transition: opacity 3s ease-in-out;
+        -o-transition: opacity 3s ease-in-out;
+        transition: opacity 3s ease-in-out;
+    }
+
+        #imageBox img.transparent[b-qdsewg8qrn] {
+            opacity: 0;
+        }
+
+.menu-footer[b-qdsewg8qrn] {
+    height: 50px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    cursor: pointer;
+}
+
+    .menu-footer:hover[b-qdsewg8qrn] {
+        background-color: darkblue;
+        opacity: 0.5;
+    }
+
+.debug-mode[b-qdsewg8qrn] {
+    position: absolute;
+    left: 0;
+    top: 0;
+    overflow-y: auto;
+    background-color: black;
+    color: greenyellow;
+    opacity: 0.5;
+}
+
+#debug-items[b-qdsewg8qrn] {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    font-size: small;
+}
+
+    #debug-items[b-qdsewg8qrn]  td, #debug-items[b-qdsewg8qrn]  th {
+        border: 1px solid #ddd;
+        padding: 3px;
+    }
+
+    #debug-items[b-qdsewg8qrn]  tr:nth-last-child(2) {
+        background-color: #031975;
+        color: white;
+    }
+
+    #debug-items[b-qdsewg8qrn]  tr:last-child .action::before {
+        content: 'next... ';
+        font-style:italic;
+        color: yellow;
+    }
+
+    #debug-items thead[b-qdsewg8qrn]  tr {
+        text-align: left;
+        color: #fff;
+    }
 /* /Features/Settings/ApiKeyDrive.razor.rz.scp.css */
 .save[b-ydexjkdx6d] {
     display: flex;
