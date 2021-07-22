@@ -7,9 +7,6 @@ namespace BiDegree.Models
         public int ItemNumber { get; set; }
         public string SourceUrl { get; set; }
         public string Title { get; set; }
-
-        [Obsolete(message: "Replaced with DisplayItemType")]
-        public bool IsVideo { get; set; }
         public int Width { get; set; }
         public int Height { get; set; }
         public int Rotation { get; set; }

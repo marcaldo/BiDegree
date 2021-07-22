@@ -97,8 +97,7 @@ namespace BiDegree.Features.PhotoFrame
                     Height = driveFile.imageMediaMetadata != null ? driveFile.imageMediaMetadata.height : 0,
                     Width = driveFile.imageMediaMetadata != null ? driveFile.imageMediaMetadata.width : 0,
                     Rotation = driveFile.imageMediaMetadata != null ? driveFile.imageMediaMetadata.rotation : 0,
-                    FileSize = fileSize.ToString("#.##"),
-                    IsVideo = driveFile.mimeType.ToLower().Contains("video")
+                    FileSize = fileSize.ToString("#.##")
                 });
 
                 itemNum++;
@@ -162,8 +161,7 @@ namespace BiDegree.Features.PhotoFrame
                                 Height = driveFile.imageMediaMetadata != null ? driveFile.imageMediaMetadata.height : 0,
                                 Width = driveFile.imageMediaMetadata != null ? driveFile.imageMediaMetadata.width : 0,
                                 Rotation = driveFile.imageMediaMetadata != null ? driveFile.imageMediaMetadata.rotation : 0,
-                                FileSize = fileSize.ToString("#.##"),
-                                IsVideo = driveFile.mimeType.ToLower().Contains("video")
+                                FileSize = fileSize.ToString("#.##")
                             });
                         }
                         catch (Exception ex)

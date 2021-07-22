@@ -25,10 +25,11 @@ namespace BiDegree
             builder.Services.AddScoped<IGoogleDriveApi, GoogleDriveAPI>();
             builder.Services.AddScoped<IDebugMode, DebugMode>();
             builder.Services.AddSingleton<StateContainer>();
-            builder.Services.AddSingleton<IDisplayQueue, DisplayQueue>();
 
             builder.Services.AddBlazoredLocalStorage(config =>
                 config.JsonSerializerOptions.WriteIndented = true);
+
+            builder.Services.AddScoped<IDisplayQueue, DisplayQueue>();
 
 
             await builder.Build().RunAsync();

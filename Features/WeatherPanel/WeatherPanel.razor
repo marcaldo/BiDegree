@@ -9,6 +9,7 @@
 
 @if (IsVisibleClockComponent)
 {
+    Console.WriteLine("......." + IsVisibleClockComponent);
     <div class="datetime goto" @onclick="() => NavigateTo(settingsPage, true)" title="Settings">
         <Clock2 />
     </div>
@@ -31,6 +32,7 @@
 
 
 @code {
+
     const string settingsPage = "settings";
 
     private void NavigateTo(string page, bool forceLoad)
