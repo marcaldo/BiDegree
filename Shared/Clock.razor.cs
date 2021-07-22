@@ -21,7 +21,7 @@ namespace BiDegree.Shared
             dueTime: 0,
             period: 5000);
 
-            _dateTimeDisplay.timeFormat = await LocalStorage.GetItemAsync<TimeFormatType?>(Constants.KeyName_TimeFormat) ?? TimeFormatType.T12hs;
+            _dateTimeDisplay.TimeFormat = await LocalStorage.GetItemAsync<TimeFormatType?>(Constants.KeyName_TimeFormat) ?? TimeFormatType.T12hs;
         }
 
         private void TimerElapsed(object timerState)
@@ -31,7 +31,7 @@ namespace BiDegree.Shared
             DateTime now = DateTime.Now;
             _dateTimeDisplay.Date = $"{now.DayOfWeek.ToString()[..3].ToUpper()}, {now:MMM} {now:dd}";
 
-            if (_dateTimeDisplay.timeFormat == TimeFormatType.T12hs)
+            if (_dateTimeDisplay.TimeFormat == TimeFormatType.T12hs)
             {
                 _dateTimeDisplay.Time = now.ToString("h:mm");
                 _dateTimeDisplay.AmPm = now.ToString("tt");
@@ -56,7 +56,7 @@ namespace BiDegree.Shared
         public string Time { get; set; }
         public string AmPm { get; set; }
         public string Date { get; set; }
-        public TimeFormatType timeFormat { get; set; } = TimeFormatType.T24hs;
+        public TimeFormatType TimeFormat { get; set; } = TimeFormatType.T24hs;
     }
 }
 
