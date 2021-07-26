@@ -1,0 +1,35 @@
+﻿@using Blazored.LocalStorage
+@inject IJSRuntime JsRunTime
+@inject ILocalStorageService LocalStorage
+@implements IDisposable
+
+<div class="clock">
+    <div class="time" @ref="timeDiv">00:00</div>
+</div>
+@code {
+
+    ElementReference timeDiv;
+    private bool _is12hourClock;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var timeFormat = await LocalStorage.GetItemAsync<TimeFormatType?>(Constants.KeyName_TimeFormat) ?? TimeFormatType.T12hs;
+        _is12hourClock = false;  //timeFormat == TimeFormatType.T12hs;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Console.WriteLine("+++++++= " + _is12hourClock);
+
+            await JsRunTime.InvokeVoidAsync("startTime", timeDiv, _is12hourClock);
+        }
+    }
+
+    public void Dispose()
+    {
+        JsRunTime.InvokeVoidAsync("stopTime");
+    }
+
+}

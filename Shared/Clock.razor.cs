@@ -9,19 +9,24 @@ namespace BiDegree.Shared
     public partial class Clock : IDisposable
     {
         [Inject] private ILocalStorageService LocalStorage { get; set; }
+        private int _count = 0;
 
         private Timer _timer;
         private DateTimeDisplay _dateTimeDisplay = new();
 
         protected override async Task OnInitializedAsync()
         {
-            _timer = new Timer(
-            callback: new TimerCallback(TimerElapsed),
-            state: _dateTimeDisplay,
-            dueTime: 0,
-            period: 5000);
-
             _dateTimeDisplay.timeFormat = await LocalStorage.GetItemAsync<TimeFormatType?>(Constants.KeyName_TimeFormat) ?? TimeFormatType.T12hs;
+            SetTimer();
+        }
+
+        private void SetTimer()
+        {
+            _timer = new Timer(
+                        callback: new TimerCallback(TimerElapsed),
+                        state: _dateTimeDisplay,
+                        dueTime: 0,
+                        period: 5000);
         }
 
         private void TimerElapsed(object timerState)
@@ -33,14 +38,22 @@ namespace BiDegree.Shared
 
             if (_dateTimeDisplay.timeFormat == TimeFormatType.T12hs)
             {
-                _dateTimeDisplay.Time = now.ToString("h:mm");
+                _dateTimeDisplay.Time = now.ToString("h:mm:ss");
                 _dateTimeDisplay.AmPm = now.ToString("tt");
             }
             else
             {
-                _dateTimeDisplay.Time = now.ToString("HH:mm");
+                _dateTimeDisplay.Time = now.ToString("HH:mm:ss");
                 _dateTimeDisplay.AmPm = "";
             }
+
+            //++_count;
+            //if (_count >= 3)
+            //{
+            //    _count = 0;
+            _timer.Dispose();
+            SetTimer();
+            //}
 
             StateHasChanged();
         }
