@@ -9,20 +9,17 @@
 @code {
 
     ElementReference timeDiv;
-    private bool _is12hourClock;
+    //private bool _is12hourClock;
 
     protected override async Task OnInitializedAsync()
     {
-        var timeFormat = await LocalStorage.GetItemAsync<TimeFormatType?>(Constants.KeyName_TimeFormat) ?? TimeFormatType.T12hs;
-        _is12hourClock = false;  //timeFormat == TimeFormatType.T12hs;
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            Console.WriteLine("+++++++= " + _is12hourClock);
-
+            bool _is12hourClock = await LocalStorage.GetItemAsync<bool?>(Constants.KeyName_12HourClock) ?? false;
             await JsRunTime.InvokeVoidAsync("startTime", timeDiv, _is12hourClock);
         }
     }

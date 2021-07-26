@@ -2,37 +2,23 @@
 <div class="form-group">
 	<label for="uSelector">Time format:</label>
 	<div class="check-selection units-selector">
-		<label>12hs</label>
-		<ToggleSwitch Id="tFormat" OnToggle="((isChecked)=>SaveSelection(isChecked))" SetAsChecked="isChecked" OnOffStyle="false" />
 		<label>24hs</label>
+		<ToggleSwitch Id="tFormat" OnToggle="((isChecked)=>SaveSelection(isChecked))" SetAsChecked="isChecked" OnOffStyle="false" />
+		<label>12hs</label>
 	</div>
 </div>
 @code {
-	private UnitsConfig unitsConfig = new UnitsConfig();
-
 	private bool isChecked { get; set; } = false;
 
 	protected override void OnInitialized()
 	{
-		var timeFormat = localStorage.GetItem<TimeFormatType?>(Constants.KeyName_TimeFormat);
-
-		if (timeFormat == null)
-		{
-			timeFormat = TimeFormatType.T12hs;
-		}
-
-		isChecked = timeFormat == TimeFormatType.T24hs;
+		isChecked = localStorage.GetItem<bool?>(Constants.KeyName_12HourClock) ?? false;
+		Console.WriteLine("isChecked... " + isChecked);
 	}
 
 	protected void SaveSelection(bool isChecked)
 	{
-		TimeFormatType timeFormat = isChecked ? TimeFormatType.T24hs : TimeFormatType.T12hs;
-		localStorage.SetItem(Constants.KeyName_TimeFormat, timeFormat);
+		localStorage.SetItem(Constants.KeyName_12HourClock, isChecked);
 	}
 
-	public class UnitsConfig
-	{
-		public TimeFormatType TimeFormat { get; set; }
-		public bool isChecked { get; set; }
-	}
 }
