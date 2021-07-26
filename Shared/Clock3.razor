@@ -9,18 +9,13 @@
 @code {
 
     ElementReference timeDiv;
-    //private bool _is12hourClock;
-
-    protected override async Task OnInitializedAsync()
-    {
-    }
+    [Parameter] public bool Hour12clock { get; set; } = false;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            bool _is12hourClock = await LocalStorage.GetItemAsync<bool?>(Constants.KeyName_12HourClock) ?? false;
-            await JsRunTime.InvokeVoidAsync("startTime", timeDiv, _is12hourClock);
+            await JsRunTime.InvokeVoidAsync("startTime", timeDiv, Hour12clock);
         }
     }
 

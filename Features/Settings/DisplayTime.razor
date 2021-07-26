@@ -1,37 +1,61 @@
 ﻿@inject ISyncLocalStorageService LocalStorage
 <div class="form-group">
-    <label for="timeShowSelector">Show the time format:</label>
-    <select class="form-control" id="timeShowSelector" @bind="elapsed" @onfocus="()=>saved=false">
-        <option value="1">24 hs</option>
-        <option value="2">12 hs (AM/PM)</option>
-        <option value="0">Do not display the time</option>
+    <label for="timeShowSelector">Clock's time format:</label>
+    <select class="form-control" id="timeShowSelector" @bind="timeFormatSelection" @onfocus="()=>_saved=false">
+        <option value="1">24 hs format</option>
+        <option value="2">12 hs format (AM/PM)</option>
+        <option value="0">Do not display the clock</option>
     </select>
-    <div class="info">The time an picture will be showing before change to the next.</div>
+    <div class="info"></div>
+</div>
+<div class="form-group">
+    <div class="check-selection">
+        <ToggleSwitch Id="showDate" OnToggle="ToggleSwitch" SetAsChecked="_isDateVisible" />
+        <label for="showDate">Show the date</label>
+    </div>
     <div class="save">
-        <Icon Name="Icon.IconType.Ok" Visible="saved" Size="25" Fill="limegreen" />
+        <Icon Name="Icon.IconType.Ok" Visible="_saved" Size="25" Fill="limegreen" />
     </div>
 </div>
 
 @code {
-    protected bool saved { get; set; } = false;
+    private bool _saved { get; set; } = false;
+    private bool _isDateVisible = true;
+    private TimeFormatType showDate = TimeFormatType.ShowDate;
+    private TimeFormatType _timeFormatSelection;
 
-    private double _elapsed;
-    private double elapsed
+    private byte timeFormatSelection
     {
-        get => _elapsed;
+        get => (byte)_timeFormatSelection;
         set
         {
-            _elapsed = value;
-            LocalStorage.SetItem(Constants.KeyName_ShowTime, elapsed);
-            saved = true;
+            _timeFormatSelection = (TimeFormatType)value;
+            SaveSettings();
+
         }
     }
 
     protected override void OnInitialized()
     {
-        _elapsed = LocalStorage.GetItem<double?>(Constants.KeyName_ShowTime) is null
-        ? Constants.DefaultValue_ShowTime
-        : LocalStorage.GetItem<double>(Constants.KeyName_ShowTime);
+        var timeDateFormatSelection = LocalStorage.GetItem<TimeFormatType?>(Constants.KeyName_TimeFormat) ?? TimeFormatType.T24hs;
+        _timeFormatSelection = timeDateFormatSelection & ~TimeFormatType.ShowDate;
+        _isDateVisible = timeDateFormatSelection.HasFlag(TimeFormatType.ShowDate);
+    }
+
+    private void ToggleSwitch()
+    {
+        _isDateVisible = !_isDateVisible;
+        SaveSettings();
+    }
+
+    private void SaveSettings()
+    {
+        var timeDateFormatSelection = _isDateVisible
+            ? _timeFormatSelection | TimeFormatType.ShowDate
+            : _timeFormatSelection & ~TimeFormatType.ShowDate;
+
+        LocalStorage.SetItem(Constants.KeyName_TimeFormat, timeDateFormatSelection);
+        _saved = true;
     }
 
 }
