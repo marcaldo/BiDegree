@@ -16,7 +16,7 @@ namespace BiDegree.Shared
 
         protected override async Task OnInitializedAsync()
         {
-            _dateTimeDisplay.timeFormat = await LocalStorage.GetItemAsync<TimeFormatType?>(Constants.KeyName_TimeFormat) ?? TimeFormatType.T12hs;
+            _dateTimeDisplay.timeFormat = await LocalStorage.GetItemAsync<DateTimeFormatType?>(Constants.KeyName_TimeFormat) ?? DateTimeFormatType.T12hs;
             SetTimer();
         }
 
@@ -36,7 +36,7 @@ namespace BiDegree.Shared
             DateTime now = DateTime.Now;
             _dateTimeDisplay.Date = $"{now.DayOfWeek.ToString()[..3].ToUpper()}, {now:MMM} {now:dd}";
 
-            if (_dateTimeDisplay.timeFormat == TimeFormatType.T12hs)
+            if (_dateTimeDisplay.timeFormat == DateTimeFormatType.T12hs)
             {
                 _dateTimeDisplay.Time = now.ToString("h:mm:ss");
                 _dateTimeDisplay.AmPm = now.ToString("tt");
@@ -69,7 +69,7 @@ namespace BiDegree.Shared
         public string Time { get; set; }
         public string AmPm { get; set; }
         public string Date { get; set; }
-        public TimeFormatType timeFormat { get; set; } = TimeFormatType.T24hs;
+        public DateTimeFormatType timeFormat { get; set; } = DateTimeFormatType.T24hs;
     }
 }
 

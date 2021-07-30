@@ -5,7 +5,7 @@
     <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
     <UserSecretsId>a35d740a-efc2-48fb-b481-c58b991d5163</UserSecretsId>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <Version>20210725.2138</Version>
+    <Version>20210729.2053</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,6 +13,7 @@
     <None Remove=".gitignore" />
     <None Remove="post-build.ps1" />
     <None Remove="README.md" />
+    <None Remove="set-build-ver.ps1" />
   </ItemGroup>
 
   <ItemGroup>

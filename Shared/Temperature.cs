@@ -19,7 +19,7 @@ namespace BiDegree.Shared
     }
 
     [Flags]
-    public enum TimeFormatType
+    public enum DateTimeFormatType
     {
         None,
         T24hs = 1 << 0,     // Of course we should never have 

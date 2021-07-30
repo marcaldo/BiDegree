@@ -21,25 +21,24 @@
 @code {
     private bool _saved { get; set; } = false;
     private bool _isDateVisible = true;
-    private TimeFormatType showDate = TimeFormatType.ShowDate;
-    private TimeFormatType _timeFormatSelection;
+    private DateTimeFormatType showDate = DateTimeFormatType.ShowDate;
+    private DateTimeFormatType _timeFormatSelection;
 
     private byte timeFormatSelection
     {
         get => (byte)_timeFormatSelection;
         set
         {
-            _timeFormatSelection = (TimeFormatType)value;
+            _timeFormatSelection = (DateTimeFormatType)value;
             SaveSettings();
-
         }
     }
 
     protected override void OnInitialized()
     {
-        var timeDateFormatSelection = LocalStorage.GetItem<TimeFormatType?>(Constants.KeyName_TimeFormat) ?? TimeFormatType.T24hs;
-        _timeFormatSelection = timeDateFormatSelection & ~TimeFormatType.ShowDate;
-        _isDateVisible = timeDateFormatSelection.HasFlag(TimeFormatType.ShowDate);
+        var timeDateFormatSelection = LocalStorage.GetItem<DateTimeFormatType?>(Constants.KeyName_TimeFormat) ?? DateTimeFormatType.T24hs;
+        _timeFormatSelection = timeDateFormatSelection & ~DateTimeFormatType.ShowDate;
+        _isDateVisible = timeDateFormatSelection.HasFlag(DateTimeFormatType.ShowDate);
     }
 
     private void ToggleSwitch()
@@ -51,8 +50,8 @@
     private void SaveSettings()
     {
         var timeDateFormatSelection = _isDateVisible
-            ? _timeFormatSelection | TimeFormatType.ShowDate
-            : _timeFormatSelection & ~TimeFormatType.ShowDate;
+            ? _timeFormatSelection | DateTimeFormatType.ShowDate
+            : _timeFormatSelection & ~DateTimeFormatType.ShowDate;
 
         LocalStorage.SetItem(Constants.KeyName_TimeFormat, timeDateFormatSelection);
         _saved = true;

@@ -13,7 +13,6 @@
 	protected override void OnInitialized()
 	{
 		isChecked = localStorage.GetItem<bool?>(Constants.KeyName_12HourClock) ?? false;
-		Console.WriteLine("isChecked... " + isChecked);
 	}
 
 	protected void SaveSelection(bool isChecked)

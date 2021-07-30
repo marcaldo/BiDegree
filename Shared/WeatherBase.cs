@@ -22,8 +22,8 @@ namespace BiDegree.Shared
         protected bool unauthorized = false;
         protected bool useCity = false;
         protected string city = null;
-        public bool IsVisibleWeatherComponent { get; set; }
-        public bool IsVisibleClockComponent { get; set; }
+        protected bool IsVisibleWeatherComponent;
+        protected DateTimeFormatType DateTimeFormat { get; set; }
         protected CurrentWeather CurrentWeather { get; set; }
         protected UnitsType Units;
 
@@ -57,12 +57,8 @@ namespace BiDegree.Shared
             bool? storedShowWeather = await LocalStorage.GetItemAsync<bool?>(Constants.KeyName_ShowWeather);
             IsVisibleWeatherComponent = storedShowWeather ?? true;
 
-            // TODO: This has to be removed from here when the config object is ready.
-
-            bool? storedShowClock = await LocalStorage.GetItemAsync<bool?>(Constants.KeyName_ShowClock);
-            IsVisibleClockComponent = storedShowClock ?? true;
-
-
+            DateTimeFormat = await LocalStorage.GetItemAsync<DateTimeFormatType?>(Constants.KeyName_TimeFormat) ?? DateTimeFormatType.T24hs;
+           
             var unitsConfig = await LocalStorage.GetItemAsync<UnitsType?>(Constants.KeyName_Units);
             Units = unitsConfig ?? UnitsType.Metric;
 
