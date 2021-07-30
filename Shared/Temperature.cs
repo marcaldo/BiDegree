@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 
 namespace BiDegree.Shared
 {
@@ -17,9 +18,12 @@ namespace BiDegree.Shared
         Imperial
     }
 
-    public enum TimeFormatType
+    [Flags]
+    public enum DateTimeFormatType
     {
-        T12hs, 
-        T24hs
+        None,
+        T24hs = 1 << 0,     // Of course we should never have 
+        T12hs = 1 << 1,     // this both flags at the same time.
+        ShowDate = 1 << 2
     }
 }

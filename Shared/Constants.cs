@@ -12,6 +12,7 @@
         public const string KeyName_ShowClock = "showclock";
         public const string KeyName_ShowWeather = "showweather";
         public const string KeyName_TimeFormat = "tformat";
+        public const string KeyName_12HourClock = "hour12";
         public const string KeyName_DisplayInOrder = "inorder";
         public const string KeyName_RefreshTime = "refresh";
         public const string KeyName_ShowTime = "showt";

@@ -1,15 +1,29 @@
 ﻿@inject IJSRuntime JSRuntime
 @implements IAsyncDisposable
 
-<div class="time">@_time</div>
+<div class="clock">
+    @if (DateTimeFormat.HasFlag(DateTimeFormatType.T12hs) || DateTimeFormat.HasFlag(DateTimeFormatType.T24hs))
+    {
+        <div class="time">@_dateTimePartsDisplay.Time <span class="ampm">@_dateTimePartsDisplay.AmPm</span></div>
+    }
+    @if (DateTimeFormat.HasFlag(DateTimeFormatType.ShowDate))
+    {
+        <div class="date">@_dateTimePartsDisplay.Date</div>
+    }
+</div>
 
 @code {
-    private string _time;
+    private DateTimePartsDisplay _dateTimePartsDisplay = new DateTimePartsDisplay();
     private Task<IJSObjectReference> _module;
-    private Task<IJSObjectReference> Module => _module ??= JSRuntime.InvokeAsync<IJSObjectReference>("import", "./timers.js").AsTask();
+    private Task<IJSObjectReference> Module => _module ??= JSRuntime.InvokeAsync<IJSObjectReference>("import", "./js/timers.js").AsTask();
+
+    [Parameter] public DateTimeFormatType DateTimeFormat { get; set; }
+
 
     protected override async Task OnInitializedAsync()
     {
+        if (DateTimeFormat == DateTimeFormatType.None) { return; }
+
         var dotNetObjectReference = DotNetObjectReference.Create(this);
 
         var module = await Module;
@@ -17,20 +31,39 @@
     }
 
 
-
     [JSInvokable]
     public void Timer_elapsed()
     {
-        _time = DateTime.Now.ToShortTimeString();
+        DateTime now = DateTime.Now;
+        _dateTimePartsDisplay.Date = $"{now.DayOfWeek.ToString()[..3].ToUpper()}, {now:MMM} {now:dd}";
+
+        if (DateTimeFormat.HasFlag(DateTimeFormatType.T12hs))
+        {
+            _dateTimePartsDisplay.Time = now.ToString("h:mm");
+            _dateTimePartsDisplay.AmPm = now.ToString("tt");
+        }
+        else
+        {
+            _dateTimePartsDisplay.Time = now.ToString("HH:mm");
+            _dateTimePartsDisplay.AmPm = "";
+        }
+
         StateHasChanged();
     }
 
     public async ValueTask DisposeAsync()
     {
-        if(_module != null)
+        if (_module != null)
         {
             var module = await _module;
             await module.DisposeAsync();
         }
+    }
+
+    class DateTimePartsDisplay
+    {
+        public string Time { get; set; }
+        public string AmPm { get; set; }
+        public string Date { get; set; }
     }
 }

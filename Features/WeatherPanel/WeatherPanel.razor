@@ -6,13 +6,11 @@
 @inherits WeatherBase
 @inject NavigationManager Navigation
 
-
-@if (IsVisibleClockComponent)
+@if (base.DateTimeFormat != DateTimeFormatType.None)
 {
-    Console.WriteLine("......." + IsVisibleClockComponent);
     <div class="datetime goto" @onclick="() => NavigateTo(settingsPage, true)" title="Settings">
-        <Clock2 />
-    </div>
+        <Clock2 DateTimeFormat="base.DateTimeFormat" />
+    </div> 
 }
 
 
