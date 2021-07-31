@@ -26,10 +26,13 @@
     <div class="clock-settings">
         <Clock2 TimeFormat="_timeFormatSelection" DateFormat="_dateFormatSelection" />
     </div>
+    <div>
+        <Icon Name="Icon.IconType.Ok" Visible="_saved" Size="25" Fill="limegreen" />
+    </div>
 </div>
 
 @code {
-    private bool _saved { get; set; } = false;
+    private bool _saved = false;
     private bool _isDateVisible = true;
     private TimeFormatType _timeFormatSelection;
     private DateFormatType _dateFormatSelection;
