@@ -18,12 +18,33 @@ namespace BiDegree.Shared
         Imperial
     }
 
-    [Flags]
-    public enum DateTimeFormatType
+
+
+    public enum TimeFormatType
     {
-        None,
-        T24hs = 1 << 0,     // Of course we should never have 
-        T12hs = 1 << 1,     // this both flags at the same time.
-        ShowDate = 1 << 2
+        None = 0,
+        T24hs = 1,
+        T12hs = 2
+    }
+
+    public enum DateFormatType
+    {
+        None = 0,
+        Date1_xWD_M_D = 1,    // Date1: TUE, Set 23
+        Date2_WD_D = 2,       // Date2: Tuesday 23
+        Date3_WD = 3,         // Date3: Tuesday
+        Date4_DD_MMM_YY = 4,  // Date4: 23 SEP 2021
+        Date5_MMM_DD_YY = 5,  // Date5: SEP 23 2021
+        Date6_DD_MM_YY = 6,   // Date6: 23/09/21
+        Date7_MM_DD_YY = 7,   // Date7: 09/23/21
+    }
+
+    public enum TempFormatType
+    {
+        None = 0,
+        C = 1,
+        CF = 2,
+        F = 3,
+        FC = 4
     }
 }

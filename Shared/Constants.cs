@@ -11,7 +11,8 @@
         public const string KeyName_ShowBothTemps = "bt";
         public const string KeyName_ShowClock = "showclock";
         public const string KeyName_ShowWeather = "showweather";
-        public const string KeyName_TimeFormat = "tformat";
+        public const string KeyName_TimeFormat = "timeFormat";
+        public const string KeyName_DateFormat = "dateFormat";
         public const string KeyName_12HourClock = "hour12";
         public const string KeyName_DisplayInOrder = "inorder";
         public const string KeyName_RefreshTime = "refresh";

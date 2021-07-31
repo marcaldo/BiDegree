@@ -1,3 +1,18 @@
 ﻿select {
     max-width: 250px;
 }
+
+.clock-settings {
+    margin-left: 50px;
+}
+
+.date-time {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-content: center;
+}
+
+.clock-display {
+    align-self: center;
+}
