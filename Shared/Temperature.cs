@@ -31,12 +31,13 @@ namespace BiDegree.Shared
     {
         None = 0,
         Date1_xWD_M_D = 1,    // Date1: TUE, Set 23
-        Date2_WD_D = 2,       // Date2: Tuesday 23
-        Date3_WD = 3,         // Date3: Tuesday
-        Date4_DD_MMM_YY = 4,  // Date4: 23 SEP 2021
-        Date5_MMM_DD_YY = 5,  // Date5: SEP 23 2021
-        Date6_DD_MM_YY = 6,   // Date6: 23/09/21
-        Date7_MM_DD_YY = 7,   // Date7: 09/23/21
+        Date2_xWDDD_M_D = 2,  // Date2: TUESDAY, Set 23
+        Date3_WD_D = 3,       // Date2: Tuesday 23
+        Date4_WD = 4,         // Date3: Tuesday
+        Date5_DD_MMM_YY = 5,  // Date4: 23 SEP 2021
+        Date6_MMM_DD_YY = 6,  // Date5: SEP 23 2021
+        Date7_DD_MM_YY = 7,   // Date6: 23/09/21
+        Date8_MM_DD_YY = 8,   // Date7: 09/23/21
     }
 
     public enum TempFormatType

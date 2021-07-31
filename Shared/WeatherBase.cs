@@ -59,7 +59,8 @@ namespace BiDegree.Shared
             IsVisibleWeatherComponent = storedShowWeather ?? true;
 
             TimeFormat = await LocalStorage.GetItemAsync<TimeFormatType?>(Constants.KeyName_TimeFormat) ?? TimeFormatType.T24hs;
-           
+            DateFormat = await LocalStorage.GetItemAsync<DateFormatType?>(Constants.KeyName_DateFormat) ?? DateFormatType.Date1_xWD_M_D;
+
             var unitsConfig = await LocalStorage.GetItemAsync<UnitsType?>(Constants.KeyName_Units);
             Units = unitsConfig ?? UnitsType.Metric;
 

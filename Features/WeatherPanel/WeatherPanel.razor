@@ -9,7 +9,7 @@
 @if (base.TimeFormat != TimeFormatType.None)
 {
     <div class="datetime goto" @onclick="() => NavigateTo(settingsPage, true)" title="Settings">
-        <Clock2 DateTimeFormat="base.TimeFormat" />
+        <Clock2 TimeFormat="base.TimeFormat" DateFormat="base.DateFormat"/>
     </div> 
 }
 
