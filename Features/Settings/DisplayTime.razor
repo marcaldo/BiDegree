@@ -1,6 +1,6 @@
 ﻿@inject ISyncLocalStorageService LocalStorage
-<div class="date-time">
-    <div class="clock-settings">
+<div class="item-group">
+    <div class="item-options">
         <label for="timeShowSelector">Time format:</label>
         <select class="form-control" id="timeShowSelector" @bind="timeFormatSelection" @onfocus="()=>_saved=false">
             <option value="1">24 hs format</option>
@@ -9,22 +9,22 @@
         </select>
         <div class="info"></div>
     </div>
-    <div class="clock-settings">
+    <div class="item-options">
         <label for="dateShowSelector">Date format:</label>
         <select class="form-control" id="dateShowSelector" @bind="dateFormatSelection" @onfocus="()=>_saved=false">
-            <option value="1">Date1: TUE, Set 23</option>
-            <option value="2">Date2: TUESDAY, Set 23</option>
-            <option value="3">Date3: Tuesday 23</option>
-            <option value="4">Date4: Tuesday</option>
-            <option value="5">Date5: 23 SEP 2021</option>
-            <option value="6">Date6: SEP 23 2021</option>
-            <option value="7">Date7: 23/09/21</option>
-            <option value="8">Date8: 09/23/21</option>
+            <option value="1">Format 1: TUE, Set 23</option>
+            <option value="2">Format 2: TUESDAY, Set 23</option>
+            <option value="3">Format 3: Tuesday 23</option>
+            <option value="4">Format 4: Tuesday</option>
+            <option value="5">Format 5: 23 SEP 2021</option>
+            <option value="6">Format 6: SEP 23 2021</option>
+            <option value="7">Format 7: 23/09/21</option>
+            <option value="8">Format 8: 09/23/21</option>
             <option value="0">Do not show the date</option>
         </select>
         <div class="info"></div>
     </div>
-    <div class="clock-settings">
+    <div class="item-options">
         <Clock2 TimeFormat="_timeFormatSelection" DateFormat="_dateFormatSelection" />
     </div>
     <div>

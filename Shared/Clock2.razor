@@ -17,12 +17,13 @@
     private Task<IJSObjectReference> _module;
     private Task<IJSObjectReference> Module => _module ??= JSRuntime.InvokeAsync<IJSObjectReference>("import", "./js/timers.js").AsTask();
 
-    [Parameter] public TimeFormatType TimeFormat { get; set; }
     [Parameter] public DateFormatType DateFormat { get; set; }
+    [Parameter] public TimeFormatType TimeFormat { get; set; }
 
 
     protected override async Task OnInitializedAsync()
     {
+
         if (TimeFormat == TimeFormatType.None && DateFormat == DateFormatType.None) { return; }
 
         var dotNetObjectReference = DotNetObjectReference.Create(this);
@@ -39,12 +40,12 @@
 
         if (TimeFormat == TimeFormatType.T12hs)
         {
-            _dateTimePartsDisplay.Time = now.ToString("h:mm");
+            _dateTimePartsDisplay.Time = now.ToString("h:mm:ss");
             _dateTimePartsDisplay.AmPm = now.ToString("tt");
         }
         else
         {
-            _dateTimePartsDisplay.Time = now.ToString("HH:mm");
+            _dateTimePartsDisplay.Time = now.ToString("HH:mm:ss");
             _dateTimePartsDisplay.AmPm = "";
         }
 

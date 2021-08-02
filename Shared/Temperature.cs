@@ -40,12 +40,12 @@ namespace BiDegree.Shared
         Date8_MM_DD_YY = 8,   // Date7: 09/23/21
     }
 
-    public enum TempFormatType
+    public enum TemperatureFormatType
     {
         None = 0,
         C = 1,
-        CF = 2,
-        F = 3,
+        F = 2,
+        CF = 3,
         FC = 4
     }
 }
