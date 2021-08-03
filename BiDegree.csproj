@@ -14,6 +14,7 @@
     <None Remove="post-build.ps1" />
     <None Remove="README.md" />
     <None Remove="set-build-ver.ps1" />
+    <None Remove="Shared\ToggleSwitch.razor.css" />
   </ItemGroup>
 
   <ItemGroup>

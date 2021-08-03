@@ -24,6 +24,7 @@ namespace BiDegree.Features.PhotoFrame
         private const string VISIBLE = "";
         private CurrentDisplay Current = CurrentDisplay.None;
         private ViewStatus _viewStatus = new();
+        
 
         protected override async Task OnInitializedAsync()
         {
