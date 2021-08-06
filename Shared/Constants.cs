@@ -25,6 +25,6 @@
 
         public const string DefaultValue_StartingPage = "weather";
         public const int DefaultValue_Refresh = 60;
-        public const double DefaultValue_ShowTime = 300;
+        public const int DefaultValue_ShowTime = 300;
     }
 }

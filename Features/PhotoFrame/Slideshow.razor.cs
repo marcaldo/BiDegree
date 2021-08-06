@@ -11,53 +11,62 @@ using System.Threading.Tasks;
 
 namespace BiDegree.Features.PhotoFrame
 {
-    public partial class Slideshow : ComponentBase, IDisposable
+    public partial class Slideshow : ComponentBase
     {
         [Inject] IDisplayQueue DisplayQueue { get; set; }
         readonly System.Timers.Timer timer = new();
         private bool _debugMode = true;
-        private string imgTopSrc;
-        private string imgBottomSrc;
-        private string imgTopClass;
-        private string imgBottomClass;
         private const string TRANSPARENT = "transparent";
         private const string VISIBLE = "";
+
+        private DisplayItem _imgTop = null;
+        private DisplayItem _imgBottom = null;
+
         private CurrentDisplay Current = CurrentDisplay.None;
         private ViewStatus _viewStatus = new();
-        
+
 
         protected override async Task OnInitializedAsync()
         {
-            var displayTime = await DisplayQueue.GetDisplayTimeAsync();
-
-            timer.Interval = displayTime;
-            timer.Elapsed += Timer_Elapsed;
-            timer.Enabled = true;
-
-            var queue = await DisplayQueue.GetDisplayQueueAsync();
-
             await SetInitialItems();
         }
 
         private async Task SetInitialItems()
         {
-            _viewStatus.CurrentDisplay = CurrentDisplay.ImgTop;
-
-            imgBottomClass = TRANSPARENT;
-
-            var item = await DisplayQueue.GetNextItemAsync();
-            imgTopSrc = item.SourceUrl;
-
-            item = await DisplayQueue.GetNextItemAsync();
-            imgBottomSrc = item.SourceUrl;
+            _imgTop = await DisplayQueue.GetNextItemAsync();
+            _imgBottom = await DisplayQueue.GetNextItemAsync();
+            _imgBottom.CssClass = TRANSPARENT;
 
             StateHasChanged();
         }
 
-        private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        public async Task LoadNextInBackground()
         {
-            imgTopClass = TRANSPARENT;
-            imgBottomClass = VISIBLE;
+            if (_imgTop.CssClass == TRANSPARENT)
+            {
+                _imgTop = await DisplayQueue.GetNextItemAsync();
+            }
+            else
+            {
+                _imgBottom = await DisplayQueue.GetNextItemAsync();
+            }
+
+            //StateHasChanged();
+        }
+
+
+        public void ShowNext()
+        {
+            if (_imgTop.CssClass == VISIBLE)
+            {
+                _imgTop.CssClass = TRANSPARENT;
+                _imgBottom.CssClass = VISIBLE;
+            }
+            else
+            {
+                _imgTop.CssClass = VISIBLE;
+                _imgBottom.CssClass = TRANSPARENT;
+            }
 
             StateHasChanged();
         }

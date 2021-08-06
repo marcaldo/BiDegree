@@ -1,20 +1,20 @@
 ﻿@inject NavigationManager NavigationManager
 <div id="imageBox">
-@*    <video loop id="videoTop" class="videoloop transparent" muted="muted">
+    @*    <video loop id="videoTop" class="videoloop transparent" muted="muted">
         <source id="videoTopSrc" src="" type="video/mp4">
-    </video>
+        </video>
 
-    <video loop id="videoBottom" class="videoloop transparent" muted="muted">
+        <video loop id="videoBottom" class="videoloop transparent" muted="muted">
         <source id="videoBottomSrc" src="" type="video/mp4">
-    </video>*@
+        </video>*@
 
-    @if (!string.IsNullOrEmpty(imgBottomSrc))
+    @if (!string.IsNullOrEmpty(_imgBottom?.SourceUrl))
     {
-        <img id="imgBottom" src="@imgTopSrc" class="@imgTopClass" />
+        <img id="imgBottom" src="@_imgBottom.SourceUrl" class="@_imgBottom.CssClass" style="object-fit:@_imgBottom.Orientation" />
     }
-    @if (!string.IsNullOrEmpty(imgTopSrc))
+    @if (!string.IsNullOrEmpty(_imgTop?.SourceUrl))
     {
-        <img id="imgTop" src="@imgBottomSrc" class="@imgBottomClass" />
+        <img id="imgTop" src="@_imgTop.SourceUrl" class="@_imgTop.CssClass" style="object-fit:@_imgTop.Orientation" />
     }
 
 </div>

@@ -81,4 +81,3 @@ input:checked + .slider {
 .toggle .slider, .toggle input:checked + .slider {
     background-color: dodgerblue;
 }
-
