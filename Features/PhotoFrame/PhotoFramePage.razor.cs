@@ -18,15 +18,6 @@ namespace BiDegree.Features.PhotoFrame
         private Slideshow slideshow = new();
         private const int DelayToLoadNextInBackground = 3;
 
-        protected override void OnInitialized()
-        {
-            //timer = new Timer(
-            //    callback: new TimerCallback(TimerElapsed),
-            //    state: null,
-            //    dueTime: 0,
-            //    period: 1000);
-        }
-
         protected override async Task OnInitializedAsync()
         {
             await InitializeCounters();
@@ -49,7 +40,7 @@ namespace BiDegree.Features.PhotoFrame
                             );
 
             await counters.LoadBackgroundItem.Initialize(
-                counters.NextItem.Duration + DelayToLoadNextInBackground
+                DelayToLoadNextInBackground
                 );
 
             storedDuration = await LocalStorage.GetItemAsync<int?>(Constants.KeyName_RefreshTime);
@@ -59,7 +50,6 @@ namespace BiDegree.Features.PhotoFrame
                             : (int)storedDuration
                             );
 
-
         }
 
         private async Task TimerElapsed()
@@ -68,16 +58,20 @@ namespace BiDegree.Features.PhotoFrame
 
             if (counters.LoadBackgroundItem.IsExpired)
             {
-                await slideshow.LoadNextInBackground();
-                counters.LoadBackgroundItem.Reset();
+                // await slideshow.LoadNextInBackground();
+
+                Console.WriteLine("=LoadNextInBackground " + counters.LoadBackgroundItem.Duration);
             }
 
             if (counters.NextItem.IsExpired)
             {
                 slideshow.ShowNext();
-                counters.NextItem.Reset();
+                await slideshow.LoadNextInBackground();
 
-                Console.WriteLine("NextItem " + counters.NextItem.Duration);
+                counters.NextItem.Reset();
+                counters.LoadBackgroundItem.Reset();
+
+                Console.WriteLine("=NextItem " + counters.NextItem.Duration);
             }
 
         }
@@ -104,10 +98,6 @@ namespace BiDegree.Features.PhotoFrame
                 CheckWeather.Duration--;
                 NextItem.Duration--;
                 LoadBackgroundItem.Duration--;
-
-                Console.WriteLine("LoadBackgroundItem " + LoadBackgroundItem.Duration);
-                Console.WriteLine("NextItem " + NextItem.Duration);
-
 
             });
         }
