@@ -1,12 +1,7 @@
 ﻿using BiDegree.Models;
 using BiDegree.Services;
-using BiDegree.Shared;
-using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace BiDegree.Features.PhotoFrame
@@ -14,8 +9,8 @@ namespace BiDegree.Features.PhotoFrame
     public partial class Slideshow : ComponentBase
     {
         [Inject] IDisplayQueue DisplayQueue { get; set; }
-        readonly System.Timers.Timer timer = new();
-        private bool _debugMode = true;
+        [Parameter] public bool DebugMode { get; set; } = false;
+
         private const string TRANSPARENT = "transparent";
         private const string VISIBLE = "";
 
@@ -35,6 +30,8 @@ namespace BiDegree.Features.PhotoFrame
         {
             _imgTop = await DisplayQueue.GetNextItemAsync();
             _imgBottom = await DisplayQueue.GetNextItemAsync();
+
+            _imgTop.CssClass = VISIBLE;
             _imgBottom.CssClass = TRANSPARENT;
 
             StateHasChanged();
@@ -42,16 +39,22 @@ namespace BiDegree.Features.PhotoFrame
 
         public async Task LoadNextInBackground()
         {
-            if (_imgTop.CssClass == TRANSPARENT)
+            if (_imgTop.CssClass == VISIBLE)
             {
-                _imgTop = await DisplayQueue.GetNextItemAsync();
+                _imgBottom = await DisplayQueue.GetNextItemAsync();
+                _imgBottom.CssClass = TRANSPARENT;
+
+                Console.WriteLine("Loadin Background BOTTOM");
+
             }
             else
             {
-                _imgBottom = await DisplayQueue.GetNextItemAsync();
-            }
+                _imgTop = await DisplayQueue.GetNextItemAsync();
+                _imgTop.CssClass = TRANSPARENT;
 
-            //StateHasChanged();
+                Console.WriteLine("Loadin Background TOP");
+
+            }
         }
 
 
@@ -61,11 +64,17 @@ namespace BiDegree.Features.PhotoFrame
             {
                 _imgTop.CssClass = TRANSPARENT;
                 _imgBottom.CssClass = VISIBLE;
+
+                Console.WriteLine("Showing Bottom -> TOP to Transparent.");
+
             }
             else
             {
                 _imgTop.CssClass = VISIBLE;
                 _imgBottom.CssClass = TRANSPARENT;
+
+                Console.WriteLine("Showing Top -> BOTTOM to Transparent.");
+
             }
 
             StateHasChanged();
@@ -99,10 +108,6 @@ namespace BiDegree.Features.PhotoFrame
             }
         }
 
-        public void Dispose()
-        {
-            timer?.Dispose();
-        }
     }
 
     class ViewStatus

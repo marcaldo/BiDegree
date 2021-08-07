@@ -14,9 +14,9 @@ namespace BiDegree.Features.PhotoFrame
         [Inject] ILocalStorageService LocalStorage { get; set; }
 
         private Timer timer;
-        private Counters counters;
-        private Slideshow slideshow;
-        private const int DelayToLoadNextInBackground = 2;
+        private Counters counters = new();
+        private Slideshow slideshow = new();
+        private const int DelayToLoadNextInBackground = 3;
 
         protected override void OnInitialized()
         {
@@ -29,7 +29,6 @@ namespace BiDegree.Features.PhotoFrame
 
         protected override async Task OnInitializedAsync()
         {
-            counters = new Counters();
             await InitializeCounters();
 
             timer = new Timer(async (e) =>
