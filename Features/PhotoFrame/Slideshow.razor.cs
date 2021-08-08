@@ -44,7 +44,7 @@ namespace BiDegree.Features.PhotoFrame
                 _imgBottom = await DisplayQueue.GetNextItemAsync();
                 _imgBottom.CssClass = TRANSPARENT;
 
-                Console.WriteLine("Loading Background BOTTOM");
+                Console.WriteLine("Loading Background BOTTOM " + _imgBottom.Title);
 
             }
             else
@@ -52,7 +52,7 @@ namespace BiDegree.Features.PhotoFrame
                 _imgTop = await DisplayQueue.GetNextItemAsync();
                 _imgTop.CssClass = TRANSPARENT;
 
-                Console.WriteLine("Loading Background TOP");
+                Console.WriteLine("Loading Background TOP " + _imgTop.Title);
 
             }
         }

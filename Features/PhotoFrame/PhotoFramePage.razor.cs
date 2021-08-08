@@ -60,7 +60,7 @@ namespace BiDegree.Features.PhotoFrame
             {
                 // await slideshow.LoadNextInBackground();
 
-                Console.WriteLine("=LoadNextInBackground " + counters.LoadBackgroundItem.Duration);
+                // Console.WriteLine("=LoadNextInBackground " + counters.LoadBackgroundItem.Duration);
             }
 
             if (counters.NextItem.IsExpired)
@@ -71,7 +71,7 @@ namespace BiDegree.Features.PhotoFrame
                 counters.NextItem.Reset();
                 counters.LoadBackgroundItem.Reset();
 
-                Console.WriteLine("=NextItem " + counters.NextItem.Duration);
+                // Console.WriteLine("=NextItem " + counters.NextItem.Duration);
             }
 
         }
