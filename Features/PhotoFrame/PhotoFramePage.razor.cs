@@ -14,19 +14,22 @@ namespace BiDegree.Features.PhotoFrame
         [Inject] ILocalStorageService LocalStorage { get; set; }
 
         private Timer timer;
+        private DateTime actionTime;
         private Counters counters = new();
         private Slideshow slideshow = new();
-        private const int DelayToLoadNextInBackground = 3;
+        private const int DelayToLoadNextInBackground = 2;
 
         protected override async Task OnInitializedAsync()
         {
             await InitializeCounters();
 
+            actionTime = DateTime.Now;
+
             timer = new Timer(async (e) =>
             {
                 await Task.Delay(500);
                 await TimerElapsed();
-            }, null, 0, 1000);
+            }, null, 0, 500);
 
         }
 
@@ -54,11 +57,15 @@ namespace BiDegree.Features.PhotoFrame
 
         private async Task TimerElapsed()
         {
-            await counters.Update();
+            if((DateTime.Now - actionTime).TotalSeconds >= 1)
+            {
+                await counters.Update();
+                actionTime = DateTime.Now;
+            }
 
             if (counters.LoadBackgroundItem.IsExpired)
             {
-                // await slideshow.LoadNextInBackground();
+                await slideshow.LoadNextInBackground();
 
                 // Console.WriteLine("=LoadNextInBackground " + counters.LoadBackgroundItem.Duration);
             }
@@ -66,13 +73,15 @@ namespace BiDegree.Features.PhotoFrame
             if (counters.NextItem.IsExpired)
             {
                 slideshow.ShowNext();
-                await slideshow.LoadNextInBackground();
+                //await slideshow.LoadNextInBackground();
 
                 counters.NextItem.Reset();
                 counters.LoadBackgroundItem.Reset();
 
                 // Console.WriteLine("=NextItem " + counters.NextItem.Duration);
             }
+
+
 
         }
 

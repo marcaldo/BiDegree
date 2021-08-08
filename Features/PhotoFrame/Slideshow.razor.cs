@@ -37,22 +37,32 @@ namespace BiDegree.Features.PhotoFrame
             StateHasChanged();
         }
 
+        private async Task Next()
+        {
+            await LoadNextInBackground();
+            ShowNext();
+        }
+
         public async Task LoadNextInBackground()
         {
+            var nextItem = await DisplayQueue.GetNextItemAsync();
+
+            Console.Write("Loading Next");
+
             if (_imgTop.CssClass == VISIBLE)
             {
-                _imgBottom = await DisplayQueue.GetNextItemAsync();
+                _imgBottom = nextItem;
                 _imgBottom.CssClass = TRANSPARENT;
 
-                Console.WriteLine("Loading Background BOTTOM " + _imgBottom.Title);
+                Console.WriteLine(" -> imgBOTTOM: " + _imgBottom.Title);
 
             }
             else
             {
-                _imgTop = await DisplayQueue.GetNextItemAsync();
+                _imgTop = nextItem;
                 _imgTop.CssClass = TRANSPARENT;
 
-                Console.WriteLine("Loading Background TOP " + _imgTop.Title);
+                Console.WriteLine(" -> imgTOP: " + _imgTop.Title);
 
             }
         }
@@ -65,7 +75,7 @@ namespace BiDegree.Features.PhotoFrame
                 _imgTop.CssClass = TRANSPARENT;
                 _imgBottom.CssClass = VISIBLE;
 
-                Console.WriteLine("Showing Bottom -> TOP to Transparent.");
+                Console.WriteLine("Show next. Hiding -> TOP.");
 
             }
             else
@@ -73,7 +83,7 @@ namespace BiDegree.Features.PhotoFrame
                 _imgTop.CssClass = VISIBLE;
                 _imgBottom.CssClass = TRANSPARENT;
 
-                Console.WriteLine("Showing Top -> BOTTOM to Transparent.");
+                Console.WriteLine("Show next. Hiding -> BOTTOM.");
 
             }
 
