@@ -29,7 +29,7 @@ namespace BiDegree.Features.PhotoFrame
             {
                 await Task.Delay(500);
                 await TimerElapsed();
-            }, null, 0, 500);
+            }, null, 0, 1000);
 
         }
 
@@ -53,35 +53,31 @@ namespace BiDegree.Features.PhotoFrame
                             : (int)storedDuration
                             );
 
+
         }
 
         private async Task TimerElapsed()
         {
-            if((DateTime.Now - actionTime).TotalSeconds >= 1)
-            {
-                await counters.Update();
-                actionTime = DateTime.Now;
-            }
+
+            if ((DateTime.Now - actionTime).TotalSeconds < 1) { return; }
+
+            actionTime = DateTime.Now;
+
+            await counters.Update();
 
             if (counters.LoadBackgroundItem.IsExpired)
             {
                 await slideshow.LoadNextInBackground();
-
-                // Console.WriteLine("=LoadNextInBackground " + counters.LoadBackgroundItem.Duration);
+                counters.LoadBackgroundItem.Duration = int.MaxValue;
             }
 
             if (counters.NextItem.IsExpired)
             {
                 slideshow.ShowNext();
-                //await slideshow.LoadNextInBackground();
 
                 counters.NextItem.Reset();
                 counters.LoadBackgroundItem.Reset();
-
-                // Console.WriteLine("=NextItem " + counters.NextItem.Duration);
             }
-
-
 
         }
 

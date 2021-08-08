@@ -17,9 +17,8 @@ namespace BiDegree.Features.PhotoFrame
         private DisplayItem _imgTop = null;
         private DisplayItem _imgBottom = null;
 
-        private CurrentDisplay Current = CurrentDisplay.None;
-        private ViewStatus _viewStatus = new();
-
+        private DisplayItem _videoTop = null;
+        private DisplayItem _videoBottom = null;
 
         protected override async Task OnInitializedAsync()
         {
@@ -28,43 +27,72 @@ namespace BiDegree.Features.PhotoFrame
 
         private async Task SetInitialItems()
         {
-            _imgTop = await DisplayQueue.GetNextItemAsync();
-            _imgBottom = await DisplayQueue.GetNextItemAsync();
+            _imgTop = new DisplayItem { CssClass = TRANSPARENT };
+            _imgBottom = new DisplayItem { CssClass = TRANSPARENT };
+            _videoTop = new DisplayItem { CssClass = TRANSPARENT };
+            _videoBottom = new DisplayItem { CssClass = TRANSPARENT };
 
-            _imgTop.CssClass = VISIBLE;
-            _imgBottom.CssClass = TRANSPARENT;
+            var firstItem = await DisplayQueue.GetNextItemAsync();
+
+            switch (firstItem.ItemType)
+            {
+                case DisplayItemType.Image:
+                    _imgTop = firstItem;
+                    _imgTop.CssClass = VISIBLE;
+                    break;
+                case DisplayItemType.Video:
+                    _videoTop = firstItem;
+                    _videoTop.CssClass = VISIBLE;
+                    break;
+                case DisplayItemType.Weather:
+                    break;
+                default:
+                    break;
+            }
 
             StateHasChanged();
         }
 
-        private async Task Next()
-        {
-            await LoadNextInBackground();
-            ShowNext();
-        }
 
         public async Task LoadNextInBackground()
         {
             var nextItem = await DisplayQueue.GetNextItemAsync();
 
-            Console.Write("Loading Next");
-
-            if (_imgTop.CssClass == VISIBLE)
+            if (nextItem.ItemType == DisplayItemType.Image)
             {
-                _imgBottom = nextItem;
+                _videoTop.CssClass = TRANSPARENT;
+                _videoBottom.CssClass = TRANSPARENT;
+
+                if (_imgTop.CssClass == VISIBLE)
+                {
+                    _imgBottom = nextItem;
+                    _imgBottom.CssClass = TRANSPARENT;
+                }
+                else
+                {
+                    _imgTop = nextItem;
+                    _imgTop.CssClass = TRANSPARENT;
+                }
+            }
+
+            if (nextItem.ItemType == DisplayItemType.Video)
+            {
+                _imgTop.CssClass = TRANSPARENT;
                 _imgBottom.CssClass = TRANSPARENT;
 
-                Console.WriteLine(" -> imgBOTTOM: " + _imgBottom.Title);
-
+                if (_videoTop.CssClass == VISIBLE)
+                {
+                    _videoBottom = nextItem;
+                    _videoBottom.CssClass = TRANSPARENT;
+                }
+                else
+                {
+                    _videoTop = nextItem;
+                    _videoTop.CssClass = TRANSPARENT;
+                }
             }
-            else
-            {
-                _imgTop = nextItem;
-                _imgTop.CssClass = TRANSPARENT;
 
-                Console.WriteLine(" -> imgTOP: " + _imgTop.Title);
-
-            }
+            StateHasChanged();
         }
 
 
@@ -75,7 +103,7 @@ namespace BiDegree.Features.PhotoFrame
                 _imgTop.CssClass = TRANSPARENT;
                 _imgBottom.CssClass = VISIBLE;
 
-                Console.WriteLine("Show next. Hiding -> TOP.");
+                //Console.WriteLine($"{DateTime.Now.ToLongTimeString()} Hiding TOP.");
 
             }
             else
@@ -83,52 +111,15 @@ namespace BiDegree.Features.PhotoFrame
                 _imgTop.CssClass = VISIBLE;
                 _imgBottom.CssClass = TRANSPARENT;
 
-                Console.WriteLine("Show next. Hiding -> BOTTOM.");
+                //Console.WriteLine($"{DateTime.Now.ToLongTimeString()} Hiding BOTTOM.");
 
             }
 
             StateHasChanged();
         }
 
-        private void SetCurrentDisplay(DisplayItem displayItem, CurrentDisplay currentDisplay)
-        {
-            _viewStatus.ImgTopClass = TRANSPARENT;
-            _viewStatus.ImgBottomClass = TRANSPARENT;
-
-            switch (currentDisplay)
-            {
-                case CurrentDisplay.ImgTop:
-                    _viewStatus.CurrentDisplay = currentDisplay;
-                    _viewStatus.ImgTopSrc = displayItem.SourceUrl;
-                    _viewStatus.ImgTopClass = VISIBLE;
-                    break;
-                case CurrentDisplay.ImgBottom:
-                    _viewStatus.CurrentDisplay = currentDisplay;
-                    _viewStatus.ImgBottomSrc = displayItem.SourceUrl;
-                    _viewStatus.ImgBottomClass = VISIBLE;
-                    break;
-                case CurrentDisplay.VideoTop:
-                    break;
-                case CurrentDisplay.VideoBottom:
-                    break;
-                case CurrentDisplay.Weather:
-                    break;
-                default:
-                    break;
-            }
-        }
-
     }
 
-    class ViewStatus
-    {
-        public string ImgTopSrc { get; set; }
-        public string ImgBottomSrc { get; set; }
-        public string ImgTopClass { get; set; }
-        public string ImgBottomClass { get; set; }
-        public CurrentDisplay CurrentDisplay { get; set; }
-
-    }
     enum CurrentDisplay
     {
         None,
