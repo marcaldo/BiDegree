@@ -13,11 +13,13 @@ namespace BiDegree.Features.PhotoFrame
     {
         [Inject] ILocalStorageService LocalStorage { get; set; }
 
+        private Clock4 clock;
         private Timer timer;
         private DateTime actionTime;
         private Counters counters = new();
         private Slideshow slideshow = new();
         private const int DelayToLoadNextInBackground = 2;
+        private const int clockTick = 1;
 
         protected override async Task OnInitializedAsync()
         {
@@ -36,23 +38,23 @@ namespace BiDegree.Features.PhotoFrame
         private async Task InitializeCounters()
         {
             var storedDuration = await LocalStorage.GetItemAsync<int?>(Constants.KeyName_ShowTime);
-            await counters.NextItem.Initialize(
+            var setShowTimeTask = counters.NextItem.Initialize(
                 storedDuration is null
                             ? Constants.DefaultValue_ShowTime
                             : (int)storedDuration
                             );
 
-            await counters.LoadBackgroundItem.Initialize(
-                DelayToLoadNextInBackground
-                );
-
             storedDuration = await LocalStorage.GetItemAsync<int?>(Constants.KeyName_RefreshTime);
-            await counters.CheckWeather.Initialize(
+            var setCheckWeatherTask = counters.CheckWeather.Initialize(
                 storedDuration is null
                             ? Constants.DefaultValue_Refresh
                             : (int)storedDuration
                             );
 
+            var setLoadBackgroundDelayTask = counters.LoadBackgroundItem.Initialize(DelayToLoadNextInBackground);
+            var setClockTickTask = counters.Clock.Initialize(clockTick);
+
+            await Task.WhenAll(setShowTimeTask, setCheckWeatherTask, setLoadBackgroundDelayTask, setClockTickTask);
 
         }
 
