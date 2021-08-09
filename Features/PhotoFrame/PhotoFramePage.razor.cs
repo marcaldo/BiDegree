@@ -15,11 +15,11 @@ namespace BiDegree.Features.PhotoFrame
 
         private Clock4 clock;
         private Timer timer;
-        private DateTime actionTime;
-        private Counters counters = new();
+        private readonly Counters counters = new();
         private Slideshow slideshow = new();
+        private DateTime actionTime;
         private const int DelayToLoadNextInBackground = 2;
-        private const int clockTick = 1;
+        private const int clockTick = 2;
 
         protected override async Task OnInitializedAsync()
         {
@@ -38,6 +38,7 @@ namespace BiDegree.Features.PhotoFrame
         private async Task InitializeCounters()
         {
             var storedDuration = await LocalStorage.GetItemAsync<int?>(Constants.KeyName_ShowTime);
+
             var setShowTimeTask = counters.NextItem.Initialize(
                 storedDuration is null
                             ? Constants.DefaultValue_ShowTime
@@ -45,6 +46,7 @@ namespace BiDegree.Features.PhotoFrame
                             );
 
             storedDuration = await LocalStorage.GetItemAsync<int?>(Constants.KeyName_RefreshTime);
+
             var setCheckWeatherTask = counters.CheckWeather.Initialize(
                 storedDuration is null
                             ? Constants.DefaultValue_Refresh
@@ -79,6 +81,12 @@ namespace BiDegree.Features.PhotoFrame
 
                 counters.NextItem.Reset();
                 counters.LoadBackgroundItem.Reset();
+            }
+
+            if (counters.Clock.IsExpired)
+            {
+                clock.Update();
+                counters.Clock.Reset();
             }
 
         }

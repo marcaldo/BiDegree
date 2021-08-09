@@ -1,13 +1,13 @@
 ﻿@page "/photos"
-@using BiDegree.Features.WeatherPanel
+@using BiDegree.Shared
 
-@*<div class="weather">
-    <WeatherPanel />
-</div>*@
+<div class="weather">
+    <Clock4 @ref="clock"  DateFormat="DateFormatType.Date1_xWD_M_D" TimeFormat="TimeFormatType.T12hs"/>
+    <WeatherWidget />
+</div>
 @*<ImageShow />*@
 
-<Clock4 @ref="clock" />
-<Slideshow @ref="slideshow" DebugMode="false"/>
+<Slideshow @ref="slideshow" DebugMode="false" />
 
 @*<PictureDisplay />*@
 

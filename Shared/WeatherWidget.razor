@@ -1,0 +1,18 @@
+﻿@using BiDegree.Models
+@using BiDegree.Shared
+@using System.Globalization
+@using Blazored.LocalStorage
+
+@inherits WeatherBase
+
+@if (IsVisibleWeatherComponent && CurrentWeather != null)
+{
+    <div class="tempWidget">
+        @{
+            string weatherIcon = $"w{CurrentWeather.weather[0].icon}";
+            <IconWeather Name="@weatherIcon" Size="90" />
+            <TemperatureValues Value="CurrentWeather.main.temp" Units="Units" />
+        }
+    </div>
+}
+

@@ -29,12 +29,12 @@
 
         if (TimeFormat == TimeFormatType.T12hs)
         {
-            _dateTimePartsDisplay.Time = now.ToString("h:mm:ss");
+            _dateTimePartsDisplay.Time = now.ToString("h:mm");
             _dateTimePartsDisplay.AmPm = now.ToString("tt");
         }
         else
         {
-            _dateTimePartsDisplay.Time = now.ToString("HH:mm:ss");
+            _dateTimePartsDisplay.Time = now.ToString("HH:mm");
             _dateTimePartsDisplay.AmPm = "";
         }
 
