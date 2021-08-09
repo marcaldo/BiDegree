@@ -73,7 +73,7 @@ namespace BiDegree.Features.PhotoFrame
 
             if (counters.NextItem.IsExpired)
             {
-                slideshow.ShowNext();
+                await slideshow.ShowNext();
 
                 counters.NextItem.Reset();
                 counters.LoadBackgroundItem.Reset();

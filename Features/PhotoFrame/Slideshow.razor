@@ -1,28 +1,47 @@
 ﻿@inject NavigationManager NavigationManager
 <div id="imageBox">
-
-    @if (!string.IsNullOrEmpty(_videoBottom?.SourceUrl))
-    {
+    @*
+        @if (!string.IsNullOrEmpty(_videoBottom?.SourceUrl))
+        {
         <video loop id="videoBottom" class="videoloop @_videoBottom.CssClass" muted="muted">
-            <source id="videoBottomSrc" src="" type="video/mp4">
+        <source id="videoBottomSrc" src="" type="video/mp4">
         </video>
-    }
+        }
 
-    @if (!string.IsNullOrEmpty(_videoTop?.SourceUrl))
-    {
+        @if (!string.IsNullOrEmpty(_videoTop?.SourceUrl))
+        {
         <video loop id="videoTop" class="videoloop @_videoTop.CssClass" muted="muted">
-            <source id="videoTopSrc" src="" type="video/mp4">
+        <source id="videoTopSrc" src="" type="video/mp4">
         </video>
-    }
+        }
 
-    @if (!string.IsNullOrEmpty(_imgBottom?.SourceUrl))
-    {
+        @if (!string.IsNullOrEmpty(_imgBottom?.SourceUrl))
+        {
         <img id="imgBottom" src="@_imgBottom.SourceUrl" class="@_imgBottom.CssClass" style="object-fit:@_imgBottom.Orientation" />
-    }
-    @if (!string.IsNullOrEmpty(_imgTop?.SourceUrl))
-    {
+        }
+        @if (!string.IsNullOrEmpty(_imgTop?.SourceUrl))
+        {
         <img id="imgTop" src="@_imgTop.SourceUrl" class="@_imgTop.CssClass" style="object-fit:@_imgTop.Orientation" />
-    }
+        }*@
+
+    @*    <video autoplay loop id="videoloop" muted="muted">
+        <source src="https://drive.google.com/uc?id=1YvP4JxgWy-FDq9F6UJIiAwZPf7nt8D6y" type="video/mp4">
+        </video>*@
+
+    <video autoplay loop id="videoTop" class="videoloop @_videoTop.CssClass">
+        <source id="videoTopSrc" src="@_videoTop.SourceUrl" type="video/mp4">
+    </video>
+
+    <video autoplay loop id="videoBottom" class="videoloop @_videoBottom.CssClass">
+        <source id="videoBottomSrc" src="@_videoBottom.SourceUrl" type="video/mp4">
+    </video>
+
+    @*    <video autoplay loop id="videoTop" class="videoloop" muted="muted">
+        <source id="videoTopSrc" src="@_videoTop.SourceUrl" type="video/mp4">
+        </video>*@
+
+    <img id="imgBottom" src="@_imgBottom.SourceUrl" class="@_imgBottom.CssClass" style="object-fit:@_imgBottom.Orientation" />
+    <img id="imgTop" src="@_imgTop.SourceUrl" class="@_imgTop.CssClass" style="object-fit:@_imgTop.Orientation" />
 
 </div>
 

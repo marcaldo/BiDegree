@@ -1,6 +1,7 @@
 ﻿using BiDegree.Models;
 using BiDegree.Services;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 using System;
 using System.Threading.Tasks;
 
@@ -9,16 +10,22 @@ namespace BiDegree.Features.PhotoFrame
     public partial class Slideshow : ComponentBase
     {
         [Inject] IDisplayQueue DisplayQueue { get; set; }
+        [Inject] IJSRuntime JS { get; set; }
+
         [Parameter] public bool DebugMode { get; set; } = false;
 
         private const string TRANSPARENT = "transparent";
         private const string VISIBLE = "";
+        private const string VIDEO_TOP_ID = "videoTop";
+        private const string VIDEO_BOTTOM_ID = "videoBottom";
 
         private DisplayItem _imgTop = null;
         private DisplayItem _imgBottom = null;
 
         private DisplayItem _videoTop = null;
         private DisplayItem _videoBottom = null;
+
+        private DisplayItem _nextItem = null;
 
         protected override async Task OnInitializedAsync()
         {
@@ -43,6 +50,7 @@ namespace BiDegree.Features.PhotoFrame
                 case DisplayItemType.Video:
                     _videoTop = firstItem;
                     _videoTop.CssClass = VISIBLE;
+                    await JS.InvokeVoidAsync("playVideo", VIDEO_TOP_ID, true);
                     break;
                 case DisplayItemType.Weather:
                     break;
@@ -56,39 +64,35 @@ namespace BiDegree.Features.PhotoFrame
 
         public async Task LoadNextInBackground()
         {
-            var nextItem = await DisplayQueue.GetNextItemAsync();
+            _nextItem = await DisplayQueue.GetNextItemAsync();
 
-            if (nextItem.ItemType == DisplayItemType.Image)
+            if (_nextItem.ItemType == DisplayItemType.Image)
             {
-                _videoTop.CssClass = TRANSPARENT;
-                _videoBottom.CssClass = TRANSPARENT;
-
                 if (_imgTop.CssClass == VISIBLE)
                 {
-                    _imgBottom = nextItem;
+                    _imgBottom = _nextItem;
                     _imgBottom.CssClass = TRANSPARENT;
                 }
                 else
                 {
-                    _imgTop = nextItem;
+                    _imgTop = _nextItem;
                     _imgTop.CssClass = TRANSPARENT;
                 }
             }
 
-            if (nextItem.ItemType == DisplayItemType.Video)
+            if (_nextItem.ItemType == DisplayItemType.Video)
             {
-                _imgTop.CssClass = TRANSPARENT;
-                _imgBottom.CssClass = TRANSPARENT;
-
                 if (_videoTop.CssClass == VISIBLE)
                 {
-                    _videoBottom = nextItem;
+                    _videoBottom = _nextItem;
                     _videoBottom.CssClass = TRANSPARENT;
+                    await JS.InvokeVoidAsync("playVideo", VIDEO_BOTTOM_ID, false);
                 }
                 else
                 {
-                    _videoTop = nextItem;
+                    _videoTop = _nextItem;
                     _videoTop.CssClass = TRANSPARENT;
+                    await JS.InvokeVoidAsync("playVideo", VIDEO_TOP_ID, false);
                 }
             }
 
@@ -96,26 +100,60 @@ namespace BiDegree.Features.PhotoFrame
         }
 
 
-        public void ShowNext()
+        public async Task ShowNext()
         {
-            if (_imgTop.CssClass == VISIBLE)
+            if (_nextItem.ItemType == DisplayItemType.Image)
             {
-                _imgTop.CssClass = TRANSPARENT;
-                _imgBottom.CssClass = VISIBLE;
+                _videoTop.CssClass = TRANSPARENT;
+                _videoBottom.CssClass = TRANSPARENT;
 
-                //Console.WriteLine($"{DateTime.Now.ToLongTimeString()} Hiding TOP.");
+                if (_imgTop.CssClass == VISIBLE)
+                {
+                    _imgTop.CssClass = TRANSPARENT;
+                    _imgBottom.CssClass = VISIBLE;
 
+                    Console.WriteLine($"{DateTime.Now.ToLongTimeString()} Showing I BOTTOM.");
+
+                }
+                else
+                {
+                    _imgTop.CssClass = VISIBLE;
+                    _imgBottom.CssClass = TRANSPARENT;
+
+                    Console.WriteLine($"{DateTime.Now.ToLongTimeString()} Showing I TOP.");
+
+                }
             }
-            else
+
+            if (_nextItem.ItemType == DisplayItemType.Video)
             {
-                _imgTop.CssClass = VISIBLE;
+
+                _imgTop.CssClass = TRANSPARENT;
                 _imgBottom.CssClass = TRANSPARENT;
 
-                //Console.WriteLine($"{DateTime.Now.ToLongTimeString()} Hiding BOTTOM.");
+                if (_videoTop.CssClass == VISIBLE)
+                {
+                    await JS.InvokeVoidAsync("playVideo", VIDEO_BOTTOM_ID, true);
 
+                    _videoTop.CssClass = TRANSPARENT;
+                    _videoBottom.CssClass = VISIBLE;
+
+                    Console.WriteLine($"{DateTime.Now.ToLongTimeString()} Showing V BOTTOM.");
+                }
+                else
+                {
+                    await JS.InvokeVoidAsync("playVideo", VIDEO_TOP_ID, true);
+
+                    _videoTop.CssClass = VISIBLE;
+                    _videoBottom.CssClass = TRANSPARENT;
+
+                    Console.WriteLine($"{DateTime.Now.ToLongTimeString()} Showing V TOP.");
+                }
             }
 
+
             StateHasChanged();
+
         }
 
     }
