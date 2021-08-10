@@ -23,7 +23,8 @@ namespace BiDegree.Shared
         protected bool useCity = false;
         protected string city = null;
         protected bool IsVisibleWeatherComponent;
-        protected DateTimeFormatType DateTimeFormat { get; set; }
+        protected TimeFormatType TimeFormat { get; set; }
+        protected DateFormatType DateFormat { get; set; }
         protected CurrentWeather CurrentWeather { get; set; }
         protected UnitsType Units;
 
@@ -57,8 +58,9 @@ namespace BiDegree.Shared
             bool? storedShowWeather = await LocalStorage.GetItemAsync<bool?>(Constants.KeyName_ShowWeather);
             IsVisibleWeatherComponent = storedShowWeather ?? true;
 
-            DateTimeFormat = await LocalStorage.GetItemAsync<DateTimeFormatType?>(Constants.KeyName_TimeFormat) ?? DateTimeFormatType.T24hs;
-           
+            TimeFormat = await LocalStorage.GetItemAsync<TimeFormatType?>(Constants.KeyName_TimeFormat) ?? TimeFormatType.T24hs;
+            DateFormat = await LocalStorage.GetItemAsync<DateFormatType?>(Constants.KeyName_DateFormat) ?? DateFormatType.Date1_xWD_M_D;
+
             var unitsConfig = await LocalStorage.GetItemAsync<UnitsType?>(Constants.KeyName_Units);
             Units = unitsConfig ?? UnitsType.Metric;
 

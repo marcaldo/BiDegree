@@ -6,10 +6,10 @@
 @inherits WeatherBase
 @inject NavigationManager Navigation
 
-@if (base.DateTimeFormat != DateTimeFormatType.None)
+@if (base.TimeFormat != TimeFormatType.None || base.DateFormat != DateFormatType.None)
 {
     <div class="datetime goto" @onclick="() => NavigateTo(settingsPage, true)" title="Settings">
-        <Clock2 DateTimeFormat="base.DateTimeFormat" />
+        <Clock2 TimeFormat="base.TimeFormat" DateFormat="base.DateFormat"/>
     </div> 
 }
 

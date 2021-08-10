@@ -1,59 +1,73 @@
 ﻿@inject ISyncLocalStorageService LocalStorage
-<div class="form-group">
-    <label for="timeShowSelector">Clock's time format:</label>
-    <select class="form-control" id="timeShowSelector" @bind="timeFormatSelection" @onfocus="()=>_saved=false">
-        <option value="1">24 hs format</option>
-        <option value="2">12 hs format (AM/PM)</option>
-        <option value="0">Do not display the clock</option>
-    </select>
-    <div class="info"></div>
-</div>
-<div class="form-group">
-    <div class="check-selection">
-        <ToggleSwitch Id="showDate" OnToggle="ToggleSwitch" SetAsChecked="_isDateVisible" />
-        <label for="showDate">Show the date</label>
+<div class="item-group">
+    <div class="item-options">
+        <label for="timeShowSelector">Time format:</label>
+        <select class="form-control" id="timeShowSelector" @bind="timeFormatSelection" @onfocus="()=>_saved=false">
+            <option value="1">24 hs format</option>
+            <option value="2">12 hs format (AM/PM)</option>
+            <option value="0">Do not show the time</option>
+        </select>
+        <div class="info"></div>
     </div>
-    <div class="save">
+    <div class="item-options">
+        <label for="dateShowSelector">Date format:</label>
+        <select class="form-control" id="dateShowSelector" @bind="dateFormatSelection" @onfocus="()=>_saved=false">
+            <option value="1">Format 1: TUE, Set 23</option>
+            <option value="2">Format 2: TUESDAY, Set 23</option>
+            <option value="3">Format 3: Tuesday 23</option>
+            <option value="4">Format 4: Tuesday</option>
+            <option value="5">Format 5: 23 SEP 2021</option>
+            <option value="6">Format 6: SEP 23 2021</option>
+            <option value="7">Format 7: 23/09/21</option>
+            <option value="8">Format 8: 09/23/21</option>
+            <option value="0">Do not show the date</option>
+        </select>
+        <div class="info"></div>
+    </div>
+    <div class="item-options">
+        <Clock2 TimeFormat="_timeFormatSelection" DateFormat="_dateFormatSelection" />
+    </div>
+    <div>
         <Icon Name="Icon.IconType.Ok" Visible="_saved" Size="25" Fill="limegreen" />
     </div>
 </div>
 
 @code {
-    private bool _saved { get; set; } = false;
+    private bool _saved = false;
     private bool _isDateVisible = true;
-    private DateTimeFormatType showDate = DateTimeFormatType.ShowDate;
-    private DateTimeFormatType _timeFormatSelection;
+    private TimeFormatType _timeFormatSelection;
+    private DateFormatType _dateFormatSelection;
 
     private byte timeFormatSelection
     {
         get => (byte)_timeFormatSelection;
         set
         {
-            _timeFormatSelection = (DateTimeFormatType)value;
+            _timeFormatSelection = (TimeFormatType)value;
+            SaveSettings();
+        }
+    }
+
+    private byte dateFormatSelection
+    {
+        get => (byte)_dateFormatSelection;
+        set
+        {
+            _dateFormatSelection = (DateFormatType)value;
             SaveSettings();
         }
     }
 
     protected override void OnInitialized()
     {
-        var timeDateFormatSelection = LocalStorage.GetItem<DateTimeFormatType?>(Constants.KeyName_TimeFormat) ?? DateTimeFormatType.T24hs;
-        _timeFormatSelection = timeDateFormatSelection & ~DateTimeFormatType.ShowDate;
-        _isDateVisible = timeDateFormatSelection.HasFlag(DateTimeFormatType.ShowDate);
-    }
-
-    private void ToggleSwitch()
-    {
-        _isDateVisible = !_isDateVisible;
-        SaveSettings();
+        _timeFormatSelection = LocalStorage.GetItem<TimeFormatType?>(Constants.KeyName_TimeFormat) ?? TimeFormatType.T24hs;
+        _dateFormatSelection = LocalStorage.GetItem<DateFormatType?>(Constants.KeyName_DateFormat) ?? DateFormatType.Date1_xWD_M_D;
     }
 
     private void SaveSettings()
     {
-        var timeDateFormatSelection = _isDateVisible
-            ? _timeFormatSelection | DateTimeFormatType.ShowDate
-            : _timeFormatSelection & ~DateTimeFormatType.ShowDate;
-
-        LocalStorage.SetItem(Constants.KeyName_TimeFormat, timeDateFormatSelection);
+        LocalStorage.SetItem(Constants.KeyName_TimeFormat, timeFormatSelection);
+        LocalStorage.SetItem(Constants.KeyName_DateFormat, dateFormatSelection);
         _saved = true;
     }
 

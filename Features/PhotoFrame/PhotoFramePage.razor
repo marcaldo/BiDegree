@@ -1,12 +1,20 @@
 ﻿@page "/photos"
-@using BiDegree.Features.WeatherPanel
+@using BiDegree.Shared
 
 <div class="weather">
-    <WeatherPanel />
-</div>
-<ImageShow />
+    @if (DateFormat != DateFormatType.None || TimeFormat != TimeFormatType.None)
+    {
+        <Clock4 @ref="clock"  DateFormat="DateFormat" TimeFormat="TimeFormat"/>
+    }
 
-@*<Slideshow />*@
+    @if (TemperatureFormat != TemperatureFormatType.None)
+    {
+        <WeatherWidget />
+    }
+</div>
+@*<ImageShow />*@
+
+<Slideshow @ref="slideshow" DebugMode="false" />
 
 @*<PictureDisplay />*@
 

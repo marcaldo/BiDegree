@@ -6,7 +6,7 @@
     margin-left: 50px;
 }
 
-.item-group {
+.date-time {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;

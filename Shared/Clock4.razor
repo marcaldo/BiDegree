@@ -1,5 +1,4 @@
 ﻿@inject IJSRuntime JSRuntime
-@implements IAsyncDisposable
 
 <div class="clock">
     @if (TimeFormat != TimeFormatType.None)
@@ -13,39 +12,29 @@
 </div>
 
 @code {
+
     private DateTimePartsDisplay _dateTimePartsDisplay = new DateTimePartsDisplay();
-    private Task<IJSObjectReference> _module;
-    private Task<IJSObjectReference> Module => _module ??= JSRuntime.InvokeAsync<IJSObjectReference>("import", "./js/timers.js").AsTask();
 
-    [Parameter] public DateFormatType DateFormat { get; set; }
-    [Parameter] public TimeFormatType TimeFormat { get; set; }
+    [Parameter] public DateFormatType DateFormat { get; set; } = DateFormatType.Date1_xWD_M_D;
+    [Parameter] public TimeFormatType TimeFormat { get; set; } = TimeFormatType.T24hs;
 
-
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
-
-        if (TimeFormat == TimeFormatType.None && DateFormat == DateFormatType.None) { return; }
-
-        var dotNetObjectReference = DotNetObjectReference.Create(this);
-
-        var module = await Module;
-        await module.InvokeVoidAsync("clock", dotNetObjectReference);
+        Update();
     }
 
-
-    [JSInvokable]
-    public void Timer_elapsed()
+    public void Update()
     {
         DateTime now = DateTime.Now;
 
         if (TimeFormat == TimeFormatType.T12hs)
         {
-            _dateTimePartsDisplay.Time = now.ToString("h:mm:ss");
+            _dateTimePartsDisplay.Time = now.ToString("h:mm");
             _dateTimePartsDisplay.AmPm = now.ToString("tt");
         }
         else
         {
-            _dateTimePartsDisplay.Time = now.ToString("HH:mm:ss");
+            _dateTimePartsDisplay.Time = now.ToString("HH:mm");
             _dateTimePartsDisplay.AmPm = "";
         }
 
@@ -57,7 +46,7 @@
             // Date2: TUESDAY, Set 23
             DateFormatType.Date2_xWDDD_M_D => $"{now.DayOfWeek.ToString().ToUpper()}, {now:MMM} {now:dd}",
             // Date3: Tuesday 23
-            DateFormatType.Date3_WD_D=> $"{now.DayOfWeek} {now:dd}",
+            DateFormatType.Date3_WD_D => $"{now.DayOfWeek} {now:dd}",
             // Date4: Tuesday
             DateFormatType.Date4_WD => $"{now.DayOfWeek}",
             // Date5: 23 SEP 2021
@@ -67,19 +56,12 @@
             // Date7: 23/09/21
             DateFormatType.Date7_DD_MM_YY => $"{now:dd}/{now:MM}/{now:yyyy}",
             // Date8: 09/23/21
-            DateFormatType.Date8_MM_DD_YY => $"{now:MM}/{now:dd}/{now:yyyy}"
+            DateFormatType.Date8_MM_DD_YY => $"{now:MM}/{now:dd}/{now:yyyy}",
+            //
+            _ => throw new NotSupportedException()
         };
 
-    StateHasChanged();
-    }
-
-    public async ValueTask DisposeAsync()
-    {
-        if (_module != null)
-        {
-            var module = await _module;
-            await module.DisposeAsync();
-        }
+        StateHasChanged();
     }
 
     class DateTimePartsDisplay

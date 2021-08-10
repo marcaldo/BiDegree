@@ -13,5 +13,6 @@ namespace BiDegree.Shared
         public string City { get; set; }
         public bool UseCity { get; set; }
 
+
     }
 }

@@ -1,0 +1,73 @@
+﻿@inject ISyncLocalStorageService LocalStorage
+<div class="date-time">
+    <div class="item-options">
+        <label for="temperatureSelector">Temperature format:</label>
+        <select class="form-control" id="temperatureSelector" @bind="tempFormatSelection" @onfocus="()=>_saved=false">
+            <option value="1">°C</option>
+            <option value="2">°F</option>
+            <option value="3">°C & °F</option>
+            <option value="4">°F & °C</option>
+            <option value="0">Do not show the temperature</option>
+        </select>
+        <div class="info"></div>
+    </div>
+    <div class="item-options" disabled>
+        <label for="checkWeatherSelector">Check the weather every:</label>
+        <select class="form-control" id="checkWeatherSelector" @bind="weatherRefreshTimer" @onfocus="()=>_saved=false">
+        <option value="5">5 minutes</option>
+        <option value="15">15 minutes</option>
+        <option value="30">30 minutes</option>
+        <option value="60">1 hour</option>
+        <option value="180">2 hours</option>
+        <option value="240">4 hours</option>
+        <option value="0">Do not check the weather</option>
+        </select>
+        <div class="info"></div>
+    </div>
+    <div class="item-options">
+    </div>
+    <div>
+        <Icon Name="Icon.IconType.Ok" Visible="_saved" Size="25" Fill="limegreen" />
+    </div>
+</div>
+
+@code {
+    private bool _saved = false;
+    private bool _isDateVisible = true;
+    private TemperatureFormatType _tempFormatSelection;
+    private byte _weatherRefreshTimer;
+
+    private byte tempFormatSelection
+    {
+        get => (byte)_tempFormatSelection;
+        set
+        {
+            _tempFormatSelection = (TemperatureFormatType)value;
+            SaveSettings();
+        }
+    }
+
+    private byte weatherRefreshTimer
+    {
+        get => _weatherRefreshTimer;
+        set
+        {
+            _weatherRefreshTimer= value;
+            SaveSettings();
+        }
+    }
+
+    protected override void OnInitialized()
+    {
+        _tempFormatSelection = LocalStorage.GetItem<TemperatureFormatType?>(Constants.KeyName_TempFormat) ?? TemperatureFormatType.CF;
+        _weatherRefreshTimer = LocalStorage.GetItem<byte?>(Constants.KeyName_WeatherRefreshTimer) ?? 30;
+    }
+
+    private void SaveSettings()
+    {
+        LocalStorage.SetItem(Constants.KeyName_TempFormat, _tempFormatSelection);
+        LocalStorage.SetItem(Constants.KeyName_WeatherRefreshTimer, _weatherRefreshTimer);
+        _saved = true;
+    }
+
+}

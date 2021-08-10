@@ -10,11 +10,24 @@ namespace BiDegree.Models
         public int Width { get; set; }
         public int Height { get; set; }
         public int Rotation { get; set; }
-        public bool? Portrait
-        {
-            get => Width < Height;
-        }
+        public string CssClass { get; set; }
         public string FileSize { get; set; }
+        public string Orientation
+        {
+            get
+            {
+                if (Width < Height) { return "contain"; }
+                return "cover";
+            }
+        }
+        public DisplayLayer DisplayLayer
+        {
+            get
+            {
+                if (ItemNumber % 2 == 0) { return DisplayLayer.Top; }
+                return DisplayLayer.Bottom;
+            }
+        }
         public DisplayItemType ItemType { get; set; } = DisplayItemType.Image;
     }
 
@@ -23,5 +36,11 @@ namespace BiDegree.Models
         Image = 0,
         Video = 1,
         Weather = 2
+    }
+
+    public enum DisplayLayer
+    {
+        Top = 0,
+        Bottom = 1
     }
 }
