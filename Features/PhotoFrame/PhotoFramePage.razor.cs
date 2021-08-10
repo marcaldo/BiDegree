@@ -15,7 +15,7 @@ namespace BiDegree.Features.PhotoFrame
         private Timer timer;
         private readonly Counters counters = new();
         private Slideshow slideshow = new();
-        private DateTime actionTime;
+        //private DateTime actionTime;
         private const int DelayToLoadNextInBackground = 2;
         private const int clockTick = 2;
         private TimeFormatType TimeFormat;
@@ -67,9 +67,9 @@ namespace BiDegree.Features.PhotoFrame
         private async Task TimerElapsed()
         {
 
-            if ((DateTime.Now - actionTime).TotalSeconds < 1) { return; }
+            //if ((DateTime.Now - actionTime).TotalSeconds < 1) { return; }
 
-            actionTime = DateTime.Now;
+            //actionTime = DateTime.Now;
 
             await counters.Update();
 
