@@ -1,6 +1,4 @@
-﻿using BiDegree.Features.Settings;
-using BiDegree.Models;
-using BiDegree.Shared;
+﻿using BiDegree.Shared;
 using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components;
 using System;
@@ -20,7 +18,9 @@ namespace BiDegree.Features.PhotoFrame
         private DateTime actionTime;
         private const int DelayToLoadNextInBackground = 2;
         private const int clockTick = 2;
-
+        private TimeFormatType TimeFormat;
+        private DateFormatType DateFormat;
+        private TemperatureFormatType TemperatureFormat;
         protected override async Task OnInitializedAsync()
         {
             await InitializeCounters();
@@ -52,6 +52,10 @@ namespace BiDegree.Features.PhotoFrame
                             ? Constants.DefaultValue_Refresh
                             : (int)storedDuration
                             );
+
+            TimeFormat = await LocalStorage.GetItemAsync<TimeFormatType?>(Constants.KeyName_TimeFormat) ?? TimeFormatType.T24hs;
+            DateFormat = await LocalStorage.GetItemAsync<DateFormatType?>(Constants.KeyName_DateFormat) ?? DateFormatType.Date1_xWD_M_D;
+            TemperatureFormat = await LocalStorage.GetItemAsync<TemperatureFormatType?>(Constants.KeyName_TempFormat) ?? TemperatureFormatType.CF;
 
             var setLoadBackgroundDelayTask = counters.LoadBackgroundItem.Initialize(DelayToLoadNextInBackground);
             var setClockTickTask = counters.Clock.Initialize(clockTick);
@@ -85,8 +89,22 @@ namespace BiDegree.Features.PhotoFrame
 
             if (counters.Clock.IsExpired)
             {
-                clock.Update();
                 counters.Clock.Reset();
+             
+                if (TimeFormat != TimeFormatType.None)
+                {
+                    clock.Update();
+                }
+            }
+
+            if (counters.CheckWeather.IsExpired)
+            {
+                counters.CheckWeather.Reset();
+
+                if(TemperatureFormat != TemperatureFormatType.None)
+                {
+                    // TODO: Update weather
+                }
             }
 
         }

@@ -2,8 +2,15 @@
 @using BiDegree.Shared
 
 <div class="weather">
-    <Clock4 @ref="clock"  DateFormat="DateFormatType.Date1_xWD_M_D" TimeFormat="TimeFormatType.T12hs"/>
-    <WeatherWidget />
+    @if (DateFormat != DateFormatType.None || TimeFormat != TimeFormatType.None)
+    {
+        <Clock4 @ref="clock"  DateFormat="DateFormat" TimeFormat="TimeFormat"/>
+    }
+
+    @if (TemperatureFormat != TemperatureFormatType.None)
+    {
+        <WeatherWidget />
+    }
 </div>
 @*<ImageShow />*@
 
