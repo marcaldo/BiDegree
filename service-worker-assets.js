@@ -149,7 +149,7 @@
       "url": "img\/loading.gif"
     },
     {
-      "hash": "sha256-cyKeSfgdF6eJ7p1wcMLUv9bwSSBeWrfw/SH4G5sGQDA=",
+      "hash": "sha256-SbYWQZkNqxQ76wGbB3Cd9N6Uoa4v9anRB/8znrH9940=",
       "url": "index.html"
     },
     {
@@ -157,16 +157,16 @@
       "url": "js\/clock.js"
     },
     {
-      "hash": "sha256-ZKPfzQS0WhsDDd5fyY3MyRwrNsm3VuM1dMkpoGPcZUM=",
+      "hash": "sha256-s2Q17cBfxrYPObOg73ia+8nu6yHuW3MFu9QGCTnyR5I=",
       "url": "js\/timers.js"
+    },
+    {
+      "hash": "sha256-\/SMQoPLXZ5PIW\/WM5PKobzCGGaFA3tc5dgGkZcVdrGc=",
+      "url": "js\/video.js"
     },
     {
       "hash": "sha256-ImWpG+YPrXQx5Caoq9OKhK+zpi4xTfVRd83og\/fqoSM=",
       "url": "manifest.json"
-    },
-    {
-      "hash": "sha256-POUFzbDv8VcHvxk0a0OFBClns+m5kDN7MRvUBo3Pxo8=",
-      "url": "video.js"
     },
     {
       "hash": "sha256-ibxaSjW7s3aLVssChknhzCpgMTHGu4D48Q9OLP3dfe8=",
@@ -197,7 +197,7 @@
       "url": "_framework\/dotnet.5.0.4.js"
     },
     {
-      "hash": "sha256-0ClE7a8H1pLampEXBjB16zNYntqAXKpRpuHvI3c2C84=",
+      "hash": "sha256-D3WJJO2Z8VZ974LQdslqn\/qb4cct5AJI8hGrBc9KmPM=",
       "url": "BiDegree.styles.css"
     },
     {
@@ -281,7 +281,7 @@
       "url": "_framework\/System.IO.Pipelines.dll"
     },
     {
-      "hash": "sha256-oDhixs2VA7j1Hc5UGWEhFvZrTYGqpM5YAg+8ROgHY6c=",
+      "hash": "sha256-c0PYGXvv3WGGgYNohv0Q8WhcG2+g64qr0kqmoSrTSuc=",
       "url": "_framework\/BiDegree.dll"
     },
     {
@@ -381,11 +381,11 @@
       "url": "_framework\/System.Web.HttpUtility.dll"
     },
     {
-      "hash": "sha256-27\/nXTtydg0r4a7vYhrKGyAApa6XiRrqcTdbXCvNNQc=",
+      "hash": "sha256-m7rZCFKJe1IX9mH\/Azyxch50z5z5prHfhcmcWGWXsuo=",
       "url": "_framework\/System.Private.CoreLib.dll"
     },
     {
-      "hash": "sha256-GssvPZ\/c5srhaYK7JU\/sHs3zvQzXGCZqdIyXwAkgg2w=",
+      "hash": "sha256-f3TXD11eBVbXZ\/xjZMTh5mRa4sta\/Ma4dTykG3GgOp8=",
       "url": "_framework\/blazor.boot.json"
     },
     {
@@ -393,5 +393,5 @@
       "url": "_framework\/blazor.webassembly.js"
     }
   ],
-  "version": "XZrfy24B"
+  "version": "t0UkiU6A"
 };
