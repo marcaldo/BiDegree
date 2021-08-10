@@ -19,6 +19,7 @@ namespace BiDegree.Services
         {
             _googleDriveApi = googleDriveApi;
             _localStorage = localStorageService;
+            _queue = new List<DisplayItem>();
         }
 
         public async Task<bool> IsDebugModeAsync()
@@ -48,9 +49,9 @@ namespace BiDegree.Services
 
         public async Task<DisplayItem> GetNextItemAsync()
         {
-            if(_queue.Count == 0)
+            if (_queue.Count == 0)
             {
-                _queue=await GetDisplayQueueAsync();
+                _queue = await GetDisplayQueueAsync();
             }
 
             var displayItem = _queue.FirstOrDefault();

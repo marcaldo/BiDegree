@@ -1,8 +1,4 @@
-﻿.goto {
-    cursor: pointer;
-}
-
-.temp {
+﻿.tempWidget {
     display: flex;
     flex-direction: row;
     align-items: flex-end;
@@ -10,14 +6,20 @@
     padding: 8px;
     text-shadow: 2px 2px black;
     font-family: 'Roboto', sans-serif;
+    margin-left: auto;
+    margin-right: 5px;
 }
 
-    .temp ::deep .t1 {
-        background-color: transparent;
+    .tempWidget svg {
+        margin-right: 10px;
+    }
+
+    .tempWidget ::deep .t1 {
+        margin: 0 10px 0 10px;
         font-size: 5em;
     }
 
-    .temp ::deep .t2 {
-        background-color: transparent;
+    .tempWidget ::deep .t2 {
+        margin: 0 10px 0 10px;
         font-size: 3.5em;
     }

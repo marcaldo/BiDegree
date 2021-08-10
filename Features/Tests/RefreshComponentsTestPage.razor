@@ -1,0 +1,53 @@
+﻿@page "/refresh"
+@implements IDisposable
+@using System.Threading
+
+<h3>RefreshComponentsTestPage</h3>
+
+<Clock4 @ref="_clock4" />
+<Clock4 @ref="_clock4_2" DateFormat="DateFormatType.Date6_MMM_DD_YY" />
+
+@code {
+
+    private Clock4 _clock4;
+    private Clock4 _clock4_2;
+    private Timer _timer;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _timer = new Timer(
+        callback: new TimerCallback(TimerElapsed),
+        state: null,
+        dueTime: 0,
+        period: 1000);
+
+    }
+
+    private const int _contSeconds = 1;
+    private int contSeconds = _contSeconds;
+
+    private const int _contSeconds2 = 5;
+    private int contSeconds2 = _contSeconds;
+
+    private void TimerElapsed(object state)
+    {
+        if (--contSeconds == 0)
+        {
+            _clock4.Update();
+            contSeconds = _contSeconds;
+        }
+
+        if (--contSeconds2 == 0)
+        {
+            _clock4_2.Update();
+            contSeconds2 = _contSeconds2;
+        }
+    }
+
+
+
+    public void Dispose()
+    {
+        _timer?.Dispose();
+    }
+}

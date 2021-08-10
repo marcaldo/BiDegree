@@ -1,109 +1,163 @@
 ﻿using BiDegree.Models;
 using BiDegree.Services;
-using BiDegree.Shared;
-using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace BiDegree.Features.PhotoFrame
 {
-    public partial class Slideshow : ComponentBase, IDisposable
+    public partial class Slideshow : ComponentBase
     {
         [Inject] IDisplayQueue DisplayQueue { get; set; }
-        readonly System.Timers.Timer timer = new();
-        private bool _debugMode = true;
-        private string imgTopSrc;
-        private string imgBottomSrc;
-        private string imgTopClass;
-        private string imgBottomClass;
+        [Inject] IJSRuntime JS { get; set; }
+
+        [Parameter] public bool DebugMode { get; set; } = false;
+
         private const string TRANSPARENT = "transparent";
         private const string VISIBLE = "";
-        private CurrentDisplay Current = CurrentDisplay.None;
-        private ViewStatus _viewStatus = new();
+        private const string VIDEO_TOP_ID = "videoTop";
+        private const string VIDEO_BOTTOM_ID = "videoBottom";
+
+        private DisplayItem _imgTop = null;
+        private DisplayItem _imgBottom = null;
+
+        private DisplayItem _videoTop = null;
+        private DisplayItem _videoBottom = null;
+
+        private DisplayItem _nextItem = null;
 
         protected override async Task OnInitializedAsync()
         {
-            var displayTime = await DisplayQueue.GetDisplayTimeAsync();
-
-            timer.Interval = displayTime;
-            timer.Elapsed += Timer_Elapsed;
-            timer.Enabled = true;
-
-            var queue = await DisplayQueue.GetDisplayQueueAsync();
-
             await SetInitialItems();
         }
 
         private async Task SetInitialItems()
         {
-            _viewStatus.CurrentDisplay = CurrentDisplay.ImgTop;
+            _imgTop = new DisplayItem { CssClass = TRANSPARENT };
+            _imgBottom = new DisplayItem { CssClass = TRANSPARENT };
+            _videoTop = new DisplayItem { CssClass = TRANSPARENT };
+            _videoBottom = new DisplayItem { CssClass = TRANSPARENT };
 
-            imgBottomClass = TRANSPARENT;
+            var firstItem = await DisplayQueue.GetNextItemAsync();
 
-            var item = await DisplayQueue.GetNextItemAsync();
-            imgTopSrc = item.SourceUrl;
-
-            item = await DisplayQueue.GetNextItemAsync();
-            imgBottomSrc = item.SourceUrl;
-
-            StateHasChanged();
-        }
-
-        private void Timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
-        {
-            imgTopClass = TRANSPARENT;
-            imgBottomClass = VISIBLE;
-
-            StateHasChanged();
-        }
-
-        private void SetCurrentDisplay(DisplayItem displayItem, CurrentDisplay currentDisplay)
-        {
-            _viewStatus.ImgTopClass = TRANSPARENT;
-            _viewStatus.ImgBottomClass = TRANSPARENT;
-
-            switch (currentDisplay)
+            switch (firstItem.ItemType)
             {
-                case CurrentDisplay.ImgTop:
-                    _viewStatus.CurrentDisplay = currentDisplay;
-                    _viewStatus.ImgTopSrc = displayItem.SourceUrl;
-                    _viewStatus.ImgTopClass = VISIBLE;
+                case DisplayItemType.Image:
+                    _imgTop = firstItem;
+                    _imgTop.CssClass = VISIBLE;
                     break;
-                case CurrentDisplay.ImgBottom:
-                    _viewStatus.CurrentDisplay = currentDisplay;
-                    _viewStatus.ImgBottomSrc = displayItem.SourceUrl;
-                    _viewStatus.ImgBottomClass = VISIBLE;
+                case DisplayItemType.Video:
+                    _videoTop = firstItem;
+                    _videoTop.CssClass = VISIBLE;
+                    await JS.InvokeVoidAsync("playVideo", VIDEO_TOP_ID, true);
                     break;
-                case CurrentDisplay.VideoTop:
-                    break;
-                case CurrentDisplay.VideoBottom:
-                    break;
-                case CurrentDisplay.Weather:
+                case DisplayItemType.Weather:
                     break;
                 default:
                     break;
             }
+
+            StateHasChanged();
         }
 
-        public void Dispose()
+
+        public async Task LoadNextInBackground()
         {
-            timer?.Dispose();
+            _nextItem = await DisplayQueue.GetNextItemAsync();
+
+            if (_nextItem.ItemType == DisplayItemType.Image)
+            {
+                if (_imgTop.CssClass == VISIBLE)
+                {
+                    _imgBottom = _nextItem;
+                    _imgBottom.CssClass = TRANSPARENT;
+                }
+                else
+                {
+                    _imgTop = _nextItem;
+                    _imgTop.CssClass = TRANSPARENT;
+                }
+            }
+
+            if (_nextItem.ItemType == DisplayItemType.Video)
+            {
+                if (_videoTop.CssClass == VISIBLE)
+                {
+                    _videoBottom = _nextItem;
+                    _videoBottom.CssClass = TRANSPARENT;
+                    await JS.InvokeVoidAsync("playVideo", VIDEO_BOTTOM_ID, false);
+                }
+                else
+                {
+                    _videoTop = _nextItem;
+                    _videoTop.CssClass = TRANSPARENT;
+                    await JS.InvokeVoidAsync("playVideo", VIDEO_TOP_ID, false);
+                }
+            }
+
+            StateHasChanged();
         }
+
+
+        public async Task ShowNext()
+        {
+            if (_nextItem.ItemType == DisplayItemType.Image)
+            {
+                _videoTop.CssClass = TRANSPARENT;
+                _videoBottom.CssClass = TRANSPARENT;
+
+                if (_imgTop.CssClass == VISIBLE)
+                {
+                    _imgTop.CssClass = TRANSPARENT;
+                    _imgBottom.CssClass = VISIBLE;
+
+                    Console.WriteLine($"{DateTime.Now.ToLongTimeString()} Showing I BOTTOM.");
+
+                }
+                else
+                {
+                    _imgTop.CssClass = VISIBLE;
+                    _imgBottom.CssClass = TRANSPARENT;
+
+                    Console.WriteLine($"{DateTime.Now.ToLongTimeString()} Showing I TOP.");
+
+                }
+            }
+
+            if (_nextItem.ItemType == DisplayItemType.Video)
+            {
+
+                _imgTop.CssClass = TRANSPARENT;
+                _imgBottom.CssClass = TRANSPARENT;
+
+                if (_videoTop.CssClass == VISIBLE)
+                {
+                    await JS.InvokeVoidAsync("playVideo", VIDEO_BOTTOM_ID, true);
+
+                    _videoTop.CssClass = TRANSPARENT;
+                    _videoBottom.CssClass = VISIBLE;
+
+                    Console.WriteLine($"{DateTime.Now.ToLongTimeString()} Showing V BOTTOM.");
+                }
+                else
+                {
+                    await JS.InvokeVoidAsync("playVideo", VIDEO_TOP_ID, true);
+
+                    _videoTop.CssClass = VISIBLE;
+                    _videoBottom.CssClass = TRANSPARENT;
+
+                    Console.WriteLine($"{DateTime.Now.ToLongTimeString()} Showing V TOP.");
+                }
+            }
+
+
+            StateHasChanged();
+
+        }
+
     }
 
-    class ViewStatus
-    {
-        public string ImgTopSrc { get; set; }
-        public string ImgBottomSrc { get; set; }
-        public string ImgTopClass { get; set; }
-        public string ImgBottomClass { get; set; }
-        public CurrentDisplay CurrentDisplay { get; set; }
-
-    }
     enum CurrentDisplay
     {
         None,
