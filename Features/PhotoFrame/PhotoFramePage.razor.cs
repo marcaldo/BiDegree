@@ -25,7 +25,7 @@ namespace BiDegree.Features.PhotoFrame
         {
             await InitializeCounters();
 
-            actionTime = DateTime.Now;
+            //actionTime = DateTime.Now;
 
             timer = new Timer(async (e) =>
             {
