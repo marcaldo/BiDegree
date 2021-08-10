@@ -23,6 +23,7 @@ namespace BiDegree.Features.PhotoFrame
 
         readonly System.Timers.Timer timer = new();
 
+
         private string itemLink;
         private string itemLink2;
         private bool isVideo = false;
