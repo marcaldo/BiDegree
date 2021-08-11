@@ -6,6 +6,15 @@
     video.muted = start;
 
     if (start) {
-        video.play();
+
+        var playPromise = video.play();
+
+        if (playPromise !== undefined) {
+            playPromise.then(_ => {
+            })
+                .catch(error => {
+                });
+        }
     }
 };
+
