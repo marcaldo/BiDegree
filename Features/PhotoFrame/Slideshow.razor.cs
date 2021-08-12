@@ -63,22 +63,15 @@ namespace BiDegree.Features.PhotoFrame
 
 
         public async Task LoadNextInBackground()
-        { 
-            int errCount = 0;
-            while (errCount < 3)
+        {
+            try
             {
-                try
-                {
-                    _nextItem = await DisplayQueue.GetNextItemAsync();
-                    errCount = 3;
-                    Console.WriteLine($"{_nextItem.Title} loaded ok.");
-                }
-                catch
-                {
-                    errCount++;
-                    Console.WriteLine($"!!!! ERROR fetching next item to load. Try # {errCount}");
-                    _nextItem = await DisplayQueue.GetNextItemAsync();
-                } 
+                _nextItem = await DisplayQueue.GetNextItemAsync();
+                Console.WriteLine($"{_nextItem.Title} loaded ok.");
+            }
+            catch
+            {
+                Console.WriteLine($"ERROR fetching next item to load.");
             }
 
             if (_nextItem.ItemType == DisplayItemType.Image)
@@ -97,7 +90,7 @@ namespace BiDegree.Features.PhotoFrame
 
             if (_nextItem.ItemType == DisplayItemType.Video)
             {
-                string videoId = "";
+                string videoId;
 
                 if (_videoTop.CssClass == VISIBLE)
                 {
@@ -116,13 +109,12 @@ namespace BiDegree.Features.PhotoFrame
 
             }
 
-            StateHasChanged();
         }
 
 
         public async Task ShowNext()
         {
-            Console.WriteLine("-> " + _nextItem.Title);
+            Console.WriteLine($"-> {_nextItem.Title} - W: {_nextItem.Width}, H: {_nextItem.Height}, Rotation: {_nextItem.Rotation}");
 
             if (_nextItem.ItemType == DisplayItemType.Image)
             {
