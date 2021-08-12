@@ -108,6 +108,8 @@ namespace BiDegree.Features.PhotoFrame
                 await JS.InvokeVoidAsync("playVideo", videoId, false);
 
             }
+            
+            StateHasChanged();
 
         }
 
