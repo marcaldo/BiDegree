@@ -16,12 +16,10 @@ namespace BiDegree.Models
         {
             get
             {
-                if (Rotation == 0)
-                {
-                    if (Width < Height) { return "contain"; }
-                }
+                if (Width > Height && Rotation > 0) { return "contain"; }
 
-                if (Width > Height) { return "contain"; }
+                if (Width < Height) { return "contain"; }
+
                 return "cover";
             }
         }
