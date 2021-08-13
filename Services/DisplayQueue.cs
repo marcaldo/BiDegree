@@ -68,8 +68,10 @@ namespace BiDegree.Services
                 {
                     _queue = await GetShuffledList();
                 }
-
-                _queue = await GetNaturalOrderList();
+                else
+                {
+                    _queue = await GetNaturalOrderList();
+                }
             }
 
             return _queue;
@@ -180,8 +182,7 @@ namespace BiDegree.Services
                         }
                         catch (Exception ex)
                         {
-
-                            throw;
+                            throw ex;
                         }
 
                         itemAdded = true;
@@ -195,7 +196,9 @@ namespace BiDegree.Services
 
             foreach (var item in shuffledList)
             {
-                item.ItemNumber = itemNum++;
+                item.ItemNumber = ++itemNum;
+
+                //Console.WriteLine($"{item.ItemNumber} {item.Title}");
             }
 
             return shuffledList.ToList();

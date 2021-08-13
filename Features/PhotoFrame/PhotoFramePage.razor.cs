@@ -58,15 +58,13 @@ namespace BiDegree.Features.PhotoFrame
             TemperatureFormat = await LocalStorage.GetItemAsync<TemperatureFormatType?>(Constants.KeyName_TempFormat) ?? TemperatureFormatType.CF;
 
             var setLoadBackgroundDelayTask = counters.LoadBackgroundItem.Initialize(DelayToLoadNextInBackground);
-            var setClockTickTask = counters.Clock.Initialize(clockTick);
 
-            await Task.WhenAll(setShowTimeTask, setCheckWeatherTask, setLoadBackgroundDelayTask, setClockTickTask);
+            await Task.WhenAll(setShowTimeTask, setCheckWeatherTask, setLoadBackgroundDelayTask);
 
         }
 
         private async Task TimerElapsed()
         {
-
             if ((DateTime.Now - actionTime).TotalSeconds < 1) { return; }
 
             actionTime = DateTime.Now;
@@ -87,23 +85,13 @@ namespace BiDegree.Features.PhotoFrame
                 counters.LoadBackgroundItem.Reset();
             }
 
-            if (counters.Clock.IsExpired)
-            {
-                counters.Clock.Reset();
-             
-                if (TimeFormat != TimeFormatType.None)
-                {
-                    clock.Update();
-                }
-            }
-
             if (counters.CheckWeather.IsExpired)
             {
                 counters.CheckWeather.Reset();
 
                 if(TemperatureFormat != TemperatureFormatType.None)
                 {
-                    // TODO: Update weather
+                    // TODO: Update weather ?
                 }
             }
 
@@ -118,7 +106,6 @@ namespace BiDegree.Features.PhotoFrame
     class Counters
     {
 
-        public SecondsCounter Clock { get; set; } = new();
         public SecondsCounter CheckWeather { get; set; } = new();
         public SecondsCounter NextItem { get; set; } = new();
         public SecondsCounter LoadBackgroundItem { get; set; } = new();
@@ -127,7 +114,6 @@ namespace BiDegree.Features.PhotoFrame
         {
             await Task.Factory.StartNew(() =>
             {
-                Clock.Duration--;
                 CheckWeather.Duration--;
                 NextItem.Duration--;
                 LoadBackgroundItem.Duration--;
