@@ -26,7 +26,7 @@ namespace BiDegree.Shared
                         callback: new TimerCallback(TimerElapsed),
                         state: _dateTimeDisplay,
                         dueTime: 0,
-                        period: 5000);
+                        period: 1000);
         }
 
         private void TimerElapsed(object timerState)

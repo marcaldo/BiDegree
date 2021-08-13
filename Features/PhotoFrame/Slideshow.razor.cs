@@ -11,7 +11,6 @@ namespace BiDegree.Features.PhotoFrame
     {
         [Inject] IDisplayQueue DisplayQueue { get; set; }
         [Inject] IJSRuntime JS { get; set; }
-
         [Parameter] public bool DebugMode { get; set; } = false;
 
         private const string TRANSPARENT = "transparent";
@@ -67,7 +66,7 @@ namespace BiDegree.Features.PhotoFrame
             try
             {
                 _nextItem = await DisplayQueue.GetNextItemAsync();
-                Console.WriteLine($"{_nextItem.Title} loaded ok.");
+                //Console.WriteLine($"Loading {_nextItem.Title}...");
             }
             catch
             {
@@ -116,8 +115,6 @@ namespace BiDegree.Features.PhotoFrame
 
         public async Task ShowNext()
         {
-            Console.WriteLine($"-> {_nextItem.Title} - W: {_nextItem.Width}, H: {_nextItem.Height}, Rotation: {_nextItem.Rotation}");
-
             if (_nextItem.ItemType == DisplayItemType.Image)
             {
                 _videoTop.CssClass = TRANSPARENT;
