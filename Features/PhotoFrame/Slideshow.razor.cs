@@ -66,7 +66,7 @@ namespace BiDegree.Features.PhotoFrame
             try
             {
                 _nextItem = await DisplayQueue.GetNextItemAsync();
-                //Console.WriteLine($"Loading {_nextItem.Title}...");
+                Console.WriteLine($"Loading {_nextItem.Title}, Width:{_nextItem.Width}, Height:{_nextItem.Height}, Rotation:{_nextItem.Rotation}, Orientation:{ _nextItem.Orientation}, CssClass:{_nextItem.CssClass}, ItemType:{_nextItem.ItemType}");
             }
             catch
             {
