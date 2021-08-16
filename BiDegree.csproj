@@ -6,7 +6,7 @@
     <UserSecretsId>a35d740a-efc2-48fb-b481-c58b991d5163</UserSecretsId>
     <DebugType>portable</DebugType>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <Version>20210813.1021</Version>
+    <Version>20210816.1533</Version>
   </PropertyGroup>
 
   <ItemGroup>
