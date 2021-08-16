@@ -9,3 +9,24 @@
     justify-content: space-between;
     align-items: center;
 }
+
+.footer {
+    height: 70px;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    cursor: pointer;
+    z-index: 1000;
+    background-color: silver;
+}
+
+.footer > ::deep .nav-menu{
+    display: none;
+}
+
+    .footer:hover > .nav-menu{
+        display: "";
+        background-color:blue;
+    }

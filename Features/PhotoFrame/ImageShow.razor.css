@@ -35,19 +35,7 @@
             opacity: 0;
         }
 
-.menu-footer {
-    height: 50px;
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    cursor: pointer;
-}
 
-    .menu-footer:hover {
-        background-color: darkblue;
-        opacity: 0.5;
-    }
 
 .debug-mode {
     position: absolute;

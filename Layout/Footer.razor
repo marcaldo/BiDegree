@@ -1,40 +1,45 @@
 ﻿@inject NavigationManager Navigation
 @{
-    var homePage = "weather";
-    var scalePage = "scale";
-    var settingsPage = "settings";
-    var photoFramePage = "photos";
-    var activePage = Navigation.ToBaseRelativePath(Navigation.Uri);
-    var display = ""; 
-    if (activePage.ToLower().Contains("photos"))
-    {
-        display = "display:none";
-    }
+	var homePage = "weather";
+	var scalePage = "scale";
+	var settingsPage = "settings";
+	var photoFramePage = "photos";
+	var activePage = Navigation.ToBaseRelativePath(Navigation.Uri);
+	var display = "";
+	if (activePage.ToLower().Contains("---"))
+	{
+		display = "display:none";
+	}
 }
-<div class="footer" style="@display">
-    <div class="goto" @onclick="() => NavigateTo(homePage, true)">
-        @if (activePage.ToLower().Contains("weather"))
-        {
-            <Icon Name="Icon.IconType.Refresh" Size="32" Fill="white" />
-        }
-        else
-        {
-            <Icon Name="Icon.IconType.Weather" Size="32" Fill="white" />
-        }
-    </div>
-    <div class="goto" @onclick="() => NavigateTo(scalePage, false)">
-        <Icon Name="Icon.IconType.Scale" Size="32" Fill="white" />
-    </div>
-    <div class="goto" @onclick="() => NavigateTo(photoFramePage, false)">
-        <Icon Name="Icon.IconType.Pictures" Size="32" Fill="white" />
-    </div>
-    <div class="goto" @onclick="() => NavigateTo(settingsPage, false)">
-        <Icon Name="Icon.IconType.Settings" Size="32" Fill="white" />
-    </div>
+<div class="menu">
+	<div class="nav" style="@display">
+		<div class="nav-items">
+			<div class="goto" @onclick="() => NavigateTo(homePage, true)">
+				@if (activePage.ToLower().Contains("weather"))
+				{
+					<Icon Name="Icon.IconType.Refresh" Size="32" Fill="white" />
+				}
+				else
+				{
+					<Icon Name="Icon.IconType.Weather" Size="32" Fill="white" />
+				}
+			</div>
+			<div class="goto" @onclick="() => NavigateTo(scalePage, false)">
+				<Icon Name="Icon.IconType.Scale" Size="32" Fill="white" />
+			</div>
+			<div class="goto" @onclick="() => NavigateTo(photoFramePage, false)">
+				<Icon Name="Icon.IconType.Pictures" Size="32" Fill="white" />
+			</div>
+			<div class="goto" @onclick="() => NavigateTo(settingsPage, false)">
+				<Icon Name="Icon.IconType.Settings" Size="32" Fill="white" />
+			</div>
+		</div>
+	</div>
 </div>
-@code{
-    private void NavigateTo(string page, bool forceLoad)
-    {
-        Navigation.NavigateTo($"{Navigation.BaseUri}{page}", forceLoad: forceLoad);
-    }
+
+@code {
+	private void NavigateTo(string page, bool forceLoad)
+	{
+		Navigation.NavigateTo($"{Navigation.BaseUri}{page}", forceLoad: forceLoad);
+	}
 }
