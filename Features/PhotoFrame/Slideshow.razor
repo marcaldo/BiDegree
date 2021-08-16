@@ -1,11 +1,11 @@
 ﻿@inject NavigationManager NavigationManager
 <div id="imageBox">
 
-    <video autoplay loop id="videoTop" class="videoloop @_videoTop.CssClass" muted="muted">
+    <video autoplay loop id="videoTop" class="videoloop @_videoTop.CssClass" muted="muted" style="object-fit:cover">
         <source id="videoTopSrc" src="@_videoTop.SourceUrl" type="video/mp4">
     </video>
 
-    <video autoplay loop id="videoBottom" class="videoloop @_videoBottom.CssClass" muted="muted">
+    <video autoplay loop id="videoBottom" class="videoloop @_videoBottom.CssClass" muted="muted" style="object-fit:cover">
         <source id="videoBottomSrc" src="@_videoBottom.SourceUrl" type="video/mp4">
     </video>
 
@@ -34,8 +34,6 @@
         </table>
     </div>
 }
-
-<div class="menu-footer" @onclick="GotoSettings"></div>
 
 @code {
     private void GotoSettings()

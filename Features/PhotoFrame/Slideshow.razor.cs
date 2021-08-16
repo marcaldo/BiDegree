@@ -11,7 +11,6 @@ namespace BiDegree.Features.PhotoFrame
     {
         [Inject] IDisplayQueue DisplayQueue { get; set; }
         [Inject] IJSRuntime JS { get; set; }
-
         [Parameter] public bool DebugMode { get; set; } = false;
 
         private const string TRANSPARENT = "transparent";
@@ -63,22 +62,15 @@ namespace BiDegree.Features.PhotoFrame
 
 
         public async Task LoadNextInBackground()
-        { 
-            int errCount = 0;
-            while (errCount < 3)
+        {
+            try
             {
-                try
-                {
-                    _nextItem = await DisplayQueue.GetNextItemAsync();
-                    errCount = 3;
-                    Console.WriteLine($"{_nextItem.Title} loaded ok.");
-                }
-                catch
-                {
-                    errCount++;
-                    Console.WriteLine($"!!!! ERROR fetching next item to load. Try # {errCount}");
-                    _nextItem = await DisplayQueue.GetNextItemAsync();
-                } 
+                _nextItem = await DisplayQueue.GetNextItemAsync();
+                Console.WriteLine($"Loading {_nextItem.Title}, Width:{_nextItem.Width}, Height:{_nextItem.Height}, Rotation:{_nextItem.Rotation}, Orientation:{ _nextItem.Orientation}, CssClass:{_nextItem.CssClass}, ItemType:{_nextItem.ItemType}");
+            }
+            catch
+            {
+                Console.WriteLine($"ERROR fetching next item to load.");
             }
 
             if (_nextItem.ItemType == DisplayItemType.Image)
@@ -97,7 +89,7 @@ namespace BiDegree.Features.PhotoFrame
 
             if (_nextItem.ItemType == DisplayItemType.Video)
             {
-                string videoId = "";
+                string videoId;
 
                 if (_videoTop.CssClass == VISIBLE)
                 {
@@ -115,15 +107,14 @@ namespace BiDegree.Features.PhotoFrame
                 await JS.InvokeVoidAsync("playVideo", videoId, false);
 
             }
-
+            
             StateHasChanged();
+
         }
 
 
         public async Task ShowNext()
         {
-            Console.WriteLine("-> " + _nextItem.Title);
-
             if (_nextItem.ItemType == DisplayItemType.Image)
             {
                 _videoTop.CssClass = TRANSPARENT;
