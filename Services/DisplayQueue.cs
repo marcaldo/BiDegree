@@ -57,6 +57,9 @@ namespace BiDegree.Services
             var displayItem = _queue.FirstOrDefault();
 
             _queue.Remove(displayItem);
+
+            await StoreQueue(_queue);
+
             return displayItem;
         }
 
@@ -66,7 +69,15 @@ namespace BiDegree.Services
             {
                 if (await IsShuffled())
                 {
-                    _queue = await GetShuffledList();
+                    var storedQueue = await GetStoredQueue();
+                    if(storedQueue?.Count > 0)
+                    {
+                        _queue = storedQueue;
+                    }
+                    else
+                    {
+                        _queue = await GetShuffledList();
+                    }
                 }
                 else
                 {
@@ -204,6 +215,19 @@ namespace BiDegree.Services
             return shuffledList.ToList();
 
         }
+
+        private async Task StoreQueue(List<DisplayItem> queue)
+        {
+            await _localStorage.SetItemAsync(Constants.KeyName_DisplayQueue, queue);
+        }
+
+        private async Task<List<DisplayItem>> GetStoredQueue()
+        {
+            var queue = await _localStorage.GetItemAsync<List<DisplayItem>>(Constants.KeyName_DisplayQueue);
+            return queue;
+                
+        }
+
         private async Task<DriveFileList> GetDriveFileList()
         {
             string folderId = await _localStorage.GetItemAsync<string>(Constants.KeyName_DriveFolderId);

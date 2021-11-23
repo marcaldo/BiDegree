@@ -22,6 +22,7 @@
         public const string KeyName_StartPage = "start";
         public const string KeyName_Dev_DebugMode = "dm";
         public const string KeyName_Dev_PictureCount = "picCount";
+        public const string KeyName_DisplayQueue = "queue";
 
         public const string DefaultValue_StartingPage = "weather";
         public const int DefaultValue_Refresh = 60;
