@@ -54,7 +54,7 @@
 				@if (Units is UnitsType.Metric)
 				{
 		<tr>
-		 <td class="title">Min</td>
+		 <td class="title">Low</td>
 		 <td><Icon Name="Icon.IconType.TemperatureLow" Fill="blue" /></td>
 		 <td>@CurrentWeather.main.temp_min.ToDecimalString() °C</td>
 						@if (showBothTemps)
@@ -63,7 +63,7 @@
 						}
 		</tr>
 		<tr>
-		 <td class="title">Max</td>
+		 <td class="title">High</td>
 		 <td><Icon Name="Icon.IconType.TemperatureHigh" Fill="#9e300f" /></td>
 		 <td>@CurrentWeather.main.temp_max.ToDecimalString() °C</td>
 						@if (showBothTemps)
@@ -75,7 +75,7 @@
 				else
 				{
 		<tr>
-		 <td class="title">Min</td>
+		 <td class="title">Low</td>
 		 <td><Icon Name="Icon.IconType.TemperatureLow" Fill="blue" /></td>
 		 <td>@CurrentWeather.main.temp_min.ToDecimalString() °F</td>
 						@if (showBothTemps)

@@ -1,0 +1,72 @@
+﻿.weather {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    width: -webkit-fill-available;
+    flex-direction: row;
+    justify-content: space-around;
+    font-family: 'Roboto', sans-serif;
+    text-shadow: 2px 2px black;
+}
+
+    .weather .panel1 ::deep.clock {
+        background-color: transparent;
+        font-size: 2em;
+        line-height: 1;
+        margin-top: 2.5em;
+    }
+
+.iconWeather {
+    width: fit-content;
+    margin: auto;
+}
+
+.city {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 1.5em;
+}
+
+.tempDisplay {
+}
+
+    .tempDisplay .temp {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        line-height: 1.2;
+    }
+
+        .tempDisplay .temp ::deep.t1 {
+            font-size: 9em;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+        }
+
+            .tempDisplay .temp ::deep.t1 .unit {
+                font-size: 0.63em;
+                margin-top: 0.3em;
+            }
+
+        .tempDisplay .temp ::deep.t2 {
+            font-size: 6.5em;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+        }
+
+            .tempDisplay .temp ::deep.t2 .unit {
+                font-size: 0.63em;
+                margin-top: 0.3em;
+            }
+
+.humid {
+}
+
+.wind {
+}

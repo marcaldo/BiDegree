@@ -38,12 +38,12 @@ namespace BiDegree.Shared
 
             if (_dateTimeDisplay.timeFormat == TimeFormatType.T12hs)
             {
-                _dateTimeDisplay.Time = now.ToString("h:mm:ss");
+                _dateTimeDisplay.Time = now.ToString("h:mm");
                 _dateTimeDisplay.AmPm = now.ToString("tt");
             }
             else
             {
-                _dateTimeDisplay.Time = now.ToString("HH:mm:ss");
+                _dateTimeDisplay.Time = now.ToString("HH:mm");
                 _dateTimeDisplay.AmPm = "";
             }
 
