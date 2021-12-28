@@ -1,5 +1,5 @@
 ﻿@page "/weatherpicture"
-
+@*
 @inherits WeatherBase
 
 @if (CurrentWeather == null)
@@ -26,5 +26,7 @@
 }
 else
 {
-	<WeatherPicture CurrentWeather="@CurrentWeather" Units="@Units" OnClick="RefreshHandler" />
-}
+	<WeatherWidgetFull />
+}*@
+
+	<WeatherWidgetFull />

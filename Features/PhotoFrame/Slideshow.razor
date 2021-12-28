@@ -1,4 +1,5 @@
 ﻿@inject NavigationManager NavigationManager
+
 <div id="imageBox">
 
     <video autoplay loop id="videoTop" class="videoloop @_videoTop.CssClass" muted="muted" style="object-fit:cover">
@@ -12,7 +13,9 @@
     <img id="imgBottom" src="@_imgBottom.SourceUrl" class="@_imgBottom.CssClass" style="object-fit:@_imgBottom.Orientation" />
     <img id="imgTop" src="@_imgTop.SourceUrl" class="@_imgTop.CssClass" style="object-fit:@_imgTop.Orientation" />
 
+
 </div>
+
 
 @if (DebugMode)
 {

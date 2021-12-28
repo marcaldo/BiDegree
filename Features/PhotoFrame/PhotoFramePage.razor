@@ -4,23 +4,21 @@
 <div class="weather">
     @if (DateFormat != DateFormatType.None || TimeFormat != TimeFormatType.None)
     {
-        <Clock4 @ref="clock"  DateFormat="DateFormat" TimeFormat="TimeFormat"/>
+        <Clock4 @ref="clock" DateFormat="DateFormat" TimeFormat="TimeFormat" />
     }
 
     @if (TemperatureFormat != TemperatureFormatType.None)
     {
-        <WeatherWidget />
+        @*<WeatherWidget />*@
     }
+    
+    <WeatherWidgetFull />
+
 </div>
-@*<ImageShow />*@
 
 <Slideshow @ref="slideshow" DebugMode="false" />
 
-@*<div class="footer">
-    <NavMenu/>
-</div>*@
 
 
-@*<PictureDisplay />*@
 
 
