@@ -1,5 +1,7 @@
 ﻿@page "/photos"
 @using BiDegree.Shared
+@inject StateContainer StateContainer
+
 
 <div class="weather">
     @if (DateFormat != DateFormatType.None || TimeFormat != TimeFormatType.None)
@@ -7,12 +9,19 @@
         <Clock4 @ref="clock" DateFormat="DateFormat" TimeFormat="TimeFormat" />
     }
 
-    @if (TemperatureFormat != TemperatureFormatType.None)
+    @switch (StateContainer.DisplayItemType)
     {
-        @*<WeatherWidget />*@
+        case DisplayItemType.Weather:
+            <WeatherWidgetFull />
+            break;
+        default:
+            if (TemperatureFormat != TemperatureFormatType.None)
+            {
+                <WeatherWidget />
+            }
+            break;
     }
-    
-    <WeatherWidgetFull />
+
 
 </div>
 

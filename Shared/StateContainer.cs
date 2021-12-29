@@ -1,10 +1,12 @@
-﻿using System;
+﻿using BiDegree.Models;
+using System;
 
 namespace BiDegree.Shared
 {
     public class StateContainer
     {
         private float currentTemp;
+        private DisplayItemType displayItemType;
 
         public float CurrentTemp
         {
@@ -12,6 +14,16 @@ namespace BiDegree.Shared
             set
             {
                 currentTemp = value;
+                NotifyStateChanged();
+            }
+        }
+
+        public DisplayItemType DisplayItemType
+        {
+            get => displayItemType;
+            set
+            {
+                displayItemType = value;
                 NotifyStateChanged();
             }
         }
