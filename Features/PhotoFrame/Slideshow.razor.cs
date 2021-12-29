@@ -82,43 +82,60 @@ namespace BiDegree.Features.PhotoFrame
                 Console.WriteLine($"ERROR fetching next item to load.");
             }
 
-            if (_nextItem.ItemType == DisplayItemType.Image)
+            switch (_nextItem.ItemType)
             {
-                if (_imgTop.CssClass == VISIBLE)
-                {
-                    _imgBottom = _nextItem;
-                    _imgBottom.CssClass = TRANSPARENT;
-                }
-                else
-                {
-                    _imgTop = _nextItem;
-                    _imgTop.CssClass = TRANSPARENT;
-                }
-            }
-
-            if (_nextItem.ItemType == DisplayItemType.Video)
-            {
-                string videoId;
-
-                if (_videoTop.CssClass == VISIBLE)
-                {
-                    _videoBottom = _nextItem;
-                    _videoBottom.CssClass = TRANSPARENT;
-                    videoId = VIDEO_BOTTOM_ID;
-                }
-                else
-                {
-                    _videoTop = _nextItem;
-                    _videoTop.CssClass = TRANSPARENT;
-                    videoId = VIDEO_TOP_ID;
-                }
-
-                await JS.InvokeVoidAsync("playVideo", videoId, false);
-
+                case DisplayItemType.Image:
+                    ShowImageType();
+                    break;
+                case DisplayItemType.Video:
+                    string videoId = ShowVideoType();
+                    await JS.InvokeVoidAsync("playVideo", videoId, false);
+                    break;
+                case DisplayItemType.Weather:
+                    ShowWeatherType();
+                    break;
+                default:
+                    break;
             }
 
             StateHasChanged();
 
+        }
+
+        private void ShowImageType()
+        {
+            if (_imgTop.CssClass == VISIBLE)
+            {
+                _imgBottom = _nextItem;
+                _imgBottom.CssClass = TRANSPARENT;
+            }
+            else
+            {
+                _imgTop = _nextItem;
+                _imgTop.CssClass = TRANSPARENT;
+            }
+        }
+
+        private string ShowVideoType()
+        {
+            if (_videoTop.CssClass == VISIBLE)
+            {
+                _videoBottom = _nextItem;
+                _videoBottom.CssClass = TRANSPARENT;
+                return VIDEO_BOTTOM_ID;
+            }
+
+            _videoTop = _nextItem;
+            _videoTop.CssClass = TRANSPARENT;
+            return VIDEO_TOP_ID;
+        }
+
+        private void ShowWeatherType()
+        {
+            _imgTop.CssClass = TRANSPARENT;
+            _imgBottom.CssClass = TRANSPARENT;
+            _videoTop.CssClass = TRANSPARENT;
+            _videoBottom.CssClass = TRANSPARENT;
         }
 
 
