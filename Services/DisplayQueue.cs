@@ -14,6 +14,7 @@ namespace BiDegree.Services
         private readonly IGoogleDriveApi _googleDriveApi;
         private readonly ILocalStorageService _localStorage;
         private List<DisplayItem> _queue;
+        private static readonly int _beforeWeatherImagesCount = 0;
 
         public DisplayQueue(IGoogleDriveApi googleDriveApi, ILocalStorageService localStorageService)
         {
@@ -34,7 +35,25 @@ namespace BiDegree.Services
             return displayInOrder == null || !(bool)displayInOrder;
         }
 
+        private async Task<(int count, int duration)> GetImageCountAndDurationBeforeShowWeatherAsync()
+        {
+            var showFullWeatherInPicturesValue = await _localStorage.GetItemAsStringAsync(Constants.KeyName_ShowFullWeatherInPictures);
+            if (showFullWeatherInPicturesValue.Contains("."))
+            {
+                var storedValues = showFullWeatherInPicturesValue.Split('.');
 
+                _ = int.TryParse(storedValues[0], out int imageCountToShowWeather);
+                _ = int.TryParse(storedValues[1], out int duration);
+
+                if(imageCountToShowWeather > 0 && duration > 0)
+                {
+                    return (imageCountToShowWeather, duration);
+                }
+            }
+
+            return (0, 0);
+
+        }
         public async Task<double> GetDisplayTimeAsync()
         {
             var storedDuration = await _localStorage.GetItemAsync<double?>(Constants.KeyName_ShowTime);
@@ -70,7 +89,7 @@ namespace BiDegree.Services
                 if (await IsShuffled())
                 {
                     var storedQueue = await GetStoredQueue();
-                    if(storedQueue?.Count > 0)
+                    if (storedQueue?.Count > 0)
                     {
                         _queue = storedQueue;
                     }
@@ -225,7 +244,7 @@ namespace BiDegree.Services
         {
             var queue = await _localStorage.GetItemAsync<List<DisplayItem>>(Constants.KeyName_DisplayQueue);
             return queue;
-                
+
         }
 
         private async Task<DriveFileList> GetDriveFileList()
