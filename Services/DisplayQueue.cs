@@ -37,23 +37,24 @@ namespace BiDegree.Services
             return displayInOrder == null || !(bool)displayInOrder;
         }
 
-        private async Task<(int imageCount, int duration)> GetWeatherExtendedValuesAsync()
+        private async Task<(int imageCount, int duration)?> GetWeatherExtendedValuesAsync()
         {
-            var showFullWeatherInPicturesValue = await _localStorage.GetItemAsStringAsync(Constants.KeyName_WeatherExtended);
-            if (showFullWeatherInPicturesValue.Contains("."))
+            var weatherExtendedValues = await _localStorage.GetItemAsStringAsync(Constants.KeyName_WeatherExtended);
+
+            if (weatherExtendedValues != null && weatherExtendedValues.Contains("."))
             {
-                var storedValues = showFullWeatherInPicturesValue.Split('.');
+                var storedValues = weatherExtendedValues.Split('.');
 
                 _ = int.TryParse(storedValues[0], out int imageCountToShowWeather);
                 _ = int.TryParse(storedValues[1], out int duration);
 
-                if(imageCountToShowWeather > 0 && duration > 0)
+                if (imageCountToShowWeather > 0 && duration > 0)
                 {
                     return (imageCountToShowWeather, duration);
                 }
             }
 
-            return (0, 0);
+            return null;
 
         }
         public async Task<double> GetDisplayTimeAsync()
@@ -90,7 +91,7 @@ namespace BiDegree.Services
                 _stateContainer.DisplayWeatherWidgetType = DisplayWeatherWidgetType.Extended;
                 return displayItem;
             }
-            
+
             _stateContainer.DisplayWeatherWidgetType = DisplayWeatherWidgetType.Standard;
 
             _queue.Remove(displayItem);

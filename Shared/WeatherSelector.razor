@@ -1,6 +1,26 @@
-﻿@inject StateContainer StateContainer
-<WeatherWidgetExtended />
+﻿@using BiDegree.Models
+@inject StateContainer StateContainer
 
+@switch (StateContainer.DisplayWeatherWidgetType)
+{
+    case DisplayWeatherWidgetType.Extended:
+        <WeatherWidgetExtended />
+        break;
+    default:
+        <WeatherWidget />
+        break;
+}
 @code {
+    private DisplayWeatherWidgetType displayWeatherType = DisplayWeatherWidgetType.Standard;
 
+    protected override void OnInitialized()
+    {
+        StateContainer.OnChange += StateContainerHasChanged;
+        base.OnInitialized();
+    }
+
+    private void StateContainerHasChanged()
+    {
+        StateHasChanged();
+    }
 }
