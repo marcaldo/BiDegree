@@ -1,5 +1,6 @@
 ﻿using BiDegree.Models;
 using BiDegree.Services;
+using BiDegree.Shared;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System;
@@ -11,6 +12,8 @@ namespace BiDegree.Features.PhotoFrame
     {
         [Inject] IDisplayQueue DisplayQueue { get; set; }
         [Inject] IJSRuntime JS { get; set; }
+        [Inject] StateContainer StateContainer { get; set; }
+
         [Parameter] public bool DebugMode { get; set; } = false;
 
         private const string TRANSPARENT = "transparent";
