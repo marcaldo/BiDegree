@@ -9,18 +9,10 @@
 
     @if (TemperatureFormat != TemperatureFormatType.None)
     {
-        <WeatherWidget />
+        <WeatherSelector />
     }
 </div>
-@*<ImageShow />*@
 
-<Slideshow @ref="slideshow" DebugMode="false" />
-
-@*<div class="footer">
-    <NavMenu/>
-</div>*@
-
-
-@*<PictureDisplay />*@
+<Slideshow @ref="slideshow" />
 
 
