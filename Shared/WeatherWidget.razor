@@ -2,17 +2,42 @@
 @using BiDegree.Shared
 @using System.Globalization
 @using Blazored.LocalStorage
+@inject StateContainer StateContainer
 
 @inherits WeatherBase
 
 @if (IsVisibleWeatherComponent && CurrentWeather != null)
 {
-    <div class="tempWidget">
-        @{
-            string weatherIcon = $"w{CurrentWeather.weather[0].icon}";
-            <IconWeather Name="@weatherIcon" Size="90" />
-            <TemperatureValues Value="CurrentWeather.main.temp" Units="Units" />
-        }
-    </div>
+    if (showFullWheather)
+    {
+        <WeatherWidgetFull />
+    }
+    else
+    {
+        <div class="tempWidget">
+            @{
+                string weatherIcon = $"w{CurrentWeather.weather[0].icon}";
+                <IconWeather Name="@weatherIcon" Size="90" />
+                <TemperatureValues Value="CurrentWeather.main.temp" Units="Units" />
+            }
+        </div>
+    }
+}
+
+@code {
+
+    private bool showFullWheather = false;
+
+    protected override void OnInitialized()
+    {
+        StateContainer.OnChange += StateContainerHasChanged;
+        base.OnInitialized();
+    }
+
+    private void StateContainerHasChanged()
+    {
+        showFullWheather = StateContainer.DisplayItemType == DisplayItemType.Weather;
+        base.StateHasChanged();
+    }
 }
 

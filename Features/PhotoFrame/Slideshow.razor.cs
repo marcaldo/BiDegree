@@ -52,13 +52,10 @@ namespace BiDegree.Features.PhotoFrame
                 case DisplayItemType.Video:
                     _videoTop = firstItem;
                     _videoTop.CssClass = VISIBLE;
-                    await JS.InvokeVoidAsync("playVideo", VIDEO_TOP_ID, true);
+                    await JS.InvokeVoidAsync ("playVideo", VIDEO_TOP_ID, true);
                     break;
                 case DisplayItemType.Weather:
-                    _imgTop.CssClass = TRANSPARENT;
-                    _imgBottom.CssClass = TRANSPARENT;
-                    _videoTop.CssClass = TRANSPARENT;
-                    _videoBottom.CssClass = TRANSPARENT;
+                    ShowWeatherType();
                     break;
                 default:
                     break;
@@ -98,6 +95,8 @@ namespace BiDegree.Features.PhotoFrame
                     break;
             }
 
+            StateContainer.DisplayItemType = _nextItem.ItemType;
+
             StateHasChanged();
 
         }
@@ -132,10 +131,16 @@ namespace BiDegree.Features.PhotoFrame
 
         private void ShowWeatherType()
         {
-            _imgTop.CssClass = TRANSPARENT;
-            _imgBottom.CssClass = TRANSPARENT;
-            _videoTop.CssClass = TRANSPARENT;
-            _videoBottom.CssClass = TRANSPARENT;
+            if (_imgTop.CssClass == VISIBLE || _videoTop.CssClass == VISIBLE)
+            {
+                _imgBottom.CssClass = TRANSPARENT;
+                _videoBottom.CssClass = TRANSPARENT;
+            }
+            else
+            {
+                _imgTop.CssClass = TRANSPARENT;
+                _videoTop.CssClass = TRANSPARENT;
+            }
         }
 
 

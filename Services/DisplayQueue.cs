@@ -1,7 +1,6 @@
 ﻿using BiDegree.Models;
 using BiDegree.Shared;
 using Blazored.LocalStorage;
-using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +13,7 @@ namespace BiDegree.Services
         private readonly IGoogleDriveApi _googleDriveApi;
         private readonly ILocalStorageService _localStorage;
         private List<DisplayItem> _queue;
-        private static readonly int _beforeWeatherImagesCount = 0;
+        private static int _imageCountToShowWeather;
 
         public DisplayQueue(IGoogleDriveApi googleDriveApi, ILocalStorageService localStorageService)
         {
@@ -35,9 +34,11 @@ namespace BiDegree.Services
             return displayInOrder == null || !(bool)displayInOrder;
         }
 
-        private async Task<(int count, int duration)> GetImageCountAndDurationBeforeShowWeatherAsync()
+        private async Task<(int imageCount, int duration)?> GetImageCountAndDurationBeforeShowWeatherAsync()
         {
             var showFullWeatherInPicturesValue = await _localStorage.GetItemAsStringAsync(Constants.KeyName_ShowFullWeatherInPictures);
+            if (showFullWeatherInPicturesValue == null) { return null; }
+
             if (showFullWeatherInPicturesValue.Contains("."))
             {
                 var storedValues = showFullWeatherInPicturesValue.Split('.');
@@ -45,13 +46,13 @@ namespace BiDegree.Services
                 _ = int.TryParse(storedValues[0], out int imageCountToShowWeather);
                 _ = int.TryParse(storedValues[1], out int duration);
 
-                if(imageCountToShowWeather > 0 && duration > 0)
+                if (imageCountToShowWeather > 0 && duration > 0)
                 {
                     return (imageCountToShowWeather, duration);
                 }
             }
 
-            return (0, 0);
+            return null;
 
         }
         public async Task<double> GetDisplayTimeAsync()
@@ -68,12 +69,30 @@ namespace BiDegree.Services
 
         public async Task<DisplayItem> GetNextItemAsync()
         {
+            (int imageCount, int duration)? showFullWeather = default;
+
             if (_queue.Count == 0)
             {
                 _queue = await GetDisplayQueueAsync();
+
+                showFullWeather = await GetImageCountAndDurationBeforeShowWeatherAsync();
+                if (showFullWeather.HasValue)
+                {
+                    _imageCountToShowWeather = showFullWeather.Value.imageCount;
+                }
             }
 
             var displayItem = _queue.FirstOrDefault();
+
+            if (_imageCountToShowWeather-- == 0)
+            {
+                Console.WriteLine($"----------- counter: {_imageCountToShowWeather}");
+
+                displayItem.ItemType = DisplayItemType.Weather;
+
+                return displayItem;
+            }
+
 
             _queue.Remove(displayItem);
 
