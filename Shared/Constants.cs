@@ -23,7 +23,7 @@
         public const string KeyName_Dev_DebugMode = "dm";
         public const string KeyName_Dev_PictureCount = "picCount";
         public const string KeyName_DisplayQueue = "queue";
-        public const string KeyName_ShowFullWeatherInPictures = "weatherpic";
+        public const string KeyName_WeatherExtended = "weatherExt";
 
         public const string DefaultValue_StartingPage = "weather";
         public const int DefaultValue_Refresh = 60;

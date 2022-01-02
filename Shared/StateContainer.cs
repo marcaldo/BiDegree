@@ -17,9 +17,10 @@ namespace BiDegree.Shared
                 NotifyStateChanged();
             }
         }
+
         public DisplayWeatherWidgetType DisplayWeatherWidgetType
         {
-            get => DisplayWeatherWidgetType;
+            get => displayWeatherWidgetType;
             set
             {
                 displayWeatherWidgetType = value;

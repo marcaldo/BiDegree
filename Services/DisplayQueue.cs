@@ -13,13 +13,15 @@ namespace BiDegree.Services
     {
         private readonly IGoogleDriveApi _googleDriveApi;
         private readonly ILocalStorageService _localStorage;
+        private readonly StateContainer _stateContainer;
         private List<DisplayItem> _queue;
-        private static readonly int _beforeWeatherImagesCount = 0;
+        private static int _imageCountToShowWeather;
 
-        public DisplayQueue(IGoogleDriveApi googleDriveApi, ILocalStorageService localStorageService)
+        public DisplayQueue(IGoogleDriveApi googleDriveApi, ILocalStorageService localStorageService, StateContainer stateContainer)
         {
             _googleDriveApi = googleDriveApi;
             _localStorage = localStorageService;
+            _stateContainer = stateContainer;
             _queue = new List<DisplayItem>();
         }
 
@@ -35,9 +37,9 @@ namespace BiDegree.Services
             return displayInOrder == null || !(bool)displayInOrder;
         }
 
-        private async Task<(int count, int duration)> GetImageCountAndDurationBeforeShowWeatherAsync()
+        private async Task<(int imageCount, int duration)> GetWeatherExtendedValuesAsync()
         {
-            var showFullWeatherInPicturesValue = await _localStorage.GetItemAsStringAsync(Constants.KeyName_ShowFullWeatherInPictures);
+            var showFullWeatherInPicturesValue = await _localStorage.GetItemAsStringAsync(Constants.KeyName_WeatherExtended);
             if (showFullWeatherInPicturesValue.Contains("."))
             {
                 var storedValues = showFullWeatherInPicturesValue.Split('.');
@@ -68,12 +70,28 @@ namespace BiDegree.Services
 
         public async Task<DisplayItem> GetNextItemAsync()
         {
+            (int imageCount, int duration)? weatherExtendedValues = default;
+
             if (_queue.Count == 0)
             {
                 _queue = await GetDisplayQueueAsync();
+
+                weatherExtendedValues = await GetWeatherExtendedValuesAsync();
+                if (weatherExtendedValues.HasValue)
+                {
+                    _imageCountToShowWeather = weatherExtendedValues.Value.imageCount;
+                }
             }
 
             var displayItem = _queue.FirstOrDefault();
+
+            if (_imageCountToShowWeather-- == 0)
+            {
+                _stateContainer.DisplayWeatherWidgetType = DisplayWeatherWidgetType.Extended;
+                return displayItem;
+            }
+            
+            _stateContainer.DisplayWeatherWidgetType = DisplayWeatherWidgetType.Standard;
 
             _queue.Remove(displayItem);
 
