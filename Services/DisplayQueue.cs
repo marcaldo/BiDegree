@@ -40,7 +40,6 @@ namespace BiDegree.Services
         private async Task<(int imageCount, int duration)?> GetWeatherExtendedValuesAsync()
         {
             var weatherExtendedValues = await _localStorage.GetItemAsStringAsync(Constants.KeyName_WeatherExtended);
-
             if (weatherExtendedValues != null && weatherExtendedValues.Contains("."))
             {
                 var storedValues = weatherExtendedValues.Split('.');
@@ -71,6 +70,19 @@ namespace BiDegree.Services
 
         public async Task<DisplayItem> GetNextItemAsync()
         {
+            //await SetWeatherDisplayType();
+
+            var displayItem = _queue.FirstOrDefault();
+
+            _queue.Remove(displayItem);
+
+            await StoreQueue(_queue);
+
+            return displayItem;
+        }
+
+        private async Task SetWeatherDisplayType()
+        {
             (int imageCount, int duration)? weatherExtendedValues = default;
 
             if (_queue.Count == 0)
@@ -84,21 +96,13 @@ namespace BiDegree.Services
                 }
             }
 
-            var displayItem = _queue.FirstOrDefault();
-
             if (_imageCountToShowWeather-- == 0)
             {
                 _stateContainer.DisplayWeatherWidgetType = DisplayWeatherWidgetType.Extended;
-                return displayItem;
             }
 
             _stateContainer.DisplayWeatherWidgetType = DisplayWeatherWidgetType.Standard;
-
-            _queue.Remove(displayItem);
-
-            await StoreQueue(_queue);
-
-            return displayItem;
+            _imageCountToShowWeather = weatherExtendedValues.Value.imageCount;
         }
 
         public async Task<List<DisplayItem>> GetDisplayQueueAsync()

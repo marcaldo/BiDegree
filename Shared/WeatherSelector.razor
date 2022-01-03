@@ -1,7 +1,7 @@
 ﻿@using BiDegree.Models
 @inject StateContainer StateContainer
 
-@switch (StateContainer.DisplayWeatherWidgetType)
+@switch (displayWeatherType)
 {
     case DisplayWeatherWidgetType.Extended:
         <WeatherWidgetExtended />
@@ -21,6 +21,7 @@
 
     private void StateContainerHasChanged()
     {
+        displayWeatherType = StateContainer.DisplayWeatherWidgetType;
         StateHasChanged();
     }
 }
