@@ -70,19 +70,6 @@ namespace BiDegree.Services
 
         public async Task<DisplayItem> GetNextItemAsync()
         {
-            //await SetWeatherDisplayType();
-
-            var displayItem = _queue.FirstOrDefault();
-
-            _queue.Remove(displayItem);
-
-            await StoreQueue(_queue);
-
-            return displayItem;
-        }
-
-        private async Task SetWeatherDisplayType()
-        {
             (int imageCount, int duration)? weatherExtendedValues = default;
 
             if (_queue.Count == 0)
@@ -99,10 +86,25 @@ namespace BiDegree.Services
             if (_imageCountToShowWeather-- == 0)
             {
                 _stateContainer.DisplayWeatherWidgetType = DisplayWeatherWidgetType.Extended;
+
+                if (weatherExtendedValues.HasValue)
+                {
+                    _imageCountToShowWeather = weatherExtendedValues.Value.imageCount;
+                }
             }
 
-            _stateContainer.DisplayWeatherWidgetType = DisplayWeatherWidgetType.Standard;
-            _imageCountToShowWeather = weatherExtendedValues.Value.imageCount;
+            var displayItem = _queue.FirstOrDefault();
+
+            _queue.Remove(displayItem);
+
+            await StoreQueue(_queue);
+
+            return displayItem;
+        }
+
+        private async Task SetWeatherDisplayType()
+        {
+
         }
 
         public async Task<List<DisplayItem>> GetDisplayQueueAsync()
