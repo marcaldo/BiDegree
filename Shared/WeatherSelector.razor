@@ -1,8 +1,9 @@
 ﻿@using BiDegree.Models
+@using BiDegree.Services
 @using Blazored.LocalStorage
 @using System.Timers
 @inject StateContainer StateContainer
-@inject ILocalStorageService LocalStorage
+@inject ISettingValuesService SettingValuesService
 
 @switch (displayWeatherType)
 {
@@ -14,9 +15,6 @@
         break;
 }
 
-@*<WeatherWidget />*@
-@*<WeatherWidgetExtended />*@
-
 @code {
     private DisplayWeatherWidgetType displayWeatherType = DisplayWeatherWidgetType.Standard;
     private (int wait, int duration) weatherExtendedValues = (0, 0);
@@ -25,7 +23,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        weatherExtendedValues = await GetWeatherExtendedValuesAsync();
+        weatherExtendedValues = await SettingValuesService.GetWeatherExtendedValuesAsync();
 
         if (weatherExtendedValues.wait > 0)
         {
@@ -41,26 +39,6 @@
         }
     }
 
-
-    private async Task<(int imageCount, int duration)> GetWeatherExtendedValuesAsync()
-    {
-        var weatherExtendedValues = await LocalStorage.GetItemAsStringAsync(Constants.KeyName_WeatherExtended);
-        if (weatherExtendedValues != null && weatherExtendedValues.Contains("."))
-        {
-            var storedValues = weatherExtendedValues.Split('.');
-
-            _ = int.TryParse(storedValues[0], out int imageCountToShowWeather);
-            _ = int.TryParse(storedValues[1], out int duration);
-
-            if (imageCountToShowWeather > 0 && duration > 0)
-            {
-                const int ms = 1000;
-                return (imageCountToShowWeather * ms, duration * ms);
-            }
-        }
-
-        return (0, 0);
-    }
 
     private void StateContainerHasChanged()
     {
