@@ -13,12 +13,15 @@
         <WeatherWidget />
         break;
 }
+
+@*<WeatherWidget />*@
+@*<WeatherWidgetExtended />*@
+
 @code {
     private DisplayWeatherWidgetType displayWeatherType = DisplayWeatherWidgetType.Standard;
     private (int wait, int duration) weatherExtendedValues = (0, 0);
     private Timer tWait;
     private Timer tDuration;
-
 
     protected override async Task OnInitializedAsync()
     {
