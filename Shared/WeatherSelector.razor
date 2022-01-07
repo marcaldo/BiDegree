@@ -1,5 +1,8 @@
 ﻿@using BiDegree.Models
+@using Blazored.LocalStorage
+@using System.Timers
 @inject StateContainer StateContainer
+@inject ILocalStorageService LocalStorage
 
 @switch (displayWeatherType)
 {
@@ -12,16 +15,76 @@
 }
 @code {
     private DisplayWeatherWidgetType displayWeatherType = DisplayWeatherWidgetType.Standard;
+    private (int wait, int duration) weatherExtendedValues = (0, 0);
+    private Timer tWait;
+    private Timer tDuration;
 
-    protected override void OnInitialized()
+
+    protected override async Task OnInitializedAsync()
     {
-        StateContainer.OnChange += StateContainerHasChanged;
-        base.OnInitialized();
+        weatherExtendedValues = await GetWeatherExtendedValuesAsync();
+
+        if (weatherExtendedValues.wait > 0)
+        {
+            tWait = new();
+            tWait.Elapsed += TWait_Elapsed;
+            tWait.Interval = weatherExtendedValues.wait;
+            tWait.Enabled = true;
+
+            tDuration = new();
+            tDuration.Elapsed += TDuration_Elapsed;
+            tDuration.Interval = weatherExtendedValues.duration;
+            tDuration.Enabled = false;
+        }
+    }
+
+
+    private async Task<(int imageCount, int duration)> GetWeatherExtendedValuesAsync()
+    {
+        var weatherExtendedValues = await LocalStorage.GetItemAsStringAsync(Constants.KeyName_WeatherExtended);
+        if (weatherExtendedValues != null && weatherExtendedValues.Contains("."))
+        {
+            var storedValues = weatherExtendedValues.Split('.');
+
+            _ = int.TryParse(storedValues[0], out int imageCountToShowWeather);
+            _ = int.TryParse(storedValues[1], out int duration);
+
+            if (imageCountToShowWeather > 0 && duration > 0)
+            {
+                const int ms = 1000;
+                return (imageCountToShowWeather * ms, duration * ms);
+            }
+        }
+
+        return (0, 0);
     }
 
     private void StateContainerHasChanged()
     {
         displayWeatherType = StateContainer.DisplayWeatherWidgetType;
+        StateHasChanged();
+    }
+
+
+    private void TWait_Elapsed(object _, ElapsedEventArgs e)
+    {
+        tWait.Stop();
+        tWait.Enabled = false;
+        tDuration.Enabled = true;
+
+        displayWeatherType = DisplayWeatherWidgetType.Extended;
+
+        StateHasChanged();
+    }
+
+    private void TDuration_Elapsed(object _, ElapsedEventArgs e)
+    {
+        tDuration.Stop();
+        tDuration.Enabled = false;
+        tWait.Enabled = true;
+
+        displayWeatherType = DisplayWeatherWidgetType.Standard;
+
         StateHasChanged();
     }
 }

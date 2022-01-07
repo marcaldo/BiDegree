@@ -13,15 +13,12 @@ namespace BiDegree.Services
     {
         private readonly IGoogleDriveApi _googleDriveApi;
         private readonly ILocalStorageService _localStorage;
-        private readonly StateContainer _stateContainer;
         private List<DisplayItem> _queue;
-        private static int _imageCountToShowWeather;
 
-        public DisplayQueue(IGoogleDriveApi googleDriveApi, ILocalStorageService localStorageService, StateContainer stateContainer)
+        public DisplayQueue(IGoogleDriveApi googleDriveApi, ILocalStorageService localStorageService)
         {
             _googleDriveApi = googleDriveApi;
             _localStorage = localStorageService;
-            _stateContainer = stateContainer;
             _queue = new List<DisplayItem>();
         }
 
@@ -37,25 +34,6 @@ namespace BiDegree.Services
             return displayInOrder == null || !(bool)displayInOrder;
         }
 
-        private async Task<(int imageCount, int duration)?> GetWeatherExtendedValuesAsync()
-        {
-            var weatherExtendedValues = await _localStorage.GetItemAsStringAsync(Constants.KeyName_WeatherExtended);
-            if (weatherExtendedValues != null && weatherExtendedValues.Contains("."))
-            {
-                var storedValues = weatherExtendedValues.Split('.');
-
-                _ = int.TryParse(storedValues[0], out int imageCountToShowWeather);
-                _ = int.TryParse(storedValues[1], out int duration);
-
-                if (imageCountToShowWeather > 0 && duration > 0)
-                {
-                    return (imageCountToShowWeather, duration);
-                }
-            }
-
-            return null;
-
-        }
         public async Task<double> GetDisplayTimeAsync()
         {
             var storedDuration = await _localStorage.GetItemAsync<double?>(Constants.KeyName_ShowTime);
@@ -70,27 +48,11 @@ namespace BiDegree.Services
 
         public async Task<DisplayItem> GetNextItemAsync()
         {
-            (int imageCount, int duration)? weatherExtendedValues = default;
+            //(int imageCount, int duration) weatherExtendedValues = (0, 0);
 
             if (_queue.Count == 0)
             {
                 _queue = await GetDisplayQueueAsync();
-
-                weatherExtendedValues = await GetWeatherExtendedValuesAsync();
-                if (weatherExtendedValues.HasValue)
-                {
-                    _imageCountToShowWeather = weatherExtendedValues.Value.imageCount;
-                }
-            }
-
-            if (_imageCountToShowWeather-- == 0)
-            {
-                _stateContainer.DisplayWeatherWidgetType = DisplayWeatherWidgetType.Extended;
-
-                if (weatherExtendedValues.HasValue)
-                {
-                    _imageCountToShowWeather = weatherExtendedValues.Value.imageCount;
-                }
             }
 
             var displayItem = _queue.FirstOrDefault();
@@ -102,10 +64,6 @@ namespace BiDegree.Services
             return displayItem;
         }
 
-        private async Task SetWeatherDisplayType()
-        {
-
-        }
 
         public async Task<List<DisplayItem>> GetDisplayQueueAsync()
         {

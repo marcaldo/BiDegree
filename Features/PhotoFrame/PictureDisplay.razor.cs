@@ -131,7 +131,7 @@ namespace BiDegree.Features.PhotoFrame
                 }
 
                 var ampPos = driveFile.webContentLink.IndexOf("&");
-                var link = driveFile.webContentLink.Substring(0, ampPos);
+                var link = driveFile.webContentLink[..ampPos];
 
                 var itemAdded = false;
 
