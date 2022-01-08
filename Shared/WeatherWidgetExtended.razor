@@ -130,7 +130,7 @@
     {
         var datePattern = DateTimeFormatInfo.CurrentInfo.MonthDayPattern;
         var timePattern = DateTimeFormatInfo.CurrentInfo.ShortTimePattern;
-        return DateTime.Now.ToString($"{datePattern}, {timePattern}");
+        return base.LastWeatherUpdate.ToString($"{datePattern}, {timePattern}");
     }
 }
 

@@ -5,14 +5,13 @@
 @inject StateContainer StateContainer
 @inject ISettingValuesService SettingValuesService
 
-@switch (displayWeatherType)
+@if (displayWeatherType == DisplayWeatherWidgetType.Extended)
 {
-    case DisplayWeatherWidgetType.Extended:
-        <WeatherWidgetExtended />
-        break;
-    default:
-        <WeatherWidget />
-        break;
+    <WeatherWidgetExtended />
+}
+else
+{
+    <WeatherWidget />
 }
 
 @code {
@@ -32,20 +31,21 @@
             tWait.Interval = weatherExtendedValues.wait;
             tWait.Enabled = true;
 
-            tDuration = new();
-            tDuration.Elapsed += TDuration_Elapsed;
-            tDuration.Interval = weatherExtendedValues.duration;
-            tDuration.Enabled = false;
+            if (weatherExtendedValues.duration > 0)
+            {
+                tDuration = new();
+                tDuration.Elapsed += TDuration_Elapsed;
+                tDuration.Interval = weatherExtendedValues.duration;
+                tDuration.Enabled = false;
+            }
         }
     }
-
 
     private void StateContainerHasChanged()
     {
         displayWeatherType = StateContainer.DisplayWeatherWidgetType;
         StateHasChanged();
     }
-
 
     private void TWait_Elapsed(object _, ElapsedEventArgs e)
     {
