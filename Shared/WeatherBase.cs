@@ -16,6 +16,7 @@ namespace BiDegree.Shared
         [Inject] IWeatherApi OpenWeather { get; set; }
         [Inject] IJSRuntime JS { get; set; }
         [Inject] ILocalStorageService LocalStorage { get; set; }
+        [Inject] StateContainer StateContainer { get; set; }
 
         protected static Func<float, float, Task> getWeatherFunc;
         protected string errorMessage = null;
@@ -23,8 +24,11 @@ namespace BiDegree.Shared
         protected bool useCity = false;
         protected string city = null;
         protected bool IsVisibleWeatherComponent;
+        protected int tGertWeatherMinutes;
+
         protected TimeFormatType TimeFormat { get; set; }
         protected DateFormatType DateFormat { get; set; }
+        protected DateTime LastWeatherUpdate { get; set; }
         protected CurrentWeather CurrentWeather { get; set; }
         protected UnitsType Units;
 
@@ -50,8 +54,8 @@ namespace BiDegree.Shared
             useCity = await LocalStorage.GetItemAsync<bool>(Constants.KeyName_UseCity);
             city = await LocalStorage.GetItemAsync<string>(Constants.KeyName_City);
 
-            var storedRefreshMinutes = await LocalStorage.GetItemAsync<int?>(Constants.KeyName_RefreshTime);
-            int refreshMinutes = storedRefreshMinutes is null
+            var storedRefreshMinutes = await LocalStorage.GetItemAsync<int?>(Constants.KeyName_WeatherRefreshTimer);
+            tGertWeatherMinutes = storedRefreshMinutes is null
                                     ? Constants.DefaultValue_Refresh
                                     : Convert.ToInt32(storedRefreshMinutes);
 
@@ -64,10 +68,10 @@ namespace BiDegree.Shared
             var unitsConfig = await LocalStorage.GetItemAsync<UnitsType?>(Constants.KeyName_Units);
             Units = unitsConfig ?? UnitsType.Metric;
 
-            if (refreshMinutes > 0)
+            if (tGertWeatherMinutes > 0)
             {
                 Timer timer = new();
-                timer.Interval = 1000 * 60 * refreshMinutes;
+                timer.Interval = 1000 * 60 * tGertWeatherMinutes;
                 timer.Elapsed += Timer_Elapsed;
                 timer.Enabled = true;
             }
@@ -105,13 +109,26 @@ namespace BiDegree.Shared
         {
             try
             {
-                if (useCity)
+                if (StateContainer.WeatherStatus.CurrentWeather != null && DateTime.Now < StateContainer.WeatherStatus.NextWeatherApiCall)
                 {
-                    CurrentWeather = await OpenWeather.GetCurrentWeatherByCity(city, Units.ToString().ToLower());
+                    CurrentWeather = StateContainer.WeatherStatus.CurrentWeather;
+                    LastWeatherUpdate = StateContainer.WeatherStatus.LastUpdated;
                 }
                 else
                 {
-                    CurrentWeather = await OpenWeather.GetCurrentWeatherByCoords(lat, lon, Units.ToString().ToLower());
+                    if (useCity)
+                    {
+                        CurrentWeather = await OpenWeather.GetCurrentWeatherByCity(city, Units.ToString().ToLower());
+                    }
+                    else
+                    {
+                        CurrentWeather = await OpenWeather.GetCurrentWeatherByCoords(lat, lon, Units.ToString().ToLower());
+                    }
+
+                    LastWeatherUpdate = DateTime.Now;
+                    StateContainer.WeatherStatus.CurrentWeather = CurrentWeather;
+                    StateContainer.WeatherStatus.LastUpdated = LastWeatherUpdate;
+                    StateContainer.WeatherStatus.NextWeatherApiCall = LastWeatherUpdate.AddMinutes(tGertWeatherMinutes);
                 }
             }
             catch (HttpRequestException ex)

@@ -71,7 +71,7 @@
     protected override void OnInitialized()
     {
         Units = LocalStorage.GetItem<UnitsType?>(Constants.KeyName_Units) ?? UnitsType.Metric;
-        selectedTemp = StateContainer.CurrentTemp;
+        selectedTemp =  StateContainer.WeatherStatus.CurrentWeather.main.temp;
         SetValues();
     }
 

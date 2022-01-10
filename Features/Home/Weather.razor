@@ -4,160 +4,160 @@
 @inject ILocalStorageService LocalStorage
 
 <style>
-	/* Full background image from https://www.w3schools.com/howto/howto_css_full_page.asp */
-	body {
-		background-image: url("@bgImage");
-		height: 100%;
-		background-position: center;
-		background-repeat: no-repeat;
-		background-size: cover;
-	}
+    /* Full background image from https://www.w3schools.com/howto/howto_css_full_page.asp */
+    body {
+        background-image: url("@bgImage");
+        height: 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
 </style>
 <div class="weather">
-	<div class="status">
-		<div class="datetime">
-			<Clock />
-		</div>
-		<div class="icon">
-			<IconWeather Name="@weatherIcon" Size="150" />
-			<div class="place">
-				<div class="city">@CurrentWeather.name</div>
-				<div class="lastupd" @onclick="() => OnClick.InvokeAsync()">
-					@RefreshTime()&nbsp;<Icon Name="Icon.IconType.Refresh" Size="20" />
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="temp">
-		<TemperatureValues Value="CurrentWeather.main.temp" Units="Units" />
-	</div>
+    <div class="status">
+        <div class="datetime">
+            <Clock />
+        </div>
+        <div class="icon">
+            <IconWeather Name="@weatherIcon" Size="150" />
+            <div class="place">
+                <div class="city">@CurrentWeather.name</div>
+                <div class="lastupd" @onclick="() => OnClick.InvokeAsync()">
+                    @RefreshTime()&nbsp;<Icon Name="Icon.IconType.Refresh" Size="20" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="temp">
+        <TemperatureValues Value="CurrentWeather.main.temp" Units="Units" />
+    </div>
 
-	<div class="humid-wind">
-		<div class="humid-wind-val">
-			<Icon Name="Icon.IconType.Humidity" />
-			<div>@CurrentWeather.main.humidity <small>%</small></div>
-		</div>
-		<div class="humid-wind-val">
-			<Icon Name="Icon.IconType.Wind" />
-			<div>
-				@windSpeed.ToDecimalString() <small>@windSpeedUnits</small>
-			</div>
-			<div style="transform: rotate(@windDir);">
-				<Icon Name="Icon.IconType.WindDirecction" Size="32" />
+    <div class="humid-wind">
+        <div class="humid-wind-val">
+            <Icon Name="Icon.IconType.Humidity" />
+            <div>@CurrentWeather.main.humidity <small>%</small></div>
+        </div>
+        <div class="humid-wind-val">
+            <Icon Name="Icon.IconType.Wind" />
+            <div>
+                @windSpeed.ToDecimalString() <small>@windSpeedUnits</small>
+            </div>
+            <div style="transform: rotate(@windDir);">
+                <Icon Name="Icon.IconType.WindDirecction" Size="32" />
 
-			</div>
-		</div>
-	</div>
-	<div class="more">
-		<table>
-			<tbody>
-				@if (Units is UnitsType.Metric)
-				{
-		<tr>
-		 <td class="title">Min</td>
-		 <td><Icon Name="Icon.IconType.TemperatureLow" Fill="blue" /></td>
-		 <td>@CurrentWeather.main.temp_min.ToDecimalString() °C</td>
-						@if (showBothTemps)
-						{
-			 <td>@CurrentWeather.main.temp_min.ToFahrenheitString() °F</td>
-						}
-		</tr>
-		<tr>
-		 <td class="title">Max</td>
-		 <td><Icon Name="Icon.IconType.TemperatureHigh" Fill="#9e300f" /></td>
-		 <td>@CurrentWeather.main.temp_max.ToDecimalString() °C</td>
-						@if (showBothTemps)
-						{
-			 <td>@CurrentWeather.main.temp_max.ToFahrenheitString() °F</td>
-						}
-		</tr>
-				}
-				else
-				{
-		<tr>
-		 <td class="title">Min</td>
-		 <td><Icon Name="Icon.IconType.TemperatureLow" Fill="blue" /></td>
-		 <td>@CurrentWeather.main.temp_min.ToDecimalString() °F</td>
-						@if (showBothTemps)
-						{
-			 <td>@CurrentWeather.main.temp_min.ToCelsiusString() °C</td>
-						}
-		</tr>
-		<tr>
-		 <td class="title">Max</td>
-		 <td><Icon Name="Icon.IconType.TemperatureHigh" Fill="#9e300f" /></td>
-		 <td>@CurrentWeather.main.temp_max.ToDecimalString() °F</td>
-						@if (showBothTemps)
-						{
-			 <td>@CurrentWeather.main.temp_max.ToCelsiusString() °C</td>
-						}
-		</tr>
-				}
-   </tbody>
-  </table>
- </div>
+            </div>
+        </div>
+    </div>
+    <div class="more">
+        <table>
+            <tbody>
+                @if (Units is UnitsType.Metric)
+                {
+                    <tr>
+                        <td class="title">Min</td>
+                        <td><Icon Name="Icon.IconType.TemperatureLow" Fill="blue" /></td>
+                        <td>@CurrentWeather.main.temp_min.ToDecimalString() °C</td>
+                        @if (showBothTemps)
+                        {
+                            <td>@CurrentWeather.main.temp_min.ToFahrenheitString() °F</td>
+                        }
+                    </tr>
+                    <tr>
+                        <td class="title">Max</td>
+                        <td><Icon Name="Icon.IconType.TemperatureHigh" Fill="#9e300f" /></td>
+                        <td>@CurrentWeather.main.temp_max.ToDecimalString() °C</td>
+                        @if (showBothTemps)
+                        {
+                            <td>@CurrentWeather.main.temp_max.ToFahrenheitString() °F</td>
+                        }
+                    </tr>
+                }
+                else
+                {
+                    <tr>
+                        <td class="title">Min</td>
+                        <td><Icon Name="Icon.IconType.TemperatureLow" Fill="blue" /></td>
+                        <td>@CurrentWeather.main.temp_min.ToDecimalString() °F</td>
+                        @if (showBothTemps)
+                        {
+                            <td>@CurrentWeather.main.temp_min.ToCelsiusString() °C</td>
+                        }
+                    </tr>
+                    <tr>
+                        <td class="title">Max</td>
+                        <td><Icon Name="Icon.IconType.TemperatureHigh" Fill="#9e300f" /></td>
+                        <td>@CurrentWeather.main.temp_max.ToDecimalString() °F</td>
+                        @if (showBothTemps)
+                        {
+                            <td>@CurrentWeather.main.temp_max.ToCelsiusString() °C</td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
 @code {
-	private const string iconUrlBase = "https://openweathermap.org/";
-	private string iconUrl { get; set; }
-	private string bgImage { get; set; }
-	private string windSpeedUnits;
-	private float windSpeed;
-	private string windDir;
-	private bool showBothTemps = true;
+    private const string iconUrlBase = "https://openweathermap.org/";
+    private string iconUrl { get; set; }
+    private string bgImage { get; set; }
+    private string windSpeedUnits;
+    private float windSpeed;
+    private string windDir;
+    private bool showBothTemps = true;
 
 
-	[Parameter] public CurrentWeather CurrentWeather { get; set; }
-	[Parameter] public UnitsType Units { get; set; }
-	[Parameter] public EventCallback<string> OnClick { get; set; }
-	private string weatherIcon;
+    [Parameter] public CurrentWeather CurrentWeather { get; set; }
+    [Parameter] public UnitsType Units { get; set; }
+    [Parameter] public EventCallback<string> OnClick { get; set; }
+    private string weatherIcon;
 
-	protected override void OnParametersSet()
-	{
-		var icon = CurrentWeather.weather[0].icon;
+    protected override void OnParametersSet()
+    {
+        var icon = CurrentWeather.weather[0].icon;
 
-		iconUrl = $"{iconUrlBase}img/wn/{icon}@4x.png";
-		weatherIcon = $"w{icon}";
-		bgImage = $"img/{icon}.jpg";
+        iconUrl = $"{iconUrlBase}img/wn/{icon}@4x.png";
+        weatherIcon = $"w{icon}";
+        bgImage = $"img/{icon}.jpg";
 
-		if (Units is UnitsType.Metric)
-		{
-			windSpeed = CurrentWeather.wind.speed * 3.6f;
-			windSpeedUnits = "Km/h";
-		}
-		else
-		{
-			windSpeed = CurrentWeather.wind.speed;
-			windSpeedUnits = "Mi/h";
-		}
+        if (Units is UnitsType.Metric)
+        {
+            windSpeed = CurrentWeather.wind.speed * 3.6f;
+            windSpeedUnits = "Km/h";
+        }
+        else
+        {
+            windSpeed = CurrentWeather.wind.speed;
+            windSpeedUnits = "Mi/h";
+        }
 
-		windDir = $"{CurrentWeather.wind.deg - 180}deg";
+        windDir = $"{CurrentWeather.wind.deg - 180}deg";
 
-		StateContainer.CurrentTemp = CurrentWeather.main.temp;
-	}
+        StateContainer.WeatherStatus.CurrentWeather = CurrentWeather;
+    }
 
-	protected override async Task OnInitializedAsync()
-	{
-		var showBothTempsSetting = await LocalStorage.GetItemAsync<bool?>(Constants.KeyName_ShowBothTemps);
+    protected override async Task OnInitializedAsync()
+    {
+        var showBothTempsSetting = await LocalStorage.GetItemAsync<bool?>(Constants.KeyName_ShowBothTemps);
 
-		if (showBothTempsSetting != null)
-		{
-			showBothTemps = (bool)showBothTempsSetting;
-		}
-	}
+        if (showBothTempsSetting != null)
+        {
+            showBothTemps = (bool)showBothTempsSetting;
+        }
+    }
 
-	private string DisplayTemp(float temp)
-	{
-		return Units is UnitsType.Metric
-						? $"{temp.ToDecimalString()} °C{temp.ToFahrenheitString()} °F"
-						: $"{temp.ToDecimalString()} °F{temp.ToCelsiusString()} °C";
-	}
+    private string DisplayTemp(float temp)
+    {
+        return Units is UnitsType.Metric
+                        ? $"{temp.ToDecimalString()} °C{temp.ToFahrenheitString()} °F"
+                        : $"{temp.ToDecimalString()} °F{temp.ToCelsiusString()} °C";
+    }
 
-	private string RefreshTime()
-	{
-		var datePattern = DateTimeFormatInfo.CurrentInfo.MonthDayPattern;
-		var timePattern = DateTimeFormatInfo.CurrentInfo.ShortTimePattern;
-		return DateTime.Now.ToString($"{datePattern}, {timePattern}");
-	}
+    private string RefreshTime()
+    {
+        var datePattern = DateTimeFormatInfo.CurrentInfo.MonthDayPattern;
+        var timePattern = DateTimeFormatInfo.CurrentInfo.ShortTimePattern;
+        return StateContainer.WeatherStatus.LastUpdated.ToString($"{datePattern}, {timePattern}");
+    }
 
 }

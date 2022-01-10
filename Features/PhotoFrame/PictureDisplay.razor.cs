@@ -34,10 +34,6 @@ namespace BiDegree.Features.PhotoFrame
 
         protected override async Task OnInitializedAsync()
         {
-#if DEBUG
-            //Thread.Sleep(10000);
-#endif
-
             var debugModeSetored = await LocalStorage.GetItemAsync<bool?>(Constants.KeyName_Dev_DebugMode);
             DebugMode.IsActive = debugModeSetored != null && (bool)debugModeSetored;
 
@@ -79,8 +75,6 @@ namespace BiDegree.Features.PhotoFrame
 
             var item2 = displayQueue.FirstOrDefault();
             itemLink2 = item2.Value.SourceUrl;
-
-
 
             if (DebugMode.IsActive)
             {
@@ -131,7 +125,7 @@ namespace BiDegree.Features.PhotoFrame
                 }
 
                 var ampPos = driveFile.webContentLink.IndexOf("&");
-                var link = driveFile.webContentLink.Substring(0, ampPos);
+                var link = driveFile.webContentLink[..ampPos];
 
                 var itemAdded = false;
 

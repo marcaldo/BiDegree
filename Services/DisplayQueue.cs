@@ -34,7 +34,6 @@ namespace BiDegree.Services
             return displayInOrder == null || !(bool)displayInOrder;
         }
 
-
         public async Task<double> GetDisplayTimeAsync()
         {
             var storedDuration = await _localStorage.GetItemAsync<double?>(Constants.KeyName_ShowTime);
@@ -49,6 +48,8 @@ namespace BiDegree.Services
 
         public async Task<DisplayItem> GetNextItemAsync()
         {
+            //(int imageCount, int duration) weatherExtendedValues = (0, 0);
+
             if (_queue.Count == 0)
             {
                 _queue = await GetDisplayQueueAsync();
@@ -63,6 +64,7 @@ namespace BiDegree.Services
             return displayItem;
         }
 
+
         public async Task<List<DisplayItem>> GetDisplayQueueAsync()
         {
             if (_queue is null || _queue.Count == 0)
@@ -70,7 +72,7 @@ namespace BiDegree.Services
                 if (await IsShuffled())
                 {
                     var storedQueue = await GetStoredQueue();
-                    if(storedQueue?.Count > 0)
+                    if (storedQueue?.Count > 0)
                     {
                         _queue = storedQueue;
                     }
@@ -225,7 +227,7 @@ namespace BiDegree.Services
         {
             var queue = await _localStorage.GetItemAsync<List<DisplayItem>>(Constants.KeyName_DisplayQueue);
             return queue;
-                
+
         }
 
         private async Task<DriveFileList> GetDriveFileList()

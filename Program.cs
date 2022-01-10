@@ -17,7 +17,7 @@ namespace BiDegree
         public static async Task Main(string[] args)
         {
 
-        var builder = WebAssemblyHostBuilder.CreateDefault(args);
+            var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
@@ -25,6 +25,7 @@ namespace BiDegree
             builder.Services.AddScoped<IGoogleDriveApi, GoogleDriveAPI>();
             builder.Services.AddScoped<IDebugMode, DebugMode>();
             builder.Services.AddSingleton<StateContainer>();
+            builder.Services.AddScoped<ISettingValuesService, SettingValuesService>();
 
             builder.Services.AddBlazoredLocalStorage(config =>
                 config.JsonSerializerOptions.WriteIndented = true);

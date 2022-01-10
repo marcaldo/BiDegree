@@ -1,7 +1,7 @@
 ﻿@page "/photos"
 @using BiDegree.Shared
 
-<div class="weather">
+<div class="photoframeItems">
     @if (DateFormat != DateFormatType.None || TimeFormat != TimeFormatType.None)
     {
         <Clock4 @ref="clock"  DateFormat="DateFormat" TimeFormat="TimeFormat"/>
@@ -9,18 +9,10 @@
 
     @if (TemperatureFormat != TemperatureFormatType.None)
     {
-        <WeatherWidget />
+        <WeatherSelector />
     }
 </div>
-@*<ImageShow />*@
 
-<Slideshow @ref="slideshow" DebugMode="false" />
-
-@*<div class="footer">
-    <NavMenu/>
-</div>*@
-
-
-@*<PictureDisplay />*@
+<Slideshow @ref="slideshow" />
 
 
