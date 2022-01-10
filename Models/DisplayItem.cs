@@ -46,4 +46,10 @@ namespace BiDegree.Models
         Top = 0,
         Bottom = 1
     }
+
+    public enum DisplayWeatherWidgetType
+    {
+        Standard = 0,
+        Extended = 1
+    }
 }
