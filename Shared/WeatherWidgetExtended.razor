@@ -24,18 +24,18 @@
             </div>
             <div class="panel2">
                 <div class="humid">
-                    <Icon Name="Icon.IconType.Humidity" Size="28" />
+                    <Icon Name="Icon.IconType.Humidity" Size="32" />
                     <div>@CurrentWeather.main.humidity<small> %</small></div>
                 </div>
                 <div class="wind">
-                    <Icon Name="Icon.IconType.Wind" Size="28" />
+                    <Icon Name="Icon.IconType.Wind" Size="32" />
                     <div>
                         @windSpeed.ToDecimalString()<small>&nbsp; @windSpeedUnits</small>
                     </div>
                     @if (windSpeed != 0)
                     {
                         <div style="transform: rotate(@windDir);">
-                            <Icon Name="Icon.IconType.WindDirecction" Size="32" />
+                            <Icon Name="Icon.IconType.WindDirecction" Size="40" />
                         </div>
                     }
                 </div>

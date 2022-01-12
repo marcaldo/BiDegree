@@ -48,8 +48,6 @@ namespace BiDegree.Services
 
         public async Task<DisplayItem> GetNextItemAsync()
         {
-            //(int imageCount, int duration) weatherExtendedValues = (0, 0);
-
             if (_queue.Count == 0)
             {
                 _queue = await GetDisplayQueueAsync();
@@ -227,7 +225,6 @@ namespace BiDegree.Services
         {
             var queue = await _localStorage.GetItemAsync<List<DisplayItem>>(Constants.KeyName_DisplayQueue);
             return queue;
-
         }
 
         private async Task<DriveFileList> GetDriveFileList()
