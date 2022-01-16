@@ -949,6 +949,7 @@ input:checked + .slider[b-bfv369zw6i] {
 
 .city[b-cgqgw5zoq8] {
     margin-bottom: 20px;
+    font-size: 1.3rem;
 }
 
 .iconWeather[b-cgqgw5zoq8] {
@@ -968,7 +969,7 @@ input:checked + .slider[b-bfv369zw6i] {
 
     .temp[b-cgqgw5zoq8] >  .t1 {
         margin: 0 15px;
-        font-size: 6em;
+        font-size: 6.5rem;
     }
 
         .temp[b-cgqgw5zoq8] >  .t1 .unit {
@@ -1055,7 +1056,7 @@ input:checked + .slider[b-bfv369zw6i] {
     width: fit-content;
     margin: auto;
     text-align: right;
-    width: 80%;
+    width: 85%;
 }
 
     .more table .title[b-cgqgw5zoq8] {
@@ -1064,7 +1065,8 @@ input:checked + .slider[b-bfv369zw6i] {
     }
 
     .more table .t1[b-cgqgw5zoq8] {
-        font-size: 2.5rem;
+        font-size: 2.8rem;
+        text-align: left;
     }
 
     .more table .t2[b-cgqgw5zoq8] {
