@@ -4,7 +4,7 @@
 @using System.Timers
 @inject StateContainer StateContainer
 @inject ISettingValuesService SettingValuesService
-
+@*
 @if (displayWeatherType == DisplayWeatherWidgetType.Extended)
 {
     <WeatherWidgetExtended />
@@ -12,7 +12,8 @@
 else
 {
     <WeatherWidget />
-}
+}*@
+    <WeatherWidgetExtended />
 
 @code {
     private DisplayWeatherWidgetType displayWeatherType = DisplayWeatherWidgetType.Standard;
