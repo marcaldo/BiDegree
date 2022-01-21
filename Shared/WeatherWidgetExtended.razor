@@ -117,6 +117,7 @@
         weatherIcon = $"w{icon}";
         bgImage = $"img/{icon}.jpg";
 
+        windSpeed = base.CurrentWeather.wind.speed;
         windSpeedUnits = base.Units == UnitsType.Metric ? "Km/h" : "mph";
 
     }
