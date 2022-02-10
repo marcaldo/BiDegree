@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BiDegree.Models;
+using System;
 
 namespace BiDegree.Shared
 {
@@ -19,6 +20,7 @@ namespace BiDegree.Shared
         }
 
         private float currentTemp;
+        private DisplayWeatherWidgetType displayWeatherWidgetType;
 
         public float CurrentTemp
         {
@@ -30,8 +32,28 @@ namespace BiDegree.Shared
             }
         }
 
+        public DisplayWeatherWidgetType DisplayWeatherWidgetType
+        {
+            get => displayWeatherWidgetType;
+            set
+            {
+                displayWeatherWidgetType = value;
+                NotifyStateChanged();
+            }
+        }
+
+        public WeatherStatus WeatherStatus { get; set; } = new WeatherStatus();
+
+
         public event Action OnChange;
 
         private void NotifyStateChanged() => OnChange?.Invoke();
+    }
+
+    public class WeatherStatus
+    {
+        public DateTime LastUpdated { get; set; }
+        public DateTime NextWeatherApiCall { get; set; } = DateTime.Now;
+        public CurrentWeather CurrentWeather { get; set; }
     }
 }

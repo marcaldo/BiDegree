@@ -17,7 +17,6 @@ namespace BiDegree.Features.PhotoFrame
         private Slideshow slideshow = new();
         private DateTime actionTime;
         private const int DelayToLoadNextInBackground = 4;
-        private const int clockTick = 2;
         private TimeFormatType TimeFormat;
         private DateFormatType DateFormat;
         private TemperatureFormatType TemperatureFormat;

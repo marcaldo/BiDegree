@@ -1,5 +1,6 @@
 ﻿using BiDegree.Models;
 using BiDegree.Services;
+using BiDegree.Shared;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System;
@@ -11,6 +12,7 @@ namespace BiDegree.Features.PhotoFrame
     {
         [Inject] IDisplayQueue DisplayQueue { get; set; }
         [Inject] IJSRuntime JS { get; set; }
+
         [Parameter] public bool DebugMode { get; set; } = false;
 
         private const string TRANSPARENT = "transparent";
@@ -75,43 +77,49 @@ namespace BiDegree.Features.PhotoFrame
 
             if (_nextItem.ItemType == DisplayItemType.Image)
             {
-                if (_imgTop.CssClass == VISIBLE)
-                {
-                    _imgBottom = _nextItem;
-                    _imgBottom.CssClass = TRANSPARENT;
-                }
-                else
-                {
-                    _imgTop = _nextItem;
-                    _imgTop.CssClass = TRANSPARENT;
-                }
+                SetImageVisibility();
             }
 
             if (_nextItem.ItemType == DisplayItemType.Video)
             {
-                string videoId;
-
-                if (_videoTop.CssClass == VISIBLE)
-                {
-                    _videoBottom = _nextItem;
-                    _videoBottom.CssClass = TRANSPARENT;
-                    videoId = VIDEO_BOTTOM_ID;
-                }
-                else
-                {
-                    _videoTop = _nextItem;
-                    _videoTop.CssClass = TRANSPARENT;
-                    videoId = VIDEO_TOP_ID;
-                }
-
+                string videoId = SetVideoVisisbility();
                 await JS.InvokeVoidAsync("playVideo", videoId, false);
 
             }
-            
+
             StateHasChanged();
 
         }
 
+        private string SetVideoVisisbility()
+        {
+            if (_videoTop.CssClass == VISIBLE)
+            {
+                _videoBottom = _nextItem;
+                _videoBottom.CssClass = TRANSPARENT;
+                return VIDEO_BOTTOM_ID;
+            }
+            else
+            {
+                _videoTop = _nextItem;
+                _videoTop.CssClass = TRANSPARENT;
+                return VIDEO_TOP_ID;
+            }
+        }
+
+        private void SetImageVisibility()
+        {
+            if (_imgTop.CssClass == VISIBLE)
+            {
+                _imgBottom = _nextItem;
+                _imgBottom.CssClass = TRANSPARENT;
+            }
+            else
+            {
+                _imgTop = _nextItem;
+                _imgTop.CssClass = TRANSPARENT;
+            }
+        }
 
         public async Task ShowNext()
         {

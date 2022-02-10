@@ -1,0 +1,72 @@
+﻿@using BiDegree.Models
+@using BiDegree.Services
+@using Blazored.LocalStorage
+@using System.Timers
+@inject StateContainer StateContainer
+@inject ISettingValuesService SettingValuesService
+
+@if (displayWeatherType == DisplayWeatherWidgetType.Extended)
+{
+    <WeatherWidgetExtended />
+}
+else
+{
+    <WeatherWidget />
+}
+
+
+@code {
+    private DisplayWeatherWidgetType displayWeatherType = DisplayWeatherWidgetType.Standard;
+    private (int wait, int duration) weatherExtendedValues = (0, 0);
+    private Timer tWait;
+    private Timer tDuration;
+
+    protected override async Task OnInitializedAsync()
+    {
+        weatherExtendedValues = await SettingValuesService.GetWeatherExtendedValuesAsync();
+
+        if (weatherExtendedValues.wait > 0)
+        {
+            tWait = new();
+            tWait.Elapsed += TWait_Elapsed;
+            tWait.Interval = weatherExtendedValues.wait;
+            tWait.Enabled = true;
+
+            if (weatherExtendedValues.duration > 0)
+            {
+                tDuration = new();
+                tDuration.Elapsed += TDuration_Elapsed;
+                tDuration.Interval = weatherExtendedValues.duration;
+                tDuration.Enabled = false;
+            }
+        }
+    }
+
+    private void StateContainerHasChanged()
+    {
+        displayWeatherType = StateContainer.DisplayWeatherWidgetType;
+        StateHasChanged();
+    }
+
+    private void TWait_Elapsed(object _, ElapsedEventArgs e)
+    {
+        tWait.Stop();
+        tWait.Enabled = false;
+        tDuration.Enabled = true;
+
+        displayWeatherType = DisplayWeatherWidgetType.Extended;
+
+        StateHasChanged();
+    }
+
+    private void TDuration_Elapsed(object _, ElapsedEventArgs e)
+    {
+        tDuration.Stop();
+        tDuration.Enabled = false;
+        tWait.Enabled = true;
+
+        displayWeatherType = DisplayWeatherWidgetType.Standard;
+
+        StateHasChanged();
+    }
+}

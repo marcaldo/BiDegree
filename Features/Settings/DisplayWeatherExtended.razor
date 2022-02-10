@@ -1,0 +1,99 @@
+﻿@using BiDegree.Services
+@inject ISyncLocalStorageService LocalStorage
+@inject ISettingValuesService Settings
+
+<div class="date-time">
+    <div class="item-options">
+        <label for="waitSelector">Make visible the Extended Weather Panel after:</label>
+        <select class="form-control" id="waitSelector" @bind="waitToShowWeatherExtended" @onfocus="()=>_saved=false">
+            <option value="60">1 minute</option>
+            <option value="180">3 minutes</option>
+            <option value="300">5 minutes</option>
+            <option value="420">7 minutes</option>
+            <option value="600">10 minutes</option>
+            <option value="900">15 minutes</option>
+            <option value="1200">20 minutes</option>
+            <option value="1800">30 minutes</option>
+            <option value="2700">45 minutes</option>
+            <option value="3600">1 hour</option>
+            <option value="7200">2 hours</option>
+            <option value="10800">3 hours</option>
+            <option value="21600">6 hours</option>
+            <option value="28800">8 hours</option>
+            <option value="0">Never show</option>
+        </select>
+        <div class="info"></div>
+    </div>
+    <div class="item-options" disabled>
+        <label for="durationSelector">Show the Extended Weather Panel during:</label>
+        <select class="form-control" id="durationSelector" @bind="durationOfweatherExtended" @onfocus="()=>_saved=false">
+            <option value="10">10 seconds</option>
+            <option value="15">15 seconds</option>
+            <option value="30">30 seconds</option>
+            <option value="45">45 seconds</option>
+            <option value="60">1 minute</option>
+            <option value="120">2 minutes</option>
+            <option value="180">3 minutes</option>
+            <option value="300">5 minutes</option>
+            <option value="420">7 minutes</option>
+            <option value="600">10 minutes</option>
+            <option value="900">15 minutes</option>
+            <option value="1200">20 minutes</option>
+            <option value="1800">30 minutes</option>
+            <option value="2700">45 minutes</option>
+            <option value="3600">1 hour</option>
+            <option value="0">Not visible</option>
+        </select>
+        <div class="info"></div>
+    </div>
+    <div class="item-options">
+    </div>
+    <div>
+        <Icon Name="Icon.IconType.Ok" Visible="_saved" Size="25" Fill="limegreen" />
+    </div>
+</div>
+
+@code {
+    private bool _saved = false;
+    private int _waitToShowWeatherExtended;
+    private int _durationOfweatherExtended;
+
+    private (int wait, int duration) weatherExtendedValues = (0, 0);
+
+    private int waitToShowWeatherExtended
+    {
+        get => _waitToShowWeatherExtended;
+        set
+        {
+            _waitToShowWeatherExtended = value;
+            SaveSettings();
+        }
+    }
+
+    private int durationOfweatherExtended
+    {
+        get => _durationOfweatherExtended;
+        set
+        {
+            _durationOfweatherExtended = value;
+            SaveSettings();
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        weatherExtendedValues = await Settings.GetWeatherExtendedValuesAsync();
+
+        const int ms = 1000;
+        _waitToShowWeatherExtended = weatherExtendedValues.wait / ms;
+        _durationOfweatherExtended = weatherExtendedValues.duration / ms;
+    }
+
+
+    private void SaveSettings()
+    {
+        Settings.SetWeatherExtendedValues(_waitToShowWeatherExtended, _durationOfweatherExtended);
+        _saved = true;
+    }
+
+}

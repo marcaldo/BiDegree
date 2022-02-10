@@ -1,0 +1,139 @@
+﻿@using BiDegree.Models
+@using BiDegree.Shared
+@using System.Globalization
+@using Blazored.LocalStorage
+
+@inherits WeatherBase
+
+@if (IsVisibleWeatherComponent && CurrentWeather != null)
+{
+    SetValues();
+
+    <div class="weatherExtended">
+        <div class="city">@CurrentWeather.name</div>
+        <div class="iconWeather">
+            <IconWeather Name="@weatherIcon" Size="180" />
+        </div>
+        <div class="values">
+            <div class="panel1">
+                <div class="tempDisplay">
+                    <div class="temp">
+                        <TemperatureValues Value="CurrentWeather.main.temp" Units="Units" />
+                    </div>
+                </div>
+            </div>
+            <div class="panel2">
+                <div class="humid">
+                    <Icon Name="Icon.IconType.Humidity" Size="32" />
+                    <div>
+                        @CurrentWeather.main.humidity<small> %</small>
+                    </div>
+                </div>
+                <div class="wind">
+                    <Icon Name="Icon.IconType.Wind" Size="32" />
+                    <div>
+                        @windSpeed.ToDecimalString()<small>&nbsp; @windSpeedUnits</small>
+                    </div>
+                    @if (windSpeed != 0)
+                    {
+                        <div style="transform: rotate(@windDir);">
+                            <Icon Name="Icon.IconType.WindDirecction" Size="40" />
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="panel3">
+                <FeelsLike Value="CurrentWeather.main.feels_like" Units="Units" />
+                <div class="more">
+                    <table>
+                        <tbody>
+                            @if (Units is UnitsType.Metric)
+                            {
+                                <tr>
+                                    <td class="title">Low</td>
+                                    <td><Icon Name="Icon.IconType.TemperatureLow" Fill="#9e300f" /></td>
+                                    <td>@CurrentWeather.main.temp_min.ToDecimalString() °C</td>
+                                    @if (showBothTemps)
+                                    {
+                                        <td>@CurrentWeather.main.temp_min.ToFahrenheitString() °F</td>
+                                    }
+                                </tr>
+                                <tr>
+                                    <td class="title">High</td>
+                                    <td><Icon Name="Icon.IconType.TemperatureHigh" Fill="#9e300f" Size="32" /></td>
+                                    <td>@CurrentWeather.main.temp_max.ToDecimalString() °C</td>
+                                    @if (showBothTemps)
+                                    {
+                                        <td>@CurrentWeather.main.temp_max.ToFahrenheitString() °F</td>
+                                    }
+                                </tr>
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td><Icon Name="Icon.IconType.TemperatureLow" Fill="#0d7df0" Size="32" /></td>
+                                    <td class="title">Low</td>
+                                    <td class="t1">@CurrentWeather.main.temp_min.ToDecimalString() °F</td>
+                                    @if (showBothTemps)
+                                    {
+                                        <td class="t2">@CurrentWeather.main.temp_min.ToCelsiusString() °C</td>
+                                    }
+                                </tr>
+                                <tr>
+                                    <td><Icon Name="Icon.IconType.TemperatureHigh" Fill="#9e300f" Size="32" /></td>
+                                    <td class="title">High</td>
+                                    <td class="t1">@CurrentWeather.main.temp_max.ToDecimalString() °F</td>
+                                    @if (showBothTemps)
+                                    {
+                                        <td class="t2">@CurrentWeather.main.temp_max.ToCelsiusString() °C</td>
+                                    }
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <div class="update_info">
+                        <span>Updated as of @RefreshTime()</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    private string weatherIcon;
+    private string bgImage;
+    private string windSpeedUnits;
+    private float windSpeed;
+    private string windDir;
+    private bool showBothTemps = true;
+
+
+    private void SetValues()
+    {
+        var icon = CurrentWeather.weather[0].icon;
+
+        //iconUrl = $"{iconUrlBase}img/wn/{icon}@4x.png";
+        weatherIcon = $"w{icon}";
+        bgImage = $"img/{icon}.jpg";
+
+        windSpeed = base.CurrentWeather.wind.speed;
+        windSpeedUnits = base.Units == UnitsType.Metric ? "Km/h" : "mph";
+
+    }
+
+    private string DisplayTemp(float temp)
+    {
+        return Units is UnitsType.Metric
+                        ? $"{temp.ToDecimalString()} °C{temp.ToFahrenheitString()} °F"
+                        : $"{temp.ToDecimalString()} °F{temp.ToCelsiusString()} °C";
+    }
+
+    private string RefreshTime()
+    {
+        var datePattern = DateTimeFormatInfo.CurrentInfo.MonthDayPattern;
+        var timePattern = DateTimeFormatInfo.CurrentInfo.ShortTimePattern;
+        return base.LastWeatherUpdate.ToString($"{datePattern}, {timePattern}");
+    }
+}
+

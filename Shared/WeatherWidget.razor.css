@@ -1,13 +1,14 @@
 ﻿.tempWidget {
     display: flex;
-    flex-direction: row;
-    align-items: flex-end;
     align-items: baseline;
-    padding: 8px;
+    margin-left: auto;
+    padding: 10px;
+    bottom: 0;
+    position: fixed;
+    right: 0;
+    margin-right: 5px;
     text-shadow: 2px 2px black;
     font-family: 'Roboto', sans-serif;
-    margin-left: auto;
-    margin-right: 5px;
 }
 
     .tempWidget svg {
@@ -21,5 +22,5 @@
 
     .tempWidget ::deep .t2 {
         margin: 0 10px 0 10px;
-        font-size: 3.5em;
+        font-size: 3.7em;
     }

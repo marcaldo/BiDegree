@@ -6,10 +6,22 @@
     margin-left: 50px;
 }
 
+    .item-options ::deep .clock {
+        position: unset;
+    }
+
+        .item-options ::deep .clock .time {
+            font-size: 3rem;
+        }
+
+        .item-options ::deep .clock .date {
+            font-size: 1.5rem;
+            margin-top: -15px;
+        }
+
 .item-group {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-content: center;
 }
-
