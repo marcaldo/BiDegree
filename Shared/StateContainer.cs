@@ -2,8 +2,22 @@
 
 namespace BiDegree.Shared
 {
-    public class StateContainer
+    public sealed class StateContainer
     {
+        private static StateContainer instance;
+        public static StateContainer Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new StateContainer();
+                }
+
+                return instance;
+            }
+        }
+
         private float currentTemp;
 
         public float CurrentTemp
