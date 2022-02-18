@@ -37,7 +37,7 @@
                     @if (windSpeed != 0)
                     {
                         <div style="transform: rotate(@windDir);">
-                            <Icon Name="Icon.IconType.WindDirecction" Size="40" />
+                            <Icon Name="Icon.IconType.WindDirecction" Size="60" />
                         </div>
                     }
                 </div>
@@ -119,7 +119,7 @@
 
         windSpeed = base.CurrentWeather.wind.speed;
         windSpeedUnits = base.Units == UnitsType.Metric ? "Km/h" : "mph";
-
+        windDir = $"{CurrentWeather.wind.deg - 180}deg";
     }
 
     private string DisplayTemp(float temp)
