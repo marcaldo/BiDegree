@@ -1,0 +1,15 @@
+﻿@page "/values/set"
+@inject NavigationManager NavManager
+    <BiDegree.Shared.Measured.MTemperature MeasuredTemp="measuredTemp"/>
+@code {
+    [Parameter] public string Temp { get; set; }
+    private string temp;
+    private float measuredTemp;
+
+    protected override void OnInitialized()
+    {
+        NavManager.TryGetQueryString<string>("temp", out temp);
+        float.TryParse(temp, out measuredTemp);
+
+    }
+}
