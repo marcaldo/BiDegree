@@ -20,6 +20,7 @@ namespace BiDegree.Shared
         }
 
         private float currentTemp;
+        private float measuredTemp;
         private DisplayWeatherWidgetType displayWeatherWidgetType;
 
         public float CurrentTemp
@@ -32,6 +33,15 @@ namespace BiDegree.Shared
             }
         }
 
+        public float MeasuredTemp
+        {
+            get => measuredTemp;
+            set
+            {
+                measuredTemp = value;
+                NotifyStateChanged();
+            }
+        }
         public DisplayWeatherWidgetType DisplayWeatherWidgetType
         {
             get => displayWeatherWidgetType;

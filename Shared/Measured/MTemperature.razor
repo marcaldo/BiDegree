@@ -1,0 +1,11 @@
+﻿@using BiDegree.Shared
+@inject StateContainer StateContainer
+@inherits WeatherBase
+
+ <TemperatureValues Value="MeasuredTemp" Units="Units" />
+
+@code {
+    [Parameter] public float MeasuredTemp { get; set; }
+
+
+}
