@@ -1,15 +1,22 @@
-﻿@page "/values/set"
-@inject NavigationManager NavManager
-    <BiDegree.Shared.Measured.MTemperature MeasuredTemp="measuredTemp"/>
+﻿@page "/values/temp"
+@using BiDegree.Models
+@using BiDegree.Shared.Measured
+@inject StateContainer StateContainer
+
+@if (measurement != null)
+{
+    <h4>@measurement.Name</h4>
+    <BiDegree.Shared.Measured.MTemperature MeasuredTemp="measurement.Temperature" />
+}
+
+
 @code {
-    [Parameter] public string Temp { get; set; }
-    private string temp;
-    private float measuredTemp;
+    private DeviceMeasurement measurement;
 
     protected override void OnInitialized()
     {
-        NavManager.TryGetQueryString<string>("temp", out temp);
-        float.TryParse(temp, out measuredTemp);
+        var measurement = StateContainer.DeviceMeasurement;
 
+        Console.WriteLine("M===> " + measurement);
     }
 }

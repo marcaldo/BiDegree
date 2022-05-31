@@ -1,0 +1,44 @@
+﻿@page "/values/set/{name}"
+@using BiDegree.Models
+@using BiDegree.Shared.Measured
+@inject NavigationManager NavManager
+@inject StateContainer StateContainer
+
+
+@if (validValues)
+{
+    <h4>@Name</h4>
+    <BiDegree.Shared.Measured.MTemperature MeasuredTemp="measuredTemp" />
+}
+
+
+@code {
+    [Parameter] public string Name { get; set; }
+    private string temp;
+    private bool validValues = false;
+    private float measuredTemp;
+
+    protected override void OnInitialized()
+    {
+        NavManager.TryGetQueryString<string>("temp", out temp);
+
+        Console.WriteLine("T ====> " + temp);
+
+        validValues = !string.IsNullOrEmpty(temp);
+
+        Console.WriteLine("Valid ====> " + validValues);
+
+        if (validValues)
+        {
+            float.TryParse(temp, out measuredTemp);
+
+            StateContainer.DeviceMeasurement = new DeviceMeasurement
+                {
+                    Name = Name,
+                    Temperature = measuredTemp
+                };
+
+        }
+
+    }
+}

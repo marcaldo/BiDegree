@@ -1,5 +1,6 @@
 ﻿using BiDegree.Models;
 using System;
+using System.Collections.Generic;
 
 namespace BiDegree.Shared
 {
@@ -20,9 +21,6 @@ namespace BiDegree.Shared
         }
 
         private float currentTemp;
-        private float measuredTemp;
-        private DisplayWeatherWidgetType displayWeatherWidgetType;
-
         public float CurrentTemp
         {
             get => currentTemp;
@@ -33,15 +31,7 @@ namespace BiDegree.Shared
             }
         }
 
-        public float MeasuredTemp
-        {
-            get => measuredTemp;
-            set
-            {
-                measuredTemp = value;
-                NotifyStateChanged();
-            }
-        }
+        private DisplayWeatherWidgetType displayWeatherWidgetType;
         public DisplayWeatherWidgetType DisplayWeatherWidgetType
         {
             get => displayWeatherWidgetType;
@@ -54,9 +44,19 @@ namespace BiDegree.Shared
 
         public WeatherStatus WeatherStatus { get; set; } = new WeatherStatus();
 
+        private DeviceMeasurement deviceMeasurement;
+        public DeviceMeasurement DeviceMeasurement
+        {
+            get => deviceMeasurement;
+            set
+            {
+                deviceMeasurement = value;
+                NotifyStateChanged();
+            }
+        }
+
 
         public event Action OnChange;
-
         private void NotifyStateChanged() => OnChange?.Invoke();
     }
 
