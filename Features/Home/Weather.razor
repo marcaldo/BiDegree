@@ -22,8 +22,8 @@
             <IconWeather Name="@weatherIcon" Size="150" />
             <div class="place">
                 <div class="city">@CurrentWeather.name</div>
-                <div class="lastupd" @onclick="() => OnClick.InvokeAsync()">
-                    @RefreshTime()&nbsp;<Icon Name="Icon.IconType.Refresh" Size="20" />
+                <div class="lastupd">
+                    @RefreshTime()
                 </div>
             </div>
         </div>
