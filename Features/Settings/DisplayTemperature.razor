@@ -67,6 +67,13 @@
     {
         LocalStorage.SetItem(Constants.KeyName_TempFormat, _tempFormatSelection);
         LocalStorage.SetItem(Constants.KeyName_WeatherRefreshTimer, _weatherRefreshTimer);
+
+        int units = _tempFormatSelection == TemperatureFormatType.F 
+                    || _tempFormatSelection == TemperatureFormatType.FC
+                    ? 1 : 0;
+
+        LocalStorage.SetItem(Constants.KeyName_Units, units);
+
         _saved = true;
     }
 
