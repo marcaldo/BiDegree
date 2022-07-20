@@ -151,24 +151,16 @@ namespace BiDegree.Features.PhotoFrame
 
                         _ = float.TryParse(driveFile.fileSize, out var fileSize);
 
-                        try
+                        tempNumeredItemList.Add(rndPosition, new DisplayItem
                         {
-                            tempNumeredItemList.Add(rndPosition, new DisplayItem
-                            {
-                                SourceUrl = link,
-                                ItemType = displayItemType,
-                                Title = driveFile.title,
-                                Height = driveFile.imageMediaMetadata != null ? driveFile.imageMediaMetadata.height : 0,
-                                Width = driveFile.imageMediaMetadata != null ? driveFile.imageMediaMetadata.width : 0,
-                                Rotation = driveFile.imageMediaMetadata != null ? driveFile.imageMediaMetadata.rotation : 0,
-                                FileSize = fileSize.ToString("#.##")
-                            });
-                        }
-                        catch (Exception ex)
-                        {
-
-                            throw;
-                        }
+                            SourceUrl = link,
+                            ItemType = displayItemType,
+                            Title = driveFile.title,
+                            Height = driveFile.imageMediaMetadata != null ? driveFile.imageMediaMetadata.height : 0,
+                            Width = driveFile.imageMediaMetadata != null ? driveFile.imageMediaMetadata.width : 0,
+                            Rotation = driveFile.imageMediaMetadata != null ? driveFile.imageMediaMetadata.rotation : 0,
+                            FileSize = fileSize.ToString("#.##")
+                        });
 
                         itemAdded = true;
                     }
