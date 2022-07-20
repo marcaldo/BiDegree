@@ -1,39 +1,39 @@
 <Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
-    <UserSecretsId>a35d740a-efc2-48fb-b481-c58b991d5163</UserSecretsId>
-    <DebugType>portable</DebugType>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <Version>20220720.1624</Version>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+		<ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
+		<UserSecretsId>a35d740a-efc2-48fb-b481-c58b991d5163</UserSecretsId>
+		<DebugType>portable</DebugType>
+		<AssemblyVersion>1.0.0.0</AssemblyVersion>
+		<Version>20220720.1651</Version>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Remove=".gitattributes" />
-    <None Remove=".gitignore" />
-    <None Remove="post-build.ps1" />
-    <None Remove="README.md" />
-    <None Remove="set-build-ver.ps1" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Remove=".gitattributes" />
+		<None Remove=".gitignore" />
+		<None Remove="post-build.ps1" />
+		<None Remove="README.md" />
+		<None Remove="set-build-ver.ps1" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Include="wwwroot\geo-location.js" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Include="wwwroot\geo-location.js" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Blazored.LocalStorage" Version="4.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.7" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.7" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
-    <PackageReference Include="System.Net.Http.Json" Version="6.0.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Blazored.LocalStorage" Version="4.1.2" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.8" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.8" PrivateAssets="all" />
+		<PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
+		<PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
-  </ItemGroup>
+	<ItemGroup>
+		<ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
+	</ItemGroup>
 
-  <!--<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+	<!--<Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="powershell.exe -ExecutionPolicy Unrestricted -NoProfile -NonInteractive -File 'C:\Users\marca\repos\BiDegree\set-build-ver.ps1'" />
   </Target>-->
 
