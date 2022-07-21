@@ -1,4 +1,6 @@
 ﻿@inject ISyncLocalStorageService localStorage
+@inject NavigationManager NavManager
+
 <div class="form-group">
     <label for="dSelector">Display order:</label>
     <div class="check-selection units-selector">
@@ -7,7 +9,8 @@
         <label>In order</label>
         <div class="info">
             <i>In order</i> will display the images orderer by file name.
-        </div>
+        </div>&nbsp;
+        <button class="btn btn-link" @onclick="() => GoToQueue()">See current queue</button>
     </div>
 </div>
 @code {
@@ -24,4 +27,8 @@
         localStorage.SetItem(Constants.KeyName_DisplayInOrder, isChecked);
     }
 
+    private void GoToQueue()
+    {
+        NavManager.NavigateTo($"{NavManager.BaseUri}queue", forceLoad: true);
+    }
 }
