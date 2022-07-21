@@ -1,0 +1,79 @@
+﻿@page "/queue"
+@using BiDegree.Models
+@using BiDegree.Services
+@inject NavigationManager NavManager
+@inject ISyncLocalStorageService LocalStorage
+@inject IDisplayQueue DisplayQueue
+
+<h3>Images Queue</h3>
+@if (queue != null)
+{
+    <div>
+        Items in queue: @queue.Count &nbsp;
+        <button class="btn btn-warning" @onclick="()=> ClearQueue()">Clear</button>
+    </div>
+    <table>
+        <thead>
+            <tr><th>#</th><th></th><th>Name</th><th>Width</th><th>Height</th><th>Src</th></tr>
+        </thead>
+        <tbody>
+            @foreach (var item in queue)
+            {
+                ++count;
+                <tr>
+                    <td>@count</td>
+                    @if (item.ItemType == DisplayItemType.Image)
+                    {
+                        <td><img src="@item.SourceUrl" style="width:45px" /></td>
+                    }
+                    else if (item.ItemType == DisplayItemType.Video)
+                    {
+                        <td>
+                            <Icon Name="Icon.IconType.CameraReels" Fill="yellow"></Icon>
+                        </td>
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
+                    <td>@item.Title</td>
+                    <td>@item.Width</td>
+                    <td>@item.Height</td>
+                    <td>@item.SourceUrl</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+@code {
+    List<DisplayItem> queue;
+    int count ;
+
+    protected override async Task OnInitializedAsync()
+    {
+        count = 0;
+        await LoadQueue();
+    }
+
+
+    private async Task ClearQueue()
+    {
+        LocalStorage.SetItem(Constants.KeyName_DisplayQueue, new List<DisplayItem>());
+        await LoadQueue();
+
+        StateHasChanged();
+
+    }
+
+    private async Task LoadQueue()
+    {
+        queue = await DisplayQueue.GetStoredQueue();
+    }
+
+    private void GoToApiSettings()
+    {
+        NavManager.NavigateTo($"{NavManager.BaseUri}apisettings", forceLoad: true);
+    }
+}

@@ -9,6 +9,7 @@ namespace BiDegree.Services
         Task<List<DisplayItem>> GetDisplayQueueAsync();
         Task<double> GetDisplayTimeAsync();
         Task<DisplayItem> GetNextItemAsync();
+        Task<List<DisplayItem>> GetStoredQueue();
         Task<bool> IsDebugModeAsync();
     }
 }

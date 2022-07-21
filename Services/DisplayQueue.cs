@@ -1,7 +1,6 @@
 ﻿using BiDegree.Models;
 using BiDegree.Shared;
 using Blazored.LocalStorage;
-using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -221,7 +220,7 @@ namespace BiDegree.Services
             await _localStorage.SetItemAsync(Constants.KeyName_DisplayQueue, queue);
         }
 
-        private async Task<List<DisplayItem>> GetStoredQueue()
+        public async Task<List<DisplayItem>> GetStoredQueue()
         {
             var queue = await _localStorage.GetItemAsync<List<DisplayItem>>(Constants.KeyName_DisplayQueue);
             return queue;
