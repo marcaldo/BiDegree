@@ -9,7 +9,7 @@
   "linkerEnabled": true,
   "resources": {
     "assembly": {
-      "BiDegree.dll": "sha256-gYqHi+SnUvrFHsyxLpTPZu9VD3DecpqhK3HKy2GzayU=",
+      "BiDegree.dll": "sha256-5r4vbi+CSbNsgl+A482zsHzeJZUjvUijzr4F0aCd+K8=",
       "Blazored.LocalStorage.dll": "sha256-6RRoYeDP3d0xabXmcCMF66wXeJlXVPem28Trs8sQiis=",
       "Microsoft.AspNetCore.Components.dll": "sha256-cwdm1Sr+\/0abp431UuHV9XHpUN94eUsvpsAWg6mWOGA=",
       "Microsoft.AspNetCore.Components.Web.dll": "sha256-2fGZKxq9m9Sh8skZSC9onj8sgLMxZSTsyn1X5ZSOsEo=",

@@ -821,6 +821,21 @@ select[b-3q02m8ygod] {
 /* /Shared/TemperatureValues.razor.rz.scp.css */
 .t1[b-l2bp6ctefc], .t2[b-l2bp6ctefc] {
 }
+
+.tempHumid[b-l2bp6ctefc] {
+    text-align: center;
+}
+
+.temp[b-l2bp6ctefc] {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: -28px;
+}
+
+.h1[b-l2bp6ctefc] {
+    font-size: 2.4rem;
+    color: #f0f2f8;
+}
 /* /Shared/ToggleSwitch.razor.rz.scp.css */
 /* https://www.w3schools.com/howto/howto_css_switch.asp */
 /* The switch - the box around the slider */
