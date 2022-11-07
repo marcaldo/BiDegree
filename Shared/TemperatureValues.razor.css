@@ -1,2 +1,17 @@
 ﻿.t1, .t2 {
 }
+
+.tempHumid {
+    text-align: center;
+}
+
+.temp {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: -28px;
+}
+
+.h1 {
+    font-size: 2.4rem;
+    color: #f0f2f8;
+}
