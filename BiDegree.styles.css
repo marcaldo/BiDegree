@@ -836,6 +836,10 @@ select[b-3q02m8ygod] {
     font-size: 2.4rem;
     color: #f0f2f8;
 }
+
+.hpercent[b-l2bp6ctefc] {
+    font-size: 1.5rem;
+}
 /* /Shared/ToggleSwitch.razor.rz.scp.css */
 /* https://www.w3schools.com/howto/howto_css_switch.asp */
 /* The switch - the box around the slider */
@@ -975,30 +979,30 @@ input:checked + .slider[b-bfv369zw6i] {
     font-family: 'Roboto', sans-serif;
 }
 
-.temp[b-cgqgw5zoq8] {
+.temp .tempHumid .temp[b-cgqgw5zoq8] {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     align-items: baseline;
 }
 
-    .temp[b-cgqgw5zoq8] >  .t1 {
-        margin: 0 15px;
-        font-size: 6.5rem;
+.temp[b-cgqgw5zoq8] >  .tempHumid .temp .t1 {
+    margin: 0 15px;
+    font-size: 6.5rem;
+}
+
+.temp[b-cgqgw5zoq8] >  .tempHumid .temp .t1 .unit {
+    font-size: 5.5rem;
+}
+
+.temp[b-cgqgw5zoq8] >  .tempHumid .temp .t2 {
+    margin: 0 20px;
+    font-size: 5.5rem;
+}
+
+    .temp[b-cgqgw5zoq8] >  .tempHumid .temp .t2 .unit {
+        font-size: 4.5rem;
     }
-
-        .temp[b-cgqgw5zoq8] >  .t1 .unit {
-            font-size: 5.5rem;
-        }
-
-    .temp[b-cgqgw5zoq8] >  .t2 {
-        margin: 0 15px;
-        font-size: 5.5rem;
-    }
-
-        .temp[b-cgqgw5zoq8] >  .t2 .unit {
-            font-size: 4.5rem;
-        }
 
 .panel2[b-cgqgw5zoq8] {
     display: flex;
