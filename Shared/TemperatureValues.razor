@@ -5,7 +5,7 @@
         @if (Units is UnitsType.Metric)
         {
             <div class="t1">@Value.ToDecimalString()<span class="unit">°C</span></div>
-            if (showBothTemps)
+            if (tempFormatSelection == TemperatureFormatType.CF)
             {
                 <div class="t2">@Value.ToFahrenheitString()<span class="unit">°F</span></div>
             }
@@ -13,7 +13,7 @@
         else
         {
             <div class="t1">@Value.ToDecimalString()<span class="unit">°F</span></div>
-            if (showBothTemps)
+            if (tempFormatSelection == TemperatureFormatType.FC)
             {
                 <div class="t2">@Value.ToCelsiusString()<span class="unit">°C</span></div>
             }
@@ -28,15 +28,12 @@
     [Parameter] public UnitsType Units { get; set; }
     [Parameter] public float Value { get; set; }
     [Parameter] public float HumidityValue { get; set; }
-    private bool showBothTemps = true;
+    private TemperatureFormatType tempFormatSelection = TemperatureFormatType.CF;
+
 
     protected override async Task OnInitializedAsync()
     {
         var showBothTempsSetting = await LocalStorage.GetItemAsync<bool?>(Constants.KeyName_ShowBothTemps);
-
-        if (showBothTempsSetting != null)
-        {
-            showBothTemps = (bool)showBothTempsSetting;
-        }
+        tempFormatSelection = await LocalStorage.GetItemAsync<TemperatureFormatType?>(Constants.KeyName_TempFormat) ?? TemperatureFormatType.CF;
     }
 }
