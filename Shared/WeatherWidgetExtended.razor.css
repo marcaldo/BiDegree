@@ -25,30 +25,30 @@
     font-family: 'Roboto', sans-serif;
 }
 
-.temp {
+.temp .tempHumid .temp {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     align-items: baseline;
 }
 
-    .temp > ::deep .t1 {
-        margin: 0 15px;
-        font-size: 6.5rem;
+.temp > ::deep .tempHumid .temp .t1 {
+    margin: 0 15px;
+    font-size: 6.5rem;
+}
+
+.temp > ::deep .tempHumid .temp .t1 .unit {
+    font-size: 5.5rem;
+}
+
+.temp > ::deep .tempHumid .temp .t2 {
+    margin: 0 20px;
+    font-size: 5.5rem;
+}
+
+    .temp > ::deep .tempHumid .temp .t2 .unit {
+        font-size: 4.5rem;
     }
-
-        .temp > ::deep .t1 .unit {
-            font-size: 5.5rem;
-        }
-
-    .temp > ::deep .t2 {
-        margin: 0 15px;
-        font-size: 5.5rem;
-    }
-
-        .temp > ::deep .t2 .unit {
-            font-size: 4.5rem;
-        }
 
 .panel2 {
     display: flex;
