@@ -1,0 +1,55 @@
+﻿<div class="air-quality">
+    <div class="color-scale">
+        <div class="good"></div>
+        <div class="fair"></div>
+        <div class="moderate"></div>
+        <div class="poor"></div>
+        <div class="very-poor"></div>
+    </div>
+    @if (AirQualityIndex > 0)
+    {
+        <div class="name @aqiCss">Air Quality: @aqText</div>
+    }
+</div>
+
+@code {
+    [Parameter] public int AirQualityIndex { get; set; }
+    string aqiCss = default!;
+    string aqText = default;
+
+    protected override void OnInitialized()
+    {
+        switch (AirQualityIndex)
+        {
+            case 1:
+                aqiCss = "good";
+                aqText = "GOOD";
+                break;
+
+            case 2:
+                aqiCss = "fair";
+                aqText = "FAIR";
+                break;
+
+            case 3:
+                aqiCss = "moderate";
+                aqText = "MODERATE";
+                break;
+
+            case 4:
+                aqiCss = "poor";
+                aqText = "POOR";
+                break;
+
+            case 5:
+                aqiCss = "very-poor";
+                aqText = "VERY POOR";
+                break;
+
+            default:
+                aqiCss = "";
+                aqText = "";
+                break;
+        }
+    }
+}

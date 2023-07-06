@@ -1,0 +1,51 @@
+.air-quality {
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    text-shadow: none;
+    font-weight: normal;
+    color: black;
+    font-size: .6rem;
+    border: solid 1px gray;
+
+    .color-scale {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+
+        div {
+            width: 20%;
+            height: 8px;
+        }
+    }
+
+    .name {
+        width: 100%;
+        text-align: center;
+    }
+
+    .good {
+        background-color: greenyellow;
+        color: black;
+    }
+
+    .fair {
+        background-color: yellow;
+        color: black;
+    }
+
+    .moderate {
+        background-color: orangered;
+        color: white;
+    }
+
+    .poor {
+        background-color: mediumvioletred;
+        color: white;
+    }
+
+    .very-poor {
+        background-color: darkred;
+        color: white;
+    }
+}

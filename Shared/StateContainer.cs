@@ -1,4 +1,5 @@
 ﻿using BiDegree.Models;
+using BiDegree.Models.OpenWeather.WeatherModels;
 using System;
 
 namespace BiDegree.Shared
@@ -65,5 +66,6 @@ namespace BiDegree.Shared
         public DateTime LastUpdated { get; set; }
         public DateTime NextWeatherApiCall { get; set; } = DateTime.Now;
         public CurrentWeather CurrentWeather { get; set; }
+        public int AirQualityIndex { get;set; }
     }
 }

@@ -1,21 +1,26 @@
-﻿.t1, .t2 {
-}
-
-.tempHumid {
-    text-align: center;
+﻿.tempHumid {
+  text-align: center;
 }
 
 .temp {
-    display: flex;
-    align-items: baseline;
-    margin-bottom: -28px;
+  display: flex;
+  align-items: baseline;
+  margin-bottom: -28px;
 }
 
 .h1 {
-    font-size: 2.4rem;
-    color: #f0f2f8;
+  font-size: 2.4rem;
+  color: #f0f2f8;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  align-items: center;
+}
+.h1 ::deep .air-quality {
+  margin-left: auto;
 }
 
 .hpercent {
-    font-size: 1.5rem;
+  font-size: 1.5rem;
 }

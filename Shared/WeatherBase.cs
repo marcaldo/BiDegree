@@ -1,9 +1,11 @@
-﻿using BiDegree.Models;
+﻿using BiDegree.Models.OpenWeather.WeatherModels;
+using BiDegree.Models.OpenWeather.AirPollutionModels;
 using BiDegree.Services;
 using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -30,6 +32,7 @@ namespace BiDegree.Shared
         protected DateFormatType DateFormat { get; set; }
         protected DateTime LastWeatherUpdate { get; set; }
         protected CurrentWeather CurrentWeather { get; set; }
+        protected int AirQualityIndex{ get; set; }
         protected UnitsType Units;
 
 
@@ -125,10 +128,22 @@ namespace BiDegree.Shared
                         CurrentWeather = await OpenWeather.GetCurrentWeatherByCoords(lat, lon, Units.ToString().ToLower());
                     }
 
+                    var airPollution = await OpenWeather.GetAirPollution(CurrentWeather.coord.lat, CurrentWeather.coord.lon);
+                    if (airPollution is not null)
+                    {
+                        var airPollutionList = airPollution.list.FirstOrDefault();
+                        
+                        AirQualityIndex =
+                            airPollutionList is not null 
+                            ? (int)airPollutionList.main.aqi 
+                            : 0;
+                    }
+
                     LastWeatherUpdate = DateTime.Now;
                     StateContainer.WeatherStatus.CurrentWeather = CurrentWeather;
                     StateContainer.WeatherStatus.LastUpdated = LastWeatherUpdate;
                     StateContainer.WeatherStatus.NextWeatherApiCall = LastWeatherUpdate.AddMinutes(tGertWeatherMinutes);
+                    StateContainer.WeatherStatus.AirQualityIndex = AirQualityIndex;
                 }
             }
             catch (HttpRequestException ex)

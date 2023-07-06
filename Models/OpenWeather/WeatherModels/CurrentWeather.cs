@@ -1,4 +1,4 @@
-﻿namespace BiDegree.Models
+﻿namespace BiDegree.Models.OpenWeather.WeatherModels
 {
     public class CurrentWeather
     {
