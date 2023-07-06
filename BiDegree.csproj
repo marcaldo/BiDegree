@@ -6,8 +6,12 @@
 		<UserSecretsId>a35d740a-efc2-48fb-b481-c58b991d5163</UserSecretsId>
 		<DebugType>portable</DebugType>
 		<AssemblyVersion>1.0.0.0</AssemblyVersion>
-		<Version>20221107.2101</Version>
+		<Version>20230705.1927</Version>
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <Content Remove="compilerconfig.json" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<None Remove=".gitattributes" />
@@ -18,6 +22,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <_ContentIncludedByDefault Remove="compilerconfig.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="compilerconfig.json" />
 		<None Include="wwwroot\geo-location.js" />
 	</ItemGroup>
 

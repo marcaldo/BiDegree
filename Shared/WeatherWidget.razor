@@ -11,7 +11,7 @@
         @{
             string weatherIcon = $"w{CurrentWeather.weather[0].icon}";
             <IconWeather Name="@weatherIcon" Size="90" />
-            <TemperatureValues Value="CurrentWeather.main.temp" Units="Units" HumidityValue="CurrentWeather.main.humidity"/>
+            <TemperatureValues Value="CurrentWeather.main.temp" AirQualityIndex="@AirQualityIndex" Units="Units" HumidityValue="CurrentWeather.main.humidity" />
         }
     </div>
 }

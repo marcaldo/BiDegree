@@ -1,0 +1,10 @@
+﻿[
+  {
+    "outputFile": "Shared/AirQuality.razor.css",
+    "inputFile": "Shared/AirQuality.razor.scss"
+  },
+  {
+    "outputFile": "Shared/TemperatureValues.razor.css",
+    "inputFile": "Shared/TemperatureValues.razor.scss"
+  }
+]

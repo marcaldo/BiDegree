@@ -23,6 +23,7 @@
     {
         <div class="h1">
             <Icon Name="Icon.IconType.Humidity" Size="24" />@HumidityValue<span class="hpercent">%</span>
+            <AirQuality AirQualityIndex="@AirQualityIndex" />
         </div>
     }
 </div>
@@ -30,6 +31,7 @@
     [Parameter] public UnitsType Units { get; set; }
     [Parameter] public float Value { get; set; }
     [Parameter] public float HumidityValue { get; set; }
+    [Parameter] public int AirQualityIndex { get; set; }
     [Parameter] public bool ShowHumidity { get; set; } = true;
     private TemperatureFormatType tempFormatSelection = TemperatureFormatType.CF;
 
