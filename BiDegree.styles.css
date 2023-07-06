@@ -735,7 +735,6 @@ select[b-3q02m8ygod] {
   font-weight: normal;
   color: black;
   font-size: 0.6rem;
-  border: solid 1px gray;
 }
 .air-quality .color-scale[b-1w9etwej7v] {
   display: flex;
@@ -744,14 +743,18 @@ select[b-3q02m8ygod] {
 }
 .air-quality .color-scale div[b-1w9etwej7v] {
   width: 20%;
-  height: 8px;
+  height: 7px;
 }
 .air-quality .name[b-1w9etwej7v] {
   width: 100%;
   text-align: center;
+  height: 15px;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  padding: 2px;
 }
 .air-quality .good[b-1w9etwej7v] {
-  background-color: greenyellow;
+  background-color: #8eeb00;
   color: black;
 }
 .air-quality .fair[b-1w9etwej7v] {
@@ -870,6 +873,7 @@ select[b-3q02m8ygod] {
   display: flex;
   align-items: baseline;
   margin-bottom: -28px;
+  justify-content: center;
 }
 
 .h1[b-l2bp6ctefc] {
@@ -878,8 +882,9 @@ select[b-3q02m8ygod] {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  align-content: center;
   align-items: center;
+  margin: auto;
+  width: 90%;
 }
 .h1[b-l2bp6ctefc]  .air-quality {
   margin-left: auto;
@@ -887,6 +892,7 @@ select[b-3q02m8ygod] {
 
 .hpercent[b-l2bp6ctefc] {
   font-size: 1.5rem;
+  margin-right: 10px;
 }
 /* /Shared/ToggleSwitch.razor.rz.scp.css */
 /* https://www.w3schools.com/howto/howto_css_switch.asp */
