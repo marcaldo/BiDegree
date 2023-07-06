@@ -6,7 +6,6 @@
     font-weight: normal;
     color: black;
     font-size: .6rem;
-    border: solid 1px gray;
 
     .color-scale {
         display: flex;
@@ -15,17 +14,21 @@
 
         div {
             width: 20%;
-            height: 8px;
+            height: 7px;
         }
     }
 
     .name {
         width: 100%;
         text-align: center;
+        height: 15px;
+        border-bottom-right-radius: 3px;
+        border-bottom-left-radius: 3px;
+        padding: 2px;
     }
 
     .good {
-        background-color: greenyellow;
+        background-color: #8eeb00;
         color: black;
     }
 
