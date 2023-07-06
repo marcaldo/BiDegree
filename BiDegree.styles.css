@@ -688,7 +688,6 @@ select[b-3q02m8ygod] {
     width: 100%;
     height: 140px;
     position: fixed;
-    z-index: 100;
     bottom: -100px;
     transition-delay: 2s;
     transition: ease-out 3s;
@@ -726,6 +725,50 @@ select[b-3q02m8ygod] {
 }
 .about ul[b-zndqtlkp9v]{
     list-style:none;
+}
+/* /Shared/AirQuality.razor.rz.scp.css */
+.air-quality[b-1w9etwej7v] {
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  text-shadow: none;
+  font-weight: normal;
+  color: black;
+  font-size: 0.6rem;
+  border: solid 1px gray;
+}
+.air-quality .color-scale[b-1w9etwej7v] {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+.air-quality .color-scale div[b-1w9etwej7v] {
+  width: 20%;
+  height: 8px;
+}
+.air-quality .name[b-1w9etwej7v] {
+  width: 100%;
+  text-align: center;
+}
+.air-quality .good[b-1w9etwej7v] {
+  background-color: greenyellow;
+  color: black;
+}
+.air-quality .fair[b-1w9etwej7v] {
+  background-color: yellow;
+  color: black;
+}
+.air-quality .moderate[b-1w9etwej7v] {
+  background-color: orangered;
+  color: white;
+}
+.air-quality .poor[b-1w9etwej7v] {
+  background-color: mediumvioletred;
+  color: white;
+}
+.air-quality .very-poor[b-1w9etwej7v] {
+  background-color: darkred;
+  color: white;
 }
 /* /Shared/Clock.razor.rz.scp.css */
 .clock[b-zdffwwzdl1] {
@@ -819,26 +862,31 @@ select[b-3q02m8ygod] {
         }
 /* /Shared/FeelsLike.razor.rz.scp.css */
 /* /Shared/TemperatureValues.razor.rz.scp.css */
-.t1[b-l2bp6ctefc], .t2[b-l2bp6ctefc] {
-}
-
 .tempHumid[b-l2bp6ctefc] {
-    text-align: center;
+  text-align: center;
 }
 
 .temp[b-l2bp6ctefc] {
-    display: flex;
-    align-items: baseline;
-    margin-bottom: -28px;
+  display: flex;
+  align-items: baseline;
+  margin-bottom: -28px;
 }
 
 .h1[b-l2bp6ctefc] {
-    font-size: 2.4rem;
-    color: #f0f2f8;
+  font-size: 2.4rem;
+  color: #f0f2f8;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  align-items: center;
+}
+.h1[b-l2bp6ctefc]  .air-quality {
+  margin-left: auto;
 }
 
 .hpercent[b-l2bp6ctefc] {
-    font-size: 1.5rem;
+  font-size: 1.5rem;
 }
 /* /Shared/ToggleSwitch.razor.rz.scp.css */
 /* https://www.w3schools.com/howto/howto_css_switch.asp */

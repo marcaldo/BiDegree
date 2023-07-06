@@ -33,11 +33,11 @@
       "url": "_framework\/icudt.dat"
     },
     {
-      "hash": "sha256-\/wo15Cs32LUj+Et4jfc+eCTUubkz9Dyt5VXRLMu7zE0=",
+      "hash": "sha256-NLauHff1ewlqr+5nAqLQWdbJxtBhrRMNUhg5AcyBtXU=",
       "url": "_framework\/blazor.boot.json"
     },
     {
-      "hash": "sha256-EkZtxLFM8JCUS0nyy\/0KbsqjsstREamgdoejU+nBxWc=",
+      "hash": "sha256-5yOIyqli7k5YE0ifaZuPiTfsH2Ugn161q6jHT4I8QPI=",
       "url": "_framework\/BiDegree.dll"
     },
     {
@@ -225,7 +225,7 @@
       "url": "appsettings.json"
     },
     {
-      "hash": "sha256-Y4TflwQ0Qi9A27Nn7zbqsUmhUQVA1wLb3W\/nhS0WzV0=",
+      "hash": "sha256-FgUs6vz0VZyT98fa5TKRoyFa7PicZBgDBtGY01rsqkg=",
       "url": "BiDegree.styles.css"
     },
     {
@@ -373,7 +373,7 @@
       "url": "img\/loading.gif"
     },
     {
-      "hash": "sha256-5zosg8Zwk27mQ+VzJrjSQWtGr10Zf67dw54rcqH3+fU=",
+      "hash": "sha256-7JHotqYsZ9gGoIegLCXeum+zJ3SjENAN5Il051Z6AjA=",
       "url": "index.html"
     },
     {
@@ -393,5 +393,5 @@
       "url": "manifest.json"
     }
   ],
-  "version": "Y+XzWbN8"
+  "version": "c9EoyzTy"
 };
