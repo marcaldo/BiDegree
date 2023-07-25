@@ -164,7 +164,7 @@ namespace BiDegree.Services
 
                 while (!itemAdded)
                 {
-                    Random rnd = new();
+                    Random rnd = new(new Random().Next());
 
                     // Arbitraty random numbers (more that items count) just to set an order.
                     int rndPosition = rnd.Next(1, maxRandomNumber);
