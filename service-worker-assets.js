@@ -33,11 +33,11 @@
       "url": "_framework\/icudt.dat"
     },
     {
-      "hash": "sha256-joV4fNC7D89o06lAWtSWtmW+Ty\/BNDzUEDIXipT+L4o=",
+      "hash": "sha256-+y1+YJEh40DCn3X7+WmhL0c5i2MNgnD+ltKwuC00gW4=",
       "url": "_framework\/blazor.boot.json"
     },
     {
-      "hash": "sha256-z8ntYB87HnGCTAcRoDBOTZC4hw20rXGtSrCdWJH657E=",
+      "hash": "sha256-DdLIh5iPEUpTdmOwFCbwVnliuY64nM0ijlLpmU2zSgk=",
       "url": "_framework\/BiDegree.dll"
     },
     {
@@ -393,5 +393,5 @@
       "url": "manifest.json"
     }
   ],
-  "version": "uF1bl3oo"
+  "version": "aL8\/thAG"
 };
