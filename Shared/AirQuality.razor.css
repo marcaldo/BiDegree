@@ -33,11 +33,11 @@
   color: black;
 }
 .air-quality .moderate {
-  background-color: orangered;
+  background-color: #ff7503;
   color: white;
 }
 .air-quality .poor {
-  background-color: mediumvioletred;
+  background-color: red;
   color: white;
 }
 .air-quality .very-poor {
