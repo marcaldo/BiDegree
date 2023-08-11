@@ -762,11 +762,11 @@ select[b-3q02m8ygod] {
   color: black;
 }
 .air-quality .moderate[b-1w9etwej7v] {
-  background-color: orangered;
+  background-color: #ff7503;
   color: white;
 }
 .air-quality .poor[b-1w9etwej7v] {
-  background-color: mediumvioletred;
+  background-color: red;
   color: white;
 }
 .air-quality .very-poor[b-1w9etwej7v] {
