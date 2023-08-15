@@ -32,7 +32,7 @@ namespace BiDegree.Shared
         protected DateFormatType DateFormat { get; set; }
         protected DateTime LastWeatherUpdate { get; set; }
         protected CurrentWeather CurrentWeather { get; set; }
-        protected int AirQualityIndex{ get; set; }
+        protected int AirQualityIndex { get; set; }
         protected UnitsType Units;
 
 
@@ -116,6 +116,7 @@ namespace BiDegree.Shared
                 {
                     CurrentWeather = StateContainer.WeatherStatus.CurrentWeather;
                     LastWeatherUpdate = StateContainer.WeatherStatus.LastUpdated;
+                    AirQualityIndex = StateContainer.WeatherStatus.AirQualityIndex;
                 }
                 else
                 {
@@ -132,10 +133,10 @@ namespace BiDegree.Shared
                     if (airPollution is not null)
                     {
                         var airPollutionList = airPollution.list.FirstOrDefault();
-                        
+
                         AirQualityIndex =
-                            airPollutionList is not null 
-                            ? (int)airPollutionList.main.aqi 
+                            airPollutionList is not null
+                            ? (int)airPollutionList.main.aqi
                             : 0;
                     }
 
