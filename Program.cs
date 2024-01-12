@@ -4,6 +4,7 @@ using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MudBlazor.Services;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -26,6 +27,7 @@ namespace BiDegree
             builder.Services.AddScoped<IDebugMode, DebugMode>();
             builder.Services.AddSingleton<StateContainer>();
             builder.Services.AddScoped<ISettingValuesService, SettingValuesService>();
+            builder.Services.AddMudServices();
 
             builder.Services.AddBlazoredLocalStorage(config =>
                 config.JsonSerializerOptions.WriteIndented = true);
