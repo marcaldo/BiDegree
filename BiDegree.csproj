@@ -11,18 +11,24 @@
 
 	<ItemGroup>
 	  <Content Remove="compilerconfig.json" />
+	  <Content Remove="Properties\launchSettings - Copy.json" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<None Remove=".gitattributes" />
 		<None Remove=".gitignore" />
 		<None Remove="post-build.ps1" />
+		<None Remove="Properties\launchSettings - Copy.json" />
 		<None Remove="README.md" />
 		<None Remove="set-build-ver.ps1" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <_ContentIncludedByDefault Remove="compilerconfig.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <_WebToolingArtifacts Remove="Properties\launchSettings - Copy.json" />
 	</ItemGroup>
 
 	<ItemGroup>
