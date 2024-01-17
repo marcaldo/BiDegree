@@ -148,17 +148,18 @@ namespace BiDegree.Services
 
             const int randomNumbesQuantityMultiplier = 2;
             int maxRandomNumber = driveFileList.items.Length * randomNumbesQuantityMultiplier;
-
+             
             int itemNum = 0;
 
             foreach (var driveFile in driveFileList.items)
             {
-                if (!driveFile.webContentLink.Contains("&"))
-                {
-                    continue;
-                }
+                //if (!driveFile.webContentLink.Contains("&"))
+                //{
+                //    continue;
+                //}
 
-                var link = driveFile.webContentLink.Substring(0, driveFile.webContentLink.IndexOf("&"));
+                //var link = driveFile.webContentLink.Substring(0, driveFile.webContentLink.IndexOf("&"));
+                var link = driveFile.downloadUrl;
 
                 var itemAdded = false;
 
@@ -183,11 +184,11 @@ namespace BiDegree.Services
                             {
                                 SourceUrl = link,
                                 ItemType = displayItemType,
-                                Title = driveFile.title,
-                                Height = driveFile.imageMediaMetadata != null ? driveFile.imageMediaMetadata.height : 0,
-                                Width = driveFile.imageMediaMetadata != null ? driveFile.imageMediaMetadata.width : 0,
-                                Rotation = driveFile.imageMediaMetadata != null ? driveFile.imageMediaMetadata.rotation : 0,
-                                FileSize = fileSize.ToString("#.##")
+                                //Title = driveFile.title,
+                                //Height = driveFile.imageMediaMetadata != null ? driveFile.imageMediaMetadata.height : 0,
+                                //Width = driveFile.imageMediaMetadata != null ? driveFile.imageMediaMetadata.width : 0,
+                                //Rotation = driveFile.imageMediaMetadata != null ? driveFile.imageMediaMetadata.rotation : 0,
+                                //FileSize = fileSize.ToString("#.##")
                             });
                         }
                         catch (Exception ex)

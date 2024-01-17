@@ -43,6 +43,10 @@
 		<ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="wwwroot\localphotos\PhotoFrame\" />
+	</ItemGroup>
+
 	<!--<Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="powershell.exe -ExecutionPolicy Unrestricted -NoProfile -NonInteractive -File 'C:\Users\marca\repos\BiDegree\set-build-ver.ps1'" />
   </Target>-->
