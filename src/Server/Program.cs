@@ -16,15 +16,23 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseStaticFiles();
+
 app.UseRouting();
 
-//app.Map("/api", api =>
-//{
-//    api.UseEndpoints(endpoints =>
-//    {
-//        endpoints.MapControllers();
-//    });
-//});
+
+
+app.Map("/api", api =>
+{
+    api.UseEndpoints(endpoints =>
+    {
+        endpoints.MapControllers();
+        //endpoints.MapRazorPages();
+        //endpoints.MapBlazorHub();
+        endpoints.MapFallbackToFile("index.html");
+    });
+});
 
 //app.UseHttpsRedirection();
 
