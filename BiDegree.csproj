@@ -11,6 +11,9 @@
 
 	<ItemGroup>
 	  <Content Remove="compilerconfig.json" />
+	  <Content Remove="wwwroot\manifest.json" />
+	  <Content Remove="wwwroot\service-worker.js" />
+	  <Content Remove="wwwroot\service-worker.published.js" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -1,15 +1,12 @@
+using BiDegree.Models;
+using BiDegree.Shared;
+using Blazored.LocalStorage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
-using BiDegree.Models;
-using BiDegree.Shared;
-using Blazored.LocalStorage;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
-using static MudBlazor.Colors;
 
 namespace BiDegree.Services
 {
@@ -26,8 +23,8 @@ namespace BiDegree.Services
 
         public async Task<DriveFileList> GetDriveFileList(string folderId)
         {
-            //await Task.Yield();
-            //return GetFileList();
+            await Task.Yield();
+            return GetFileList();
 
             var gApiKey = await _localStorage.GetItemAsync<string>(Constants.KeyName_DriveApiKey);
 
@@ -50,10 +47,14 @@ namespace BiDegree.Services
             {
                 Random rnd = new();
                 int rndPosition = rnd.Next(1, maxRandomNumber);
+                var filename = files[rndPosition];
+                bool isVideo = filename.ToLower().EndsWith(".mp4");
 
                 randomFiles.Add(new Item
                 {
-                    downloadUrl = $"/localphotos/PhotoFrame/{files[rndPosition]}"
+                    downloadUrl = $"/localphotos/PhotoFrame/{files[rndPosition]}",
+                    mimeType = isVideo ? "video" : "image"
+
                 });
             }
 
