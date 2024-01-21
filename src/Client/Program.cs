@@ -19,6 +19,11 @@ namespace BiDegree
         {
 
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
+
+            builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("BiDegree.API"));
+
+            builder.Services.AddHttpClient();
+
             builder.RootComponents.Add<App>("#app");
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
