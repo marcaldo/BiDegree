@@ -10,6 +10,13 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="wwwroot\localphotos\PhotoFrame\**" />
+	  <Content Remove="wwwroot\localphotos\PhotoFrame\**" />
+	  <EmbeddedResource Remove="wwwroot\localphotos\PhotoFrame\**" />
+	  <None Remove="wwwroot\localphotos\PhotoFrame\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <Content Remove="compilerconfig.json" />
 	  <Content Remove="wwwroot\manifest.json" />
 	  <Content Remove="wwwroot\service-worker.js" />
@@ -44,10 +51,6 @@
 
 	<ItemGroup>
 		<ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="wwwroot\localphotos\PhotoFrame\" />
 	</ItemGroup>
 
 	<!--<Target Name="PostBuild" AfterTargets="PostBuildEvent">
