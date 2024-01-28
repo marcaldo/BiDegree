@@ -47,12 +47,12 @@ namespace BiDegree.Services
             {
                 Random rnd = new();
                 int rndPosition = rnd.Next(1, maxRandomNumber);
-                var filename = files[rndPosition];
-                bool isVideo = filename.name.ToLower().EndsWith(".mp4");
+                var pictureFile = files[rndPosition];
+                bool isVideo = pictureFile.name.ToLower().EndsWith(".mp4");
 
                 randomFiles.Add(new Item
                 {
-                    downloadUrl = $"/localphotos/PhotoFrameDev/{files[rndPosition]}",
+                    downloadUrl = $"/localphotos/PhotoFrameDev/{pictureFile.name}",
                     mimeType = isVideo ? "video" : "image"
                 });
             }

@@ -24,7 +24,7 @@
                     <td>@count</td>
                     @if (item.ItemType == DisplayItemType.Image)
                     {
-                        <td><img src="@item.SourceUrl" style="width:45px" /></td>
+                        <td style="padding-bottom:5px"><img src="@item.SourceUrl" style="width:45px" /></td>
                     }
                     else if (item.ItemType == DisplayItemType.Video)
                     {
@@ -63,7 +63,7 @@
         LocalStorage.SetItem(Constants.KeyName_DisplayQueue, new List<DisplayItem>());
         await LoadQueue();
 
-        StateHasChanged();
+        NavManager.NavigateTo($"{NavManager.BaseUri}photos", forceLoad: true);
 
     }
 
