@@ -9,6 +9,6 @@ namespace BiDegree.Services
     public interface IGoogleDriveApi
     {
         Task<DriveFileList> GetDriveFileList(string folderId);
-        DriveFileList GetFileList();
+        Task<DriveFileList> GetFileList();
     }
 }
