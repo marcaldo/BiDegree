@@ -37,6 +37,8 @@ namespace BiDegree.Services
 
         public async Task<DriveFileList> GetFileList()
         {
+            var folderName = await _localStorage.GetItemAsync<string>(Constants.KeyName_DriveFolderId);
+
             var files = await _httpClient.GetFromJsonAsync<PictureFile[]>("/localphotos/photofiles.json");
 
             HashSet<Item> randomFiles = new HashSet<Item>();
@@ -52,7 +54,7 @@ namespace BiDegree.Services
 
                 randomFiles.Add(new Item
                 {
-                    downloadUrl = $"/localphotos/PhotoFrameDev/{pictureFile.name}",
+                    downloadUrl = $"/localphotos/{folderName}/{pictureFile.name}",
                     mimeType = isVideo ? "video" : "image"
                 });
             }

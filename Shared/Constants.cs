@@ -25,8 +25,9 @@
         public const string KeyName_DisplayQueue = "queue";
         public const string KeyName_WeatherExtended = "weatherext";
 
-        public const string DefaultValue_StartingPage = "weather";
-        public const int DefaultValue_Refresh = 60;
+        public const string DefaultValue_StartingPage = "photos";
+		public const string DefaultValue_FolderName = "Photos";
+		public const int DefaultValue_Refresh = 60;
         public const int DefaultValue_ShowTime = 300;
 
     }
