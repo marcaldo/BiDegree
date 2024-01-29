@@ -1,7 +1,7 @@
 ﻿@page "/photos"
 @using BiDegree.Shared
 
-<div class="photoframeItems">
+<div class="photoframeItems" style="cursor:none">
     @if (DateFormat != DateFormatType.None || TimeFormat != TimeFormatType.None)
     {
         <Clock4 @ref="clock"  DateFormat="DateFormat" TimeFormat="TimeFormat"/>
