@@ -25,10 +25,22 @@ app.UseHttpsRedirection();
 app.UseBlazorFrameworkFiles();
 app.UseStaticFiles();
 
+app.Map("/api", apiApp =>
+{
+    // Configure your API routes here
+    apiApp.UseRouting();
+    apiApp.UseEndpoints(endpoints =>
+    {
+        endpoints.MapControllers();
+    });
+});
+
+
 app.UseRouting();
 
 app.MapRazorPages();
-app.MapControllers();
+////app.MapControllers();
+
 app.MapFallbackToFile("index.html");
 
 
