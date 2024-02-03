@@ -7,6 +7,32 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Store\Pictures\PhotoFrameDev\03-bari.jpg" />
+    <None Remove="Store\Pictures\PhotoFrameDev\03-dino.jpg" />
+    <None Remove="Store\Pictures\PhotoFrameDev\07-Wales.jpg" />
+    <None Remove="Store\Pictures\PhotoFrameDev\20210926_110502.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Store\Pictures\PhotoFrameDev\03-bari.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Store\Pictures\PhotoFrameDev\03-dino.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Store\Pictures\PhotoFrameDev\07-Wales.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Store\Pictures\PhotoFrameDev\20210926_110502.jpg">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="3.2.1" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.14" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
