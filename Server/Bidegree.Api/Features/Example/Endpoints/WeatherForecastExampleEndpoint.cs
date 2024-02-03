@@ -4,7 +4,7 @@
     {
         public static void MapWeatherForecastEXAMPLE(this IEndpointRouteBuilder app)
         {
-            app.MapGet("/weatherforecast", () =>
+            app.MapGet("/api/weatherforecast", () =>
             {
                 var summaries = new[]
                 {

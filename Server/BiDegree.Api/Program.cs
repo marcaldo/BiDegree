@@ -11,6 +11,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddRazorPages();
 builder.Services.AddEndpointsApiExplorer();
 
+builder.Services.AddTransient<IPicturesData, PicturesData>();
 
 var app = builder.Build();
 
@@ -29,19 +30,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.Map("/api", apiApp =>
-{
-    app.MapPictures();
-
-    //// Configure your API routes here
-    //apiApp.UseEndpoints(endpoints =>
-    //{
-    //    endpoints.MapPictures();
-
-    //});
-
-});
-
+app.MapPictures();
 app.MapWeatherForecastEXAMPLE();
 
 
