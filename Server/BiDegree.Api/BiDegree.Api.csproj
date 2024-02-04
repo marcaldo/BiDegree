@@ -35,10 +35,12 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="3.2.1" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.14" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="3.1.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\BiDegree.Shared\BiDegree.Shared.csproj" />
     <ProjectReference Include="..\..\Client\BiDegree.csproj" />
   </ItemGroup>
 

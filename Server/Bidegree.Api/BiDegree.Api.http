@@ -5,3 +5,8 @@
 GET {{BiDegree.Api_HostAddress}}/api/pictures
 
 ###
+
+GET {{BiDegree.Api_HostAddress}}/api/GetFile
+
+###
+

@@ -1,17 +1,15 @@
-﻿using System;
-
-namespace BiDegree.Models
+﻿namespace BiDegree.Shared.Models
 {
     public class DisplayItem
     {
         public int ItemNumber { get; set; }
-        public string SourceUrl { get; set; }
-        public string Title { get; set; }
+        public string SourceUrl { get; set; } = default!;
+        public string Title { get; set; } = default!;
         public int Width { get; set; }
         public int Height { get; set; }
         public int Rotation { get; set; }
-        public string CssClass { get; set; }
-        public string FileSize { get; set; }
+        public string CssClass { get; set; } = default!;
+        public string FileSize { get; set; } = default!;
         public string Orientation
         {
             get

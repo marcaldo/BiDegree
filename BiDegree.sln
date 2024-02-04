@@ -16,7 +16,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A2861C5F-DAB5-4B0B-99E2-47C912D2112E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BiDegree.Api", "Server\BiDegree.Api\BiDegree.Api.csproj", "{D23DBD58-96BD-4FAA-83E1-48FC5B66A84A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BiDegree.Api", "Server\BiDegree.Api\BiDegree.Api.csproj", "{D23DBD58-96BD-4FAA-83E1-48FC5B66A84A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BiDegree.Shared", "BiDegree.Shared\BiDegree.Shared.csproj", "{ADB2565A-542D-4BAA-91F0-C1F666145D00}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,12 +34,18 @@ Global
 		{D23DBD58-96BD-4FAA-83E1-48FC5B66A84A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D23DBD58-96BD-4FAA-83E1-48FC5B66A84A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D23DBD58-96BD-4FAA-83E1-48FC5B66A84A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ADB2565A-542D-4BAA-91F0-C1F666145D00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADB2565A-542D-4BAA-91F0-C1F666145D00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADB2565A-542D-4BAA-91F0-C1F666145D00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADB2565A-542D-4BAA-91F0-C1F666145D00}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{C206B8CF-2140-4699-9620-60D1994E2F5A} = {A2861C5F-DAB5-4B0B-99E2-47C912D2112E}
+		{D23DBD58-96BD-4FAA-83E1-48FC5B66A84A} = {A2861C5F-DAB5-4B0B-99E2-47C912D2112E}
+		{ADB2565A-542D-4BAA-91F0-C1F666145D00} = {A2861C5F-DAB5-4B0B-99E2-47C912D2112E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8C56CF12-16C6-45DA-9572-CB00EAF382D6}

@@ -1,0 +1,38 @@
+﻿.debug {
+    color: #08f208;
+    background-color: var(--text-bg-color);
+    position: absolute;
+    top: 0px;
+    font-size: 0.85em;
+    padding-left: 5px;
+    padding-right: 10px;
+}
+
+
+    .debug button {
+        background-color: #018aff29;
+        width: 67px;
+    }
+
+#videoloop {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+}
+
+#imageBox {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    text-align: center;
+}
+
+    #imageBox img {
+        display: block;
+        max-height: 100vh;
+        margin: auto;
+    }

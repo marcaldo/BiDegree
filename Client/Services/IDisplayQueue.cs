@@ -1,4 +1,4 @@
-﻿using BiDegree.Models;
+﻿using BiDegree.Shared.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

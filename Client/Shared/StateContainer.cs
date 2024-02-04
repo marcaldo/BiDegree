@@ -1,5 +1,6 @@
 ﻿using BiDegree.Models;
 using BiDegree.Models.OpenWeather.WeatherModels;
+using BiDegree.Shared.Models;
 using System;
 
 namespace BiDegree.Shared

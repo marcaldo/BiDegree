@@ -1,0 +1,18 @@
+﻿@page "/photos"
+@using BiDegree.Shared
+
+<div class="photoframeItems">
+    @if (DateFormat != DateFormatType.None || TimeFormat != TimeFormatType.None)
+    {
+        <Clock4 @ref="clock"  DateFormat="DateFormat" TimeFormat="TimeFormat"/>
+    }
+
+    @if (TemperatureFormat != TemperatureFormatType.None)
+    {
+        <WeatherSelector />
+    }
+</div>
+
+<Slideshow @ref="slideshow" />
+
+
