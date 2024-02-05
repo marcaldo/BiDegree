@@ -13,9 +13,15 @@
               .WithOpenApi();
 
 
+
+            app.MapGet("/api/picture/list", (IPicturesData picturesData) =>
+            {
+                return picturesData.DisplayItemList("PhotoFrameDevStatic");
+            });
+
             app.MapGet("/api/GetFile", (IPicturesData picturesData) =>
             {
-                
+
                 var (imageStream, contentType) = picturesData.GetFile("PhotoFrameDev", "03-dino.jpg");
                 return (imageStream, contentType);
             });

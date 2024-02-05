@@ -3,6 +3,7 @@
     public class DisplayItem
     {
         public int ItemNumber { get; set; }
+        public string FileName { get; set; } = default!;
         public string SourceUrl { get; set; } = default!;
         public string Title { get; set; } = default!;
         public int Width { get; set; }
