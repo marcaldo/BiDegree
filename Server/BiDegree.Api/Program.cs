@@ -30,9 +30,14 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.MapPictures();
-app.MapWeatherForecastEXAMPLE();
 
+app.Map("/api", apiApp =>
+{
+    apiApp.UseEndpoints(endpoints =>
+    {
+        endpoints.MapPictures();
+    });
+});
 
 app.MapRazorPages();
 app.MapFallbackToFile("index.html");

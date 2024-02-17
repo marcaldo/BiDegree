@@ -1,12 +1,15 @@
-﻿@BiDegree.Api_HostAddress = https://localhost:7060
+﻿@BiDegree.Api_HostAddress = https://localhost:44342
 
 
-
-GET {{BiDegree.Api_HostAddress}}/api/pictures
-
-###
 
 GET {{BiDegree.Api_HostAddress}}/api/GetFile
 
 ###
 
+GET {{BiDegree.Api_HostAddress}}/api/picture/list
+
+###
+
+GET {{BiDegree.Api_HostAddress}}/api/picture/list
+
+###
