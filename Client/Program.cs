@@ -27,6 +27,8 @@ namespace BiDegree
             builder.Services.AddScoped<IDebugMode, DebugMode>();
             builder.Services.AddSingleton<StateContainer>();
             builder.Services.AddScoped<ISettingValuesService, SettingValuesService>();
+            builder.Services.AddScoped<IApiClientService, ApiClientService>();
+
             builder.Services.AddMudServices();
 
             builder.Services.AddBlazoredLocalStorage(config =>

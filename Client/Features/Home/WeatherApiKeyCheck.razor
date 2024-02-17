@@ -14,14 +14,7 @@
 
         if (string.IsNullOrEmpty(apiKey))
         {
-            var configApiKey = Configuration.GetValue<string>("OpenWeather:ApiKey");
-
-            if (string.IsNullOrEmpty(configApiKey))
-            {
-                NavManager.NavigateTo($"{uri}/apisettings");
-            }
-
-            LocalStorage.SetItem<string>(Constants.KeyName_WeatherApiKey, configApiKey);
+            NavManager.NavigateTo($"{uri}/scale");
         }
 
         var startPage = LocalStorage.GetItem<string>(Constants.KeyName_StartPage) is null

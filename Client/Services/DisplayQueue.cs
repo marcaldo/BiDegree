@@ -13,13 +13,21 @@ namespace BiDegree.Services
     {
         private readonly IGoogleDriveApi _googleDriveApi;
         private readonly ILocalStorageService _localStorage;
+        private readonly IApiClientService _apiClientService;
+
+        public DisplayQueue(IApiClientService apiClientService)
+        {
+            _apiClientService = apiClientService;
+        }
+
         private List<DisplayItem> _queue;
 
-        public DisplayQueue(IGoogleDriveApi googleDriveApi, ILocalStorageService localStorageService)
+        public DisplayQueue(IGoogleDriveApi googleDriveApi, ILocalStorageService localStorageService, IApiClientService apiClientService)
         {
             _googleDriveApi = googleDriveApi;
             _localStorage = localStorageService;
             _queue = new List<DisplayItem>();
+            _apiClientService = apiClientService;
         }
 
         public async Task<bool> IsDebugModeAsync()
@@ -141,6 +149,8 @@ namespace BiDegree.Services
             Dictionary<int, DisplayItem> tempNumeredItemList = new();
 
             DriveFileList driveFileList = await GetDriveFileList();
+
+            var pictureList = await _apiClientService.GetAsync<List<DisplayItem>>("api/picture/list");
 
             if (!driveFileList.items.Any())
             {
